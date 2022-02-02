@@ -1,0 +1,23 @@
+Créer un fichier routes.yml contenant :
+
+/:
+    controller: global
+    action: home
+
+/login:
+    controller: user
+    action: login
+
+/logout:
+    controller: user
+    action: logout
+
+
+Créer un dossier "controllers" contenant la class global et la class user
+Global aura une méthode home
+User aura les méthodes login et logout
+
+Faire en sorte qu'en fonction de l'url, exemple http://localhost/login on
+réalise une instance de User et un appel à login
+
+

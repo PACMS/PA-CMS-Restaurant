@@ -1,0 +1,27 @@
+/:
+  controller: main
+  action: home
+
+
+
+
+/nous-contacter:
+  controller: main
+  action: contact
+
+/login:
+  controller: user
+  action: login
+
+/logout:
+  controller: user
+  action: logout
+
+/register:
+  controller: user
+  action: register
+
+/dashboard:
+  controller: admin
+  action: home
+  security: true
