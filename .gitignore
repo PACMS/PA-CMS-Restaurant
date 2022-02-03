@@ -1,4 +1,5 @@
+.dist/
 .idea/
-db_data
+db_data/
 www/.env*
 node_modules/
