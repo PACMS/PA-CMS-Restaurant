@@ -15,7 +15,7 @@ class User extends Sql
 
     public function __construct()
     {
-        echo "constructeur du Model User";
+        // echo "constructeur du Model User";
         parent::__construct();
     }
 
@@ -315,7 +315,43 @@ class User extends Sql
                 ],
                 "captcha" => [
                     'type' => 'captcha',
-                    'error' => 'Le captcha n\'a pas pu validé votre formulaire'
+                    'error' => 'Le captcha n\'a pas pu valider votre formulaire'
+                ]
+            ]
+        ];
+    }
+
+    public function getLoginForm():array
+    {
+        return [
+            "config"=>[
+                "method"=>"POST",
+                "action"=>"",
+                "class"=>"formLogin",
+                "id"=>"formLogin",
+                "submit"=>"Se connecter",
+                'captcha' => true,
+            ],
+            "inputs"=>[
+                "email"=>[
+                    "placeholder"=>"Votre email ...",
+                    "type"=>"email",
+                    "id"=>"emailLogin",
+                    "class"=>"formLogin",
+                    "required"=>true,
+                    "error"=>"Votre combinaison mail/mot de passe n'est pas correct",
+                ],
+                "password"=>[
+                    "placeholder"=>"Votre mot de passe ...",
+                    "type"=>"password",
+                    "id"=>"pwdLogin",
+                    "class"=>"formLogin",
+                    "required"=>true,
+                    "error"=>"Votre combinaison mail/mot de passe n'est pas correct"
+                ],
+                "captcha" => [
+                    'type' => 'captcha',
+                    'error' => 'Le captcha n\'a pas pu valider votre formulaire'
                 ]
             ]
         ];

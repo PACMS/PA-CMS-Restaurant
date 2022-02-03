@@ -13,7 +13,9 @@ class User {
     public function login()
     {
         $view = new View("login");
-        $view->assign("title", "Ceci est le titre de la page login");
+        $view->assign("title", "Connexion");
+        $user = new UserModel();
+        $view->assign("user", $user);
     }
 
     public function logout()
