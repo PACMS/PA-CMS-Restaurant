@@ -18,5 +18,10 @@ class Admin{
         $view->assign("lastname", "SKRZYPCZYK");
     }
 
+    public function sendMail()
+    {
+
+    }
+
 
 }
