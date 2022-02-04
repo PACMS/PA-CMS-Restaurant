@@ -26,7 +26,7 @@ services:
     volumes:
       - ./db_data:/var/lib/mysql
     restart: always
-
+  
   phpmyadmin:
     image: phpmyadmin/phpmyadmin:latest
     container_name: phpmyadmin-mvc

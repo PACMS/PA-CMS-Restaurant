@@ -2,3 +2,4 @@
 db_data
 www/.env*
 node_modules/
+vendor
