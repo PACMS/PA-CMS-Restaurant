@@ -35,28 +35,16 @@ abstract class Sql
 
     }
 
-    public function hydrate(array $infos)
+    public function hydrate(array $data)
     {
-        foreach ($infos as $clef => $donnee)
+        foreach ($data as $key => $value)
         {
-            // On récupère le nom du setter correspondant à l'attribut.
-            $methode = 'set'.$clef;
-            //echo $clef.$donnee."
-
-            // Si le setter correspondant existe.
+            $methode = 'set'.$key;
             if (method_exists($this, $methode))
             {
-                // On appelle le setter.
-                $this->$methode($donnee);
+                $this->$methode($value);
             }
         }
-    }
-
-    public static function query(string $sql, array $params = [])
-    {
-        $queryPrepared = $this->pdo->prepare($sql);
-        $queryPrepared->execute($params);
-        return $queryPrepared->fetchAll(\PDO::FETCH_CLASS, get_called_class());
     }
 
     public function save(): void

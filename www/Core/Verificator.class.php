@@ -4,7 +4,8 @@ namespace App\Core;
 
 use App\Model\User as UserModel;
 
-class Verificator
+use App\Core\Sql as SQL;
+class Verificator  
 {
 
     public static function checkForm($config, $data): array
@@ -51,13 +52,7 @@ class Verificator
         return filter_var($email, FILTER_VALIDATE_EMAIL);
     }
 
-    public static function unicity($email, $table): bool
-    {
-        $sql = "SELECT * FROM $table WHERE email = :email";
-        $response = query($sql, [":email" => $email]);
-        if(!empty($response)) return false;
-        return true;
-    }
+    
 
     public static function checkPwd($pwd): bool
     {
