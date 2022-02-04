@@ -7,7 +7,8 @@ use App\Core\Verificator;
 use App\Core\View;
 use App\Model\User as UserModel;
 
-class User {
+
+class User{
 
 
     public function login()
@@ -30,16 +31,19 @@ class User {
 
         if (!empty($_POST)) {
             $result = Verificator::checkForm($user->getCompleteRegisterForm(), $_POST + $_FILES);
-
-            print_r($result);
+            if($result){
+                var_dump($result);
+            }else{
+                $user = new UserModel();
+                $user->hydrate($_POST);
+                $user->save();
+                echo "Enregistrement effectué";
+            }
         }
 
         $view = new View("Register");
         $view->assign("user", $user);
     }
-
-
-
 
 }
 

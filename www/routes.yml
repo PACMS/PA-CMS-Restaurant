@@ -21,6 +21,8 @@
   controller: user
   action: register
 
+
+
 /dashboard:
   controller: admin
   action: home

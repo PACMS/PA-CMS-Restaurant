@@ -35,6 +35,29 @@ abstract class Sql
 
     }
 
+    public function hydrate(array $infos)
+    {
+        foreach ($infos as $clef => $donnee)
+        {
+            // On récupère le nom du setter correspondant à l'attribut.
+            $methode = 'set'.$clef;
+            //echo $clef.$donnee."
+
+            // Si le setter correspondant existe.
+            if (method_exists($this, $methode))
+            {
+                // On appelle le setter.
+                $this->$methode($donnee);
+            }
+        }
+    }
+
+    public static function query(string $sql, array $params = [])
+    {
+        $queryPrepared = $this->pdo->prepare($sql);
+        $queryPrepared->execute($params);
+        return $queryPrepared->fetchAll(\PDO::FETCH_CLASS, get_called_class());
+    }
 
     public function save(): void
     {
@@ -43,6 +66,7 @@ abstract class Sql
         $colums = get_object_vars($this);
         $varToExclude = get_class_vars(get_class());
         $colums = array_diff_key($colums, $varToExclude);
+
 
         if(is_null($this->getId())){
             $sql = "INSERT INTO ".$this->table." (". implode(",", array_keys($colums)) .") VALUES (:". implode(",:", array_keys($colums)) .")";

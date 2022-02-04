@@ -6,4 +6,4 @@ define("DBPWD", "password");
 define("DBHOST", "database");
 define("DBNAME", "mvcdocker2");
 define("DBPORT", "3306");
-define("DBPREFIXE", "xldf_");
+define("DBPREFIXE", "pacm_");

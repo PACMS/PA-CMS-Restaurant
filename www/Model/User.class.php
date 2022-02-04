@@ -1,7 +1,10 @@
 <?php
 namespace App\Model;
 
+
 use App\Core\Sql;
+
+use App\Core\User as userCore;
 
 class User extends Sql
 {
@@ -41,7 +44,7 @@ class User extends Sql
      */
     public function setFirstname(?string $firstname): void
     {
-        $this->firstname = ucwords(strtolower(trim($firstname)));
+        $this->firstname = userCore::cleanFirstname($firstname);
     }
 
     /**
@@ -57,7 +60,7 @@ class User extends Sql
      */
     public function setLastname(?string $lastname): void
     {
-        $this->lastname = strtoupper(trim($lastname));
+        $this->lastname = userCore::cleanLastname($lastname);
     }
 
     /**
@@ -73,7 +76,7 @@ class User extends Sql
      */
     public function setEmail(string $email): void
     {
-        $this->email = strtolower(trim($email));
+        $this->email = userCore::cleanEmail($email);
     }
 
     /**
@@ -133,6 +136,9 @@ class User extends Sql
         parent::save();
     }
 
+    
+
+
     public function getRegisterForm():array
     {
         return [
@@ -152,7 +158,7 @@ class User extends Sql
                     "required"=>true,
                     "error"=>"Votre email n'est pas correct",
                     "unicity"=>true,
-                    "errorUnicity"=>"Un comte existe déjà avec cet email"
+                    "errorUnicity"=>"Un compte existe déjà avec cet email"
                 ],
                 "password"=>[
                     "placeholder"=>"Votre mot de passe ...",
