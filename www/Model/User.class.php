@@ -210,7 +210,6 @@ class User extends Sql
                 "id"=>"formRegister",
                 "submit"=>"S'inscrire",
                 'captcha' => true,
-                'file' => 'enctype="multipart/form-data"'
             ],
             "inputs"=>[
                 "email"=>[
@@ -257,67 +256,6 @@ class User extends Sql
                     "min"=>2,
                     "max"=>100,
                     "error"=>"Votre nom doit faire entre 2 et 100 caractères"
-                ],
-                "gender"=>[
-                    "type"=>"radio",
-                    "class"=>"formRegister",
-                    "required"=>true,
-                    "title"=>"Veuillez sélectionner les options suivantes:",
-                    "checked"=>"F",
-                    "values" => [
-                        "F"=> "Femme",
-                        "H"=> "Homme"
-                    ],
-                    "error"=>"Vous devez sélectionner une option"
-                ],
-                "checkLanguage"=>[
-                    "type"=>"checkbox",
-                    "class"=>"formRegister",
-                    "title"=>"Veuillez sélectionner les options qui vous correspondent:",
-                    "checked"=>"PHP",
-                    "values"=>[
-                        "JS"=>"JavaScript",
-                        "PHP"=>"PHP",
-                        "VB"=>"Visual Basic"
-                    ],
-                    "error"=>"Vous devez sélectionner un choix"
-                ],
-                "language"=>[
-                    "type"=>"select",
-                    "name"=>"language",
-                    "class"=>"formRegister",
-                    "label"=>"Choisissez un language de programmation:",
-                    "placeholder"=>"Choisissez...",
-                    "default"=>"PHP",
-                    "options"=>[
-                        "JS"=>"JavaScript",
-                        "PHP"=>"PHP",
-                        "VB"=>"Visual Basic",
-                        "TS"=>"TypeScript",
-                        "SQL"=>"SQL"
-                    ],
-                    "error"=>"Vous devez sélectionner une valeur dans la liste"
-                ],
-                "comment"=>[
-                    "type"=>"textarea",
-                    "id"=>"comment",
-                    "class"=>"formRegister",
-                    "label"=>"Commentaires :",
-                    "max"=>240,
-                    "placeholder"=>"Votre commentaire...",
-                    "error"=>"Votre commentaire ne doit dépasser 240 caractères"
-                ],
-                "upload"=>[
-                    "type"=>"file",
-                    "id"=>"upload",
-                    "class"=>"formRegister",
-                    "label"=>"Choisissez un ficher:",
-                    "accept"=>[
-                        "png"=>"image/png",
-                        "jpeg"=>"image/jpeg",
-                        "jpg"=>"image/jpg"
-                    ],
-                    "error"=>"Vous ne pouvez uploader que des images de types png ou jpeg"
                 ],
                 "captcha" => [
                     'type' => 'captcha',

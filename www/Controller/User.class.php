@@ -41,9 +41,21 @@ class User{
             }
         }
 
-        $view = new View("Register");
+        $view = new View("register");
         $view->assign("user", $user);
     }
+
+    public function connected ()
+    {
+        $token = new OAuth($_GET['code']);
+        $token->google();
+        //$token->getToken();
+        //$token->getInfo();
+        new View('connected');
+    }
+
+
+
 
 }
 
