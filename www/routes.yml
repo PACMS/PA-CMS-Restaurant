@@ -21,6 +21,10 @@
   controller: user
   action: register
 
+/connected:
+  controller: user
+  action: connected
+
 /dashboard:
   controller: admin
   action: home
