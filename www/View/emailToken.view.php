@@ -10,3 +10,5 @@
 </form>
 
 
+<?php $this->includePartial("form", $user->getCompleteRegisterForm()); ?>
+

@@ -10,6 +10,7 @@
     <?php foreach ($config["inputs"] as $name => $input) :?>
 
 
+
     <?php if ($input["type"] === "radio"): ?>
     <p><?= $input["title"] ?></p>
         <?php foreach ($input['values'] as $value=>$label): ?>

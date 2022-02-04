@@ -7,7 +7,6 @@ abstract class Sql
 
     private $pdo;
     private $table;
-
     public function __construct()
     {
         //Plus tard il faudra penser au singleton
@@ -20,6 +19,8 @@ abstract class Sql
 
         $getCalledClassExploded = explode("\\", strtolower(get_called_class())); // App\Model\User
         $this->table = DBPREFIXE.end($getCalledClassExploded);
+
+       
     }
 
 
@@ -38,13 +39,12 @@ abstract class Sql
     /**
      * @param null $email
      */
-    public function compareToken(?string $email): string
+    public function compareToken(?string $email, ?string $token): array
     {
-        $sql = "SELECT token FROM ".$this->table." WHERE email=:email";
+        $sql = "SELECT token FROM ".$this->table." WHERE email=:email AND token=:token";
         $queryPrepared = $this->pdo->prepare($sql);
-        $queryPrepared->execute( ["email"=>$email] );
-        return $queryPrepared->fetchColumn(0);
-
+        $queryPrepared->execute( ["email"=>$email,"token"=>$token] );
+        return $queryPrepared->fetchAll();
     }
 
        /**
@@ -61,7 +61,6 @@ abstract class Sql
 
     public function save(): void
     {
-
 
         $colums = get_object_vars($this);
         $varToExclude = get_class_vars(get_class());
@@ -83,40 +82,20 @@ abstract class Sql
         //Si ID null alors insert sinon update
     }
 
-    public function accessToken(?string $tokenToVerify): self 
+
+
+    public function accessToken(?string $tokenToVerify): void 
     {
-
-        
-        $colums = get_object_vars($this);
-        $varToExclude = get_class_vars(get_class());
-        $colums = array_diff_key($colums, $varToExclude);
-
-        var_dump($colums);
-
         if(is_null($this->getEmail())){
             die("L'email ne correspond pas !");
         } else {
-            echo "<pre>";
-            print_r("token de la bd ". $this->compareToken($this->getEmail())."\n");
-            print_r("token donnée ". $tokenToVerify."\n");
-
-            $result = strcmp($this->compareToken($this->getEmail()), $tokenToVerify);
-
-            if($result == 0) {
-                echo "les tokens correspondent";
-                $this->updateStatus(1, $this->getEmail());
+            if(empty($this->compareToken($this->getEmail(), $tokenToVerify))) {
+                echo "c'est null";
             } else {
-                $this->updateStatus(0, $this->getEmail());
-                echo "les tokens ne correspondent pas";
+                echo "ce n'est pas null";
             }
 
-            die("c'est ok");
         }
-
-        echo "getToken";
     }
-
-
-
 
 }
