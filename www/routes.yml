@@ -25,3 +25,11 @@
   controller: admin
   action: home
   security: true
+
+/sendmail:
+  controller: mail
+  action: sendConfirmMail
+
+/testmail:
+  controller: mail
+  action: index
