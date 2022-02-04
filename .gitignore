@@ -1,4 +1,5 @@
 .idea/
 db_data
-vendor
 www/.env*
+node_modules/
+vendor

@@ -4,7 +4,7 @@ services:
     build: site
     container_name: apache-3IW
     ports :
-     - "82:80"
+     - "80:80"
     volumes:
      - ./www:/var/www/html/
      - ./server/000-default.conf:/etc/apache2/sites-available/000-default.conf
@@ -17,7 +17,7 @@ services:
     image: mysql:5.7
     container_name: mysql-mvc
     ports :
-      - "3308:3306"
+      - "3306:3306"
     environment:
       MYSQL_DATABASE: mvcdocker2
       MYSQL_ROOT_PASSWORD: password
@@ -36,6 +36,4 @@ services:
       - 8888:80
     environment:
         - PMA_ARBITRARY=1
-
-      
-      
+        
