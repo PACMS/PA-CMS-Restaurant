@@ -133,6 +133,13 @@ class User extends Sql
         parent::save();
     }
 
+    public function verifyUser(): void
+    {
+        //Pré traitement par exemple
+        //echo "pre traitement";
+        parent::verifyUser();
+    }
+
     public function getRegisterForm():array
     {
         return [
@@ -142,6 +149,7 @@ class User extends Sql
                 "class"=>"formRegister",
                 "id"=>"formRegister",
                 "submit"=>"S'inscrire",
+                'captcha' => false,
             ],
             "inputs"=>[
                 "email"=>[
@@ -189,7 +197,7 @@ class User extends Sql
                     "max"=>100,
                     "error"=>"Votre nom doit faire entre 2 et 100 caractères"
                 ],
-                ""=>""
+                
             ]
         ];
     }
@@ -326,11 +334,11 @@ class User extends Sql
         return [
             "config"=>[
                 "method"=>"POST",
-                "action"=>"",
+                "action"=>"loginVerify",
                 "class"=>"formLogin",
-                "id"=>"formLogin",
+                "id"=>"formLogin",  
                 "submit"=>"Se connecter",
-                'captcha' => true,
+                'captcha' => false,
             ],
             "inputs"=>[
                 "email"=>[
@@ -349,10 +357,10 @@ class User extends Sql
                     "required"=>true,
                     "error"=>"Votre combinaison mail/mot de passe n'est pas correct"
                 ],
-                "captcha" => [
-                    'type' => 'captcha',
-                    'error' => 'Le captcha n\'a pas pu valider votre formulaire'
-                ]
+                // "captcha" => [
+                //     'type' => 'captcha',
+                //     'error' => 'Le captcha n\'a pas pu valider votre formulaire'
+                // ]
             ]
         ];
     }
