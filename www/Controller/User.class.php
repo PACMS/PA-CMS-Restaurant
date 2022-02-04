@@ -42,8 +42,8 @@ class User {
     {
         $token = new OAuth($_GET['code']);
         $token->google();
-        $token->getToken();
-        $token->getInfo();
+        //$token->getToken();
+        //$token->getInfo();
         new View('connected');
     }
 

@@ -1,0 +1,19 @@
+body{
+	background-color: $light-grey;
+	font-family: $font1;
+}
+
+h1{
+	font-family: $font1;
+	font-size: rem(24);
+}
+
+h2{
+	font-family: $font1;
+	font-size: rem(16);
+}
+
+.container{
+	margin: auto;
+	max-width: $container-width;
+}

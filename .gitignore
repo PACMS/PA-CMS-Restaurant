@@ -1,5 +1,6 @@
 .idea/
 db_data
 www/.env*
+node_modules/
 www/composer.lock
 www/vendor/
