@@ -2,9 +2,6 @@
   controller: main
   action: home
 
-
-
-
 /nous-contacter:
   controller: main
   action: contact
@@ -33,3 +30,16 @@
 /testmail:
   controller: mail
   action: index
+
+/createToken:
+  controller: user
+  action: createToken
+
+/getToken:
+  controller: user
+  action: getToken
+
+/verifyToken:
+  controller: user
+  action: verifyToken
+

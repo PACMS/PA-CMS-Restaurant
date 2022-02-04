@@ -133,6 +133,11 @@ class User extends Sql
         parent::save();
     }
 
+    public function verifyToken(?string $tokenToVerify): void
+    {
+        parent::accessToken($tokenToVerify);
+    }
+
     public function getRegisterForm():array
     {
         return [
