@@ -133,11 +133,11 @@ class User extends Sql
         parent::save();
     }
 
-    public function verifyUser(): void
+    public function verifyUser(array $params): void
     {
         //Pré traitement par exemple
         //echo "pre traitement";
-        parent::verifyUser();
+        parent::verifyUser($params);
     }
 
     public function getRegisterForm():array

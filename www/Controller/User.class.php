@@ -34,14 +34,23 @@ class User
     public function loginVerify()
     {
         $user = new UserModel();
+        
 
-        // if (!empty($_POST)) {
-        //     $result = Verificator::checkForm($user->getLoginForm(), $_POST + $_FILES);
+        if (!empty($_POST)) {
+            Verificator::checkForm(
+                $user->getLoginForm(),
+                $_POST + $_FILES
+            );
+            // print_r($result);
+        }
 
-        //     print_r($result);
-        // }
+        $user->setEmail($_POST['email']);
+        $user->setPassword($_POST['password']);
 
-        $user->verifyUser();
+        $params = ["email" => 'email'];
+        
+        $user->verifyUser($params);
+
 
         $view = new View("loginVerify");
         $view->assign("title", "Vérification");
@@ -61,8 +70,10 @@ class User
 
 
         if (!empty($_POST)) {
-            Verificator::checkForm($user->getCompleteRegisterForm(), $_POST + $_FILES);
-
+            Verificator::checkForm(
+                $user->getCompleteRegisterForm(), 
+                $_POST + $_FILES
+            );
             // print_r($result);
         }
 
