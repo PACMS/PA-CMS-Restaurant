@@ -17,6 +17,14 @@
   controller: user
   action: loginVerify
 
+/lostPassword:
+  controller: user
+  action: lostPassword
+
+/lostPasswordAction:
+  controller: user
+  action: lostPasswordAction
+
 /logout:
   controller: user
   action: logout

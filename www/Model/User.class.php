@@ -364,5 +364,32 @@ class User extends Sql
             ]
         ];
     }
+    public function getLostPasswordForm():array
+    {
+        return [
+            "config"=>[
+                "method"=>"POST",
+                "action"=>"lostPasswordAction",
+                "class"=>"formLostPassword",
+                "id"=>"formLostPassword",  
+                "submit"=>"Envoyer",
+                'captcha' => false,
+            ],
+            "inputs"=>[
+                "email"=>[
+                    "placeholder"=>"Votre email ...",
+                    "type"=>"email",
+                    "id"=>"emailLogin",
+                    "class"=>"formLostPassword",
+                    "required"=>true,
+                    "error"=>"Votre combinaison mail/mot de passe n'est pas correct",
+                ],
+                // "captcha" => [
+                //     'type' => 'captcha',
+                //     'error' => 'Le captcha n\'a pas pu valider votre formulaire'
+                // ]
+            ]
+        ];
+    }
 
 }

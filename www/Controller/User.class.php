@@ -31,6 +31,7 @@ class User
         $view->assign("user", $user);
     }
 
+    
     public function loginVerify()
     {
         $user = new UserModel();
@@ -43,18 +44,45 @@ class User
             );
             // print_r($result);
         }
-
+        
         $user->setEmail($_POST['email']);
         $user->setPassword($_POST['password']);
-
+        
         $params = ["email" => 'email'];
         
         $user->verifyUser($params);
-
-
+        
+        
         $view = new View("loginVerify");
         $view->assign("title", "Vérification");
         $view->assign("user", $user);
+    }
+
+    public function lostPassword() 
+    {
+        $user = new UserModel();
+
+        $view = new View("lostPassword");
+        $view->assign("title", "Mot de passe oublié");
+        $view->assign("user", $user);
+    }
+
+    public function lostPasswordAction() 
+    {
+        $user = new UserModel();
+
+        $view = new View("lostPasswordAction");
+        $view->assign("title", "Mail d'oubli de mdp");
+        $view->assign("user", $user);
+
+        // if (!empty($_POST)) {
+        //     Verificator::checkForm(
+        //         $user->getLoginForm(),
+        //         $_POST + $_FILES
+        //     );
+        // }
+
+        $email = $_POST['email'];
     }
 
     public function logout()
