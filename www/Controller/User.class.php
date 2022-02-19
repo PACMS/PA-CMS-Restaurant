@@ -30,11 +30,18 @@ class User {
 
         if (!empty($_POST)) {
             $result = Verificator::checkForm($user->getCompleteRegisterForm(), $_POST + $_FILES);
-
-            print_r($result);
+            if($result){
+                var_dump($result);
+            }else{
+                $user = new UserModel();
+                $user->hydrate($_POST);
+                $user->generateToken();
+                $user->save();
+                echo "Enregistrement effectué";
+            }
         }
 
-        $view = new View("Register");
+        $view = new View("register");
         $view->assign("user", $user);
     }
 
@@ -58,25 +65,24 @@ class User {
 
         //$user->save();
         echo "<pre>";
-        echo ("Token créé ". $user->getToken());
+        echo ("Token créé ". $user->getToken() . "\n");
         //envoie du mail 
         //click sur http://localhost/verifyToken?token=<token>?email=<email>
-
+        $data = array(
+            "token" => $user->getToken(),
+            "email" => $user->getEmail()
+        );
+        echo urldecode(http_build_query($data)) . "\n";
+        die();
     }
 
     public function verifyToken()
     {
         echo "<pre>";
+        print_r($_POST);
         $user = new UserModel();
-        $user->setEmail("thibautsembeni@gmail.com");
 
-        $token = "741b211aac3839d3a426bbb476df3da095f1fce1cb195ba59d65fb42d65af821ca6fa7ef76bd1e8f8a704b1b8d75393fb0b7942ec6d12723f8be28077ae2e58b5d95ae384eebbcb09cfde3dc593dba6fca24407611a1241e710d48d1ea8be9e84930997bf51309f2893d7e00d406d8620317dea18e032c6400ec981e5da1a77";
-
-        $user->verifyToken($token);
-
-
-
-        die("vérif token");
+        $user->verifyToken($_POST["email"], $_POST["token"]);
     }
 
 

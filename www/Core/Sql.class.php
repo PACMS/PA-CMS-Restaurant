@@ -23,6 +23,21 @@ abstract class Sql
        
     }
 
+    protected function databaseFindOne(string $sql, array $params): ?array
+    {
+        $statement = $this->pdo->prepare($sql);
+        if ($statement !== false) {
+            $success = $statement->execute($params);
+            if ($success) {
+                $res = $statement->fetch(\PDO::FETCH_ASSOC);
+                if ($res === false) {
+                    return null;
+                }
+                return $res;
+            }
+        }
+        return null;
+    }
 
     /**
      * @param null $id
@@ -34,6 +49,18 @@ abstract class Sql
         $queryPrepared->execute( ["id"=>$id] );
         return $queryPrepared->fetchObject(get_called_class());
 
+    }
+
+    public function hydrate(array $data)
+    {
+        foreach ($data as $key => $value)
+        {
+            $methode = 'set'.$key;
+            if (method_exists($this, $methode))
+            {
+                $this->$methode($value);
+            }
+        }
     }
 
     /**
@@ -84,15 +111,16 @@ abstract class Sql
 
 
 
-    public function accessToken(?string $tokenToVerify): void 
+    public function accessToken(?string $email, ?string $tokenToVerify): void 
     {
+        echo "<pre>";
         if(is_null($this->getEmail())){
             die("L'email ne correspond pas !");
         } else {
-            if(empty($this->compareToken($this->getEmail(), $tokenToVerify))) {
-                echo "c'est null";
+            if(is_null($this->databaseFindOne("SELECT token FROM ".$this->table." WHERE email=:email AND token=:token", ["email"=>$email,"token"=>$tokenToVerify]))) {
+                echo "Le token est invalide";
             } else {
-                echo "ce n'est pas null";
+                echo "l'authentification token à réussi";
             }
 
         }
