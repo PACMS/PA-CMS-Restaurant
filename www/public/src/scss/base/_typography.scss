@@ -8,7 +8,7 @@ html {
     // background-color: $light-grey;
     font: {
         family: $font1;
-        size: rem(18);
+        size: 18px;
     }
 }
 
@@ -16,9 +16,17 @@ html {
 
 h1 {
     color: $blue;
-    font-size: rem(30);
+    font-size: rem(30) !important;
 }
 h2 {
-    font-size: rem(24);
+    font-size: rem(30) !important;
+    color: $main-color;
+    font-weight: 400;
+}
+
+button {
+    font-family: $font1;
+    font-size: rem(18) !important;
+    font-weight: 400;
 }
 

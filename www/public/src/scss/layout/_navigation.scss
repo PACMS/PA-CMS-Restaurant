@@ -1,0 +1,51 @@
+.navbar {
+    width: 16%;
+    height: 100%;
+    background-color: $navbar-bg;
+}
+
+.navbar h2 {
+    margin-top: 12px;
+}
+
+.navbar a {
+    padding: 0;
+}
+
+.navbar button {
+    background-color: $navbar-bg;
+    color: $navbar-text;
+    text-align: left;
+    width: 261px;
+    height: 50px;
+    padding: 0px 20px;
+    margin: 13.5px 0;
+    border: none;
+    border-radius: 11px;
+    cursor: pointer;
+}
+
+.navbar button:hover {
+    background-color: $main-color;
+    color: $white;
+    text-align: left;
+    width: 261px;
+    height: 65px;
+    padding: 14px 20px;
+    margin: 6px 0;
+    border: none;
+    border-radius: 11px;
+    cursor: pointer;
+    box-shadow: 0px 4px 10px 1px rgba(0, 0, 0, 0.25);
+}
+
+.navbar .far {
+    margin-right: 16.35px;
+}
+
+.companyProfileImg {
+    margin-top: 39px;
+    height: 80px;
+    width: 80px;
+    border-radius: 50%;
+}
