@@ -3,78 +3,68 @@
     height: 100%;
     background-color: $navbar-bg;
     border-radius: 0px 28px 28px 0px;
+
+    h2 {
+        margin-top: 5px;
+    }
+
+    a {
+        padding: 0;
+        text-decoration: none;
+
+        > button {
+            background-color: $navbar-bg;
+            color: $navbar-text;
+            text-align: left;
+            width: 261px;
+            height: 50px;
+            padding: 0px 20px;
+            margin: 13.5px 0;
+            border: none;
+            border-radius: 11px;
+            cursor: pointer;
+
+            &:hover {
+                background-color: $main-color;
+                color: $white;
+                height: 65px;
+                padding: 14px 20px;
+                margin: 6px 0;
+                box-shadow: 0px 4px 10px 1px rgba(0, 0, 0, 0.25);
+            }
+
+            > .far {
+                margin-right: 16.35px;
+            }
+        }
+    }
+
+    p > button {
+        border: none;
+        background-color: $navbar-bg;
+        cursor: pointer;
+        color: $main-color;
+        font-size: rem(18);
+        margin-bottom: 20px;
+        margin-right: 20px;
+
+        > .far {
+            margin-right: 10px;
+            transition: transform 0.5s ease;
+        }
+    }
+
+    img {
+        margin-top: 39px;
+        height: 80px;
+        width: 80px;
+        border-radius: 50%;
+    }
 }
-
-.navbarWrap {
-
-}
-
-.navbar h2 {
-    margin-top: 5px;
-}
-
-.navbar a {
-    padding: 0;
-    text-decoration: none;
-}
-
-.navbar a > button {
-    background-color: $navbar-bg;
-    color: $navbar-text;
-    text-align: left;
-    width: 261px;
-    height: 50px;
-    padding: 0px 20px;
-    margin: 13.5px 0;
-    border: none;
-    border-radius: 11px;
-    cursor: pointer;
-}
-
-.navbar a > button:hover {
-    background-color: $main-color;
-    color: $white;
-    text-align: left;
-    width: 261px;
-    height: 65px;
-    padding: 14px 20px;
-    margin: 6px 0;
-    border: none;
-    border-radius: 11px;
-    cursor: pointer;
-    box-shadow: 0px 4px 10px 1px rgba(0, 0, 0, 0.25);
-}
-
-.navbar a > button > .far {
-    margin-right: 16.35px;
-}
-
-.navbar p > button > .far {
-    margin-right: 10px;
-    transition: transform .5s ease;
-}
-
-.rotated { 
+.rotated {
     -webkit-transform: rotate(180deg);
     -moz-transform: rotate(180deg);
     -o-transform: rotate(180deg);
     -ms-transform: rotate(180deg);
     transform: rotate(180deg);
-}
-
-.navbar img {
-    margin-top: 39px;
-    height: 80px;
-    width: 80px;
-    border-radius: 50%;
-}
-
-.navbar p > button {
-    border: none;
-    background-color: $navbar-bg;
-    cursor: pointer;
-    color: $main-color;
-    font-size: rem(18);
-    margin-bottom: 20px;
-    margin-right: 20px;
 }

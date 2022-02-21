@@ -1,10 +1,41 @@
 .pageDashboard {
     height: 100%;
     gap: 3%;
-
 }
 
 .secondPart {
     // width: 100%;
     flex-basis: 81%;
+}
+
+.stats {
+    border-bottom: 3px solid rgba(0, 81, 239, 0.6);
+    padding-bottom: 6px;
+    margin: {
+        left: -30px;
+        right: 101.5px;
+    }
+
+    div {
+        &:first-child {
+            margin-left: 30px;
+            gap: 35px;
+        }
+
+        &:last-child {
+            margin-right: 30px;
+
+            a {
+                color: $main-color;
+            }
+        }
+
+        p {
+            font-weight: 700;
+            margin: {
+                top: 39px;
+                bottom: 0;
+            }
+        }
+    }
 }

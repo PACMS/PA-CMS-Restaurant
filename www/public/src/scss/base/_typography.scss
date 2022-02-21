@@ -24,6 +24,11 @@ h2 {
     font-weight: 400;
 }
 
+small {
+    font-size: rem(18);
+    color: $navbar-text;
+}
+
 button {
     font-family: $font1;
     font-size: rem(18) !important;

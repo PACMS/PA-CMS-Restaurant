@@ -32,6 +32,24 @@
                 </button>
             </div>
         </div>
-
+        <div class="flex stats justify-content-between">
+            <div class="flex">
+                <div>
+                    <p>140 +7%</p>
+                    <small>nombres de vues</small>
+                </div>
+                <div>
+                    <p>140 +7%</p>
+                    <small>nouveaux inscrits</small>
+                </div>
+                <div>
+                    <p>140 +7%</p>
+                    <small>abonnés à la newsletter</small>
+                </div>
+            </div>
+            <div class="align-self-end">
+                <a href="">Voir plus</a>
+            </div>
+        </div>
     </div>
 </div>
