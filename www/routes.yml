@@ -25,3 +25,8 @@
   controller: admin
   action: home
   security: true
+
+/profile:
+  controller: admin
+  action: profile
+  security: true
