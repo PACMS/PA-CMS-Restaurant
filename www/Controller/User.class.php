@@ -26,7 +26,7 @@ class User {
     {
 
         $user = new UserModel();
-
+        $user->generateToken();
 
         if (!empty($_POST)) {
             $result = Verificator::checkForm($user->getCompleteRegisterForm(), $_POST + $_FILES);
@@ -72,14 +72,18 @@ class User {
             "token" => $user->getToken(),
             "email" => $user->getEmail()
         );
-        echo urldecode(http_build_query($data)) . "\n";
+        echo urldecode("http://localhost" . http_build_query($data)) . "\n";
+
         die();
     }
 
     public function verifyToken()
     {
         echo "<pre>";
+        echo $this->getToken();
         print_r($_POST);
+        print_r($_GET);
+        die();
         $user = new UserModel();
 
         $user->verifyToken($_POST["email"], $_POST["token"]);
