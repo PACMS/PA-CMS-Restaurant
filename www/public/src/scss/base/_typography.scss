@@ -5,33 +5,32 @@
 /* ---------------------------------- Base ---------------------------------- */
 
 html {
-    // background-color: $light-grey;
-    font: {
-        family: $font1;
-        size: 18px;
-    }
+  // background-color: $light-grey;
+  font: {
+    family: $font1;
+    size: 18px;
+  }
 }
 
 /* -------------------------------- Headings -------------------------------- */
 
 h1 {
-    color: $blue;
-    font-size: rem(30) !important;
+  color: $blue;
+  font-size: rem(30);
 }
 h2 {
-    font-size: rem(30) !important;
-    color: $main-color;
-    font-weight: 400;
+  font-size: rem(30);
+  color: $main-color;
+  font-weight: 400;
 }
 
 small {
-    font-size: rem(18);
-    color: $navbar-text;
+  font-size: rem(18);
+  color: $navbar-text;
 }
 
 button {
-    font-family: $font1;
-    font-size: rem(18) !important;
-    font-weight: 400;
+  font-family: $font1;
+  font-size: rem(18) !important;
+  font-weight: 400;
 }
-

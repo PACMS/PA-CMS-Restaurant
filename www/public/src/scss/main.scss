@@ -1,35 +1,24 @@
 /* -------------------------------- Utilities ------------------------------- */
 
-@import
-  "utilities/variables",
-  "utilities/functions";
+@import "utilities/variables", "utilities/functions";
 
 /* --------------------------------- Vendors -------------------------------- */
 
 /* ---------------------------------- Base ---------------------------------- */
 
-@import 
-  "base/fonts",
-  "base/typography",
-  "base/reset";
+@import "base/fonts", "base/typography", "base/reset";
 
 /* --------------------------------- Layouts -------------------------------- */
 
-@import 
-  "layout/forms",
-  "layout/flex",
-  "layout/navigation",
-  "layout/topBar";
+@import "layout/forms", "layout/flex", "layout/navigation", "layout/topBar",
+  "layout/preview-cards";
 
 /* ------------------------------- Components ------------------------------- */
 
-@import 
-  "components/button";
+@import "components/button";
 
 /* ---------------------------------- Pages --------------------------------- */
 
-@import 
-  "pages/login",
-  "pages/dashboard";
+@import "pages/login", "pages/dashboard";
 
 /* --------------------------------- Themes --------------------------------- */

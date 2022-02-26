@@ -51,5 +51,67 @@
                 <a href="">Voir plus</a>
             </div>
         </div>
+        <section class="container-preview-cards">
+            <article class="card">
+                <figure>
+                    <img src="https://marketplace.canva.com/EAEPN913uPs/1/0/1131w/canva-vert-et-or-case-bordure-g%C3%A9om%C3%A9trique-floral-mariage-menu-DI7xnk_h_VU.jpg" alt="Benefit 3">
+                </figure>
+                <a class="cta-button--blue">Activé</a>
+                <footer>
+                    <h1>menu principal</h1>
+                    <h2>pour Pizza Gogo</h2>
+                </footer>
+            </article>
+            <article class="card">
+                <figure>
+                    <img src="https://marketplace.canva.com/EAEPN913uPs/1/0/1131w/canva-vert-et-or-case-bordure-g%C3%A9om%C3%A9trique-floral-mariage-menu-DI7xnk_h_VU.jpg" alt="Benefit 3">
+                </figure>
+                <a class="cta-button--blue">Activé</a>
+                <footer>
+                    <h1>menu principal</h1>
+                    <h2>pour Pizza Gogo</h2>
+                </footer>
+            </article>
+            <article class="card">
+                <figure>
+                    <img src="https://marketplace.canva.com/EAEPN913uPs/1/0/1131w/canva-vert-et-or-case-bordure-g%C3%A9om%C3%A9trique-floral-mariage-menu-DI7xnk_h_VU.jpg" alt="Benefit 3">
+                </figure>
+                <a class="cta-button--blue">Activé</a>
+                <footer>
+                    <h1>menu principal</h1>
+                    <h2>pour Pizza Gogo</h2>
+                </footer>
+            </article>
+            <article class="card">
+                <figure>
+                    <img src="https://marketplace.canva.com/EAEPN913uPs/1/0/1131w/canva-vert-et-or-case-bordure-g%C3%A9om%C3%A9trique-floral-mariage-menu-DI7xnk_h_VU.jpg" alt="Benefit 3">
+                </figure>
+                <a class="cta-button--blue">Activé</a>
+                <footer>
+                    <h1>menu principal</h1>
+                    <h2>pour Pizza Gogo</h2>
+                </footer>
+            </article>
+            <article class="card">
+                <figure>
+                    <img src="https://marketplace.canva.com/EAEPN913uPs/1/0/1131w/canva-vert-et-or-case-bordure-g%C3%A9om%C3%A9trique-floral-mariage-menu-DI7xnk_h_VU.jpg" alt="Benefit 3">
+                </figure>
+                <a class="cta-button--blue">Activé</a>
+                <footer>
+                    <h1>menu principal</h1>
+                    <h2>pour Pizza Gogo</h2>
+                </footer>
+            </article>
+            <article class="card">
+                <figure>
+                    <img src="https://marketplace.canva.com/EAEPN913uPs/1/0/1131w/canva-vert-et-or-case-bordure-g%C3%A9om%C3%A9trique-floral-mariage-menu-DI7xnk_h_VU.jpg" alt="Benefit 3">
+                </figure>
+                <a class="cta-button--blue">Activé</a>
+                <footer>
+                    <h1>menu principal</h1>
+                    <h2>pour Pizza Gogo</h2>
+                </footer>
+            </article>
+        </section>
     </div>
 </div>
