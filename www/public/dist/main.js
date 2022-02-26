@@ -4040,3 +4040,8 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
     return C.$ === S && (C.$ = Gt), e && C.jQuery === S && (C.jQuery = Vt), S;
   }, "undefined" == typeof e && (C.jQuery = C.$ = S), S;
 });
+$(document).ready(function () {
+  $('#navbarButton').click(function () {
+    $(this).children('.far').toggleClass('rotated');
+  });
+});

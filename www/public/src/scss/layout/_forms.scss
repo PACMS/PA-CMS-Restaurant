@@ -5,38 +5,57 @@
 
 input[type="text"],
 select {
+    border: none;
+    border-bottom: 2px solid #333;
+    font-size: rem(18);
+    font-weight: 600;
     width: 100%;
-    padding: 12px 20px;
-    margin: 8px 0;
-    display: inline-block;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box;
-    background-color: $grey;
+    padding: 0.5em 0 0.5em 0;
+    transition: all 300ms linear;
+    outline: none;
+    border-bottom: 2px solid $system-grey;
 }
+
+
+input[type="tel"],
+select {
+    border: none;
+    border-bottom: 2px solid #333;
+    font-size: rem(18);
+    font-weight: 600;
+    width: 100%;
+    padding: 0.5em 0 0.5em 0;
+    transition: all 300ms linear;
+    outline: none;
+    border-bottom: 2px solid $system-grey;
+}
+
+
 
 input[type="email"],
 select {
+    border: none;
+    border-bottom: 2px solid #333;
+    font-size: rem(18);
+    font-weight: 600;
     width: 100%;
-    padding: 12px 20px;
-    margin: 8px 0;
-    display: inline-block;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box;
-    background-color: $grey;
+    padding: 0.5em 0 0.5em 0;
+    transition: all 300ms linear;
+    outline: none;
+    border-bottom: 2px solid $system-grey;
 }
 
 input[type="password"],
 select {
+    border: none;
+    border-bottom: 2px solid #333;
+    font-size: rem(18);
+    font-weight: 600;
     width: 100%;
-    padding: 12px 20px;
-    margin: 8px 0;
-    display: inline-block;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box;
-    background-color: $grey;
+    padding: 0.5em 0 0.5em 0;
+    transition: all 300ms linear;
+    outline: none;
+    border-bottom: 2px solid $system-grey;
 }
 
 input[type="submit"] {
