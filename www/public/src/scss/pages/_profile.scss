@@ -1,8 +1,17 @@
-section div img {
-  height: 100%;
-  width: 100px;
-  border-radius: 50%;
-  margin: 0 40px 0 18px;
+section div .profileImg  {
+  > img{
+    height: 100%;
+    width: 100px;
+    border-radius: 50%;
+    margin: 0 40px 0 18px;
+  }
+  > .fa-folder-open {
+
+    top: 0px;
+    left: 0px;
+    background: rgba(0, 0, 0, 0.6);
+z-index: 1;
+  }
 }
 
 section div a {
@@ -35,3 +44,15 @@ section  {
   margin-top: rem(200);
   width: 650px;
 }
+
+#editProfile {
+  border: none;
+  background-color: $white;
+  cursor: pointer;
+  font-size: rem(18);
+
+
+
+
+
+  }
