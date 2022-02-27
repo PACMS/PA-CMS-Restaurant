@@ -1,7 +1,7 @@
 .pageDashboard {
   height: 100%;
   width: 100%;
-  gap: 3%;
+  
 }
 
 .secondPart {
@@ -9,37 +9,41 @@
   display: flex;
   flex-direction: column;
   width: 80%;
+  
+  margin: 0 auto;
   //flex-basis: 81%;
 }
 
 .stats {
-  border-bottom: 3px solid rgba(0, 81, 239, 0.6);
-  padding-bottom: 6px;
-  margin: {
-    left: -30px;
-    right: 101.5px;
-  }
+  max-width: 1450px;
+  padding: 0 30px 10px
+  // border-bottom: 3px solid rgba(0, 81, 239, 0.6);
+  // padding-bottom: 6px;
+  // margin: {
+  //   left: -30px;
+  //   right: 101.5px;
+  // }
 
-  div {
-    &:first-child {
-      margin-left: 30px;
-      gap: 35px;
-    }
+  // div {
+  //   &:first-child {
+  //     margin-left: 30px;
+  //     gap: 30px;
+  //   }
 
-    &:last-child {
-      margin-right: 30px;
+  //   &:last-child {
+  //     margin-right: 30px;
 
-      a {
-        color: $main-color;
-      }
-    }
+  //     a {
+  //       color: $main-color;
+  //     }
+  //   }
 
-    p {
-      font-weight: 700;
-      margin: {
-        top: 39px;
-        bottom: 0;
-      }
-    }
-  }
+  //   p {
+  //     font-weight: 700;
+  //     margin: {
+  //       top: 39px;
+  //       bottom: 0;
+  //     }
+  //   }
+  // }
 }

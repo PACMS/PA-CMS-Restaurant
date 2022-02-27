@@ -14,5 +14,11 @@
 }
 
 .cta-button--blue {
-  background-color: $blue;
+  background-color: $primaryBlue;
+  
+}
+
+.voir-plus-button {
+  color: $primaryBlue;
+  cursor: pointer;
 }

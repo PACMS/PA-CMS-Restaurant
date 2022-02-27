@@ -1,4 +1,11 @@
 @import url(https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,700;1,400;1,700&display=swap);/* -------------------------------- Utilities ------------------------------- */
+/* -------------------------------- Colors -------------------------------- */
+/* --------------------- Black --------------------- */
+/* --------------------- White --------------------- */
+/* --------------------- Grey --------------------- */
+/* --------------------- Blue --------------------- */
+/* --------------------- Green --------------------- */
+/* --------------------- Red --------------------- */
 /* --------------------------------- Vendors -------------------------------- */
 /* ---------------------------------- Base ---------------------------------- */
 /* -------------------------------------------------------------------------- */
@@ -12,13 +19,13 @@ html {
 
 /* -------------------------------- Headings -------------------------------- */
 h1 {
-  color: #0051ef;
+  color: #0051EF;
   font-size: 1.66666667rem;
 }
 
 h2 {
   font-size: 1.66666667rem;
-  color: #0051ef;
+  color: #0051EF;
   font-weight: 400;
 }
 
@@ -43,6 +50,146 @@ html {
 }
 
 /* --------------------------------- Layouts -------------------------------- */
+.border {
+  border-style: solid;
+}
+
+.border-blue {
+  border-color: #0051EF;
+}
+
+.border-1 {
+  border-width: "1px";
+}
+
+.border-2 {
+  border-width: "2px";
+}
+
+.border-4 {
+  border-width: "4px";
+}
+
+.border-6 {
+  border-width: "6px";
+}
+
+.border-8 {
+  border-width: "8px";
+}
+
+.border-top-blue {
+  border-top-color: #0051EF;
+}
+
+.border-right-blue {
+  border-right-color: #0051EF;
+}
+
+.border-bottom-blue {
+  border-bottom-color: #0051EF;
+}
+
+.border-left-blue {
+  border-left-color: #0051EF;
+}
+
+.border-top-solid {
+  border-top-style: solid;
+}
+
+.border-right-solid {
+  border-right-style: solid;
+}
+
+.border-bottom-solid {
+  border-bottom-style: solid;
+}
+
+.border-left-solid {
+  border-left-style: solid;
+}
+
+.border-top {
+  border-top-width: 1px;
+}
+
+.border-top-2 {
+  border-top-width: 2px;
+}
+
+.border-top-4 {
+  border-top-width: 4px;
+}
+
+.border-top-6 {
+  border-top-width: 6px;
+}
+
+.border-top-8 {
+  border-top-width: 8px;
+}
+
+.border-right {
+  border-right-width: 1px;
+}
+
+.border-right-2 {
+  border-right-width: 2px;
+}
+
+.border-right-4 {
+  border-right-width: 4px;
+}
+
+.border-right-6 {
+  border-right-width: 6px;
+}
+
+.border-right-8 {
+  border-right-width: 8px;
+}
+
+.border-bottom {
+  border-bottom-width: 1px;
+}
+
+.border-bottom-2 {
+  border-bottom-width: 2px;
+}
+
+.border-bottom-4 {
+  border-bottom-width: 4px;
+}
+
+.border-bottom-6 {
+  border-bottom-width: 6px;
+}
+
+.border-bottom-8 {
+  border-bottom-width: 8px;
+}
+
+.border-left {
+  border-left-width: 1px;
+}
+
+.border-left-2 {
+  border-left-width: 2px;
+}
+
+.border-left-4 {
+  border-left-width: 4px;
+}
+
+.border-left-6 {
+  border-left-width: 6px;
+}
+
+.border-left-8 {
+  border-left-width: 8px;
+}
+
 input[type="text"],
 select {
   width: 100%;
@@ -81,7 +228,7 @@ select {
 
 input[type="submit"] {
   width: 100%;
-  background-color: #0051ef;
+  background-color: #0051EF;
   color: white;
   padding: 14px 20px;
   margin: 8px 0;
@@ -91,7 +238,7 @@ input[type="submit"] {
 }
 
 input[type="submit"]:hover {
-  background-color: #206bff;
+  background-color: #1f69ff;
 }
 
 .flex {
@@ -211,7 +358,7 @@ input[type="submit"]:hover {
 }
 
 .navbar {
-  width: 16%;
+  max-width: 16%;
   height: 100%;
   background-color: #f7f7f7;
   border-radius: 0px 28px 28px 0px;
@@ -240,8 +387,8 @@ input[type="submit"]:hover {
 }
 
 .navbar a > button:hover {
-  background-color: #0051ef;
-  color: white;
+  background-color: #0051EF;
+  color: #ffffff;
   height: 65px;
   padding: 14px 20px;
   margin: 6px 0;
@@ -256,7 +403,7 @@ input[type="submit"]:hover {
   border: none;
   background-color: #f7f7f7;
   cursor: pointer;
-  color: #0051ef;
+  color: #0051EF;
   font-size: 1rem;
   margin-bottom: 20px;
   margin-right: 20px;
@@ -283,7 +430,7 @@ input[type="submit"]:hover {
 }
 
 .topBar p {
-  color: #0051ef;
+  color: #0051EF;
   font-weight: 600;
 }
 
@@ -324,7 +471,7 @@ input[type="submit"]:hover {
 
 section.container-preview-cards {
   box-sizing: border-box;
-  background-color: #fbfbfb;
+  background-color: #fafafa;
   width: 50%;
   height: 35%;
   margin-top: 0.22222222rem;
@@ -350,7 +497,7 @@ section.container-preview-cards::-webkit-scrollbar {
 
 section.container-preview-cards article.card {
   box-sizing: content-box;
-  background-color: white;
+  background-color: #ffffff;
   margin-left: 0.88888889rem;
   margin-right: 0.88888889rem;
   width: 209px;
@@ -377,8 +524,8 @@ section.container-preview-cards article.card a {
   width: 67px;
   height: auto;
   text-align: center;
-  background-color: #0051ef;
-  color: white;
+  background-color: #0051EF;
+  color: #ffffff;
   transform: translate(-15px, -15px);
   border-radius: 10px;
   font-size: 0.83333333rem;
@@ -412,10 +559,44 @@ section.container-preview-cards article.card footer h2 {
   color: #969696;
 }
 
+.text-blue {
+  color: #0051EF;
+}
+
+.data {
+  color: #000;
+  font-size: 1rem;
+  font-weight: bold;
+}
+
+.percentData--success {
+  color: #4AAF05;
+}
+
+.percentData--warning {
+  color: #E65100;
+}
+
+.m-0 {
+  margin: 0;
+}
+
+.p-0 {
+  padding: 0;
+}
+
+.gap-7 {
+  gap: 7px;
+}
+
+.gap-30 {
+  gap: 30px;
+}
+
 /* ------------------------------- Components ------------------------------- */
 .button {
-  background-color: #0051ef;
-  color: white;
+  background-color: #0051EF;
+  color: #ffffff;
   width: 261px;
   padding: 14px 20px;
   margin: 8px 0;
@@ -425,18 +606,22 @@ section.container-preview-cards article.card footer h2 {
 }
 
 .button:hover {
-  background-color: #206bff;
+  background-color: #1f69ff;
 }
 
 .cta-button--blue {
-  background-color: #0051ef;
+  background-color: #0051EF;
+}
+
+.voir-plus-button {
+  color: #0051EF;
+  cursor: pointer;
 }
 
 /* ---------------------------------- Pages --------------------------------- */
 .pageDashboard {
   height: 100%;
   width: 100%;
-  gap: 3%;
 }
 
 .secondPart {
@@ -444,32 +629,12 @@ section.container-preview-cards article.card footer h2 {
   display: flex;
   flex-direction: column;
   width: 80%;
+  margin: 0 auto;
 }
 
 .stats {
-  border-bottom: 3px solid rgba(0, 81, 239, 0.6);
-  padding-bottom: 6px;
-  margin-left: -30px;
-  margin-right: 101.5px;
-}
-
-.stats div:first-child {
-  margin-left: 30px;
-  gap: 35px;
-}
-
-.stats div:last-child {
-  margin-right: 30px;
-}
-
-.stats div:last-child a {
-  color: #0051ef;
-}
-
-.stats div p {
-  font-weight: 700;
-  margin-top: 39px;
-  margin-bottom: 0;
+  max-width: 1450px;
+  padding: 0 30px 10px;
 }
 
 /* --------------------------------- Themes --------------------------------- */

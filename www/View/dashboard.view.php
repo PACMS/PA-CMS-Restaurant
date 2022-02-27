@@ -32,23 +32,29 @@
                 </button>
             </div>
         </div>
-        <div class="flex stats justify-content-between">
-            <div class="flex">
-                <div>
-                    <p>140 +7%</p>
+        <div class="stats flex justify-content-between border-bottom-solid border-bottom-2 border-bottom-blue" >
+            <div class="flex gap-30" >
+                <div class="flex flex-column justify-content-end">
+                    <div class="flex gap-7">
+                        <strong  class="m-0 data">140</strong><p class="m-0 percentData--warning" >-7,00%</p>
+                    </div>
                     <small>nombres de vues</small>
                 </div>
-                <div>
-                    <p>140 +7%</p>
+                <div class="flex flex-column justify-content-end">
+                    <div class="flex gap-7" >
+                        <strong class="data m-0" >140</strong><p class="m-0 percentData--success" >+7,00%</p>
+                    </div>
                     <small>nouveaux inscrits</small>
                 </div>
-                <div>
-                    <p>140 +7%</p>
+                <div class="flex flex-column justify-content-end">
+                    <div class="flex gap-7" >
+                        <strong class="data m-0" >140</strong><p class="m-0 percentData--success" >+7,00%</p>
+                    </div>
                     <small>abonnés à la newsletter</small>
                 </div>
             </div>
             <div class="align-self-end">
-                <a href="">Voir plus</a>
+                <a class="voir-plus-button" href="">Voir plus</a>
             </div>
         </div>
         <section class="container-preview-cards">
