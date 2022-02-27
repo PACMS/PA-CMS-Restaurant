@@ -358,7 +358,7 @@ input[type="submit"]:hover {
 }
 
 .navbar {
-  max-width: 16%;
+  min-width: 308px;
   height: 100%;
   background-color: #f7f7f7;
   border-radius: 0px 28px 28px 0px;
@@ -427,6 +427,7 @@ input[type="submit"]:hover {
 
 .topBar {
   height: 10%;
+  padding-left: 5%;
 }
 
 .topBar p {
@@ -593,6 +594,10 @@ section.container-preview-cards article.card footer h2 {
   gap: 30px;
 }
 
+.gap-20 {
+  gap: 20px;
+}
+
 /* ------------------------------- Components ------------------------------- */
 .button {
   background-color: #0051EF;
@@ -606,7 +611,7 @@ section.container-preview-cards article.card footer h2 {
 }
 
 .button:hover {
-  background-color: #1f69ff;
+  background-color: #0051EF;
 }
 
 .cta-button--blue {
@@ -628,12 +633,13 @@ section.container-preview-cards article.card footer h2 {
   box-sizing: content-box;
   display: flex;
   flex-direction: column;
-  width: 80%;
+  width: 100%;
   margin: 0 auto;
 }
 
 .stats {
-  max-width: 1450px;
+  width: 84%;
+  margin: 0 auto;
   padding: 0 30px 10px;
 }
 

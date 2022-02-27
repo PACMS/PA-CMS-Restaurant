@@ -8,14 +8,15 @@
   box-sizing: content-box;
   display: flex;
   flex-direction: column;
-  width: 80%;
+  width: 100%;
   
   margin: 0 auto;
   //flex-basis: 81%;
 }
 
 .stats {
-  max-width: 1450px;
+  width: 84%;
+  margin: 0 auto;
   padding: 0 30px 10px
   // border-bottom: 3px solid rgba(0, 81, 239, 0.6);
   // padding-bottom: 6px;
