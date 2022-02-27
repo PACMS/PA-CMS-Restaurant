@@ -1,10 +1,9 @@
-.navbar {
+.sidebar {
     min-width: 308px;
     height: 100%;
     background-color: $navbar-bg;
     border-radius: 0px 28px 28px 0px;
-
-    h2 {
+        h2 {
         margin-top: 5px;
     }
 
@@ -53,6 +52,7 @@
             transition: transform 0.5s ease;
         }
     }
+    
 
     img {
         margin-top: 39px;
@@ -61,6 +61,14 @@
         border-radius: 50%;
     }
 }
+
+@media (max-width: 1024px){
+    .sidebar{
+        min-width: 101px;
+        height: 100%;
+    }
+}
+
 .rotated {
     -webkit-transform: rotate(180deg);
     -moz-transform: rotate(180deg);

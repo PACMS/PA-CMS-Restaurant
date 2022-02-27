@@ -114,3 +114,22 @@
 	flex-wrap: wrap-reverse;
 }
 
+.hidden{
+    display: none;
+}
+
+@media (max-width: 1024px){
+    .lg-hidden{
+        display: none;
+    }
+}
+
+.block{
+    display: block;
+}
+
+@media (max-width: 1024px){
+    .lg-block{
+        display: block;
+    }
+}

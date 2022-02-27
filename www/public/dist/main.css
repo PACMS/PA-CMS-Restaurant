@@ -357,23 +357,43 @@ input[type="submit"]:hover {
   flex-wrap: wrap-reverse;
 }
 
-.navbar {
+.hidden {
+  display: none;
+}
+
+@media (max-width: 1024px) {
+  .lg-hidden {
+    display: none;
+  }
+}
+
+.block {
+  display: block;
+}
+
+@media (max-width: 1024px) {
+  .lg-block {
+    display: block;
+  }
+}
+
+.sidebar {
   min-width: 308px;
   height: 100%;
   background-color: #f7f7f7;
   border-radius: 0px 28px 28px 0px;
 }
 
-.navbar h2 {
+.sidebar h2 {
   margin-top: 5px;
 }
 
-.navbar a {
+.sidebar a {
   padding: 0;
   text-decoration: none;
 }
 
-.navbar a > button {
+.sidebar a > button {
   background-color: #f7f7f7;
   color: #9e9e9e;
   text-align: left;
@@ -386,7 +406,7 @@ input[type="submit"]:hover {
   cursor: pointer;
 }
 
-.navbar a > button:hover {
+.sidebar a > button:hover {
   background-color: #0051EF;
   color: #ffffff;
   height: 65px;
@@ -395,11 +415,11 @@ input[type="submit"]:hover {
   box-shadow: 0px 4px 10px 1px rgba(0, 0, 0, 0.25);
 }
 
-.navbar a > button > .far {
+.sidebar a > button > .far {
   margin-right: 16.35px;
 }
 
-.navbar p > button {
+.sidebar p > button {
   border: none;
   background-color: #f7f7f7;
   cursor: pointer;
@@ -409,61 +429,72 @@ input[type="submit"]:hover {
   margin-right: 20px;
 }
 
-.navbar p > button > .far {
+.sidebar p > button > .far {
   margin-right: 10px;
   transition: transform 0.5s ease;
 }
 
-.navbar img {
+.sidebar img {
   margin-top: 39px;
   height: 80px;
   width: 80px;
   border-radius: 50%;
 }
 
+@media (max-width: 1024px) {
+  .sidebar {
+    min-width: 101px;
+    height: 100%;
+  }
+}
+
 .rotated {
   transform: rotate(180deg);
 }
 
-.topBar {
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   height: 10%;
   padding-left: 5%;
+  padding-right: 2.5%;
 }
 
-.topBar p {
+.navbar p {
   color: #0051EF;
   font-weight: 600;
 }
 
-.topBar p > i {
+.navbar p > i {
   margin-left: 10px;
 }
 
-.topBar a {
+.navbar a {
   text-decoration: none;
 }
 
-.topBar #profileDiv {
+.navbar #profileDiv {
   display: inline-flex;
 }
 
-.topBar #profileDiv .fa-toggle-off {
+.navbar #profileDiv .fa-toggle-off {
   margin-right: 35px;
   margin-left: 7px;
 }
 
-.topBar #profileDiv .fa-moon {
+.navbar #profileDiv .fa-moon {
   margin-left: 15px;
 }
 
-.topBar #profileDiv button {
+.navbar #profileDiv button {
   border: none;
   background: none;
   padding: 0;
   cursor: pointer;
 }
 
-.topBar img {
+.navbar img {
   height: 60px;
   width: 60px;
   border-radius: 50%;
@@ -612,6 +643,10 @@ section.container-preview-cards article.card footer h2 {
 
 .button:hover {
   background-color: #0051EF;
+}
+
+.button-active--blue {
+  background-color: #0051EF !important;
 }
 
 .cta-button--blue {

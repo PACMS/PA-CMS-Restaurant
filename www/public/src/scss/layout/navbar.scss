@@ -1,42 +1,47 @@
-.topBar {
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
     height: 10%;
     padding-left: 5%;
+    padding-right: 2.5%;
 }
 
-.topBar p {
+.navbar p {
     color: $main-color;
     font-weight: 600;
 }
 
-.topBar p > i {
+.navbar p > i {
     margin-left: 10px;
 }
 
-.topBar a {
+.navbar a {
     text-decoration: none;
 }
 
-.topBar #profileDiv {
+.navbar #profileDiv {
     display: inline-flex;
 }
 
-.topBar #profileDiv .fa-toggle-off {
+.navbar #profileDiv .fa-toggle-off {
     margin-right: 35px;
     margin-left: 7px;
 }
 
-.topBar #profileDiv .fa-moon {
+.navbar #profileDiv .fa-moon {
     margin-left: 15px;
 }
 
-.topBar #profileDiv button {
+.navbar #profileDiv button {
     border: none;
     background: none;
     padding:0;
     cursor: pointer;
 }
 
-.topBar img {
+.navbar img {
     height: 60px;
     width: 60px;
     border-radius: 50%;
