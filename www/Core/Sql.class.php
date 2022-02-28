@@ -63,16 +63,6 @@ abstract class Sql
         }
     }
 
-    /**
-     * @param null $email
-     */
-    public function compareToken(?string $email, ?string $token): array
-    {
-        $sql = "SELECT token FROM ".$this->table." WHERE email=:email AND token=:token";
-        $queryPrepared = $this->pdo->prepare($sql);
-        $queryPrepared->execute( ["email"=>$email,"token"=>$token] );
-        return $queryPrepared->fetchAll();
-    }
 
        /**
      * @param null $email
@@ -114,14 +104,16 @@ abstract class Sql
     public function accessToken(?string $email, ?string $tokenToVerify): void 
     {
         echo "<pre>";
-        if(is_null($this->getEmail())){
+        if(is_null($email)){
             die("L'email ne correspond pas !");
         } else {
             if(is_null($this->databaseFindOne("SELECT token FROM ".$this->table." WHERE email=:email AND token=:token", ["email"=>$email,"token"=>$tokenToVerify]))) {
                 echo "Le token est invalide";
             } else {
                 echo "l'authentification token à réussi";
-            }
+                $this->updateStatus("1", $email);
+            }       
+
 
         }
     }
