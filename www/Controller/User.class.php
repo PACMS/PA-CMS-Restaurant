@@ -48,9 +48,16 @@ class User{
     public function connected ()
     {
         $token = new OAuth($_GET['code']);
-        $token->google();
-        //$token->getToken();
-        //$token->getInfo();
+        $info = $token->google();
+
+        var_dump($info);
+        die();
+
+        $user = new UserModel();
+        $user->setFirstname($info->given_name);
+        $user->setLastname($info->family_name);
+        $user->save();
+
         new View('connected');
     }
 

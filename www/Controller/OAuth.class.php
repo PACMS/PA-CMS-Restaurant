@@ -8,6 +8,7 @@ class OAuth {
     private $urlInfo;
     private $client_id;
     private $client_secret;
+    private $response;
 
     public function __construct($token)
     {
@@ -20,6 +21,10 @@ class OAuth {
         $this->urlInfo = URL_API_INFO_GOOGLE;
         $this->client_id = PUBLIC_KEY_GOOGLE;
         $this->client_secret = PRIVATE_KEY_GOOGLE;
+        $this->getToken();
+        $this->getInfo();
+
+        return $this->response;
     }
 
     public function facebook ()
@@ -83,8 +88,7 @@ class OAuth {
         if ($data === false) die('Une erreur de traitement est survenue, merci de réessayer plus tard');
         else {
             if (curl_getinfo($curl, CURLINFO_HTTP_CODE) === 200) {
-                $response = json_decode($data);
-                var_dump($response);
+                $this->response = json_decode($data);
             } else die('La connexion a échoué');
         }
         curl_close($curl);

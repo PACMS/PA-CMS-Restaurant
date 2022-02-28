@@ -1,4 +1,3 @@
 <h1>Connected</h1>
 
-
-<?= var_dump($_GET['code']) ?>
+Votre enregistrement c'est bien effectué
