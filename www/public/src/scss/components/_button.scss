@@ -1,14 +1,29 @@
-.button{
-    background-color: $main-color;
-    color: $white;
-    width: 261px;
-    padding: 14px 20px;
-    margin: 8px 0;
-    border: none;
-    border-radius: 11px;
-    cursor: pointer;
+.button {
+  background-color: $main-color;
+  color: $white;
+  width: 261px;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 11px;
+  cursor: pointer;
 }
 
 .button:hover {
-    background-color: $lightBlue;
+  background-color: $primaryBlue;
+}
+
+.button-active--blue{
+  background-color: $primaryBlue !important; 
+  
+}
+
+.cta-button--blue {
+  background-color: $primaryBlue;
+  
+}
+
+.voir-plus-button {
+  color: $primaryBlue;
+  cursor: pointer;
 }

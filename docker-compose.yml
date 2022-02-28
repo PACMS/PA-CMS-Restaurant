@@ -4,7 +4,7 @@ services:
     build: site
     container_name: apache-3IW
     ports :
-     - "80:80"
+     - "81:80"
     volumes:
      - ./www:/var/www/html/
      - ./server/000-default.conf:/etc/apache2/sites-available/000-default.conf
