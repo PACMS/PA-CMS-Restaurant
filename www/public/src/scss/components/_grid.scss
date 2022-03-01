@@ -1,0 +1,90 @@
+//variables grid
+$gutter-width: rem(15);
+$col-nb: 12;
+$xs-width: 0;
+$sm-width: 576px;
+$md-width: 768px;
+$lg-width: 992px;
+$xl-width: 1200px;
+$xxl-width: 1400px;
+
+$container-max-widths: (540px, 720px, 960px, 1140px, 1320px);
+
+$container-prefix: (sm, md, lg, xl, xxl);
+
+$prefix-widths: (
+  "xs" 0,
+  "sm" 540px,
+  "md" 720px,
+  "lg" 960px,
+  "xl" 1140px,
+  "xxl" 1320px
+);
+
+.grid {
+  display: grid;
+  grid-gap: $gutter-width;
+  height: 100%;
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.content {
+  height: 100px;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: rem(24);
+}
+
+.green {
+  background-color: green;
+}
+
+.purple {
+  background-color: purple;
+}
+
+.yellow {
+  background-color: yellow;
+}
+
+.blue {
+  background-color: blue;
+}
+
+.red {
+  background-color: red;
+}
+
+@each $prefix, $width in $prefix-widths {
+  @media screen and (min-width: $width) {
+    @for $i from 1 through $col-nb {
+      .cols-#{$prefix}-#{$i} {
+        width: ((100 / $col-nb) * $i) * 1%;
+        padding: $gutter-width/2;
+        box-sizing: border-box;
+        display: block;
+        margin-left: 0;
+      }
+      .offset-#{$prefix}-#{$i} {
+        margin-left: ((100 / $col-nb) * $i) * 1%;
+      }
+    }
+    .hidden-#{$prefix} {
+      display: none;
+    }
+  }
+}
+
+@for $i from 1 through $col-nb {
+  .cols-#{$i} {
+    width: ((100 / $col-nb) * $i) * 1%;
+    padding: $gutter-width/2;
+    box-sizing: border-box;
+  }
+}
