@@ -1,6 +1,6 @@
 /* -------------------------------- Utilities ------------------------------- */
 
-@import "utilities/variables", "utilities/functions";
+@import "utilities/variables", "utilities/functions", "utilities/mixins";
 
 /* --------------------------------- Vendors -------------------------------- */
 
@@ -10,8 +10,9 @@
 
 /* --------------------------------- Layouts -------------------------------- */
 
-@import "layout/border", "layout/forms", "layout/display/flex", "layout/navigation", "layout/navbar",
-  "layout/preview-cards", "layout/texts", "layout/margin", "layout/padding", "layout/gap";
+@import "layout/border", "layout/forms", "layout/display/flex",
+    "layout/navigation", "layout/navbar", "layout/preview-cards", "layout/texts",
+    "layout/margin", "layout/padding", "layout/gap";
 
 /* ------------------------------- Components ------------------------------- */
 
