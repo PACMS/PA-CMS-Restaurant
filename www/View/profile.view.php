@@ -34,7 +34,6 @@
             <div class="flex flex-row align-items-center">
                 <div class="profileImg">
                     <img src="https://images.unsplash.com/photo-1527980965255-d3b416303d12?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxMTgwOTN8MHwxfHNlYXJjaHw2fHxhdmF0YXJ8ZW58MHx8fHwxNjQ1NDQ1MjIx&ixlib=rb-1.2.1&q=80&w=1080" alt="Avatar">
-                    <i class="fas fa-folder-open"></i>
                 </div>
 
                 <div class="flex-column">
