@@ -155,11 +155,12 @@
                 </tbody>
             </table>
         </div>
-        <section class="container-preview-cards">
-            <article class="card">
+        <section class="preview-cards">
+            <article class="card active">
                 <figure>
                     <img src="https://marketplace.canva.com/EAEPN913uPs/1/0/1131w/canva-vert-et-or-case-bordure-g%C3%A9om%C3%A9trique-floral-mariage-menu-DI7xnk_h_VU.jpg" alt="Benefit 3">
                 </figure>
+                <!-- <a class="icons"><i class="fas fa-pen"></i></a> -->
                 <a class="cta-button--blue">Activé</a>
                 <footer>
                     <h1>menu principal</h1>
@@ -170,7 +171,7 @@
                 <figure>
                     <img src="https://marketplace.canva.com/EAEPN913uPs/1/0/1131w/canva-vert-et-or-case-bordure-g%C3%A9om%C3%A9trique-floral-mariage-menu-DI7xnk_h_VU.jpg" alt="Benefit 3">
                 </figure>
-                <a class="cta-button--blue">Activé</a>
+                <a class="cta-button--blue">Activer</a>
                 <footer>
                     <h1>menu principal</h1>
                     <h2>pour Pizza Gogo</h2>
@@ -180,7 +181,7 @@
                 <figure>
                     <img src="https://marketplace.canva.com/EAEPN913uPs/1/0/1131w/canva-vert-et-or-case-bordure-g%C3%A9om%C3%A9trique-floral-mariage-menu-DI7xnk_h_VU.jpg" alt="Benefit 3">
                 </figure>
-                <a class="cta-button--blue">Activé</a>
+                <a class="cta-button--blue">Activer</a>
                 <footer>
                     <h1>menu principal</h1>
                     <h2>pour Pizza Gogo</h2>
@@ -190,7 +191,7 @@
                 <figure>
                     <img src="https://marketplace.canva.com/EAEPN913uPs/1/0/1131w/canva-vert-et-or-case-bordure-g%C3%A9om%C3%A9trique-floral-mariage-menu-DI7xnk_h_VU.jpg" alt="Benefit 3">
                 </figure>
-                <a class="cta-button--blue">Activé</a>
+                <a class="cta-button--blue">Activer</a>
                 <footer>
                     <h1>menu principal</h1>
                     <h2>pour Pizza Gogo</h2>
@@ -200,7 +201,7 @@
                 <figure>
                     <img src="https://marketplace.canva.com/EAEPN913uPs/1/0/1131w/canva-vert-et-or-case-bordure-g%C3%A9om%C3%A9trique-floral-mariage-menu-DI7xnk_h_VU.jpg" alt="Benefit 3">
                 </figure>
-                <a class="cta-button--blue">Activé</a>
+                <a class="cta-button--blue">Activer</a>
                 <footer>
                     <h1>menu principal</h1>
                     <h2>pour Pizza Gogo</h2>
@@ -210,7 +211,7 @@
                 <figure>
                     <img src="https://marketplace.canva.com/EAEPN913uPs/1/0/1131w/canva-vert-et-or-case-bordure-g%C3%A9om%C3%A9trique-floral-mariage-menu-DI7xnk_h_VU.jpg" alt="Benefit 3">
                 </figure>
-                <a class="cta-button--blue">Activé</a>
+                <a class="cta-button--blue">Activer</a>
                 <footer>
                     <h1>menu principal</h1>
                     <h2>pour Pizza Gogo</h2>
