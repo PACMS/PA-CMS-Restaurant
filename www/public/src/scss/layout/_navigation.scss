@@ -1,44 +1,92 @@
 .sidebar {
-    min-width: 308px;
+    width: 308px;
     height: 100%;
-    background-color: $navbar-bg;
+    background-color: #f7f7f7;
     border-radius: 0px 28px 28px 0px;
-        h2 {
-        margin-top: 5px;
-    }
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: stretch;
+    transition: all 0.3s ease-in-out;
 
-    a {
-        padding: 0;
+    position: fixed;
+    a{  
         text-decoration: none;
-
-        > button {
-            background-color: $navbar-bg;
-            color: $navbar-text;
-            text-align: left;
-            width: 261px;
-            height: 50px;
-            padding: 0px 20px;
-            margin: 13.5px 0;
-            border: none;
-            border-radius: 11px;
-            cursor: pointer;
-
-            &:hover {
-                background-color: $main-color;
-                color: $white;
-                height: 65px;
-                padding: 14px 20px;
-                margin: 6px 0;
-                box-shadow: 0px 4px 10px 1px rgba(0, 0, 0, 0.25);
-            }
-
-            > .far {
-                margin-right: 16.35px;
-            }
-        }
     }
 
-    p > button {
+    &-image{
+        height: 80px;
+        width: 80px;
+        border-radius: 50%;
+      }
+
+    &-title{
+        font-size: rem(30);
+        color: $primaryBlue;
+        text-decoration: none;
+        margin-top: 12px;
+      }
+
+    &-nav{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding-top: 39px;
+      }
+    
+    &-button-picto{
+        margin-right: 18px;
+        margin-left: 20px;
+      }
+
+    &-list{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 18px;
+        margin-top: 38px;
+        width: 100%;
+        list-style-type: none;
+      }
+
+      li{
+        display: flex;
+        width: 100%;
+        align-items: center;
+        margin: auto;
+      }
+
+      ul{
+        
+        padding: 0;
+      }
+
+    &-button{
+        background-color: $navbar-bg;
+        color: $navbar-text;
+        text-align: left;
+        width: 85%;
+        height: 65px;
+        margin: auto;
+        display: flex;
+        align-items: center;
+        border: none;
+        border-radius: 11px;
+        cursor: pointer;
+      }
+
+    &-button:hover{
+        background-color: $main-color;
+        color: $white;
+        height: 65px;
+        box-shadow: 0px 4px 10px 1px rgba(0, 0, 0, 0.25);
+      }
+
+    
+      
+    &-resizer{
+        display: flex;
+        align-items: center;
         border: none;
         background-color: $navbar-bg;
         cursor: pointer;
@@ -46,28 +94,164 @@
         font-size: rem(18);
         margin-bottom: 20px;
         margin-right: 20px;
-
-        > .far {
-            margin-right: 10px;
-            transition: transform 0.5s ease;
+        align-self: flex-end;
+        
+         > .far {
+             margin-right: 10px;
+             transition: transform 0.5s ease;
+         }
+         &::before{
+          content: "Reduire";
+          display: block; 
+          font-size: rem(18) !important;
+          margin-right: 10px;
+          
         }
+  }
+  }
+  
+  h2{
+      margin: 0;
+  }
+  
+  .small{
+    width: 101px !important;
+
+    & h2{
+      display: none;
+    }
+
+    & a {
+      justify-content: center;
+
+      & > span{
+        display: none;
+      }
+    }
+
+    & .sidebar-resizer{
+      display: flex;
+      margin-right: 0;
+      align-items: center;
+      font-size: rem(14) !important;
+      justify-content: center;
+      width: 100%;
+      flex-direction: row-reverse;
+
+      &::before{
+        content: "Agrandir";
+        display: block;
+        font-size: rem(14) !important;
+        margin-right: 0px;
+      }
     }
     
 
-    img {
-        margin-top: 39px;
-        height: 80px;
-        width: 80px;
-        border-radius: 50%;
-    }
-}
+  }
+  
+        
+  .sidebar-button--active{
+    background-color: $main-color;
+    color: $white;
+    text-align: left;
+        width: 85%;
+        height: 65px;
+        margin: auto;
+        display: flex;
+        align-items: center;
+        border: none;
+        border-radius: 11px;
+        cursor: pointer;
+    box-shadow: 0px 4px 10px 1px rgba(0, 0, 0, 0.25);
+  }
 
-@media (max-width: 1024px){
-    .sidebar{
-        min-width: 101px;
-        height: 100%;
+  #pseudo-element{
+    min-width: 308px;
+    transition: all 0.3s ease-in-out;
+    &[class="pseudoSmall"]{
+      min-width: 101px;
     }
-}
+  }
+    
+  
+
+  
+
+  
+ 
+
+
+
+// .sidebar {
+//     min-width: 308px;
+//     height: 100%;
+//     background-color: $navbar-bg;
+//     border-radius: 0px 28px 28px 0px;
+//     h2 {
+//         margin-top: 5px;
+//     }
+
+//     a {
+//         padding: 0;
+//         text-decoration: none;
+
+//         > button {
+//             background-color: $navbar-bg;
+//             color: $navbar-text;
+//             text-align: left;
+//             width: 261px;
+//             height: 50px;
+//             padding: 0px 20px;
+//             margin: 13.5px 0;
+//             border: none;
+//             border-radius: 11px;
+//             cursor: pointer;
+
+//             &:hover {
+//                 background-color: $main-color;
+//                 color: $white;
+//                 height: 65px;
+//                 padding: 14px 20px;
+//                 margin: 6px 0;
+//                 box-shadow: 0px 4px 10px 1px rgba(0, 0, 0, 0.25);
+//             }
+
+//             > .far {
+//                 margin-right: 16.35px;
+//             }
+//         }
+//     }
+
+//     p > button {
+//         border: none;
+//         background-color: $navbar-bg;
+//         cursor: pointer;
+//         color: $main-color;
+//         font-size: rem(18);
+//         margin-bottom: 20px;
+//         margin-right: 20px;
+
+//         > .far {
+//             margin-right: 10px;
+//             transition: transform 0.5s ease;
+//         }
+//     }
+    
+
+//     img {
+//         margin-top: 39px;
+//         height: 80px;
+//         width: 80px;
+//         border-radius: 50%;
+//     }
+// }
+
+// @media (max-width: 1024px){
+//     .sidebar{
+//         min-width: 101px;
+//         height: 100%;
+//     }
+// }
 
 .rotated {
     -webkit-transform: rotate(180deg);

@@ -8,7 +8,7 @@
     box-sizing: content-box;
     display: flex;
     flex-direction: column;
-    width: 80%;
+    width: 100%;
     //flex-basis: 81%;
 }
 
@@ -61,8 +61,7 @@
     p {
         color: $main-color;
         font-weight: 600;
-        margin-right: 50px;
-        margin-bottom: 0;
+        margin: 0 8px;
     }
     a {
         color: $main-color;
@@ -74,12 +73,12 @@
 
 
     section:last-child {
-        margin-right: 7%;
+        margin-right: 8px;
     }
 }
 
 #bookingTable {
-    width: 93%;
+    width: 100%;
     margin-left: 0;
     border: 1px solid #CFCFCF;
     border-radius: 15px;

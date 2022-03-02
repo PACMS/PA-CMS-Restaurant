@@ -4058,6 +4058,8 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
 $(document).ready(function () {
   $("#navbarButton").click(function () {
     $(this).children(".far").toggleClass("rotated");
+    $(".sidebar").toggleClass("small");
+    $("#pseudo-element").toggleClass("pseudoSmall");
   }); // Create date inputs
   // minDate = new DateTime($("#min"), {
   //     format: "MMMM Do YYYY",
@@ -4066,26 +4068,6 @@ $(document).ready(function () {
   //     format: "MMMM Do YYYY",
   // });
 
-  $("#bookingTable").DataTable({
-    columnDefs: [{
-      className: "dt-center",
-      targets: "_all"
-    }, {
-      targets: -1,
-      data: null,
-      defaultContent: "<a href=''><i class='fas fa-pen'></i></a><a href=''><i class='fas fa-times-circle'></i></a>"
-    }],
-    columns: [null, null, null, {
-      type: "datetime"
-    }, null, null, null],
-    searching: false,
-    paging: false,
-    info: false
-  }); // Refilter the table
-
-  $("#min, #max").on("change", function () {
-    table.draw();
-  });
   $('#editProfile').on("click", function (event) {
     $('.container').css("margin-top", "0px");
     $("input").attr("disabled", false);
@@ -4106,5 +4088,25 @@ $(document).ready(function () {
     var submitButton = $("<button class='btn btn-submit' id='btncancel'>Confirmer </button>");
     $('button#btncancel').after(submitButton);
     $(this).off(event);
+  });
+  $("#bookingTable").DataTable({
+    columnDefs: [{
+      className: "dt-center",
+      targets: "_all"
+    }, {
+      targets: -1,
+      data: null,
+      defaultContent: "<a href=''><i class='fas fa-pen'></i></a><a href=''><i class='fas fa-times-circle'></i></a>"
+    }],
+    columns: [null, null, null, {
+      type: "datetime"
+    }, null, null, null],
+    searching: false,
+    paging: false,
+    info: false
+  }); // Refilter the table
+
+  $("#min, #max").on("change", function () {
+    table.draw();
   });
 });

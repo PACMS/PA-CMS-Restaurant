@@ -14,27 +14,35 @@ z-index: 1;
   }
 }
 
-section div a {
-  margin-left: 16px;
+.formProfile  {
+
+  div a{
+    margin-left: 16px;
+  }
+  .role{
+    position: absolute;
+    font-size: rem(18);
+    color: $system-grey;
+  }
+  .title{
+    font-size: rem(30);
+  }
+
+  #editProfile {
+    border: none;
+    background-color: $white;
+    cursor: pointer;
+    font-size: rem(18);
+  }
+
 }
 
-section  {
-  font-weight: 260;
-}
 
-.role{
-  position: absolute;
-  font-size: rem(18);
-  color: $system-grey;
-}
 .greytext{
   font-size: rem(18);
   color: $system-grey;
 }
 
-.title{
-  font-size: rem(30);
-}
 
 .container{
   display: flex;
@@ -44,15 +52,3 @@ section  {
   margin-top: rem(200);
   width: 650px;
 }
-
-#editProfile {
-  border: none;
-  background-color: $white;
-  cursor: pointer;
-  font-size: rem(18);
-
-
-
-
-
-  }
