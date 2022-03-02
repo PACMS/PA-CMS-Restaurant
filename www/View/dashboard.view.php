@@ -73,7 +73,7 @@
                         <section class="bookingTableHeader flex justify-content-between">
                             <section class="flex">
                                 <p class="align-self-end">Réservations</p>
-                                <input class="align-self-end" type="date">
+                                <input class="calendar" type="date">
                             </section>
                             <section class="align-self-end">
                                 <a href="#">Voir plus</a>

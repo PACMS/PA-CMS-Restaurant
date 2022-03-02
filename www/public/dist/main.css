@@ -1816,6 +1816,13 @@ section.container-preview-cards article.card figure img {
   box-sizing: border-box;
 }
 
+.calendar {
+  border: none;
+  background-color: transparent;
+  padding: 0;
+  margin-left: 47px;
+}
+
 /* ---------------------------------- Pages --------------------------------- */
 section div .profileImg > img {
   height: 100%;
@@ -1829,6 +1836,10 @@ section div .profileImg > .fa-folder-open {
   left: 0px;
   background: rgba(0, 0, 0, 0.6);
   z-index: 1;
+}
+
+.formProfile {
+  height: 100%;
 }
 
 .formProfile div a {
@@ -1861,9 +1872,9 @@ section div .profileImg > .fa-folder-open {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 0 19.44444444rem 0 19.44444444rem;
-  margin-top: 11.11111111rem;
   width: 650px;
+  margin: auto;
+  justify-content: center;
 }
 
 .pageDashboard {

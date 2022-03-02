@@ -15,7 +15,8 @@ z-index: 1;
 }
 
 .formProfile  {
-
+  height:100%;
+  
   div a{
     margin-left: 16px;
   }
@@ -48,7 +49,7 @@ z-index: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 0 rem(350) 0 rem(350);
-  margin-top: rem(200);
   width: 650px;
+  margin: auto;
+  justify-content: center;
 }
