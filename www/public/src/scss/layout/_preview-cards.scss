@@ -1,5 +1,5 @@
 section.container-preview-cards {
-  box-sizing: border-box;
+    box-sizing: border-box;
 
   background-color: $background-card;
   width: 100%;
@@ -15,10 +15,11 @@ section.container-preview-cards {
   overflow-x: scroll;
   overflow-y: hidden;
 
-  display: grid;
-  grid-template-columns: repeat(6, auto);
-  grid-gap: 0 10px;
+    display: grid;
+    grid-template-columns: repeat(6, auto);
+    grid-gap: 0 10px;
 
+   
   
 
   article.card {
@@ -29,7 +30,7 @@ section.container-preview-cards {
     width: 209px;
     height: 307px;
     border-radius: 5px;
-    box-shadow: 1px 4px 6px 1px $dark-grey;
+    box-shadow: 1px 4px 6px 1px #cacaca;
     border-bottom-left-radius: 5px;
     border-bottom-right-radius: 5px;
 
@@ -81,7 +82,7 @@ section.container-preview-cards {
           transform: translateY(-50%);
           border-radius: 10px;
           font-size: rem(15);
-          box-shadow: 1px 3px 5px $dark-grey;
+          box-shadow: 1 px 3px 5px #cacaca;
           cursor: pointer;
         }
       }
@@ -103,4 +104,44 @@ section.container-preview-cards {
 
     
   }
+}
+
+
+.container{
+  height: 350px;
+  border-radius: 15px;
+  background-color: $background-card;
+  border: 1px solid #CFCFCF;
+  
+  & > figure{
+    text-align: center;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    padding-top: 32px;
+
+    &  img{
+      margin: 0 auto;
+      width: 95%;
+      max-height: 210px;
+      object-fit: contain;
+    }
+
+  }
+
+  & > div{
+    margin-left: 72px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-top: 10px;
+
+  & > p:first-child{
+    color: $navbar-text;
+    margin: 0;
+  }
+  }
+
+
+  
 }
