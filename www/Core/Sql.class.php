@@ -77,8 +77,6 @@ abstract class Sql
 
     public function save(): void
     {
-
-
         $colums = get_object_vars($this);
         $varToExclude = get_class_vars(get_class());
         $colums = array_diff_key($colums, $varToExclude);
@@ -100,7 +98,7 @@ abstract class Sql
         //Si ID null alors insert sinon update
     }
 
-    public function findOneBy(array $whereClause): array
+    public function findOneBy(array $whereClause)
     {
         $columns = get_object_vars($this);
         $varToExclude = get_class_vars(get_class());
@@ -113,22 +111,6 @@ abstract class Sql
         $sql = "SELECT * FROM " . $this->table . " WHERE " . implode(",", $where);
 
         $whereClause = array_intersect_key($columns, $whereClause);
-        $queryPrepared = $this->pdo->prepare($sql);
-        $queryPrepared->execute($whereClause);
-
-        return $queryPrepared->fetch(\PDO::FETCH_ASSOC);
-    }
-
-
-    public function verifyEmailOAuth (array $whereClause)
-    {
-        foreach ($whereClause as $key => $whereValue) {
-            $where[] = $key . "=:" . $key;
-        }
-
-        $sql = "SELECT * FROM " . $this->table . " WHERE " . implode(",", $where);
-
-
         $queryPrepared = $this->pdo->prepare($sql);
         $queryPrepared->execute($whereClause);
 

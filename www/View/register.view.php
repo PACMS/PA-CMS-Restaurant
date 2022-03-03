@@ -4,6 +4,15 @@
     <link rel="stylesheet" type="text/css" href="./public/dist/main.css">
 </head>
 
+<?php
+    if (isset($errors)):
+        foreach ($errors as $error):
+            echo $error;
+            echo '<br>';
+        endforeach;
+    endif;
+?>
+
 <h1>S'inscrire</h1>
 <button class="button">TEST CSS</button>
 

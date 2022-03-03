@@ -2,6 +2,7 @@
 namespace App\Model;
 
 
+use App\Core\Cleaner;
 use App\Core\Sql;
 
 use App\Core\User as userCore;
@@ -19,7 +20,6 @@ class User extends Sql
 
     public function __construct()
     {
-        echo "constructeur du Model User";
         parent::__construct();
     }
 
@@ -45,7 +45,7 @@ class User extends Sql
      */
     public function setFirstname(?string $firstname): void
     {
-        $this->firstname = userCore::cleanFirstname($firstname);
+        $this->firstname = (new Cleaner($firstname))->ucw()->e()->value;
     }
 
     /**
@@ -61,7 +61,7 @@ class User extends Sql
      */
     public function setLastname(?string $lastname): void
     {
-        $this->lastname = userCore::cleanLastname($lastname);
+        $this->lastname = (new Cleaner($lastname))->upper()->e()->value;
     }
 
     /**
@@ -77,7 +77,7 @@ class User extends Sql
      */
     public function setEmail(string $email): void
     {
-        $this->email = userCore::cleanEmail($email);
+        $this->email = (new Cleaner($email))->lower()->e()->value;
     }
 
     /**
@@ -127,12 +127,6 @@ class User extends Sql
     {
         $bytes = random_bytes(128);
         $this->token = substr(str_shuffle(bin2hex($bytes)), 0, 255);
-    }
-
-    public function unicityEmail ()
-    {
-        if ((new Verificator())->findOneBy([$this->email])) return true;
-        else return false;
     }
 
 
