@@ -1,5 +1,3 @@
-<h1>Création du formulaire</h1>
-
 <form method="<?= $config["config"]["method"]??"POST" ?>"
       action="<?= $config["config"]["action"]??""?>"
       id="<?= $config["config"]["id"]??""?>"

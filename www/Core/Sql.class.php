@@ -67,7 +67,7 @@ abstract class Sql
     {
         foreach ($data as $key => $value)
         {
-            $methode = 'set'.$key;
+            $methode = 'set'.ucfirst($key);
             if (method_exists($this, $methode))
             {
                 $this->$methode($value);

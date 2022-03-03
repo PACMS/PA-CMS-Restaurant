@@ -30,10 +30,8 @@ class User{
             $errors = Verificator::checkForm($user->getCompleteRegisterForm(), $_POST + $_FILES);
 
             if(!$errors) {
-                $user = new UserModel();
                 $user->hydrate($_POST);
                 $user->save();
-
                 /////////// redirection vers le dashboard à faire
             }
         }

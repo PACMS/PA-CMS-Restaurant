@@ -33,3 +33,11 @@
   controller: admin
   action: home
   security: true
+
+/restaurant:
+  controller: restaurant
+  action: restaurant
+
+/profile-restaurant:
+  controller: restaurant
+  action: updateRestaurant
