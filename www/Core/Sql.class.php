@@ -22,6 +22,34 @@ abstract class Sql
         $this->table = DBPREFIXE.end($getCalledClassExploded);
     }
 
+    protected function databaseFindOne(string $sql, array $params)
+    {
+        $statement = $this->pdo->prepare($sql);
+        if ($statement !== false) {
+            $success = $statement->execute($params);
+            if ($success) {
+                $res = $statement->fetch(\PDO::FETCH_ASSOC);
+                if ($res === false) {
+                    return null;
+                }
+                return $res;
+            }
+        }
+        return null;
+    }
+
+    protected function databaseFindAll(string $sql, array $params): mixed
+    {
+        $statement = $this->pdo->prepare($sql);
+        if ($statement !== false) {
+            $success = $statement->execute($params);
+            if ($success) {
+                return $statement->fetchAll(\PDO::FETCH_ASSOC);
+            }
+        }
+        return null;
+    }
+
 
     /**
      * @param null $id
@@ -72,7 +100,38 @@ abstract class Sql
         //Si ID null alors insert sinon update
     }
 
+    public function findOneBy(array $whereClause): array
+    {
+        $columns = get_object_vars($this);
+        $varToExclude = get_class_vars(get_class());
+        $columns = array_diff_key($columns, $varToExclude);
+
+        foreach ($whereClause as $key => $whereValue) {
+            $where[] = $key . "=:" . $key;
+        }
+
+        $sql = "SELECT * FROM " . $this->table . " WHERE " . implode(",", $where);
+
+        $whereClause = array_intersect_key($columns, $whereClause);
+        $queryPrepared = $this->pdo->prepare($sql);
+        $queryPrepared->execute($whereClause);
+
+        return $queryPrepared->fetch(\PDO::FETCH_ASSOC);
+    }
 
 
+    public function verifyEmailOAuth (array $whereClause)
+    {
+        foreach ($whereClause as $key => $whereValue) {
+            $where[] = $key . "=:" . $key;
+        }
 
+        $sql = "SELECT * FROM " . $this->table . " WHERE " . implode(",", $where);
+
+
+        $queryPrepared = $this->pdo->prepare($sql);
+        $queryPrepared->execute($whereClause);
+
+        return $queryPrepared->fetch(\PDO::FETCH_ASSOC);
+    }
 }

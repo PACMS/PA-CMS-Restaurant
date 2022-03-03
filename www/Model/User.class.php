@@ -5,6 +5,7 @@ namespace App\Model;
 use App\Core\Sql;
 
 use App\Core\User as userCore;
+use App\Core\Verificator;
 
 class User extends Sql
 {
@@ -128,6 +129,12 @@ class User extends Sql
         $this->token = substr(str_shuffle(bin2hex($bytes)), 0, 255);
     }
 
+    public function unicityEmail ()
+    {
+        if ((new Verificator())->findOneBy([$this->email])) return true;
+        else return false;
+    }
+
 
     public function save(): void
     {
@@ -219,7 +226,7 @@ class User extends Sql
                     "class"=>"formRegister",
                     "required"=>true,
                     "error"=>"Votre email n'est pas correct",
-                    "unicity"=>true,
+                    "unicity"=>'user',
                     "errorUnicity"=>"Un comte existe déjà avec cet email"
                 ],
                 "password"=>[

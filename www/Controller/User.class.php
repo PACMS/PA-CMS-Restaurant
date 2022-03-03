@@ -25,15 +25,13 @@ class User{
 
     public function register()
     {
-
         $user = new UserModel();
-
 
         if (!empty($_POST)) {
             $result = Verificator::checkForm($user->getCompleteRegisterForm(), $_POST + $_FILES);
-            if($result){
+            if($result)
                 var_dump($result);
-            }else{
+            else{
                 $user = new UserModel();
                 $user->hydrate($_POST);
                 $user->save();
@@ -45,25 +43,39 @@ class User{
         $view->assign("user", $user);
     }
 
-    public function connected ()
+    public function googleConnect ()
     {
         $token = new OAuth($_GET['code']);
         $info = $token->google();
-
-        var_dump($info);
-        die();
-
         $user = new UserModel();
-        $user->setFirstname($info->given_name);
-        $user->setLastname($info->family_name);
-        $user->save();
 
-        new View('connected');
+        if (!$user->verifyEmailOAuth(['email' => $info->email])) {
+            $user->setFirstname($info->given_name);
+            $user->setLastname($info->family_name);
+            $user->setEmail($info->email);
+            $user->setStatus(true);
+            $user->save();
+        }
+
+        new View('dashboard');
     }
 
+    public function facebookConnect ()
+    {
+        $token = new OAuth($_GET['code']);
+        $info = $token->facebook();
+        $user = new UserModel();
 
+        if (!$user->verifyEmailOAuth(['email' => $info->email])) {
+            $user->setFirstname($info->first_name);
+            $user->setLastname($info->last_name);
+            $user->setEmail($info->email);
+            $user->setStatus(true);
+            $user->save();
+        }
 
-
+        new View('dashboard');
+    }
 }
 
 

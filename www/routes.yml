@@ -21,9 +21,13 @@
   controller: user
   action: register
 
-/connected:
+/googleConnect:
   controller: user
-  action: connected
+  action: googleConnect
+
+/facebookConnect:
+  controller: user
+  action: facebookConnect
 
 /dashboard:
   controller: admin

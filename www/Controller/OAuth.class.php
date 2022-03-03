@@ -21,7 +21,7 @@ class OAuth {
         $this->urlInfo = URL_API_INFO_GOOGLE;
         $this->client_id = PUBLIC_KEY_GOOGLE;
         $this->client_secret = PRIVATE_KEY_GOOGLE;
-        $this->getToken();
+        $this->getToken(REDIRECT_URI_GOOGLE);
         $this->getInfo();
 
         return $this->response;
@@ -29,16 +29,23 @@ class OAuth {
 
     public function facebook ()
     {
+        $this->urlOAuth = URL_API_OAUTH_FACEBOOK;
+        $this->urlInfo = URL_API_INFO_FACEBOOK;
+        $this->client_id = PUBLIC_KEY_FACEBOOK;
+        $this->client_secret = PRIVATE_KEY_FACEBOOK;
+        $this->getToken(REDIRECT_URI_FACEBOOK);
+        $this->getInfo();
 
+        return $this->response;
     }
 
-    private function getToken ()
+    private function getToken (string $redirect_uri)
     {
         $params = [
             'code' => $this->token,
             'client_id' => $this->client_id,
             'client_secret' => $this->client_secret,
-            'redirect_uri' => REDIRECT_URI,
+            'redirect_uri' => $redirect_uri,
             'grant_type' => 'authorization_code'
         ];
 
@@ -46,7 +53,6 @@ class OAuth {
         curl_setopt_array($curl, [
             CURLOPT_POST => true,
             CURLOPT_CUSTOMREQUEST => "POST",
-            CURLOPT_CAINFO => __DIR__ . DIRECTORY_SEPARATOR . 'cert.cer',
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_TIMEOUT => 20,
             CURLOPT_MAXREDIRS => 10,
@@ -62,7 +68,7 @@ class OAuth {
             if (curl_getinfo($curl, CURLINFO_HTTP_CODE) === 200) {
                 $response = json_decode($data);
                 $this->token = $response->access_token;
-            } else die('La connexion a échoué');
+            } else die('La récupération du Token a échoué');
         }
         curl_close($curl);
     }
@@ -89,7 +95,7 @@ class OAuth {
         else {
             if (curl_getinfo($curl, CURLINFO_HTTP_CODE) === 200) {
                 $this->response = json_decode($data);
-            } else die('La connexion a échoué');
+            } else die('La récupération des informations a échoué');
         }
         curl_close($curl);
     }
