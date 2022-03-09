@@ -33,6 +33,14 @@
   controller: user
   action: register
 
+/googleConnect:
+  controller: user
+  action: googleConnect
+
+/facebookConnect:
+  controller: user
+  action: facebookConnect
+
 /dashboard:
   controller: admin
   action: home

@@ -2,9 +2,9 @@
 
 namespace App\Controller;
 
-use App\Core\User as UserClean;
 use App\Core\Verificator;
 use App\Core\View;
+use App\Core\OAuth;
 use App\Model\User as UserModel;
 
 class User
@@ -29,6 +29,28 @@ class User
         $view = new View("login");
         $view->assign("title", "Connexion");
         $view->assign("user", $user);
+    }
+
+    public function register()
+    {
+        $user = new UserModel();
+        $errors = null;
+
+        if (!empty($_POST)) {
+            $errors = Verificator::checkForm($user->getCompleteRegisterForm(), $_POST + $_FILES);
+
+            if(!$errors) {
+                $user = new UserModel();
+                $user->hydrate($_POST);
+                $user->save();
+
+                /////////// redirection vers le dashboard à faire
+            }
+        }
+
+        $view = new View("register");
+        $view->assign("user", $user);
+        $view->assign("errors", $errors);
     }
 
     
@@ -58,6 +80,40 @@ class User
         $view->assign("user", $user);
     }
 
+    public function googleConnect ()
+    {
+        $token = new OAuth($_GET['code']);
+        $info = $token->google();
+        $user = new UserModel();
+
+        if (!$user->findOneBy(['email' => $info->email])) {
+            $user->setFirstname($info->given_name);
+            $user->setLastname($info->family_name);
+            $user->setEmail($info->email);
+            $user->setStatus(true);
+            $user->save();
+        }
+
+        new View('dashboard');
+    }
+
+    public function facebookConnect ()
+    {
+        $token = new OAuth($_GET['code']);
+        $info = $token->facebook();
+        $user = new UserModel();
+
+        if (!$user->findOneBy(['email' => $info->email])) {
+            $user->setFirstname($info->first_name);
+            $user->setLastname($info->last_name);
+            $user->setEmail($info->email);
+            $user->setStatus(true);
+            $user->save();
+        }
+
+        new View('dashboard');
+    }
+
     public function lostPassword() 
     {
         $user = new UserModel();
@@ -74,7 +130,7 @@ class User
         $view = new View("lostPasswordAction");
         $view->assign("title", "Mail d'oubli de mdp");
         $view->assign("user", $user);
-
+      
         // if (!empty($_POST)) {
         //     Verificator::checkForm(
         //         $user->getLoginForm(),
@@ -90,22 +146,4 @@ class User
         echo "Se déconnecter";
     }
 
-
-    public function register()
-    {
-
-        $user = new UserModel();
-
-
-        if (!empty($_POST)) {
-            Verificator::checkForm(
-                $user->getCompleteRegisterForm(), 
-                $_POST + $_FILES
-            );
-            // print_r($result);
-        }
-
-        $view = new View("Register");
-        $view->assign("user", $user);
-    }
 }

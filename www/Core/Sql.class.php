@@ -57,6 +57,34 @@ abstract class Sql
         return null;
     }
 
+    protected function databaseFindOne(string $sql, array $params)
+    {
+        $statement = $this->pdo->prepare($sql);
+        if ($statement !== false) {
+            $success = $statement->execute($params);
+            if ($success) {
+                $res = $statement->fetch(\PDO::FETCH_ASSOC);
+                if ($res === false) {
+                    return null;
+                }
+                return $res;
+            }
+        }
+        return null;
+    }
+
+    protected function databaseFindAll(string $sql, array $params): mixed
+    {
+        $statement = $this->pdo->prepare($sql);
+        if ($statement !== false) {
+            $success = $statement->execute($params);
+            if ($success) {
+                return $statement->fetchAll(\PDO::FETCH_ASSOC);
+            }
+        }
+        return null;
+    }
+
 
     /**
      * @param null $id
@@ -69,6 +97,17 @@ abstract class Sql
         return $queryPrepared->fetchObject(get_called_class());
     }
 
+    public function hydrate(array $data)
+    {
+        foreach ($data as $key => $value)
+        {
+            $methode = 'set'.$key;
+            if (method_exists($this, $methode))
+            {
+                $this->$methode($value);
+            }
+        }
+    }
 
     public function save(): void
     {

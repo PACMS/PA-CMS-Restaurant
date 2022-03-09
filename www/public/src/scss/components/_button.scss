@@ -1,13 +1,10 @@
 .button{
-    background-color: $blue;
-    color: $white;
-    padding: 14px 20px;
-    margin: 8px 0;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-}
-
-.button:hover {
-    background-color: $lightBlue;
+	display: inline-block;
+	padding: 1em 2em;
+	color: $red;
+	background-color: #234567;
+	text-transform: uppercase;
+	border: none;
+	transition: background-color 0.3s;
+	cursor: pointer;
 }
