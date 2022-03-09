@@ -1,6 +1,32 @@
-@import "variables";
-@import "fonts";
-@import "functions";
-@import "globals";
+/* -------------------------------- Utilities ------------------------------- */
 
-@import "components/button";
+@import
+  "utilities/variables",
+  "utilities/functions";
+
+/* --------------------------------- Vendors -------------------------------- */
+
+/* ---------------------------------- Base ---------------------------------- */
+
+@import 
+  "base/fonts",
+  "base/typography",
+  "base/reset";
+
+/* --------------------------------- Layouts -------------------------------- */
+
+@import 
+  "layout/forms",
+  "layout/flex";
+
+/* ------------------------------- Components ------------------------------- */
+
+@import 
+  "components/button";
+
+/* ---------------------------------- Pages --------------------------------- */
+
+@import 
+  "pages/login";
+
+/* --------------------------------- Themes --------------------------------- */

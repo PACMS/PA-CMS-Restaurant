@@ -137,8 +137,12 @@ class User extends Sql
         parent::save();
     }
 
-    
-
+    public function verifyUser(array $params): void
+    {
+        //Pré traitement par exemple
+        //echo "pre traitement";
+        parent::verifyUser($params);
+    }
 
     public function getRegisterForm():array
     {
@@ -149,6 +153,7 @@ class User extends Sql
                 "class"=>"formRegister",
                 "id"=>"formRegister",
                 "submit"=>"S'inscrire",
+                'captcha' => false,
             ],
             "inputs"=>[
                 "email"=>[
@@ -196,7 +201,7 @@ class User extends Sql
                     "max"=>100,
                     "error"=>"Votre nom doit faire entre 2 et 100 caractères"
                 ],
-                ""=>""
+                
             ]
         ];
     }
@@ -260,8 +265,71 @@ class User extends Sql
                 ],
                 "captcha" => [
                     'type' => 'captcha',
-                    'error' => 'Le captcha n\'a pas pu validé votre formulaire'
+                    'error' => 'Le captcha n\'a pas pu valider votre formulaire'
                 ]
+            ]
+        ];
+    }
+
+    public function getLoginForm():array
+    {
+        return [
+            "config"=>[
+                "method"=>"POST",
+                "action"=>"loginVerify",
+                "class"=>"formLogin",
+                "id"=>"formLogin",  
+                "submit"=>"Se connecter",
+                'captcha' => false,
+            ],
+            "inputs"=>[
+                "email"=>[
+                    "placeholder"=>"Votre email ...",
+                    "type"=>"email",
+                    "id"=>"emailLogin",
+                    "class"=>"formLogin",
+                    "required"=>true,
+                    "error"=>"Votre combinaison mail/mot de passe n'est pas correct",
+                ],
+                "password"=>[
+                    "placeholder"=>"Votre mot de passe ...",
+                    "type"=>"password",
+                    "id"=>"pwdLogin",
+                    "class"=>"formLogin",
+                    "required"=>true,
+                    "error"=>"Votre combinaison mail/mot de passe n'est pas correct"
+                ],
+                // "captcha" => [
+                //     'type' => 'captcha',
+                //     'error' => 'Le captcha n\'a pas pu valider votre formulaire'
+                // ]
+            ]
+        ];
+    }
+    public function getLostPasswordForm():array
+    {
+        return [
+            "config"=>[
+                "method"=>"POST",
+                "action"=>"lostPasswordAction",
+                "class"=>"formLostPassword",
+                "id"=>"formLostPassword",  
+                "submit"=>"Envoyer",
+                'captcha' => false,
+            ],
+            "inputs"=>[
+                "email"=>[
+                    "placeholder"=>"Votre email ...",
+                    "type"=>"email",
+                    "id"=>"emailLogin",
+                    "class"=>"formLostPassword",
+                    "required"=>true,
+                    "error"=>"Votre combinaison mail/mot de passe n'est pas correct",
+                ],
+                // "captcha" => [
+                //     'type' => 'captcha',
+                //     'error' => 'Le captcha n\'a pas pu valider votre formulaire'
+                // ]
             ]
         ];
     }

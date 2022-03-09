@@ -4,3 +4,5 @@ www/.env*
 node_modules/
 www/composer.lock
 www/vendor/
+.dist/
+.vscode/
