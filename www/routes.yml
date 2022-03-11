@@ -53,3 +53,8 @@
 /profile-restaurant:
   controller: restaurant
   action: updateRestaurant
+
+/profile:
+  controller: admin
+  action: profile
+  security: true

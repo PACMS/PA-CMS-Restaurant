@@ -6,3 +6,4 @@ www/composer.lock
 www/vendor/
 .dist/
 .vscode/
+npmignore
