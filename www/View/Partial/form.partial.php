@@ -1,49 +1,49 @@
-<!-- <h1>Création du formulaire</h1> -->
+<form method="<?= $config["config"]["method"]??"POST" ?>"
+      action="<?= $config["config"]["action"]??""?>"
+      id="<?= $config["config"]["id"]??""?>"
+      class="<?= $config["config"]["class"]??""?>"
+        <?= $config['config']['file'] ?? '' ?>>
 
-<form 
-    method="<?= $config["config"]["method"] ?? "POST" ?>" 
-    action="<?= $config["config"]["action"] ?? "" ?>" 
-    id="<?= $config["config"]["id"] ?? "" ?>" 
-    class="<?= $config["config"]["class"] ?? "" ?>" 
-    <?= $config['config']['file'] ?? '' ?>
-/>
-    <?php foreach ($config["inputs"] as $name => $input) : ?>
-        <?php if ($input["type"] === "radio") : ?>
-            <p><?= $input["title"] ?></p>
-            <?php foreach ($input['values'] as $value => $label) : ?>
-                <input 
-                    name="<?= $name ?>" 
-                    class="<?= $input["class"] ?? "" ?>" 
-                    id="<?= $value ?? "" ?>" 
-                    type="<?= $input["type"] ?? "text" ?>" 
-                    value="<?= $value ?>" 
-                    <?= !empty($input["required"]) ? 'required="required"' : ""  ?> 
-                    <?php if ($input["checked"] === $value) : ?> checked="checked" <?php endif ?>
-                />
-                <label for="<?= $value ?>"><?= $label ?></label>
-            <?php endforeach ?>
-        <?php elseif ($input["type"]  === "checkbox") : ?>
-            <p><?= $input["title"] ?></p>
-            <?php foreach ($input['values'] as $value => $label) : ?>
-                <input 
-                    name="<?= $name ?>[]" 
-                    class="<?= $input["class"] ?? "" ?>" 
-                    id="<?= $value ?? "" ?>" 
-                    type="<?= $input["type"] ?? "text" ?>" 
-                    value="<?= $value ?>" 
-                    <?php if ($input["checked"] === $value) : ?> checked="checked" <?php endif ?>
-                />
-                <label for="<?= $value ?>"><?= $label ?></label>
-            <?php endforeach ?>
-        <?php elseif ($input["type"] === "select") : ?>
-            <p><?= $input["label"] ?></p>
-            <select 
-                name="<?= $name ?>" 
-                class="<?= $input["class"] ?? "" ?>" 
-                id="<?= $name ?? "" ?>" 
-                type="<?= $input["type"] ?? "text" ?>" 
-                <?= !empty($input["required"]) ? 'required="required"' : ""  ?>
-            />
+
+    <?php foreach ($config["inputs"] as $name => $input) :?>
+
+
+    <?php if ($input["type"] === "radio"): ?>
+    <p><?= $input["title"] ?></p>
+        <?php foreach ($input['values'] as $value=>$label): ?>
+            <input name="<?= $name ?>"
+                   class="<?= $input["class"]??"" ?>"
+                   id="<?= $value ?? "" ?>"
+                   type="<?= $input["type"]??"text" ?>"
+                   value="<?= $value ?>"
+                <?= !empty( $input["required"])?'required="required"':""  ?>
+                <?php if( $input["checked"] === $value): ?>
+                    checked="checked"
+                <?php endif ?>
+            >
+            <label for="<?= $value ?>"><?= $label ?></label>
+        <?php endforeach ?>
+    <?php elseif ($input["type"]  === "checkbox"): ?>
+        <p><?= $input["title"] ?></p>
+        <?php foreach ($input['values'] as $value=>$label): ?>
+            <input name="<?= $name ?>[]"
+                   class="<?= $input["class"]??"" ?>"
+                   id="<?= $value??"" ?>"
+                   type="<?= $input["type"]??"text" ?>"
+                   value="<?= $value ?>"
+                    <?php if( $input["checked"] === $value): ?>
+                    checked="checked"
+                <?php endif ?>            >
+            <label for="<?= $value ?>"><?= $label ?></label>
+        <?php endforeach ?>
+    <?php elseif ($input["type"] === "select"): ?>
+        <p><?= $input["label"] ?></p>
+        <select name="<?= $name ?>"
+                class="<?= $input["class"]??"" ?>"
+                id="<?= $name ??"" ?>"
+                type="<?= $input["type"]??"text" ?>"
+            <?= !empty( $input["required"])?'required="required"':""  ?>
+        >
             <option disabled="disabled"><?= $input["placeholder"] ?></option>
             <?php foreach ($input['options'] as $value => $label) : ?>
                 <option 

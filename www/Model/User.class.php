@@ -1,12 +1,9 @@
 <?php
-namespace App\Model;
 
+namespace App\Model;
 
 use App\Core\Cleaner;
 use App\Core\Sql;
-
-use App\Core\User as userCore;
-use App\Core\Verificator;
 
 class User extends Sql
 {
@@ -41,9 +38,9 @@ class User extends Sql
     }
 
     /**
-     * @param null $firstname
+     * @param string $firstname
      */
-    public function setFirstname(?string $firstname): void
+    public function setFirstname(string $firstname): void
     {
         $this->firstname = (new Cleaner($firstname))->ucw()->e()->value;
     }
@@ -57,9 +54,9 @@ class User extends Sql
     }
 
     /**
-     * @param null $lastname
+     * @param string $lastname
      */
-    public function setLastname(?string $lastname): void
+    public function setLastname(string $lastname): void
     {
         $this->lastname = (new Cleaner($lastname))->upper()->e()->value;
     }
