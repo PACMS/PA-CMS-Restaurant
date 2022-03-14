@@ -12,6 +12,13 @@ class User
     public function login()
     {
         $user = new UserModel();
+        $errors = null;
+
+        if (!empty($_POST)) {
+            $errors = Verificator::checkForm($user->getLoginForm(), $_POST + $_FILES);
+
+        }
+
 
         // $user->setEmail("vivian.fr@free.fr");
         // $user->setPassword("Test1234");
