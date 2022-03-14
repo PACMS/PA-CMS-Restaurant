@@ -68,6 +68,29 @@ abstract class Sql
         return $queryPrepared->fetchObject(get_called_class());
     }
 
+    /**
+     * @param null $email
+     */
+    public function compareToken(?string $email): string
+    {
+        $sql = "SELECT token FROM ".$this->table." WHERE email=:email";
+        $queryPrepared = $this->pdo->prepare($sql);
+        $queryPrepared->execute( ["email"=>$email] );
+        return $queryPrepared->fetchColumn(0);
+
+    }
+
+       /**
+     * @param null $email
+     * @param null $result
+     */
+    public function updateStatus(?int $result, ?string $email): void
+    {
+        $sql = "UPDATE ".$this->table." SET "."status = ".$result." WHERE email=:email";
+        $queryPrepared = $this->pdo->prepare($sql);
+        $queryPrepared->execute( ["email"=>$email] );
+    }
+
     public function hydrate(array $data)
     {
         foreach ($data as $key => $value)
@@ -101,6 +124,39 @@ abstract class Sql
         $queryPrepared->execute($columns);
 
         //Si ID null alors insert sinon update
+    }
+
+    public function accessToken(?string $tokenToVerify): self 
+    {
+
+        
+        $colums = get_object_vars($this);
+        $varToExclude = get_class_vars(get_class());
+        $colums = array_diff_key($colums, $varToExclude);
+
+        var_dump($colums);
+
+        if(is_null($this->getEmail())){
+            die("L'email ne correspond pas !");
+        } else {
+            echo "<pre>";
+            print_r("token de la bd ". $this->compareToken($this->getEmail())."\n");
+            print_r("token donnée ". $tokenToVerify."\n");
+
+            $result = strcmp($this->compareToken($this->getEmail()), $tokenToVerify);
+
+            if($result == 0) {
+                echo "les tokens correspondent";
+                $this->updateStatus(1, $this->getEmail());
+            } else {
+                $this->updateStatus(0, $this->getEmail());
+                echo "les tokens ne correspondent pas";
+            }
+
+            die("c'est ok");
+        }
+
+        echo "getToken";
     }
 
     public function findOneBy(array $whereClause): array

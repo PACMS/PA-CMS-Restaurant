@@ -134,6 +134,11 @@ class User extends Sql
         parent::save();
     }
 
+    public function verifyToken(?string $tokenToVerify): void
+    {
+        parent::accessToken($tokenToVerify);
+    }
+  
     public function verifyUser(array $params): void
     {
         //Pré traitement par exemple
