@@ -1,0 +1,5 @@
+@function rem($pxVal){
+	$base: 18;
+	@return ($pxVal / $base) * 1rem;
+}
+
