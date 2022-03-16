@@ -1,6 +1,8 @@
 <?php
+
 namespace App\Model;
 
+use App\Core\Cleaner;
 use App\Core\Sql;
 
 class User extends Sql
@@ -15,7 +17,6 @@ class User extends Sql
 
     public function __construct()
     {
-        echo "constructeur du Model User";
         parent::__construct();
     }
 
@@ -37,11 +38,11 @@ class User extends Sql
     }
 
     /**
-     * @param null $firstname
+     * @param string $firstname
      */
-    public function setFirstname(?string $firstname): void
+    public function setFirstname(string $firstname): void
     {
-        $this->firstname = ucwords(strtolower(trim($firstname)));
+        $this->firstname = (new Cleaner($firstname))->ucw()->e()->value;
     }
 
     /**
@@ -53,11 +54,11 @@ class User extends Sql
     }
 
     /**
-     * @param null $lastname
+     * @param string $lastname
      */
-    public function setLastname(?string $lastname): void
+    public function setLastname(string $lastname): void
     {
-        $this->lastname = strtoupper(trim($lastname));
+        $this->lastname = (new Cleaner($lastname))->upper()->e()->value;
     }
 
     /**
@@ -73,7 +74,7 @@ class User extends Sql
      */
     public function setEmail(string $email): void
     {
-        $this->email = strtolower(trim($email));
+        $this->email = (new Cleaner($email))->lower()->e()->value;
     }
 
     /**
@@ -137,6 +138,13 @@ class User extends Sql
     {
         parent::accessToken($email, $tokenToVerify);
     }
+  
+    public function verifyUser(array $params): void
+    {
+        //Pré traitement par exemple
+        //echo "pre traitement";
+        parent::verifyUser($params);
+    }
 
     public function getRegisterForm():array
     {
@@ -147,6 +155,7 @@ class User extends Sql
                 "class"=>"formRegister",
                 "id"=>"formRegister",
                 "submit"=>"S'inscrire",
+                'captcha' => false,
             ],
             "inputs"=>[
                 "email"=>[
@@ -157,7 +166,7 @@ class User extends Sql
                     "required"=>true,
                     "error"=>"Votre email n'est pas correct",
                     "unicity"=>true,
-                    "errorUnicity"=>"Un comte existe déjà avec cet email"
+                    "errorUnicity"=>"Un compte existe déjà avec cet email"
                 ],
                 "password"=>[
                     "placeholder"=>"Votre mot de passe ...",
@@ -194,7 +203,7 @@ class User extends Sql
                     "max"=>100,
                     "error"=>"Votre nom doit faire entre 2 et 100 caractères"
                 ],
-                ""=>""
+                
             ]
         ];
     }
@@ -209,7 +218,6 @@ class User extends Sql
                 "id"=>"formRegister",
                 "submit"=>"S'inscrire",
                 'captcha' => true,
-                'file' => 'enctype="multipart/form-data"'
             ],
             "inputs"=>[
                 "email"=>[
@@ -219,7 +227,7 @@ class User extends Sql
                     "class"=>"formRegister",
                     "required"=>true,
                     "error"=>"Votre email n'est pas correct",
-                    "unicity"=>true,
+                    "unicity"=>'user',
                     "errorUnicity"=>"Un comte existe déjà avec cet email"
                 ],
                 "password"=>[
@@ -257,71 +265,73 @@ class User extends Sql
                     "max"=>100,
                     "error"=>"Votre nom doit faire entre 2 et 100 caractères"
                 ],
-                "gender"=>[
-                    "type"=>"radio",
-                    "class"=>"formRegister",
-                    "required"=>true,
-                    "title"=>"Veuillez sélectionner les options suivantes:",
-                    "checked"=>"F",
-                    "values" => [
-                        "F"=> "Femme",
-                        "H"=> "Homme"
-                    ],
-                    "error"=>"Vous devez sélectionner une option"
-                ],
-                "checkLanguage"=>[
-                    "type"=>"checkbox",
-                    "class"=>"formRegister",
-                    "title"=>"Veuillez sélectionner les options qui vous correspondent:",
-                    "checked"=>"PHP",
-                    "values"=>[
-                        "JS"=>"JavaScript",
-                        "PHP"=>"PHP",
-                        "VB"=>"Visual Basic"
-                    ],
-                    "error"=>"Vous devez sélectionner un choix"
-                ],
-                "language"=>[
-                    "type"=>"select",
-                    "name"=>"language",
-                    "class"=>"formRegister",
-                    "label"=>"Choisissez un language de programmation:",
-                    "placeholder"=>"Choisissez...",
-                    "default"=>"PHP",
-                    "options"=>[
-                        "JS"=>"JavaScript",
-                        "PHP"=>"PHP",
-                        "VB"=>"Visual Basic",
-                        "TS"=>"TypeScript",
-                        "SQL"=>"SQL"
-                    ],
-                    "error"=>"Vous devez sélectionner une valeur dans la liste"
-                ],
-                "comment"=>[
-                    "type"=>"textarea",
-                    "id"=>"comment",
-                    "class"=>"formRegister",
-                    "label"=>"Commentaires :",
-                    "max"=>240,
-                    "placeholder"=>"Votre commentaire...",
-                    "error"=>"Votre commentaire ne doit dépasser 240 caractères"
-                ],
-                "upload"=>[
-                    "type"=>"file",
-                    "id"=>"upload",
-                    "class"=>"formRegister",
-                    "label"=>"Choisissez un ficher:",
-                    "accept"=>[
-                        "png"=>"image/png",
-                        "jpeg"=>"image/jpeg",
-                        "jpg"=>"image/jpg"
-                    ],
-                    "error"=>"Vous ne pouvez uploader que des images de types png ou jpeg"
-                ],
                 "captcha" => [
                     'type' => 'captcha',
-                    'error' => 'Le captcha n\'a pas pu validé votre formulaire'
+                    'error' => 'Le captcha n\'a pas pu valider votre formulaire'
                 ]
+            ]
+        ];
+    }
+
+    public function getLoginForm():array
+    {
+        return [
+            "config"=>[
+                "method"=>"POST",
+                "action"=>"loginVerify",
+                "class"=>"formLogin",
+                "id"=>"formLogin",  
+                "submit"=>"Se connecter",
+                'captcha' => false,
+            ],
+            "inputs"=>[
+                "email"=>[
+                    "placeholder"=>"Votre email ...",
+                    "type"=>"email",
+                    "id"=>"emailLogin",
+                    "class"=>"formLogin",
+                    "required"=>true,
+                    "error"=>"Votre combinaison mail/mot de passe n'est pas correct",
+                ],
+                "password"=>[
+                    "placeholder"=>"Votre mot de passe ...",
+                    "type"=>"password",
+                    "id"=>"pwdLogin",
+                    "class"=>"formLogin",
+                    "required"=>true,
+                    "error"=>"Votre combinaison mail/mot de passe n'est pas correct"
+                ],
+                // "captcha" => [
+                //     'type' => 'captcha',
+                //     'error' => 'Le captcha n\'a pas pu valider votre formulaire'
+                // ]
+            ]
+        ];
+    }
+    public function getLostPasswordForm():array
+    {
+        return [
+            "config"=>[
+                "method"=>"POST",
+                "action"=>"lostPasswordAction",
+                "class"=>"formLostPassword",
+                "id"=>"formLostPassword",  
+                "submit"=>"Envoyer",
+                'captcha' => false,
+            ],
+            "inputs"=>[
+                "email"=>[
+                    "placeholder"=>"Votre email ...",
+                    "type"=>"email",
+                    "id"=>"emailLogin",
+                    "class"=>"formLostPassword",
+                    "required"=>true,
+                    "error"=>"Votre combinaison mail/mot de passe n'est pas correct",
+                ],
+                // "captcha" => [
+                //     'type' => 'captcha',
+                //     'error' => 'Le captcha n\'a pas pu valider votre formulaire'
+                // ]
             ]
         ];
     }

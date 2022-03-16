@@ -1,0 +1,146 @@
+section.container-preview-cards {
+  box-sizing: border-box;
+
+background-color: $background-card;
+width: 100%;
+height: 350px;
+margin-top: rem(4);
+margin-bottom: rem(4);
+margin-top: auto;
+border-radius: 15px;
+padding: 15px 15px;
+padding-right: 0;
+border: 1px solid $stroke-card;
+display: flex;
+overflow-x: scroll;
+overflow-y: hidden;
+
+  display: grid;
+  grid-template-columns: repeat(6, auto);
+  grid-gap: 0 10px;
+   
+  
+
+  article.card {
+    box-sizing: content-box;
+    background-color: $white;
+    margin-left: rem(16);
+    margin-right: rem(16);
+    width: 209px;
+    height: 307px;
+    border-radius: 5px;
+    box-shadow: 1px 4px 6px 1px #cacaca;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+
+    figure {
+      margin: 0;
+      height: 100%;
+      width: 100%;
+      position: relative;
+      border-bottom-left-radius: 5px;
+      border-bottom-right-radius: 5px;
+      
+      footer {
+        position: absolute;
+        height: 56px;
+        width: 100%;
+        background: $white;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+        vertical-align: middle;
+        bottom: 0;
+        border-bottom-left-radius: 5px;
+        border-bottom-right-radius: 5px;
+  
+        h1 {
+          font-size: rem(13);
+          margin: 0;
+          color: $black;
+          &:first-letter {
+            text-transform: uppercase;
+          }
+          padding-left: 5px;
+        }
+        h2 {
+          font-size: rem(10);
+          margin: 0;
+          color: $card-h2-color;
+          padding-left: 5px;
+        }
+        a {
+          position: absolute;
+          width: 67px;
+          right: 15px;
+          top: 0;
+          height: auto;
+          text-align: center;
+          background-color: $primaryBlue;
+          color: $white;
+          transform: translateY(-50%);
+          border-radius: 10px;
+          font-size: rem(15);
+          box-shadow: 1 px 3px 5px #cacaca;
+          cursor: pointer;
+        }
+      }
+      
+      img {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        border-top-left-radius: 5px;
+        border-top-right-radius: 5px;
+        border-bottom-left-radius: 5px;
+        border-bottom-right-radius: 5px;
+
+        
+      }
+    }
+
+    
+
+    
+  }
+}
+
+
+.container_dashboard{
+  height: 350px;
+  border-radius: 15px;
+  background-color: $background-card;
+  border: 1px solid #CFCFCF;
+  
+  & > figure{
+    text-align: center;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    padding-top: 32px;
+
+    &  img{
+      margin: 0 auto;
+      width: 95%;
+      max-height: 210px;
+      object-fit: contain;
+    }
+
+  }
+
+  & > div{
+    margin-left: 72px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-top: 10px;
+
+  & > p:first-child{
+    color: $navbar-text;
+    margin: 0;
+  }
+  }
+
+
+  
+}

@@ -2,4 +2,8 @@
 db_data
 www/.env*
 node_modules/
-vendor
+www/composer.lock
+www/vendor/
+.dist/
+.vscode/
+npmignore

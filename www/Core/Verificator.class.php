@@ -2,14 +2,15 @@
 
 namespace App\Core;
 
-class Verificator
-{
+use App\Model\User as UserModel;
 
+class Verificator extends Sql
+{
     public static function checkForm($config, $data): array
     {
         $errors = [];
 
-        if ( count( $config["inputs"]) != count($_POST + $_FILES)) die("tentative de hack");
+        if ( count( $config["inputs"]) != count($_POST + $_FILES)) die("Tentative de hack");
 
         foreach ($config["inputs"] as $name=>$input)
         {
@@ -21,6 +22,7 @@ class Verificator
             if ( !empty($input["confirm"]) && $data[$name]!=$data[$input["confirm"]]) $errors[]=$input["error"];
             if ( !empty($input['min']) && !self::min($data[$name], $input['min'])) $errors[]=$input["error"];
             if ( !empty($input['max']) && !self::max($data[$name], $input['max'])) $errors[]=$input["error"];
+            if ( !empty($input['unicity']) && !self::unicity($data[$name], $name, $input['unicity'])) $errors[]=$input["errorUnicity"];
 
             if ( $input['type'] == "email" && !self::checkEmail($data[$name])) $errors[]=$input["error"];
             if ( $input["type"] == "password" && !self::checkPwd($data[$name]) && empty($input["confirm"])) $errors[]=$input["error"];
@@ -47,6 +49,12 @@ class Verificator
     public static function checkEmail($email): bool
     {
         return filter_var($email, FILTER_VALIDATE_EMAIL);
+    }
+
+    public static function unicity ($value, $field, $table)
+    {
+        if ((new Verificator())->databaseFindOne("SELECT * FROM " . DBPREFIXE . "{$table} WHERE {$field} = ?", [$value])) return false;
+        else return true;
     }
 
     public static function checkPwd($pwd): bool

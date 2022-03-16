@@ -10,6 +10,18 @@
   controller: user
   action: login
 
+/loginVerify:
+  controller: user
+  action: loginVerify
+
+/lostPassword:
+  controller: user
+  action: lostPassword
+
+/lostPasswordAction:
+  controller: user
+  action: lostPasswordAction
+
 /logout:
   controller: user
   action: logout
@@ -18,10 +30,26 @@
   controller: user
   action: register
 
+/googleConnect:
+  controller: user
+  action: googleConnect
+
+/facebookConnect:
+  controller: user
+  action: facebookConnect
+
 /dashboard:
   controller: admin
   action: home
   security: true
+
+/sendmail:
+  controller: mail
+  action: sendConfirmMail
+
+/testmail:
+  controller: mail
+  action: index
 
 /createToken:
   controller: user
@@ -34,3 +62,16 @@
 /verifyToken:
   controller: user
   action: verifyToken
+
+/restaurant:
+  controller: restaurant
+  action: restaurant
+
+/profile-restaurant:
+  controller: restaurant
+  action: updateRestaurant
+
+/profile:
+  controller: admin
+  action: profile
+  security: true

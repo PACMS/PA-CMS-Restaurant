@@ -2,45 +2,61 @@
 
 namespace App\Controller;
 
-use App\Core\User as UserClean;
 use App\Core\Verificator;
+use App\Controller\Mail;
 use App\Core\View;
+use App\Core\OAuth;
 use App\Model\User as UserModel;
 
-class User {
-
-
+class User
+{
     public function login()
     {
+        $user = new UserModel();
+        $errors = null;
+
+        if (!empty($_POST)) {
+            $errors = Verificator::checkForm($user->getLoginForm(), $_POST + $_FILES);
+
+        }
+
+
+        // $user->setEmail("vivian.fr@free.fr");
+        // $user->setPassword("Test1234");
+        // $user->setLastname("Ruhlmann");
+        // $user->setFirstname("Vivian");
+        // $user->generateToken();
+        // $user->save();
+
+        // if (!empty($_POST)) {
+        //     $result = Verificator::checkForm($user->getLoginForm(), $_POST + $_FILES);
+
+        //     print_r($result);
+        // }
+
         $view = new View("login");
-        $view->assign("title", "Ceci est le titre de la page login");
+        $view->assign("title", "Connexion");
+        $view->assign("user", $user);
     }
-
-    public function logout()
-    {
-        echo "Se déconnecter";
-    }
-
 
     public function register()
     {
-
         $user = new UserModel();
+        $errors = null;
 
         if (!empty($_POST)) {
-            $result = Verificator::checkForm($user->getCompleteRegisterForm(), $_POST + $_FILES);
-            if($result){
-                var_dump($result);
-            }else{
-                $user = new UserModel();
+            $errors = Verificator::checkForm($user->getCompleteRegisterForm(), $_POST + $_FILES);
+
+            if(!$errors) {
                 $user->hydrate($_POST);
                 $user->save();
-                echo "Enregistrement effectué";
+                /////////// redirection vers le dashboard à faire
             }
         }
 
         $view = new View("register");
         $view->assign("user", $user);
+        $view->assign("errors", $errors);
     }
 
     public function verifyToken()
@@ -54,21 +70,124 @@ class User {
             echo "L'email ou le token est null! Vérification impossible";
         }
     }
+  
+    public function createToken()
+    {
 
+        $view = new View("token");
+        //$view->assign("user", $user);
 
+    }
 
+    public function getToken()
+    {
+        $user = new UserModel();
+        //$user->setId(1);
+        $user->setEmail("thibautsembeni@gmail.com");
+        $user->setPassword("Test1234");
+        $user->setLastname("SembEnI   ");
+        $user->setFirstname("  THIBaut   ");
+        $user->generateToken();
+        Mail::sendConfirmMail($user->getToken(), $user->getEmail());
+        //$user->save();
+        echo "<pre>";
+        echo ("Token créé ". $user->getToken());
 
+        //envoie du mail 
+        //click sur http://localhost/verifyToken?token=<token>?email=<email>
 
+    }
+
+    public function loginVerify()
+    {
+        $user = new UserModel();
+        
+
+        if (!empty($_POST)) {
+            Verificator::checkForm(
+                $user->getLoginForm(),
+                $_POST + $_FILES
+            );
+            // print_r($result);
+        }
+        
+        $user->setEmail($_POST['email']);
+        $user->setPassword($_POST['password']);
+        
+        $params = ["email" => 'email'];
+        
+        $user->verifyUser($params);
+        
+        
+        $view = new View("loginVerify");
+        $view->assign("title", "Vérification");
+        $view->assign("user", $user);
+    }
+
+    public function googleConnect ()
+    {
+        $token = new OAuth($_GET['code']);
+        $info = $token->google();
+        $user = new UserModel();
+
+        if (!$user->findOneBy(['email' => $info->email])) {
+            $user->setFirstname($info->given_name);
+            $user->setLastname($info->family_name);
+            $user->setEmail($info->email);
+            $user->setStatus(true);
+            $user->save();
+        }
+
+        new View('dashboard');
+    }
+
+    public function facebookConnect ()
+    {
+        $token = new OAuth($_GET['code']);
+        $info = $token->facebook();
+        $user = new UserModel();
+
+        if (!$user->findOneBy(['email' => $info->email])) {
+            $user->setFirstname($info->first_name);
+            $user->setLastname($info->last_name);
+            $user->setEmail($info->email);
+            $user->setStatus(true);
+            $user->save();
+        }
+
+        new View('dashboard');
+    }
+
+    public function lostPassword() 
+    {
+        $user = new UserModel();
+
+        $view = new View("lostPassword");
+        $view->assign("title", "Mot de passe oublié");
+        $view->assign("user", $user);
+    }
+
+    public function lostPasswordAction() 
+    {
+        $user = new UserModel();
+
+        $view = new View("lostPasswordAction");
+        $view->assign("title", "Mail d'oubli de mdp");
+        $view->assign("user", $user);
+      
+        // if (!empty($_POST)) {
+        //     Verificator::checkForm(
+        //         $user->getLoginForm(),
+        //         $_POST + $_FILES
+        //     );
+        // }
+
+        $email = $_POST['email'];
+    }
+
+    public function logout()
+    {
+        echo "Se déconnecter";
+    }
 
 }
-
-
-
-
-
-
-
-
-
-
-

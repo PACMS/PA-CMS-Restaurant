@@ -2,20 +2,23 @@ version: '3'
 services:
   web:
     build: site
-    container_name: apache-3IW
+    container_name: apache
     ports :
-     - "80:80"
+      - "80:80"
+      - "443:443"
     volumes:
-     - ./www:/var/www/html/
-     - ./server/000-default.conf:/etc/apache2/sites-available/000-default.conf
-     - ./server/apache2.conf:/etc/apache2/apache2.conf
-     - ./server/php.ini:/usr/local/etc/php/php.ini
+      - ./www:/var/www/html/
+      - ./server/000-default.conf:/etc/apache2/sites-available/000-default.conf
+      - ./server/apache2.conf:/etc/apache2/apache2.conf
+      - ./server/php.ini:/usr/local/etc/php/php.ini
+      - ./server/mycert.crt:/var/www/html/mycert.crt
+      - ./server/mycert.key:/var/www/html/mycert.key
     depends_on:
-     - database
+      - database
 
   database:
     image: mysql:5.7
-    container_name: mysql-mvc
+    container_name: mysql
     ports :
       - "3306:3306"
     environment:
@@ -29,11 +32,13 @@ services:
   
   phpmyadmin:
     image: phpmyadmin/phpmyadmin:latest
-    container_name: phpmyadmin-mvc
+    container_name: phpmyadmin
     depends_on:
       - database
     ports:
-      - 8888:80
+      - "8080:80"
     environment:
-        - PMA_ARBITRARY=1
-        
+      - PMA_ARBITRARY=1
+
+      
+      
