@@ -7,7 +7,6 @@ abstract class Sql
 
     private $pdo;
     private $table;
-
     public function __construct()
     {
         //Plus tard il faudra penser au singleton
@@ -68,17 +67,18 @@ abstract class Sql
         return $queryPrepared->fetchObject(get_called_class());
     }
 
-    /**
-     * @param null $email
-     */
-    public function compareToken(?string $email): string
+    public function hydrate(array $data)
     {
-        $sql = "SELECT token FROM ".$this->table." WHERE email=:email";
-        $queryPrepared = $this->pdo->prepare($sql);
-        $queryPrepared->execute( ["email"=>$email] );
-        return $queryPrepared->fetchColumn(0);
-
+        foreach ($data as $key => $value)
+        {
+            $methode = 'set'.$key;
+            if (method_exists($this, $methode))
+            {
+                $this->$methode($value);
+            }
+        }
     }
+
 
        /**
      * @param null $email
@@ -126,37 +126,23 @@ abstract class Sql
         //Si ID null alors insert sinon update
     }
 
-    public function accessToken(?string $tokenToVerify): self 
+
+
+    public function accessToken(?string $email, ?string $tokenToVerify): void 
     {
-
-        
-        $colums = get_object_vars($this);
-        $varToExclude = get_class_vars(get_class());
-        $colums = array_diff_key($colums, $varToExclude);
-
-        var_dump($colums);
-
-        if(is_null($this->getEmail())){
+        echo "<pre>";
+        if(is_null($email)){
             die("L'email ne correspond pas !");
         } else {
-            echo "<pre>";
-            print_r("token de la bd ". $this->compareToken($this->getEmail())."\n");
-            print_r("token donnée ". $tokenToVerify."\n");
-
-            $result = strcmp($this->compareToken($this->getEmail()), $tokenToVerify);
-
-            if($result == 0) {
-                echo "les tokens correspondent";
-                $this->updateStatus(1, $this->getEmail());
+            if(is_null($this->databaseFindOne("SELECT token FROM ".$this->table." WHERE email=:email AND token=:token", ["email"=>$email,"token"=>$tokenToVerify]))) {
+                echo "Le token est invalide";
             } else {
-                $this->updateStatus(0, $this->getEmail());
-                echo "les tokens ne correspondent pas";
-            }
+                echo "l'authentification token à réussi";
+                $this->updateStatus("1", $email);
+            }       
 
-            die("c'est ok");
+
         }
-
-        echo "getToken";
     }
 
     public function findOneBy(array $whereClause): array

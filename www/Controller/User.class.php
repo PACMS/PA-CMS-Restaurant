@@ -59,6 +59,18 @@ class User
         $view->assign("errors", $errors);
     }
 
+    public function verifyToken()
+    {
+        echo "<pre>";
+        print_r($_GET);
+        $user = new UserModel();
+        if(isset($_GET["email"]) && isset($_GET["token"])) {
+            $user->verifyToken($_GET["email"], $_GET["token"]);
+        } else {
+            echo "L'email ou le token est null! Vérification impossible";
+        }
+    }
+  
     public function createToken()
     {
 
@@ -86,24 +98,6 @@ class User
 
     }
 
-    public function verifyToken()
-    {
-        echo "<pre>";
-    /*    $user = new UserModel();
-      //  $user->setEmail("thibautsembeni@gmail.com");
-
-      //  $token = "741b211aac3839d3a426bbb476df3da095f1fce1cb195ba59d65fb42d65af821ca6fa7ef76bd1e8f8a704b1b8d75393fb0b7942ec6d12723f8be28077ae2e58b5d95ae384eebbcb09cfde3dc593dba6fca24407611a1241e710d48d1ea8be9e84930997bf51309f2893d7e00d406d8620317dea18e032c6400ec981e5da1a77";
-
-        $user->verifyToken($token);
-*/
-
-
-        die("vérif token");
-    }
-
-
-
-    
     public function loginVerify()
     {
         $user = new UserModel();
