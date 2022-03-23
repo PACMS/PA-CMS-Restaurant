@@ -1,0 +1,133 @@
+main.login {
+  width: 100%;
+  height: 100%;
+  display: flex;
+
+  section#bg-image-login {
+    background-image: url(../assets/img/login.png);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 100%;
+    width: 60%;
+  }
+
+  section.login {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    width: 40%;
+
+    & > div.container-login {
+      width: 80%;
+
+      & form {
+        & label {
+          font-size: rem(14);
+          color: #888888;
+          font-weight: bold;
+        }
+
+        & input:not([type="submit"]) {
+          border: none;
+          border-radius: 11px;
+          height: 65px;
+          outline: none;
+          background-color: #f2f5fa;
+          margin: 8px 0;
+        }
+
+        & input[type="submit"] {
+          border-radius: 11px;
+          height: 65px;
+          outline: none;
+        }
+
+        & > div {
+          position: relative;
+          & > label[for="password"] + a {
+            font-size: rem(14);
+            font-weight: medium;
+          }
+
+          & input[type="password"],
+          input[type="text"] {
+            padding-right: 60px;
+
+            & + i {
+              position: absolute;
+              right: 0;
+              padding: 18px 20px;
+              cursor: pointer;
+            }
+          }
+        }
+      }
+
+      & p {
+        color: #888888;
+        font-size: rem(18);
+        text-align: center;
+      }
+
+      & .options-auth {
+        justify-content: space-between;
+
+        & article {
+          background-color: #f2f5fa;
+          width: 45%;
+          border: 2px solid #f2f5fa;
+          border-radius: 11px;
+
+          &:hover {
+            background-color: white;
+            border: 2px solid $article-border;
+          }
+          & figure {
+            margin: 0;
+            width: 32px;
+            height: 32px;
+            margin-right: 10px;
+          }
+
+          & p {
+            color: black;
+          }
+        }
+
+        & + p {
+          margin-top: 80px;
+          font-size: rem(16);
+          & > a {
+            font-weight: bold;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 913px) {
+  main.login {
+    section#bg-image-login {
+      display: none;
+    }
+    section.login {
+      width: 100%;
+    }
+  }
+}
+
+@media only screen and (max-width: 540px) {
+  main.login {
+    section.login > .container-login .options-auth {
+      flex-direction: column;
+      align-items: center;
+      & article {
+        width: 100% !important;
+        margin-bottom: 20px;
+      }
+    }
+  }
+}
