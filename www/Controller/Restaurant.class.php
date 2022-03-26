@@ -11,6 +11,7 @@ class Restaurant
     public function restaurant ()
     {
 
+        $view = new View("restaurants", "back");
     }
 
     public function updateRestaurant ()

@@ -4,7 +4,7 @@ services:
     build: site
     container_name: apache
     ports :
-      - "80:80"
+      - "81:80"
       - "443:443"
     volumes:
       - ./www:/var/www/html/
