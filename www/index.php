@@ -7,7 +7,7 @@ require "conf.inc.php";
 
 function myAutoloader( $class )
 {
-    var_dump($class);
+    // var_dump($class);
     // $class -> "Core\Security" "Model\User
     $class = str_ireplace("App\\","",$class);
     // $class -> "Core/Security" "Model/User

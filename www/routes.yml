@@ -22,6 +22,14 @@
   controller: user
   action: lostPasswordAction
 
+/resetPassword:
+  controller: user
+  action: resetPassword
+
+/resetPasswordAction:
+  controller: user
+  action: resetPasswordAction
+
 /logout:
   controller: user
   action: logout

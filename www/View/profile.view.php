@@ -23,7 +23,7 @@
             </div>
             <div id="profileDiv">
                 <a href="#">
-                    <p>Jean Pierre<i class="fas fa-user"></i></p>
+                    <p><?= $_SESSION['user']['firstname'] ?><i class="fas fa-user"></i></p>
                 </a>
                 <button>
                     <i class="far fa-moon"></i>
@@ -39,7 +39,7 @@
                 </div>
 
                 <div class="flex-column">
-                    <p class="title">Jean-Pierre</p>
+                    <p class="title"><?= $_SESSION['user']['firstname'] ?></p>
                     <p class="role top-32">Patron</p>
                 </div>
 
