@@ -3,45 +3,83 @@
 //     background-color: $grey;
 // }
 
+div input,
+select{
+    border: none;
+    border-bottom: 2px solid #333;
+    font-size: rem(18);
+    font-weight: 600;
+    width: 100%;
+    padding: 0.5em 0 0.5em 0;
+    transition: all 300ms linear;
+    outline: none;
+    border-bottom: 2px solid $system-grey;
+    &:disabled {
+        background-color: white;
+    }
+}
+
+
+
+/*
 input[type="text"],
 select {
+    border: none;
+    border-bottom: 2px solid #333;
+    font-size: rem(18);
+    font-weight: 600;
     width: 100%;
-    padding: 12px 20px;
-    margin: 8px 0;
-    display: inline-block;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box;
-    background-color: $grey;
+    padding: 0.5em 0 0.5em 0;
+    transition: all 300ms linear;
+    outline: none;
+    border-bottom: 2px solid $system-grey;
 }
+
+
+input[type="tel"],
+select {
+    border: none;
+    border-bottom: 2px solid #333;
+    font-size: rem(18);
+    font-weight: 600;
+    width: 100%;
+    padding: 0.5em 0 0.5em 0;
+    transition: all 300ms linear;
+    outline: none;
+    border-bottom: 2px solid $system-grey;
+}
+
+
 
 input[type="email"],
 select {
+    border: none;
+    border-bottom: 2px solid #333;
+    font-size: rem(18);
+    font-weight: 600;
     width: 100%;
-    padding: 12px 20px;
-    margin: 8px 0;
-    display: inline-block;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box;
-    background-color: $grey;
+    padding: 0.5em 0 0.5em 0;
+    transition: all 300ms linear;
+    outline: none;
+    border-bottom: 2px solid $system-grey;
 }
 
 input[type="password"],
 select {
+    border: none;
+    border-bottom: 2px solid #333;
+    font-size: rem(18);
+    font-weight: 600;
     width: 100%;
-    padding: 12px 20px;
-    margin: 8px 0;
-    display: inline-block;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box;
-    background-color: $grey;
-}
+    padding: 0.5em 0 0.5em 0;
+    transition: all 300ms linear;
+    outline: none;
+    border-bottom: 2px solid $system-grey;
+}*/
 
 input[type="submit"] {
     width: 100%;
-    background-color: $blue;
+    background-color: $primaryBlue;
     color: white;
     padding: 14px 20px;
     margin: 8px 0;
@@ -52,4 +90,20 @@ input[type="submit"] {
 
 input[type="submit"]:hover {
     background-color: $lightBlue;
+}
+.btn{
+    background-color: $dark-grey;
+    color: $white;
+    width: 120px;
+    padding: 10px 0 10px 0;
+    margin: 8px 0;
+    border: none;
+    border-radius: 11px;
+    cursor: pointer;
+}
+.btn-cancel{
+    background-color: $red-btn;
+}
+.btn-submit{
+    background-color: $blue;
 }

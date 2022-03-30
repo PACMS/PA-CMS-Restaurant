@@ -11,16 +11,14 @@ let mix = require("laravel-mix");
  |
  */
 
-mix.setPublicPath("../dist");
-
-mix.babel(
-  ["../src/js/vendor/jquery-3.6.0.min.js", "../src/js/main.js"],
-  "../dist/main.js"
-);
-
 // mix.minify('../web/dist/main.js');
 
 mix
+  .setPublicPath("../dist")
+  .babel(
+    ["../src/js/vendor/jquery-3.6.0.min.js", "../src/js/main.js"],
+    "../dist/main.js"
+  )
   .sass("../src/scss/main.scss", "../dist/")
   .options({ processCssUrls: false });
 
