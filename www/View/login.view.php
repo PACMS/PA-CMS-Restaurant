@@ -4,7 +4,7 @@
     <section class="login">
         <div class="container-login">
             <h1>Connexion</h1>
-            <form method="post" action="loginVerify">
+            <form method="post" action="loginVerify" class="flex flex-column">
                 <label for="email" class="greytext">Adresse mail</label>
                 <input type="email" name="email" />
                 <div class="flex justify-content-between align-items-center">
