@@ -49,7 +49,7 @@
 /dashboard:
   controller: admin
   action: home
-  security: true
+  security: 'employee'
 
 /sendmail:
   controller: mail
@@ -82,4 +82,4 @@
 /profile:
   controller: admin
   action: profile
-  security: true
+  security: 'employee'

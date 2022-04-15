@@ -1,10 +1,12 @@
 <?php 
-session_start(
-    [
-        'cookie_lifetime' => 86400,
-        'read_and_close' => true
-    ]
-); 
+if (!isset($_SESSION)) {
+    session_start(
+        [
+            'cookie_lifetime' => 86400,
+            'read_and_close' => true
+        ]
+    ); 
+}
 ?>
 <!DOCTYPE html>
 <html>

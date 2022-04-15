@@ -183,6 +183,7 @@ abstract class Sql
                 $_SESSION['user']['email'] = $userVerify['email'];
                 $_SESSION['user']['firstname'] = $userVerify['firstname'];
                 $_SESSION['user']['lastname'] = $userVerify['lastname'];
+                $_SESSION['user']['role'] = $userVerify['role'];
 
                 header('Location: dashboard');
             } else {

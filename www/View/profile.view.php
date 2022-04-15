@@ -40,7 +40,7 @@
 
                 <div class="flex-column">
                     <p class="title"><?= $_SESSION['user']['firstname'] ?></p>
-                    <p class="role top-32">Patron</p>
+                    <p class="role top-32"><?php echo $_SESSION['user']['role'] == 'admin' ? "Patron" : "Employé"; ?></p>
                 </div>
 
                 <button id="editProfile">

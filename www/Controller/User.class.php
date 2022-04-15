@@ -14,9 +14,9 @@ class User
     {
         $user = new UserModel();
 
-        if (!empty($_POST)) {
-            Verificator::checkForm($user->getLoginForm(), $_POST + $_FILES);
-        }
+        // if (!empty($_POST)) {
+        //     Verificator::checkForm($user->getLoginForm(), $_POST + $_FILES);
+        // }
 
 
         // $user->setEmail("vivian.fr@free.fr");
@@ -118,7 +118,6 @@ class User
                 $user->getLoginForm(),
                 $_POST + $_FILES
             );
-            // print_r($result);
         }
 
         $email = $_POST['email'];

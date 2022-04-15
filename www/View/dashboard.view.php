@@ -1,5 +1,3 @@
-<!-- <h1>Bienvenue dans votre Dashboard</h1> -->
-<!-- Welcome <?= $firstname ?> <?= $lastname ?> -->
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.6/Chart.bundle.min.js"></script>
 <main class="flex pageDashboard">
     <section class="sidebar">
