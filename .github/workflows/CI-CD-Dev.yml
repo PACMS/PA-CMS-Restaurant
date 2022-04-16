@@ -20,17 +20,23 @@ jobs:
     name: Connexion au serveur de recette
     runs-on: ubuntu-latest
     steps:
-    - name: executing remote ssh commands using ssh key
-      uses: appleboy/ssh-action@master
+    - name: Connect with SSH to server
+      uses: fifsky/ssh-action@master
       with:
-        host: ${{ secrets.HOST }}
-        username: ${{ secrets.USERNAME }}
-        key: ${{ secrets.KEY }}
-        port: ${{ secrets.PORT }}
-        script: |
+        command: |
           sudo -i
           eval $(ssh-agent -s)
           ssh-add ~/.ssh/id_rsa_github
           cd /var/www/PA-CMS-Restaurant
-          git pull origin develop
+          git stash
+          git pull origin develop --rebase
           git status
+          git stash pop
+          git status
+          cd www/public/webpack
+          npm run build
+        host: ${{ secrets.HOST }}
+        user: ${{ secrets.USERNAME }}
+        pass: ${{ secrets.PASSWORD }}
+        key: ${{ secrets.KEY }}
+
