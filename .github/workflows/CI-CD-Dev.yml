@@ -27,11 +27,10 @@ jobs:
         username: ${{ secrets.USERNAME }}
         key: ${{ secrets.KEY }}
         port: ${{ secrets.PORT }}
-        passphrase: ${{ secrets.PASSPHRASE }}
         script: |
           sudo -i
           eval $(ssh-agent -s)
-          ssh-add ~/.ssh/id_ed25519_pacms_github
-          cd /var/www/pacms
+          ssh-add ~/.ssh/id_rsa_github
+          cd /var/www/PA-CMS-Restaurant
           git pull origin develop
           git status
