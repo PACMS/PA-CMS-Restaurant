@@ -25,20 +25,31 @@
             <label for="<?= $value ?>"><?= $label ?></label>
         <?php endforeach ?>
     <?php elseif ($input["type"]  === "checkbox"): ?>
-        <p><?= $input["title"] ?></p>
+        <?php if ($input["additionnalDiv"]) : ?>
+            <div>
+        <?php endif ?>
+        <?php if (!empty($input["title"])): ?>
+            <p><?= $input["title"] ?></p>
+        <?php endif ?>
         <?php foreach ($input['values'] as $value=>$label): ?>
             <input name="<?= $name ?>[]"
                    class="<?= $input["class"]??"" ?>"
                    id="<?= $value??"" ?>"
                    type="<?= $input["type"]??"text" ?>"
                    value="<?= $value ?>"
+                   <?= !empty( $input["required"])?'required="required"':""  ?>
                     <?php if( $input["checked"] === $value): ?>
-                    checked="checked"
-                <?php endif ?>            >
+                        checked="checked"
+                    <?php endif ?>            >
             <label for="<?= $value ?>"><?= $label ?></label>
         <?php endforeach ?>
+        <?php if ($input["additionnalDiv"]) : ?>
+            </div>
+        <?php endif ?>
     <?php elseif ($input["type"] === "select"): ?>
-        <p><?= $input["label"] ?></p>
+        <?php if (!empty($input["label"])): ?>
+            <p><?= $input["label"] ?></p>
+        <?php endif ?>
         <select name="<?= $name ?>"
                 class="<?= $input["class"]??"" ?>"
                 id="<?= $name ??"" ?>"
@@ -88,6 +99,10 @@
                 id="recaptchaResponse"
             />
         <?php else : ?>
+            <?php if (!empty($input["label"])) : ?>
+                <label for="<?= $name ?>"><?= $input["label"] ?></label>
+            <?php endif ?>
+
             <input 
                 name="<?= $name ?>" 
                 class="<?= $input["class"] ?? "" ?>" 
@@ -96,12 +111,11 @@
                 type="<?= $input["type"] ?? "text" ?>" 
                 <?= !empty($input["required"]) ? 'required="required"' : ""  ?>
             />
-            <br>
+
         <?php endif ?>
 
 
     <?php endforeach; ?>
-    <br>
     <input 
         type="submit" 
         value="<?= $config["config"]["submit"] ?? "Envoyer" ?>"
