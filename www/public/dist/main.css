@@ -7,6 +7,7 @@
 /* --------------------- Green --------------------- */
 /* --------------------- Red --------------------- */
 /* --------------------- Red --------------------- */
+/* --------------------- RegisterForm --------------------- */
 /* --------------------------------- Vendors -------------------------------- */
 /* ---------------------------------- Base ---------------------------------- */
 /* -------------------------------------------------------------------------- */
@@ -2116,6 +2117,198 @@ main.login section.login > div.container-login .options-auth + p > a {
 #bookingTable tbody tr td a:last-child {
   color: #f44e4e;
   margin-left: 13.5px;
+}
+
+main.register {
+  width: 100%;
+  height: 100%;
+  display: flex;
+}
+
+main.register section#bg-image-register {
+  background-image: url(../assets/img/login.png);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 100%;
+  width: 60%;
+}
+
+main.register section.register {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  height: 100vh;
+  width: 40%;
+}
+
+main.register section.register div.container-register {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: 0 71px;
+}
+
+main.register section.register div.container-register form {
+  display: flex;
+  flex-direction: column;
+}
+
+main.register section.register div.container-register form label {
+  font-size: 0.875rem;
+  color: #888888;
+  font-weight: bold;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+}
+
+main.register section.register div.container-register form label[for='password'] {
+  cursor: pointer;
+}
+
+main.register section.register div.container-register form label > i {
+  cursor: pointer;
+  pointer-events: none;
+}
+
+main.register section.register div.container-register form input {
+  background-color: #f2f5fa;
+  border-radius: 11px;
+  border: none;
+  font-weight: normal;
+}
+
+main.register section.register div.container-register form input:not([type="submit"]):not([type="checkbox"]) {
+  height: 30px;
+  margin-bottom: 5px;
+  padding-left: 15px;
+}
+
+main.register section.register div.container-register form input[type="checkbox"] {
+  margin: 0;
+  accent-color: #f2f5fa;
+}
+
+main.register section.register div.container-register form input[type="checkbox"] + label[for="acceptConditions"] span {
+  color: #0051ef;
+}
+
+main.register section.register div.container-register form input[type="checkbox"] + label[for="acceptConditions"] span:hover {
+  cursor: pointer;
+}
+
+main.register section.register div.container-register form input[type="submit"] {
+  background-color: #0051ef;
+}
+
+main.register section.register div.container-register form div.progress-bar {
+  display: flex;
+  flex-direction: row;
+  padding: 5px 0;
+}
+
+main.register section.register div.container-register form div.progress-bar.progress-bar-danger > *:nth-child(1) {
+  background-color: #e90f10;
+}
+
+main.register section.register div.container-register form div.progress-bar.progress-bar-danger-confirm > * {
+  background-color: #e90f10;
+}
+
+main.register section.register div.container-register form div.progress-bar.progress-bar-warning > *:nth-child(1),
+main.register section.register div.container-register form div.progress-bar.progress-bar-warning > *:nth-child(2),
+main.register section.register div.container-register form div.progress-bar.progress-bar-warning > *:nth-child(3) {
+  background-color: #ffad00;
+}
+
+main.register section.register div.container-register form div.progress-bar.progress-bar-success > * {
+  background-color: #02b502;
+}
+
+main.register section.register div.container-register form div.progress-bar > * {
+  width: 25%;
+  height: 5px;
+  margin: 0 5px;
+  background-color: #888888;
+}
+
+main.register section.register div.container-register form div.progress-bar > *:first-child {
+  margin-right: 5px;
+}
+
+main.register section.register div.container-register form div.progress-bar > *:last-child {
+  margin-left: 5px;
+}
+
+main.register section.register div.container-register p {
+  color: #888888;
+  font-size: 1.125rem;
+  text-align: center;
+}
+
+main.register section.register div.container-register .options-auth {
+  justify-content: space-between;
+}
+
+main.register section.register div.container-register .options-auth a {
+  width: 45%;
+  text-decoration: none;
+}
+
+main.register section.register div.container-register .options-auth a article {
+  background-color: #f2f5fa;
+  border: 2px solid #f2f5fa;
+  border-radius: 11px;
+}
+
+main.register section.register div.container-register .options-auth a article:hover {
+  background-color: white;
+  border: 2px solid #e4e5e8;
+}
+
+main.register section.register div.container-register .options-auth a article figure {
+  margin: 0;
+  width: 32px;
+  height: 32px;
+  margin-right: 10px;
+}
+
+main.register section.register div.container-register .options-auth a article p {
+  color: black;
+}
+
+main.register section.register div.container-register .options-auth + p {
+  margin-top: 10px;
+  font-size: 1rem;
+}
+
+main.register section.register div.container-register .options-auth + p > a {
+  font-weight: bold;
+}
+
+main.register section.register div.container-register .options-auth + p > a:visited {
+  color: #0051ef;
+}
+
+@media only screen and (max-width: 913px) {
+  main.register section#bg-image-register {
+    display: none;
+  }
+  main.register section.register {
+    width: 100%;
+  }
+}
+
+@media only screen and (max-width: 540px) {
+  main.register section.register > .container-register .options-auth {
+    flex-direction: column;
+    align-items: center;
+  }
+  main.register section.register > .container-register .options-auth article {
+    width: 100% !important;
+    margin-bottom: 20px;
+  }
 }
 
 /* --------------------------------- Themes --------------------------------- */

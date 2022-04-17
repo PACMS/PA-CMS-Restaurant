@@ -15,19 +15,121 @@
 //   return false;
 // });
 $(document).ready(function () {
+  //show password login page
   $(
     "main.login section.login div.container-login form div.password-icon i#togglePassword"
   ).click(function (e) {
-    console.log("show password");
     let input = $(
       "main.login section.login div.container-login form div.password-icon input#login-input-password"
     );
     const type = input.attr("type") === "password" ? "text" : "password";
     input.attr("type", type);
-    console.log(type);
     e.target.classList.toggle("fa-eye-slash");
-    console.log(e.target.classList);
   });
+
+  //test password strength register page
+  $(document).on("keyup", "form#formRegister input#pwdRegister", function (e) {
+    let success = new RegExp(`^(?=.{8,}$)(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).*$`);
+    let danger = new RegExp(`^[a-z]+$`);
+    let warning = new RegExp(`^[a-zA-Z]+$`);
+    if (e.target.value.length === 0) {
+      $("form#formRegister div.progress-bar")
+        .removeClass("progress-bar-success")
+        .removeClass("progress-bar-danger")
+        .removeClass("progress-bar-warning");
+    }
+    if (success.test(e.target.value)) {
+      $("form#formRegister div.progress-bar")
+        .addClass("progress-bar-success")
+        .removeClass("progress-bar-danger")
+        .removeClass("progress-bar-warning");
+    } else if (danger.test(e.target.value)) {
+      $("form#formRegister div.progress-bar")
+        .addClass("progress-bar-danger")
+        .removeClass("progress-bar-success")
+        .removeClass("progress-bar-warning");
+    } else if (warning.test(e.target.value)) {
+      $("form#formRegister div.progress-bar")
+        .addClass("progress-bar-warning")
+        .removeClass("progress-bar-success")
+        .removeClass("progress-bar-danger");
+    }
+  });
+
+  //test compare password register page
+  $(document).on(
+    "keyup",
+    "form#formRegister input#pwdConfirmRegister",
+    function (e) {
+      let input_to_compare = $("form#formRegister input#pwdRegister").val();
+      if (e.target.value === input_to_compare) {
+        $("form#formRegister div.progress-bar").addClass(
+          "progress-bar-success"
+        );
+      } else {
+        $("form#formRegister div.progress-bar")
+          .removeClass("progress-bar-success")
+          .addClass("progress-bar-danger-confirm");
+      }
+    }
+  );
+  //display progress bar password
+  $(document).on(
+    "focusin",
+    "form#formRegister input#pwdRegister",
+    function (e) {
+      if (!$("div.progress-bar").length) {
+        $("form#formRegister input#pwdConfirmRegister").after(`
+          <div class="progress-bar">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+          </div>`);
+      }
+    }
+  );
+
+  //display progress bar confirm password
+  $(document).on(
+    "focusin",
+    "form#formRegister input#pwdConfirmRegister",
+    function (e) {
+      if (!$("div.progress-bar").length) {
+        $("form#formRegister input#pwdConfirmRegister").after(`
+          <div class="progress-bar">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+          </div>`);
+      }
+    }
+  );
+
+  //hide progress-bar password
+  $(document).on("blur", "form#formRegister input#pwdRegister", function (e) {
+    $("form#formRegister div.progress-bar").remove();
+  });
+
+  //hide progress-bar confirm password
+  $(document).on(
+    "blur",
+    "form#formRegister input#pwdConfirmRegister",
+    function (e) {
+      $("form#formRegister div.progress-bar").remove();
+    }
+  );
+  //get Info on password hover
+  $("form#formRegister label[for='password']")
+    .mouseenter(function () {
+      $("form#formRegister i#info-password-register").after(`
+      <span id="info-password">Votre mot de passe doit faire au minimum 8 caractères avec une majuscule et un chiffre</span>
+    `);
+    })
+    .mouseleave(function () {
+      $("span#info-password").remove();
+    });
 
   $("#navbarButton").click(function () {
     $(this).children(".far").toggleClass("rotated");
