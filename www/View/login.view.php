@@ -45,7 +45,7 @@
                     </article>
                 </a>
             </div>
-            <p>Vous n'avez pas de compte ? <a href="#">Créez en un !</a></p>
+            <p>Vous n'avez pas de compte ? <a href="/register">Créez en un !</a></p>
         </div>
     </section>
 </main>
