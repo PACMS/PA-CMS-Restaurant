@@ -83,3 +83,13 @@
   controller: admin
   action: profile
   security: true
+
+#Route pour la reservation
+/reservation:
+  controller: reservation
+  action: reservation
+
+/addReservation:
+  controller: reservation
+  action: addReservation
+############################

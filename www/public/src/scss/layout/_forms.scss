@@ -94,8 +94,7 @@ input[type="submit"]:hover {
 .btn{
     background-color: $dark-grey;
     color: $white;
-    width: 120px;
-    padding: 10px 0 10px 0;
+    padding: rem(10) 0 rem(10) 0;
     margin: 8px 0;
     border: none;
     border-radius: 11px;
