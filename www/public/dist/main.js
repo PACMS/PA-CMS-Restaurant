@@ -4116,6 +4116,24 @@ $(document).ready(function () {
     $("form#formRegister i#info-password-register").after("\n      <span id=\"info-password\">Votre mot de passe doit faire au minimum 8 caract\xE8res avec une majuscule et un chiffre</span>\n    ");
   }).mouseleave(function () {
     $("span#info-password").remove();
+  }); //wrap parent for input mail with icon
+
+  $("form#formLostPassword input#emailLogin").wrap("<div class=\"forgetPassword-icon\"></div>"); //add icon in input mail
+
+  $("form#formLostPassword input#emailLogin").after("<i class=\"fas fa-envelope\"></i>"); //select choice without password
+
+  $("section.container-forgetPassword div#passwordChoice h3#withoutPassword").click(function (e) {
+    $("section.container-forgetPassword div#passwordChoice h3#withPassword").removeClass("active");
+    e.target.classList.add("active");
+    $("section.container-forgetPassword p#with-pwd").removeClass("active");
+    $("section.container-forgetPassword p#without-pwd").addClass("active");
+  }); //select choice with password
+
+  $("section.container-forgetPassword div#passwordChoice h3#withPassword").click(function (e) {
+    $("section.container-forgetPassword div#passwordChoice h3#withoutPassword").removeClass("active");
+    $("section.container-forgetPassword p#without-pwd").removeClass("active");
+    $("section.container-forgetPassword p#with-pwd").addClass("active");
+    e.target.classList.add("active");
   });
   $("#navbarButton").click(function () {
     $(this).children(".far").toggleClass("rotated");

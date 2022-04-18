@@ -353,7 +353,7 @@ class User extends Sql
             ],
             "inputs"=>[
                 "email"=>[
-                    "placeholder"=>"Votre email ...",
+                    "placeholder"=>"Adresse mail",
                     "type"=>"email",
                     "id"=>"emailLogin",
                     "class"=>"formLostPassword",

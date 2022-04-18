@@ -8,6 +8,7 @@
 /* --------------------- Red --------------------- */
 /* --------------------- Red --------------------- */
 /* --------------------- RegisterForm --------------------- */
+/* --------------------- forgetPassword --------------------- */
 /* --------------------------------- Vendors -------------------------------- */
 /* ---------------------------------- Base ---------------------------------- */
 /* -------------------------------------------------------------------------- */
@@ -2308,6 +2309,116 @@ main.register section.register div.container-register .options-auth + p > a:visi
   main.register section.register > .container-register .options-auth article {
     width: 100% !important;
     margin-bottom: 20px;
+  }
+}
+
+main.forgetPassword {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+main.forgetPassword section.container-forgetPassword {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  width: 40%;
+}
+
+main.forgetPassword section.container-forgetPassword div:not(.forgetPassword-icon) {
+  width: 90%;
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid #5C626D;
+}
+
+main.forgetPassword section.container-forgetPassword div:not(.forgetPassword-icon) h3 {
+  color: #5C626D;
+  text-transform: uppercase;
+  cursor: pointer;
+  margin: 0;
+}
+
+main.forgetPassword section.container-forgetPassword div:not(.forgetPassword-icon) h3.active {
+  color: #0051ef;
+  border-bottom: 5px solid #0051ef;
+}
+
+main.forgetPassword section.container-forgetPassword div.forgetPassword-icon {
+  position: relative;
+}
+
+main.forgetPassword section.container-forgetPassword div.forgetPassword-icon i {
+  position: absolute;
+  right: 0;
+  padding: 16px 18px;
+  cursor: pointer;
+  border-left: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+main.forgetPassword section.container-forgetPassword p {
+  color: #5C626D;
+  display: none;
+}
+
+main.forgetPassword section.container-forgetPassword p.active {
+  display: block;
+}
+
+main.forgetPassword section.container-forgetPassword form#formLostPassword {
+  display: flex;
+  flex-direction: column;
+  flex-basis: 100%;
+  width: 90%;
+}
+
+main.forgetPassword section.container-forgetPassword form#formLostPassword input {
+  width: 100%;
+  height: 50px;
+}
+
+main.forgetPassword section.container-forgetPassword form#formLostPassword input[type="email"] {
+  border-radius: 11px;
+  width: 100%;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 17px;
+  padding-right: 57px;
+  box-sizing: border-box;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  font-weight: normal;
+}
+
+main.forgetPassword section.container-forgetPassword form#formLostPassword input[type="email"]::-moz-placeholder {
+  color: #888888;
+}
+
+main.forgetPassword section.container-forgetPassword form#formLostPassword input[type="email"]:-ms-input-placeholder {
+  color: #888888;
+}
+
+main.forgetPassword section.container-forgetPassword form#formLostPassword input[type="email"]::placeholder {
+  color: #888888;
+}
+
+main.forgetPassword section.container-forgetPassword form#formLostPassword input[type="submit"] {
+  border-radius: 50px;
+}
+
+@media only screen and (max-width: 913px) {
+  section.container-forgetPassword {
+    width: 80% !important;
+  }
+}
+
+@media only screen and (max-width: 540px) {
+  section.container-forgetPassword {
+    width: 100% !important;
   }
 }
 
