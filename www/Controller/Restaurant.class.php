@@ -10,7 +10,6 @@ class Restaurant
 {
     public function restaurant()
     {
-
     }
 
     public function updateRestaurant()
@@ -21,7 +20,7 @@ class Restaurant
         if (!empty($_POST)) {
             $errors = Verificator::checkForm($restaurant->getCompleteRegisterForm(), $_POST + $_FILES);
 
-            if(!$errors) {
+            if (!$errors) {
                 $restaurant->hydrate($_POST);
                 $restaurant->save();
             }

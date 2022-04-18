@@ -7,8 +7,6 @@ use App\Core\View;
 
 class Admin
 {
-
-
     public function home()
     {
         $user = new UserModel();
@@ -19,13 +17,10 @@ class Admin
 
     public function sendMail()
     {
-      
     }
 
     public function profile()
     {
         $view = new View("profile", "back");
     }
-
-
 }
