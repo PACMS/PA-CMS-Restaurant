@@ -12,10 +12,11 @@ class Reservation
     public function reservation()
     {
         $reservation = new ReservationModel();
-        $reservation->getAll();
-        die(print_r($reservation[0]));
+        $data =  $reservation->getAll();
+        //die(print_r($reservation->getAll()));
         $view = new View("reservation", "back");
         $view->assign('reservation', $reservation);
+        $view->assign('data', $data);
         /*$view->assign('dateNow', $dateNow);
         $view->assign('futureDate', $futureDate);*/
     }

@@ -2,8 +2,8 @@
 -- version 5.1.1
 -- https://www.phpmyadmin.net/
 --
--- Hôte : database
--- Généré le : mer. 02 fév. 2022 à 14:21
+-- Hôte : mysql
+-- Généré le : ven. 15 avr. 2022 à 10:17
 -- Version du serveur : 5.7.36
 -- Version de PHP : 7.4.20
 
@@ -33,7 +33,8 @@ CREATE TABLE `pacm_user` (
   `password` varchar(255) NOT NULL,
   `firstname` varchar(25) DEFAULT NULL,
   `lastname` text,
-  `status` tinyint(4) NOT NULL,
+  `status` tinyint(4) DEFAULT '0',
+  `role` varchar(8) NOT NULL DEFAULT 'user',
   `token` char(255) DEFAULT NULL,
   `createdAt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updatedAt` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP

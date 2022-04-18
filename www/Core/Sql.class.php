@@ -176,10 +176,11 @@ abstract class Sql
 
         $queryPrepared = $this->pdo->prepare($sql);
         $queryPrepared->execute();
-        $queryPrepared->fetchAll();
-        die(print_r($queryPrepared->name));
+        $data = $queryPrepared->fetchAll(\PDO::FETCH_OBJ);
+        //die(print_r($queryPrepared->fetchAll(\PDO::FETCH_OBJ)));
+        //die(print_r($queryPrepared[0]->name));
         //die(print_r($queryPrepared->fetchAll()));
-        return $queryPrepared->fetchAll();
+        return $data;
     }
 
     public function verifyUser(array $params): void
@@ -195,8 +196,13 @@ abstract class Sql
                 $_SESSION['user']['email'] = $userVerify['email'];
                 $_SESSION['user']['firstname'] = $userVerify['firstname'];
                 $_SESSION['user']['lastname'] = $userVerify['lastname'];
+                $_SESSION['user']['role'] = $userVerify['role'];
 
-                header('Location: dashboard');
+                if($userVerify['role'] == 'user') {
+                    header('Location: /');
+                } else {
+                    header('Location: dashboard');
+                }
             } else {
                 echo "ça fonctionne pas non plus!";
             }

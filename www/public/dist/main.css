@@ -504,6 +504,11 @@ input[type="submit"]:hover {
   /* 80px */
 }
 
+.w-48 {
+  width: 12rem;
+  /* 192px */
+}
+
 .w-full {
   width: 100%;
 }
@@ -2027,6 +2032,10 @@ main.login section.login > div.container-login .options-auth + p > a {
   float: left !important;
   text-align: left !important;
   margin-bottom: 0.9375rem;
+}
+
+a {
+  text-decoration: none;
 }
 
 .modal-window {

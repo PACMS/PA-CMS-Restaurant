@@ -35,34 +35,11 @@
         <section class="formProfile flex flex-column">
             <div id="open-modal" class="modal-window">
                 <div>
-                    <a href="#" title="Close" class="modal-close">Close</a>
-                  <!--  <form method="post" action="addReservation">
-                    <div class="containerForm">
-
-                        <label for="name" class="greytext">Nom et prénom</label>
-                        <input type="text" name="name"  autofocus>
-
-                        <label for="numPerson" class="greytext">Nombre de personne</label>
-                        <input type="number" name="numPerson"  >
-
-                        <label for="numTable" class="greytext">Numero de table</label>
-                        <input type="number" name="numTable"  >
-
-                        <label for="date" class="greytext">Date de reservation</label>
-                        <input type="date" min="<?php //echo $dateNow ?>" max="<?php //echo $futureDate ?>" name="date" >
-
-                        <label for="phone" class="greytext">Numéro de téléphone</label>
-                        <input type="tel" name="phone" >
-
-                        <button id=""  type="submit" class="btn btn-submit mt-7  pr-20 pl-20">
-                            Ajouter
-                        </button>
-                    </div>
-                    </form>-->
+                    <a href="#" title="Close" class="modal-close ">Close</a>
                     <?php $this->includePartial("formReserv", $reservation->getModalForm()); ?>
                 </div>
             </div>
-            <a class='btn btn-submit pr-20 pl-20' href="#open-modal" id='btncancel'>Ajout de reservation</a>
+            <a class='btn btn-submit pr-20 pl-20 w-48' href="#open-modal" id='btncancel'>Ajout de reservation</a>
             <section class="grid" style="margin-top: 35px;">
                 <div class="row">
                     <div class="cols-lg-12 cols-md-12 cols-sm-12">
@@ -84,60 +61,12 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr>
-                                    <td>8888888</td>
-                                    <td>Jean Pierre Delasoul</td>
-                                    <td>4 personnes</td>
-                                    <td>21h45</td>
-                                    <td>45</td>
-                                    <td>07.69.69.69.45</td>
-                                    <td>Test</td>
-                                </tr>
-                                <tr>
-                                    <td>8888888</td>
-                                    <td>Jean Pierre Delasoul</td>
-                                    <td>4 personnes</td>
-                                    <td>21h45</td>
-                                    <td>45</td>
-                                    <td>07.69.69.69.45</td>
-                                    <td>Test</td>
-                                </tr>
-                                <tr>
-                                    <td>8888888</td>
-                                    <td>Jean Pierre Delasoul</td>
-                                    <td>4 personnes</td>
-                                    <td>21h45</td>
-                                    <td>45</td>
-                                    <td>07.69.69.69.45</td>
-                                    <td>Test</td>
-                                </tr>
-                                <tr>
-                                    <td>8888888</td>
-                                    <td>Jean Pierre Delasoul</td>
-                                    <td>4 personnes</td>
-                                    <td>21h45</td>
-                                    <td>45</td>
-                                    <td>07.69.69.69.45</td>
-                                    <td>Test</td>
-                                </tr>
-                                <tr>
-                                    <td>8888888</td>
-                                    <td>Jean Pierre Delasoul</td>
-                                    <td>4 personnes</td>
-                                    <td>21h45</td>
-                                    <td>45</td>
-                                    <td>07.69.69.69.45</td>
-                                    <td>Test</td>
-                                </tr>
-                                <tr>
-                                    <td>8888888</td>
-                                    <td>Jean Pierre Delasoul</td>
-                                    <td>4 personnes</td>
-                                    <td>21h45</td>
-                                    <td>45</td>
-                                    <td>07.69.69.69.45</td>
-                                    <td>Test</td>
-                                </tr>
+                                <?php
+                                    foreach ($data as $reservation)
+                                    {
+                                       echo "<tr><td>" . $reservation->id . "</td><td>" . $reservation->name . "</td><td>" . $reservation->numPerson . "</td><td>" . $reservation->hour . "</td><td>" . $reservation->numTable . "</td><td>" . $reservation->phoneReserv . "</td><td> TEST </td> </tr>";
+                                    }
+                                ?>
                                 </tbody>
                             </table>
                         </div>
