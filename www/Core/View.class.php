@@ -2,7 +2,8 @@
 
 namespace App\Core;
 
-class View{
+class View
+{
 
     private $view;
     private $template;

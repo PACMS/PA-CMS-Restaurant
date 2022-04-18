@@ -123,7 +123,8 @@ class Restaurant extends Sql
         $this->phone = (new Cleaner($phone))->value;
     }
 
-    public function getCompleteRegisterForm () {
+    public function getCompleteRegisterForm()
+    {
         return [
             "config"=>[
                 "method"=>"POST",

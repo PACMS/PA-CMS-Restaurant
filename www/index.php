@@ -17,7 +17,7 @@ function myAutoloader($class)
     if (file_exists($class . ".class.php")) {
         include $class . ".class.php";
     } elseif (file_exists($class . ".php")) {
-        require $class . ".php";
+        include $class . ".php";
     }
 }
 
@@ -36,8 +36,11 @@ if (file_exists($fileRoutes)) {
 
 
 
-if (strpos($_SERVER["REQUEST_URI"], '?')) $uri = substr($_SERVER["REQUEST_URI"], 0, strpos($_SERVER["REQUEST_URI"], '?'));
-else $uri = $_SERVER["REQUEST_URI"];
+if (strpos($_SERVER["REQUEST_URI"], '?')) {
+    $uri = substr($_SERVER["REQUEST_URI"], 0, strpos($_SERVER["REQUEST_URI"], '?'));
+} else {
+    $uri = $_SERVER["REQUEST_URI"];
+}
 
 if (empty($routes[$uri]) || empty($routes[$uri]["controller"]) || empty($routes[$uri]["action"])) {
     http_response_code(404);
@@ -67,7 +70,7 @@ if (!file_exists($controllerFile)) {
     die("Le fichier Controller n'existe pas");
 }
 
-include $controllerFile;
+require $controllerFile;
 
 $controller = "App\\Controller\\" . $controller;
 if (!class_exists($controller)) {

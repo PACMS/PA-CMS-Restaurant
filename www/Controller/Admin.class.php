@@ -5,7 +5,8 @@ namespace App\Controller;
 use App\Model\User as UserModel;
 use App\Core\View;
 
-class Admin{
+class Admin
+{
 
 
     public function home()

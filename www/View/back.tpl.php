@@ -23,7 +23,7 @@ if (!isset($_SESSION)) {
 </head>
 <body>
 
-    <?php include $this->view.".view.php";?>
+    <?php require $this->view.".view.php";?>
 
 
 </body>

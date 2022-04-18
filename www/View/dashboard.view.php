@@ -25,7 +25,7 @@
             </div>
             <article class="flex align-items-center gap-20">
                 <a href="profile">
-                    <p class="m-0"><?= $_SESSION['user']['firstname'] ?><i class="fas fa-user"></i></p>
+                    <p class="m-0"><?php echo $_SESSION['user']['firstname'] ?><i class="fas fa-user"></i></p>
                 </a>
                 <button style="background: none; border: none">
                     <i class="far fa-moon"></i>

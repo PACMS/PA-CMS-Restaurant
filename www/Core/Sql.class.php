@@ -74,8 +74,7 @@ abstract class Sql
         foreach ($data as $key => $value)
         {
             $methode = 'set'.$key;
-            if (method_exists($this, $methode))
-            {
+            if (method_exists($this, $methode)) {
                 $this->$methode($value);
             }
         }
@@ -83,9 +82,9 @@ abstract class Sql
 
 
     /**
-    * @param null $email
-    * @param null $result
-    */
+     * @param null $email
+     * @param null $result
+     */
     public function updateStatus(?int $result, ?string $email): void
     {
         $sql = "UPDATE ".$this->table." SET "."status = ".$result." WHERE email=:email";

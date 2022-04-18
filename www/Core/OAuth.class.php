@@ -2,7 +2,8 @@
 
 namespace App\Core;
 
-class OAuth {
+class OAuth
+{
     private $token;
     private $urlOAuth;
     private $urlInfo;
@@ -15,7 +16,7 @@ class OAuth {
         $this->token = $token;
     }
 
-    public function google ()
+    public function google()
     {
         $this->urlOAuth = URL_API_OAUTH_GOOGLE;
         $this->urlInfo = URL_API_INFO_GOOGLE;
@@ -27,7 +28,7 @@ class OAuth {
         return $this->response;
     }
 
-    public function facebook ()
+    public function facebook()
     {
         $this->urlOAuth = URL_API_OAUTH_FACEBOOK;
         $this->urlInfo = URL_API_INFO_FACEBOOK;
@@ -39,7 +40,7 @@ class OAuth {
         return $this->response;
     }
 
-    private function getToken (string $redirect_uri)
+    private function getToken(string $redirect_uri)
     {
         $params = [
             'code' => $this->token,
@@ -50,7 +51,8 @@ class OAuth {
         ];
 
         $curl = curl_init();
-        curl_setopt_array($curl, [
+        curl_setopt_array(
+            $curl, [
             CURLOPT_POST => true,
             CURLOPT_CUSTOMREQUEST => "POST",
             CURLOPT_RETURNTRANSFER => true,
@@ -60,23 +62,26 @@ class OAuth {
             CURLOPT_NOBODY => false,
             CURLOPT_URL =>  $this->urlOAuth,
             CURLOPT_POSTFIELDS => $params,
-        ]);
+            ]
+        );
         $data = curl_exec($curl);
 
-        if ($data === false) die('Une erreur de traitement est survenue, merci de réessayer plus tard');
-        else {
+        if ($data === false) { die('Une erreur de traitement est survenue, merci de réessayer plus tard');
+        } else {
             if (curl_getinfo($curl, CURLINFO_HTTP_CODE) === 200) {
                 $response = json_decode($data);
                 $this->token = $response->access_token;
-            } else die('La récupération du Token a échoué');
+            } else { die('La récupération du Token a échoué');
+            }
         }
         curl_close($curl);
     }
 
-    private function getInfo ()
+    private function getInfo()
     {
         $curl = curl_init();
-        curl_setopt_array($curl, [
+        curl_setopt_array(
+            $curl, [
             CURLOPT_URL => $this->urlInfo,
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_ENCODING => '',
@@ -88,14 +93,16 @@ class OAuth {
             CURLOPT_HTTPHEADER => [
                 "Authorization: Bearer {$this->token}"
             ],
-        ]);
+            ]
+        );
         $data = curl_exec($curl);
 
-        if ($data === false) die('Une erreur de traitement est survenue, merci de réessayer plus tard');
-        else {
+        if ($data === false) { die('Une erreur de traitement est survenue, merci de réessayer plus tard');
+        } else {
             if (curl_getinfo($curl, CURLINFO_HTTP_CODE) === 200) {
                 $this->response = json_decode($data);
-            } else die('La récupération des informations a échoué');
+            } else { die('La récupération des informations a échoué');
+            }
         }
         curl_close($curl);
     }

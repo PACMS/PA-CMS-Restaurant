@@ -8,12 +8,12 @@ use App\Model\Restaurant as RestaurantModel;
 
 class Restaurant
 {
-    public function restaurant ()
+    public function restaurant()
     {
 
     }
 
-    public function updateRestaurant ()
+    public function updateRestaurant()
     {
         $restaurant = new RestaurantModel();
         $errors = null;

@@ -12,7 +12,7 @@ if (!isset($_SESSION)) {
 <html>
 <head>
     <meta charset="UTF-8">
-    <title><?= $title??"Titre par défaut" ?></title>
+    <title><?php echo $title??"Titre par défaut" ?></title>
     <meta name="description" content="ceci est une super page">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="../public/dist/main.css">
@@ -21,7 +21,7 @@ if (!isset($_SESSION)) {
 </head>
 <body>
 
-    <?php include $this->view.".view.php";?>
+    <?php require $this->view.".view.php";?>
 
 </body>
 </html>
