@@ -2422,4 +2422,38 @@ main.forgetPassword section.container-forgetPassword form#formLostPassword input
   }
 }
 
+main.error-404 {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+main.error-404 > h1 {
+  margin: 0;
+  font-weight: 600;
+  font-size: 18rem;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+}
+
+main.error-404 > a {
+  padding: 10px;
+  border-radius: 11px;
+  font-size: 1.125rem;
+  box-shadow: 5px 0 10px 5px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  text-decoration: none;
+  color: black;
+}
+
+main.error-404 > a:hover {
+  zoom: 110%;
+}
+
 /* --------------------------------- Themes --------------------------------- */
