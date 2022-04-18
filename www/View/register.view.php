@@ -6,7 +6,7 @@
 
 <?php
 if (isset($errors)) :
-    foreach ($errors as $error):
+    foreach ($errors as $error) :
         echo $error;
         echo '<br>';
     endforeach;
