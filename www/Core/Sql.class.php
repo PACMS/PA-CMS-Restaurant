@@ -4,7 +4,6 @@ namespace App\Core;
 
 abstract class Sql
 {
-
     private $pdo;
     private $table;
     public function __construct()
@@ -12,9 +11,9 @@ abstract class Sql
         //Plus tard il faudra penser au singleton
         try {
             $this->pdo = new \PDO(
-                DBDRIVER . 
-                ":host=" . DBHOST . 
-                ";port=" . DBPORT . 
+                DBDRIVER .
+                ":host=" . DBHOST .
+                ";port=" . DBPORT .
                 ";dbname=" . DBNAME,
                 DBUSER,
                 DBPWD,
@@ -30,11 +29,10 @@ abstract class Sql
 
     protected function databaseFindOne(array $whereClause, ?string $table = 'false')
     {
-        
         foreach ($whereClause as $key => $whereValue) {
             $where[] = $key . " = :" . $key;
         }
-        
+
         if ($table != 'false') {
             $table = DBPREFIXE . $table;
             $sql = "SELECT * FROM " . $table . " WHERE " . implode(" AND ", $where);
@@ -71,9 +69,8 @@ abstract class Sql
 
     public function hydrate(array $data)
     {
-        foreach ($data as $key => $value)
-        {
-            $methode = 'set'.$key;
+        foreach ($data as $key => $value) {
+            $methode = 'set' . $key;
             if (method_exists($this, $methode)) {
                 $this->$methode($value);
             }
@@ -87,9 +84,9 @@ abstract class Sql
      */
     public function updateStatus(?int $result, ?string $email): void
     {
-        $sql = "UPDATE ".$this->table." SET "."status = ".$result." WHERE email=:email";
+        $sql = "UPDATE " . $this->table . " SET " . "status = " . $result . " WHERE email=:email";
         $queryPrepared = $this->pdo->prepare($sql);
-        $queryPrepared->execute(["email"=>$email]);
+        $queryPrepared->execute(["email" => $email]);
     }
 
     public function save(): void
@@ -132,22 +129,20 @@ abstract class Sql
 
 
 
-    public function accessToken(?string $email, ?string $tokenToVerify, ?bool $updateStatus = true): void 
+    public function accessToken(?string $email, ?string $tokenToVerify, ?bool $updateStatus = true): void
     {
         echo "<pre>";
         if (is_null($email)) {
             die("L'email ne correspond pas !");
         } else {
-            if (is_null($this->databaseFindOne(["email"=>$email,"token"=>$tokenToVerify]))) {
+            if (is_null($this->databaseFindOne(["email" => $email,"token" => $tokenToVerify]))) {
                 echo "Le token est invalide";
             } else {
                 // echo "l'authentification token à réussi";
                 if ($updateStatus) {
                     $this->updateStatus("1", $email);
                 }
-            }       
-
-
+            }
         }
     }
 
@@ -162,7 +157,7 @@ abstract class Sql
         }
 
         $sql = "SELECT * FROM " . $this->table . " WHERE " . implode(",", $where);
-        
+
         $queryPrepared = $this->pdo->prepare($sql);
         $queryPrepared->execute($whereClause);
 
@@ -184,7 +179,7 @@ abstract class Sql
                 $_SESSION['user']['lastname'] = $userVerify['lastname'];
                 $_SESSION['user']['role'] = $userVerify['role'];
 
-                if($userVerify['role'] == 'user') {
+                if ($userVerify['role'] == 'user') {
                     header('Location: /');
                 } else {
                     header('Location: dashboard');

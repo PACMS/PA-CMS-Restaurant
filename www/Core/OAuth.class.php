@@ -52,26 +52,29 @@ class OAuth
 
         $curl = curl_init();
         curl_setopt_array(
-            $curl, [
-            CURLOPT_POST => true,
-            CURLOPT_CUSTOMREQUEST => "POST",
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_TIMEOUT => 20,
-            CURLOPT_MAXREDIRS => 10,
-            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-            CURLOPT_NOBODY => false,
-            CURLOPT_URL =>  $this->urlOAuth,
-            CURLOPT_POSTFIELDS => $params,
+            $curl,
+            [
+                CURLOPT_POST => true,
+                CURLOPT_CUSTOMREQUEST => "POST",
+                CURLOPT_RETURNTRANSFER => true,
+                CURLOPT_TIMEOUT => 20,
+                CURLOPT_MAXREDIRS => 10,
+                CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                CURLOPT_NOBODY => false,
+                CURLOPT_URL =>  $this->urlOAuth,
+                CURLOPT_POSTFIELDS => $params,
             ]
         );
         $data = curl_exec($curl);
 
-        if ($data === false) { die('Une erreur de traitement est survenue, merci de réessayer plus tard');
+        if ($data === false) {
+            die('Une erreur de traitement est survenue, merci de réessayer plus tard');
         } else {
             if (curl_getinfo($curl, CURLINFO_HTTP_CODE) === 200) {
                 $response = json_decode($data);
                 $this->token = $response->access_token;
-            } else { die('La récupération du Token a échoué');
+            } else {
+                die('La récupération du Token a échoué');
             }
         }
         curl_close($curl);
@@ -81,27 +84,30 @@ class OAuth
     {
         $curl = curl_init();
         curl_setopt_array(
-            $curl, [
-            CURLOPT_URL => $this->urlInfo,
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_ENCODING => '',
-            CURLOPT_MAXREDIRS => 10,
-            CURLOPT_TIMEOUT => 20,
-            CURLOPT_FOLLOWLOCATION => true,
-            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-            CURLOPT_CUSTOMREQUEST => 'GET',
-            CURLOPT_HTTPHEADER => [
-                "Authorization: Bearer {$this->token}"
-            ],
+            $curl,
+            [
+                CURLOPT_URL => $this->urlInfo,
+                CURLOPT_RETURNTRANSFER => true,
+                CURLOPT_ENCODING => '',
+                CURLOPT_MAXREDIRS => 10,
+                CURLOPT_TIMEOUT => 20,
+                CURLOPT_FOLLOWLOCATION => true,
+                CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                CURLOPT_CUSTOMREQUEST => 'GET',
+                CURLOPT_HTTPHEADER => [
+                    "Authorization: Bearer {$this->token}"
+                ],
             ]
         );
         $data = curl_exec($curl);
 
-        if ($data === false) { die('Une erreur de traitement est survenue, merci de réessayer plus tard');
+        if ($data === false) {
+            die('Une erreur de traitement est survenue, merci de réessayer plus tard');
         } else {
             if (curl_getinfo($curl, CURLINFO_HTTP_CODE) === 200) {
                 $this->response = json_decode($data);
-            } else { die('La récupération des informations a échoué');
+            } else {
+                die('La récupération des informations a échoué');
             }
         }
         curl_close($curl);
