@@ -11,31 +11,31 @@ class Cleaner
         $this->value = $value;
     }
 
-    public function lower ()
+    public function lower()
     {
         $this->value = strtolower($this->value);
         return $this;
     }
 
-    public function upper ()
+    public function upper()
     {
         $this->value = strtoupper($this->value);
         return $this;
     }
 
-    public function ucf ()
+    public function ucf()
     {
         $this->value = ucfirst($this->value);
         return $this;
     }
 
-    public function ucw ()
+    public function ucw()
     {
         $this->value = ucwords($this->value);
         return $this;
     }
 
-    public function e ()
+    public function e()
     {
         $this->value = trim($this->value);
         return $this;

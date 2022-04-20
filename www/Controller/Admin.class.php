@@ -5,9 +5,8 @@ namespace App\Controller;
 use App\Model\User as UserModel;
 use App\Core\View;
 
-class Admin{
-
-
+class Admin
+{
     public function home()
     {
         $user = new UserModel();
@@ -18,13 +17,10 @@ class Admin{
 
     public function sendMail()
     {
-      
     }
 
     public function profile()
     {
         $view = new View("profile", "back");
     }
-
-
 }

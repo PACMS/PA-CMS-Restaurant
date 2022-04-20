@@ -62,7 +62,7 @@ class Restaurant extends Sql
     /**
      * @return mixed
      */
-    public function getAdditional_address(): string
+    public function getAdditionalAddress(): string
     {
         return $this->additional_address;
     }
@@ -70,7 +70,7 @@ class Restaurant extends Sql
     /**
      * @param mixed $additional_address
      */
-    public function setAdditional_address(string $additional_address): void
+    public function setAdditionalAddress(string $additional_address): void
     {
         $this->additional_address = (new Cleaner($additional_address))->ucw()->e()->value;
     }
@@ -123,64 +123,65 @@ class Restaurant extends Sql
         $this->phone = (new Cleaner($phone))->value;
     }
 
-    public function getCompleteRegisterForm () {
+    public function getCompleteRegisterForm()
+    {
         return [
-            "config"=>[
-                "method"=>"POST",
-                "action"=>"",
-                "class"=>"formRestaurant",
-                "id"=>"formRestaurant",
-                "submit"=>"Ajouter le restaurant",
+            "config" => [
+                "method" => "POST",
+                "action" => "",
+                "class" => "formRestaurant",
+                "id" => "formRestaurant",
+                "submit" => "Ajouter le restaurant",
                 'captcha' => true,
             ],
-            "inputs"=>[
-                "address"=>[
-                    "placeholder"=>"Votre adresse",
-                    "type"=>"text",
-                    "id"=>"address",
-                    "class"=>"formRestaurant",
-                    "required"=>true,
-                    "min"=>2,
-                    "max"=>255,
-                    "error"=>"Le nom de votre restaurant n'est pas correct",
+            "inputs" => [
+                "address" => [
+                    "placeholder" => "Votre adresse",
+                    "type" => "text",
+                    "id" => "address",
+                    "class" => "formRestaurant",
+                    "required" => true,
+                    "min" => 2,
+                    "max" => 255,
+                    "error" => "Le nom de votre restaurant n'est pas correct",
                 ],
-                "additional_address"=>[
-                    "placeholder"=>"Complément d'adresse",
-                    "type"=>"text",
-                    "id"=>"additional_address",
-                    "class"=>"formRestaurant",
-                    "max"=>255,
-                    "error"=>"Le champs complément d'adresse contient une erreur"
+                "additional_address" => [
+                    "placeholder" => "Complément d'adresse",
+                    "type" => "text",
+                    "id" => "additional_address",
+                    "class" => "formRestaurant",
+                    "max" => 255,
+                    "error" => "Le champs complément d'adresse contient une erreur"
                 ],
-                "city"=>[
-                    "placeholder"=>"Ville",
-                    "type"=>"text",
-                    "id"=>"city",
-                    "class"=>"formRestaurant",
-                    "required"=>true,
-                    "min"=>2,
-                    "max"=>50,
-                    "error"=>"Le nom de votre ville n'est pas correct",
+                "city" => [
+                    "placeholder" => "Ville",
+                    "type" => "text",
+                    "id" => "city",
+                    "class" => "formRestaurant",
+                    "required" => true,
+                    "min" => 2,
+                    "max" => 50,
+                    "error" => "Le nom de votre ville n'est pas correct",
                 ],
-                "zipcode"=>[
-                    "placeholder"=>"Code postal",
-                    "type"=>"text",
-                    "id"=>"zipcode",
-                    "class"=>"formRestaurant",
-                    "required"=>true,
-                    "min"=>2,
-                    "max"=>10,
-                    "error"=>"Votre code postal est incorrect",
+                "zipcode" => [
+                    "placeholder" => "Code postal",
+                    "type" => "text",
+                    "id" => "zipcode",
+                    "class" => "formRestaurant",
+                    "required" => true,
+                    "min" => 2,
+                    "max" => 10,
+                    "error" => "Votre code postal est incorrect",
                 ],
-                "phone"=>[
-                    "placeholder"=>"Téléphone",
-                    "type"=>"text",
-                    "id"=>"phone",
-                    "class"=>"formRestaurant",
-                    "required"=>true,
-                    "min"=>2,
-                    "max"=>15,
-                    "error"=>"Votre numéro de téléphone est incorrect",
+                "phone" => [
+                    "placeholder" => "Téléphone",
+                    "type" => "text",
+                    "id" => "phone",
+                    "class" => "formRestaurant",
+                    "required" => true,
+                    "min" => 2,
+                    "max" => 15,
+                    "error" => "Votre numéro de téléphone est incorrect",
                 ],
                 "captcha" => [
                     'type' => 'captcha',
