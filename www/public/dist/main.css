@@ -1,31 +1,3 @@
-@import url(https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,700;1,400;1,700&display=swap);body {
-  background-color: #F2F2F2;
-  font-family: "Poppins", sans-serif;
-}
-
-h1 {
-  font-family: "Poppins", sans-serif;
-  font-size: 1.5rem;
-}
-
-h2 {
-  font-family: "Poppins", sans-serif;
-  font-size: 1rem;
-}
-
-.container {
-  margin: auto;
-  max-width: 1200px;
-}
-
-.button {
-  display: inline-block;
-  padding: 1em 2em;
-  color: #ce0a0a;
-  background-color: #234567;
-  text-transform: uppercase;
-  border: none;
-  transition: background-color 0.3s;
 @import url(https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap);/* -------------------------------- Utilities ------------------------------- */
 /* -------------------------------- Colors -------------------------------- */
 /* --------------------- Black --------------------- */
@@ -33,6 +5,7 @@ h2 {
 /* --------------------- Grey --------------------- */
 /* --------------------- Blue --------------------- */
 /* --------------------- Green --------------------- */
+/* --------------------- Red --------------------- */
 /* --------------------- Red --------------------- */
 /* --------------------------------- Vendors -------------------------------- */
 /* ---------------------------------- Base ---------------------------------- */
@@ -42,18 +15,18 @@ h2 {
 /* ---------------------------------- Base ---------------------------------- */
 html {
   font-family: "Poppins", sans-serif;
-  font-size: 18px;
+  font-size: 1rem;
 }
 
 /* -------------------------------- Headings -------------------------------- */
 h1 {
-  color: #0051EF;
+  color: #0051ef;
   font-size: 1.66666667rem;
 }
 
 h2 {
   font-size: 1.66666667rem;
-  color: #0051EF;
+  color: #0051ef;
   font-weight: 400;
 }
 
@@ -83,7 +56,7 @@ html {
 }
 
 .border-blue {
-  border-color: #0051EF;
+  border-color: #0051ef;
 }
 
 .border-1 {
@@ -107,19 +80,19 @@ html {
 }
 
 .border-top-blue {
-  border-top-color: #0051EF;
+  border-top-color: #0051ef;
 }
 
 .border-right-blue {
-  border-right-color: #0051EF;
+  border-right-color: #0051ef;
 }
 
 .border-bottom-blue {
-  border-bottom-color: #0051EF;
+  border-bottom-color: #0051ef;
 }
 
 .border-left-blue {
-  border-left-color: #0051EF;
+  border-left-color: #0051ef;
 }
 
 .border-top-solid {
@@ -293,7 +266,7 @@ select {
 }*/
 input[type="submit"] {
   width: 100%;
-  background-color: #0051EF;
+  background-color: #0051ef;
   color: white;
   padding: 14px 20px;
   margin: 8px 0;
@@ -571,7 +544,7 @@ input[type="submit"]:hover {
 
 .sidebar-title {
   font-size: 1.66666667rem;
-  color: #0051EF;
+  color: #0051ef;
   text-decoration: none;
   margin-top: 12px;
 }
@@ -624,7 +597,7 @@ input[type="submit"]:hover {
 }
 
 .sidebar-button:hover {
-  background-color: #0051EF;
+  background-color: #0051ef;
   color: #ffffff;
   height: 65px;
   box-shadow: 0px 4px 10px 1px rgba(0, 0, 0, 0.25);
@@ -636,7 +609,7 @@ input[type="submit"]:hover {
   border: none;
   background-color: #f7f7f7;
   cursor: pointer;
-  color: #0051EF;
+  color: #0051ef;
   font-size: 1rem;
   margin-bottom: 20px;
   margin-right: 20px;
@@ -693,7 +666,7 @@ h2 {
 }
 
 .sidebar-button--active {
-  background-color: #0051EF;
+  background-color: #0051ef;
   color: #ffffff;
   text-align: left;
   width: 85%;
@@ -729,7 +702,7 @@ h2 {
 }
 
 .navbar p {
-  color: #0051EF;
+  color: #0051ef;
   font-weight: 600;
 }
 
@@ -770,7 +743,7 @@ h2 {
 
 section.container-preview-cards {
   box-sizing: border-box;
-  background-color: #FBFBFB;
+  background-color: #fbfbfb;
   width: 100%;
   height: 350px;
   margin-top: 0.22222222rem;
@@ -849,7 +822,7 @@ section.container-preview-cards article.card figure footer a {
   top: 0;
   height: auto;
   text-align: center;
-  background-color: #0051EF;
+  background-color: #0051ef;
   color: #ffffff;
   transform: translateY(-50%);
   border-radius: 10px;
@@ -871,7 +844,7 @@ section.container-preview-cards article.card figure img {
 .container_dashboard {
   height: 350px;
   border-radius: 15px;
-  background-color: #FBFBFB;
+  background-color: #fbfbfb;
   border: 1px solid #CFCFCF;
 }
 
@@ -905,7 +878,7 @@ section.container-preview-cards article.card figure img {
 }
 
 .text-blue {
-  color: #0051EF;
+  color: #0051ef;
 }
 
 .data {
@@ -915,11 +888,11 @@ section.container-preview-cards article.card figure img {
 }
 
 .percentData--success {
-  color: #4AAF05;
+  color: #4aaf05;
 }
 
 .percentData--warning {
-  color: #F44E4E;
+  color: #f44e4e;
 }
 
 .m-0 {
@@ -948,7 +921,7 @@ section.container-preview-cards article.card figure img {
 
 /* ------------------------------- Components ------------------------------- */
 .button {
-  background-color: #0051EF;
+  background-color: #0051ef;
   color: #ffffff;
   width: 261px;
   padding: 14px 20px;
@@ -959,21 +932,19 @@ section.container-preview-cards article.card figure img {
 }
 
 .button:hover {
-  background-color: #ce0a0a;
-}
-  background-color: #0051EF;
+  background-color: #0051ef;
 }
 
 .button-active--blue {
-  background-color: #0051EF !important;
+  background-color: #0051ef !important;
 }
 
 .cta-button--blue {
-  background-color: #0051EF;
+  background-color: #0051ef;
 }
 
 .voir-plus-button {
-  color: #0051EF;
+  color: #0051ef;
   cursor: pointer;
 }
 
@@ -982,40 +953,6 @@ section.container-preview-cards article.card figure img {
   grid-gap: 0.83333333rem;
   height: 100%;
   margin-right: 8%;
-}
-
-.row {
-  display: flex;
-  flex-wrap: wrap;
-}
-
-.content {
-  height: 100px;
-  text-align: center;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.33333333rem;
-}
-
-.green {
-  background-color: green;
-}
-
-.purple {
-  background-color: purple;
-}
-
-.yellow {
-  background-color: yellow;
-}
-
-.blue {
-  background-color: blue;
-}
-
-.red {
-  background-color: red;
 }
 
 @media screen and (min-width: 0) {
@@ -1846,6 +1783,40 @@ section.container-preview-cards article.card figure img {
   box-sizing: border-box;
 }
 
+.row {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.content {
+  height: 100px;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.33333333rem;
+}
+
+.green {
+  background-color: green;
+}
+
+.purple {
+  background-color: purple;
+}
+
+.yellow {
+  background-color: yellow;
+}
+
+.blue {
+  background-color: blue;
+}
+
+.red {
+  background-color: red;
+}
+
 .calendar {
   border: none;
   background-color: transparent;
@@ -1907,6 +1878,142 @@ section div .profileImg > .fa-folder-open {
   justify-content: center;
 }
 
+main.login {
+  width: 100%;
+  height: 100%;
+  display: flex;
+}
+
+main.login section#bg-image-login {
+  background-image: url(../assets/img/login.png);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 100%;
+  width: 60%;
+}
+
+main.login section.login {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  width: 40%;
+}
+
+main.login section.login > div.container-login {
+  width: 80%;
+}
+
+main.login section.login > div.container-login form label {
+  font-size: 0.77777778rem;
+  color: #888888;
+  font-weight: bold;
+}
+
+main.login section.login > div.container-login form input:not([type="submit"]) {
+  border: none;
+  border-radius: 11px;
+  height: 65px;
+  outline: none;
+  background-color: #f2f5fa;
+  margin: 8px 0;
+}
+
+main.login section.login > div.container-login form input[type="submit"] {
+  border-radius: 11px;
+  height: 65px;
+  outline: none;
+}
+
+main.login section.login > div.container-login form > div {
+  position: relative;
+}
+
+main.login section.login > div.container-login form > div > label[for="password"] + a {
+  font-size: 0.77777778rem;
+  font-weight: medium;
+}
+
+main.login section.login > div.container-login form > div input[type="password"],
+main.login section.login > div.container-login form > div input[type="text"] {
+  padding-right: 60px;
+}
+
+main.login section.login > div.container-login form > div input[type="password"] + i,
+main.login section.login > div.container-login form > div input[type="text"] + i {
+  position: absolute;
+  right: 0;
+  padding: 18px 20px;
+  cursor: pointer;
+}
+
+main.login section.login > div.container-login p {
+  color: #888888;
+  font-size: 1rem;
+  text-align: center;
+}
+
+main.login section.login > div.container-login .options-auth {
+  justify-content: space-between;
+}
+
+main.login section.login > div.container-login .options-auth a {
+  width: 45%;
+  text-decoration: none;
+}
+
+main.login section.login > div.container-login .options-auth a article {
+  background-color: #f2f5fa;
+  border: 2px solid #f2f5fa;
+  border-radius: 11px;
+}
+
+main.login section.login > div.container-login .options-auth a article:hover {
+  background-color: white;
+  border: 2px solid #e4e5e8;
+}
+
+main.login section.login > div.container-login .options-auth a article figure {
+  margin: 0;
+  width: 32px;
+  height: 32px;
+  margin-right: 10px;
+}
+
+main.login section.login > div.container-login .options-auth a article p {
+  color: black;
+}
+
+main.login section.login > div.container-login .options-auth + p {
+  margin-top: 80px;
+  font-size: 0.88888889rem;
+}
+
+main.login section.login > div.container-login .options-auth + p > a {
+  font-weight: bold;
+}
+
+@media only screen and (max-width: 913px) {
+  main.login section#bg-image-login {
+    display: none;
+  }
+  main.login section.login {
+    width: 100%;
+  }
+}
+
+@media only screen and (max-width: 540px) {
+  main.login section.login > .container-login .options-auth {
+    flex-direction: column;
+    align-items: center;
+  }
+  main.login section.login > .container-login .options-auth article {
+    width: 100% !important;
+    margin-bottom: 20px;
+  }
+}
+
 .pageDashboard {
   height: 100%;
   width: 100%;
@@ -1936,7 +2043,7 @@ section div .profileImg > .fa-folder-open {
 }
 
 .stats > div:last-child a {
-  color: #0051EF;
+  color: #0051ef;
 }
 
 .stats > div p {
@@ -1954,21 +2061,21 @@ section div .profileImg > .fa-folder-open {
 }
 
 .stats .greenStats {
-  color: #4AAF05;
+  color: #4aaf05;
 }
 
 .stats .redStats {
-  color: #F44E4E;
+  color: #f44e4e;
 }
 
 .bookingTableHeader p {
-  color: #0051EF;
+  color: #0051ef;
   font-weight: 600;
   margin: 0 8px;
 }
 
 .bookingTableHeader a {
-  color: #0051EF;
+  color: #0051ef;
 }
 
 .bookingTableHeader input {
@@ -2001,13 +2108,62 @@ section div .profileImg > .fa-folder-open {
 }
 
 #bookingTable tbody tr td a:first-child {
-  color: #0051EF;
+  color: #0051ef;
   margin-right: 13.5px;
 }
 
 #bookingTable tbody tr td a:last-child {
-  color: #F44E4E;
+  color: #f44e4e;
   margin-left: 13.5px;
+}
+
+.restaurants-container {
+  display: grid;
+}
+
+.restaurant-card {
+  border-radius: 20px;
+  width: 100%;
+  height: 300px;
+  position: relative;
+}
+
+.restaurant-card img {
+  width: 100%;
+  height: 100%;
+  border-radius: 20px;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+
+.restaurant-card .bandeau {
+  width: 100%;
+  height: 63px;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-family: "Poppins", sans-serif;
+  background-color: #F8F8F8;
+  border-radius: 0 0px 20px 20px;
+}
+
+.restaurant-card p {
+  margin-left: 30px;
+  font-size: 1rem;
+}
+
+.restaurant-card button {
+  margin-right: 20px;
+  background-color: #0051ef;
+  color: #ffffff;
+  width: 120px;
+  padding: 10px 25px;
+  border: none;
+  border-radius: 11px;
+  cursor: pointer;
 }
 
 /* --------------------------------- Themes --------------------------------- */

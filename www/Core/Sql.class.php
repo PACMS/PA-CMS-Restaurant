@@ -57,8 +57,9 @@ abstract class Sql
         return null;
     }
 
-    protected function databaseFindAll(string $sql, array $params)
+    public function databaseFindAll(string $sql, array $params)
     {
+
         $statement = $this->pdo->prepare($sql);
         if ($statement !== false) {
             $success = $statement->execute($params);

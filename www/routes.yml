@@ -71,7 +71,7 @@
   controller: user
   action: verifyToken
 
-/restaurant:
+/restaurants:
   controller: restaurant
   action: restaurant
 
