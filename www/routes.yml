@@ -83,3 +83,7 @@
   controller: admin
   action: profile
   security: true
+
+/notFound:
+  controller: user
+  action: errorNotFound

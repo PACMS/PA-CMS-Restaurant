@@ -249,4 +249,10 @@ class User
     {
         echo "Se déconnecter";
     }
+
+    public function errorNotFound()
+    {
+        $view = new View("error404");
+        $view->assign("title", "Error 404");
+    }
 }
