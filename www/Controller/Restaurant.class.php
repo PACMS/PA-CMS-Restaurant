@@ -11,7 +11,14 @@ class Restaurant
     public function restaurant ()
     {
 
-        $view = new View("restaurants", "back");
+        $restaurant = new RestaurantModel();
+        // utiliser la fonction getAllRestaurant() de RestaurantModel
+         $allRestaurants = $restaurant->getAllRestaurants();
+        $view = new View("restaurants");
+        $view->assign('restaurant', $allRestaurants);
+        
+        
+
     }
 
     public function updateRestaurant ()

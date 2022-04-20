@@ -1,10 +1,29 @@
-.button{
-	display: inline-block;
-	padding: 1em 2em;
-	color: $red;
-	background-color: #234567;
-	text-transform: uppercase;
-	border: none;
-	transition: background-color 0.3s;
-	cursor: pointer;
+.button {
+  background-color: $main-color;
+  color: $white;
+  width: 261px;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 11px;
+  cursor: pointer;
+}
+
+.button:hover {
+  background-color: $primaryBlue;
+}
+
+.button-active--blue{
+  background-color: $primaryBlue !important; 
+  
+}
+
+.cta-button--blue {
+  background-color: $primaryBlue;
+  
+}
+
+.voir-plus-button {
+  color: $primaryBlue;
+  cursor: pointer;
 }

@@ -1,10 +1,13 @@
 <?php
 namespace App;
 
+
+
 require "conf.inc.php";
 
 function myAutoloader( $class )
 {
+    // var_dump($class);
     // $class -> "Core\Security" "Model\User
     $class = str_ireplace("App\\","",$class);
     // $class -> "Core/Security" "Model/User
@@ -12,6 +15,8 @@ function myAutoloader( $class )
     // $class -> "Core/Security"
     if(file_exists($class.".class.php")){
         include $class.".class.php";
+    }elseif (file_exists($class.".php")){
+        require $class.".php";
     }
 }
 
@@ -34,7 +39,7 @@ if (strpos($_SERVER["REQUEST_URI"], '?')) $uri = substr($_SERVER["REQUEST_URI"],
 else $uri = $_SERVER["REQUEST_URI"];
 
 if(empty($routes[$uri]) || empty($routes[$uri]["controller"]) || empty($routes[$uri]["action"])){
-    die("Page 404");
+    header('Location: /notFound');
 }
 
 

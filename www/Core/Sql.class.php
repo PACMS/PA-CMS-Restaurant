@@ -7,7 +7,6 @@ abstract class Sql
 
     private $pdo;
     private $table;
-
     public function __construct()
     {
         //Plus tard il faudra penser au singleton
@@ -28,8 +27,41 @@ abstract class Sql
         $getCalledClassExploded = explode("\\", strtolower(get_called_class())); // App\Model\User
         $this->table = DBPREFIXE . end($getCalledClassExploded);
     }
-    protected function databaseFindAll(string $sql, array $params): mixed
+
+
+    protected function databaseFindOne(array $whereClause, ?string $table = 'false')
     {
+        
+        foreach ($whereClause as $key => $whereValue) {
+            $where[] = $key . " = :" . $key;
+        }
+        
+        if ($table != 'false') {
+            $table = DBPREFIXE . $table;
+            $sql = "SELECT * FROM " . $table . " WHERE " . implode(" AND ", $where);
+        } else {
+            $sql = "SELECT * FROM " . $this->table . " WHERE " . implode(" AND ", $where);
+        }
+
+        $queryPrepared = $this->pdo->prepare($sql);
+        if ($queryPrepared !== false) {
+            // die(print_r($whereClause));
+            $success = $queryPrepared->execute($whereClause);
+            if ($success) {
+                $res = $queryPrepared->fetch(\PDO::FETCH_ASSOC);
+                if ($res === false) {
+                    return null;
+                }
+                return $res;
+            }
+        }
+        return null;
+    }
+
+    public function databaseFindAll(string $sql, array $params)
+
+    {
+
         $statement = $this->pdo->prepare($sql);
         if ($statement !== false) {
             $success = $statement->execute($params);
@@ -40,28 +72,28 @@ abstract class Sql
         return null;
     }
 
-
-    /**
-     * @param null $id
-     */
-    public function setId(?int $id): self
-    {
-        $sql = "SELECT * FROM " . $this->table . " WHERE id=:id";
-        $queryPrepared = $this->pdo->prepare($sql);
-        $queryPrepared->execute(["id" => $id]);
-        return $queryPrepared->fetchObject(get_called_class());
-    }
-
     public function hydrate(array $data)
     {
         foreach ($data as $key => $value)
         {
-            $methode = 'set'.ucfirst($key);
+            $methode = 'set'.$key;
             if (method_exists($this, $methode))
             {
                 $this->$methode($value);
             }
         }
+    }
+
+
+    /**
+    * @param null $email
+    * @param null $result
+    */
+    public function updateStatus(?int $result, ?string $email): void
+    {
+        $sql = "UPDATE ".$this->table." SET "."status = ".$result." WHERE email=:email";
+        $queryPrepared = $this->pdo->prepare($sql);
+        $queryPrepared->execute(["email"=>$email]);
     }
 
     public function save(): void
@@ -71,20 +103,56 @@ abstract class Sql
         $varToExclude = get_class_vars(get_class());
         $columns = array_diff_key($columns, $varToExclude);
 
-        if (is_null($this->getId())) {
+        if (is_null($columns['id'])) {
             $sql = "INSERT INTO " . $this->table . " (" . implode(",", array_keys($columns)) . ") VALUES (:" . implode(",:", array_keys($columns)) . ")";
         } else {
             $update = [];
-            foreach ($columns as $key) {
-                $update[] = $key . "=:" . $key;
+            $updateValues = [];
+
+            foreach ($columns as $key => $whereValue) {
+                if (!is_null($whereValue) && $key !== 'id') {
+                    $update[] = $key . " = :" . $key;
+                }
             }
-            $sql = "UPDATE " . $this->table . " SET " . implode(",", $update) . " WHERE id=:id";
+
+            foreach ($columns as $key => $whereValue) {
+                if (!is_null($whereValue)) {
+                    $updateValues[$key] = $whereValue;
+                }
+            }
+
+            $sql = "UPDATE " . $this->table . " SET " . implode(", ", $update) . " WHERE id = :id";
         }
 
         $queryPrepared = $this->pdo->prepare($sql);
-        $queryPrepared->execute($columns);
+        if (is_null($columns['id'])) {
+            $queryPrepared->execute($columns);
+        } else {
+            $queryPrepared->execute($updateValues);
+        }
 
         //Si ID null alors insert sinon update
+    }
+
+
+
+    public function accessToken(?string $email, ?string $tokenToVerify, ?bool $updateStatus = true): void 
+    {
+        echo "<pre>";
+        if (is_null($email)) {
+            die("L'email ne correspond pas !");
+        } else {
+            if (is_null($this->databaseFindOne(["email"=>$email,"token"=>$tokenToVerify]))) {
+                echo "Le token est invalide";
+            } else {
+                // echo "l'authentification token à réussi";
+                if ($updateStatus) {
+                    $this->updateStatus("1", $email);
+                }
+            }       
+
+
+        }
     }
 
     public function findOneBy(array $whereClause): array
@@ -94,13 +162,11 @@ abstract class Sql
         $columns = array_diff_key($columns, $varToExclude);
 
         foreach ($whereClause as $key => $whereValue) {
-            $where[] = $whereValue . "=:" . $whereValue;
+            $where[] = $key . "=:" . $key;
         }
 
         $sql = "SELECT * FROM " . $this->table . " WHERE " . implode(",", $where);
         
-        $whereClause = array_intersect_key($columns, $whereClause);
-
         $queryPrepared = $this->pdo->prepare($sql);
         $queryPrepared->execute($whereClause);
 
@@ -126,11 +192,5 @@ abstract class Sql
                 echo "ça fonctionne pas non plus!";
             }
         };
-
-        // echo '<pre>';
-        // print_r($_POST);
-        // $colums = get_object_vars($this);
-        // echo '<pre>';
-        // print_r($colums);
     }
 }

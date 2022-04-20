@@ -17,6 +17,10 @@ class Restaurant extends Sql
     /**
      * @var
      */
+    protected $name = null;
+    /**
+     * @var
+     */
     protected $address;
     /**
      * @var
@@ -42,6 +46,24 @@ class Restaurant extends Sql
     {
         return $this->id;
     }
+
+    // getter and setter for name	
+    /**
+     * @return mixed
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * @param mixed $name
+     */
+    public function setName(string $name): void
+    {
+        $this->name =(new Cleaner($name))->e()->value;
+    }
+
 
     /**
      * @return mixed
@@ -121,6 +143,13 @@ class Restaurant extends Sql
     public function setPhone(string $phone): void
     {
         $this->phone = (new Cleaner($phone))->value;
+    }
+
+
+    public function getAllRestaurants()
+    {
+        $restaurants = parent::databaseFindAll("SELECT * FROM " . DBPREFIXE."restaurant", []);
+        return $restaurants;
     }
 
     public function getCompleteRegisterForm () {

@@ -22,7 +22,7 @@ class Verificator extends Sql
             if ( !empty($input["confirm"]) && $data[$name]!=$data[$input["confirm"]]) $errors[]=$input["error"];
             if ( !empty($input['min']) && !self::min($data[$name], $input['min'])) $errors[]=$input["error"];
             if ( !empty($input['max']) && !self::max($data[$name], $input['max'])) $errors[]=$input["error"];
-            if ( !empty($input['unicity']) && !self::unicity($data[$name], $name, $input['unicity'])) $errors[]=$input["errorUnicity"];
+            if ( !empty($input['unicity']) && !self::unicity($data[$name], $input['unicity'])) $errors[]=$input["errorUnicity"];
 
             if ( $input['type'] == "email" && !self::checkEmail($data[$name])) $errors[]=$input["error"];
             if ( $input["type"] == "password" && !self::checkPwd($data[$name]) && empty($input["confirm"])) $errors[]=$input["error"];
@@ -51,9 +51,9 @@ class Verificator extends Sql
         return filter_var($email, FILTER_VALIDATE_EMAIL);
     }
 
-    public static function unicity ($value, $field, $table)
+    public static function unicity ($value, $table)
     {
-        if ((new Verificator())->databaseFindOne("SELECT * FROM " . DBPREFIXE . "{$table} WHERE {$field} = ?", [$value])) return false;
+        if ((new Verificator())->databaseFindOne(['email' => $value], $table)) return false;
         else return true;
     }
 
