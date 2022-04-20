@@ -33,6 +33,7 @@ jobs:
           git status
           git stash pop
           git status
+          git log --oneline
           cd www/public/webpack
           npm run build
         host: ${{ secrets.HOST }}
