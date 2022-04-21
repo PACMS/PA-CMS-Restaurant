@@ -71,7 +71,7 @@
   controller: user
   action: verifyToken
 
-/restaurant:
+/restaurants:
   controller: restaurant
   action: restaurant
 
@@ -82,4 +82,9 @@
 /profile:
   controller: admin
   action: profile
+  security: 'employee'
+
+/notFound:
+  controller: user
+  action: errorNotFound
   security: 'employee'

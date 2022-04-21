@@ -1,3 +1,16 @@
-<?php
+<main class="forgetPassword">
+    <section class="container-forgetPassword">
+        <h1>Comment souhaitez-vous accéder à votre espace personnel ?</h1>
+        <div id="passwordChoice">
+            <h3 id="withoutPassword" class="active">Sans mot de passe</h3>
+            <h3 id="withPassword">avec mot de passe</h3>
+        </div>
+        <p id="without-pwd" class="active">Accéder à votre espace personnel sans mot de passe en renseignant simplement votre email lié à votre compte.</p>
+        <p id="with-pwd">Accéder à votre espace personnel avec un mot de passe en renseignant simplement votre email lié à votre compte.</p>
 
-$this->includePartial("form", $user->getLostPasswordForm());
+        <?php $this->includePartial("form", $user->getLostPasswordForm()); ?>
+    </section>
+</main>
+
+
+

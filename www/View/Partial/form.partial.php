@@ -89,6 +89,10 @@
                 id="recaptchaResponse"
             />
         <?php else : ?>
+            <?php if (!empty($input["label"])) : ?>
+                <label for="<?= $name ?>"><?= $input["label"] ?></label>
+            <?php endif ?>
+
             <input 
                 name="<?php echo $name ?>" 
                 class="<?php echo $input["class"] ?? "" ?>" 
@@ -97,12 +101,11 @@
                 type="<?php echo $input["type"] ?? "text" ?>" 
                 <?php echo !empty($input["required"]) ? 'required="required"' : ""  ?>
             />
-            <br>
+
         <?php endif ?>
 
 
     <?php endforeach; ?>
-    <br>
     <input 
         type="submit" 
         value="<?php echo $config["config"]["submit"] ?? "Envoyer" ?>"

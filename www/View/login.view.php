@@ -4,7 +4,7 @@
     <section class="login">
         <div class="container-login">
             <h1>Connexion</h1>
-            <form method="post" action="loginVerify">
+            <form method="post" action="loginVerify" class="flex flex-column">
                 <label for="email" class="greytext">Adresse mail</label>
                 <input type="email" name="email" />
                 <div class="flex justify-content-between align-items-center">
@@ -45,7 +45,7 @@
                     </article>
                 </a>
             </div>
-            <p>Vous n'avez pas de compte ? <a href="#">Créez en un !</a></p>
+            <p>Vous n'avez pas de compte ? <a href="/register">Créez en un !</a></p>
         </div>
     </section>
 </main>

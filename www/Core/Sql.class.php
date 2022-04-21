@@ -27,6 +27,7 @@ abstract class Sql
         $this->table = DBPREFIXE . end($getCalledClassExploded);
     }
 
+
     protected function databaseFindOne(array $whereClause, ?string $table = 'false')
     {
         foreach ($whereClause as $key => $whereValue) {
@@ -55,8 +56,10 @@ abstract class Sql
         return null;
     }
 
-    protected function databaseFindAll(string $sql, array $params)
+    public function databaseFindAll(string $sql, array $params)
+
     {
+
         $statement = $this->pdo->prepare($sql);
         if ($statement !== false) {
             $success = $statement->execute($params);
