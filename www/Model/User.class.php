@@ -286,15 +286,16 @@ class User extends Sql
                     "confirm" => "password"
                 ],
                 "acceptConditions" => [
-                    "additionnalDiv"=>true,
-                    "type"=>"checkbox",
-                    "id"=>"accept_conditions_register",
-                    "class"=>"formRegister",
-                    "required"=>true,
-                    "checked"=>false,
-                    "error"=>"Vous devez accepter les conditions d'utilisation",
-                    "values"=> [
-                        "acceptConditions"=>"En cliquant ici, vous acceptez <span>les CGU</span> du site",
+                    "title" => "",
+                    "additionnalDiv" => true,
+                    "type" => "checkbox",
+                    "id" => "accept_conditions_register",
+                    "class" => "formRegister",
+                    "required" => true,
+                    "checked" => false,
+                    "error" => "Vous devez accepter les conditions d'utilisation",
+                    "values" => [
+                        "acceptConditions" => "En cliquant ici, vous acceptez <span>les CGU</span> du site",
                     ]
                 ],
                 "captcha" => [
