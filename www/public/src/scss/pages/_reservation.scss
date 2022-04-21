@@ -3,6 +3,28 @@
   text-align: left !important;
   margin-bottom: rem(15);
 }
+.dataTables_length{
+  label{
+    margin-right: rem(20);
+    select{
+      width: unset !important;
+    }
+  }
+}
+.dataTables_filter{
+  position: absolute;
+  right: 20px;
+  label{
+    input{
+      width: unset !important;
+    }
+  }
+}
+#bookingTable2{
+  margin-top: 50px;
+}
+
+
 a {
   text-decoration: none;
 }

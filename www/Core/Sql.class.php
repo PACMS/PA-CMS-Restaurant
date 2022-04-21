@@ -169,7 +169,7 @@ abstract class Sql
 
         return $queryPrepared->fetch(\PDO::FETCH_ASSOC);
     }
-    public function getAll(): array
+    protected function getAll(): array
     {
 
         $sql = "SELECT * FROM " . $this->table ;
@@ -177,9 +177,6 @@ abstract class Sql
         $queryPrepared = $this->pdo->prepare($sql);
         $queryPrepared->execute();
         $data = $queryPrepared->fetchAll(\PDO::FETCH_OBJ);
-        //die(print_r($queryPrepared->fetchAll(\PDO::FETCH_OBJ)));
-        //die(print_r($queryPrepared[0]->name));
-        //die(print_r($queryPrepared->fetchAll()));
         return $data;
     }
 

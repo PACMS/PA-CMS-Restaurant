@@ -28,3 +28,4 @@ if (!isset($_SESSION)) {
 
 </body>
 </html>
+<script type="text/javascript" src="https://cdn.datatables.net/plug-ins/1.10.11/sorting/date-eu.js"></script>

@@ -54,6 +54,7 @@
                                     <th>N° Réservation</th>
                                     <th>Nom Prénom</th>
                                     <th>Nombre de personnes</th>
+                                    <th>Date de reservation</th>
                                     <th>Heure</th>
                                     <th>Table</th>
                                     <th>Téléphone</th>
@@ -62,10 +63,20 @@
                                 </thead>
                                 <tbody>
                                 <?php
-                                    foreach ($data as $reservation)
-                                    {
-                                       echo "<tr><td>" . $reservation->id . "</td><td>" . $reservation->name . "</td><td>" . $reservation->numPerson . "</td><td>" . $reservation->hour . "</td><td>" . $reservation->numTable . "</td><td>" . $reservation->phoneReserv . "</td><td> TEST </td> </tr>";
-                                    }
+                                    foreach ($data as $reservation) :
+                                ?>
+                                   <tr>
+                                       <td> <?php echo $reservation->id ?> </td>
+                                       <td> <?php echo $reservation->name ?> </td>
+                                       <td> <?php echo $reservation->numPerson ?> </td>
+                                       <td> <?php echo $reservation->date ?> </td>
+                                       <td> <?php echo $reservation->hour ?> </td>
+                                       <td> <?php echo $reservation->numTable ?> </td>
+                                       <td> <?php echo $reservation->phoneReserv ?> </td>
+                                        <td></td>
+                                   </tr>
+                                <?php
+                                    endforeach;
                                 ?>
                                 </tbody>
                             </table>
@@ -81,20 +92,3 @@
 </main>
 
 <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.4/js/jquery.dataTables.js"></script>
-<script>
-    $('#bookingTable2').dataTable( {
-        columnDefs: [
-            { className: "dt-center", targets: "_all" },
-            { targets: -1, data: null, defaultContent: "<a href=''><i class='fas fa-pen'></i></a><a href=''><i class='fas fa-times-circle'></i></a>" },
-        ],
-        columns: [null, null, null, { type: "datetime" }, null, null, null],
-        searching: true,
-        paging: false,
-        info: false,
-    });
-        // Refilter the table
-        $("#min, #max").on("change", function () {
-        table.draw();
-    });
-
-</script>

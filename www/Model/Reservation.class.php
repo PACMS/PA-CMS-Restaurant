@@ -121,7 +121,16 @@ class Reservation extends Sql
     {
         $this->phoneReserv = (new Cleaner($phoneReserv))->value;
     }
-
+    public function save(): void
+    {
+        //Pré traitement par exemple
+        //echo "pre traitement";
+        parent::save();
+    }
+    public function getAll(): array
+    {
+       return parent::getAll();
+    }
     /**
      * @return mixed
      */
@@ -139,50 +148,38 @@ class Reservation extends Sql
             "inputs"=>[
                 "name"=>[
                     "label"=>"Nom et prénom",
-                    "placeholder"=>"",
                     "type"=>"text",
-                    "id"=>"",
                     "class"=>"formReservation",
                 ],
                 "numPerson"=>[
                     "label"=>"Nombre de personne",
-                    "placeholder"=>"",
                     "type"=>"number",
-                    "id"=>"",
                     "class"=>"formReservation",
                     "max"=>20,
                 ],
 
                 "numTable"=>[
                     "label"=>"Numero de table",
-                    "placeholder"=>"",
                     "type"=>"number",
-                    "id"=>"",
                     "class"=>"formReservation",
                     "max"=>20,
                 ],
                 "date"=>[
                     "label"=>"Date de reservation",
-                    "placeholder"=>"",
                     "type"=>"date",
-                    "id"=>"",
                     "class"=>"formReservation",
                     "min"=>date('Y-m-d'),
                     "max"=>date('Y-m-d', strtotime('+1 year')),
                 ],
                 "hour"=>[
                     "label"=>"Heure de reservation",
-                    "placeholder"=>"",
                     "type"=>"time",
-                    "id"=>"",
                     "class"=>"formReservation",
 
                 ],
                 "phoneReserv"=>[
                     "label"=>"Numéro de téléphone",
-                    "placeholder"=>"",
                     "type"=>"tel",
-                    "id"=>"",
                     "class"=>"formRestaurant",
                     "min"=>10,
                     "max"=>10,

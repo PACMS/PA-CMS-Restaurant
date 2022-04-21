@@ -13,25 +13,26 @@ class Reservation
     {
         $reservation = new ReservationModel();
         $data =  $reservation->getAll();
-        //die(print_r($reservation->getAll()));
+        foreach ($data as $dateReserv ){
+            $dateReserv->date = date("d/m/Y", strtotime($dateReserv->date));
+        }
+
+        //die(print_r($data[3]->date));
         $view = new View("reservation", "back");
         $view->assign('reservation', $reservation);
         $view->assign('data', $data);
-        /*$view->assign('dateNow', $dateNow);
-        $view->assign('futureDate', $futureDate);*/
+
     }
 
     public function addReservation()
     {
         $reservation = new ReservationModel();
-        if (!empty($_POST)) {
-            Verificator::checkForm($reservation->getModalForm(), $_POST + $_FILES);
-        }
+
+        //Verificator::checkForm($reservation->getModalForm(), $_POST + $_FILES);
 
         $reservation->hydrate($_POST);
-        //die(print_r($reservation));
         $reservation->save();
-        $view = new View("reservation", "back");
-        $view->assign('reservation', $reservation);
+        header('Location:/reservation');
+
     }
 }
