@@ -281,7 +281,7 @@ class User extends Sql
                     "type" => "password",
                     "id" => "pwdConfirmRegister",
                     "class" => "formRegister",
-                    "required"= > true,
+                    "required" => true,
                     "error" => "Votre confirmation doit ne correspond pas",
                     "confirm" => "password"
                 ],
