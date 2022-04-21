@@ -8,20 +8,16 @@ use App\Model\Restaurant as RestaurantModel;
 
 class Restaurant
 {
-    public function restaurant ()
+    public function restaurant()
     {
-
         $restaurant = new RestaurantModel();
         // utiliser la fonction getAllRestaurant() de RestaurantModel
-         $allRestaurants = $restaurant->getAllRestaurants();
+        $allRestaurants = $restaurant->getAllRestaurants();
         $view = new View("restaurants");
         $view->assign('restaurant', $allRestaurants);
-        
-        
-
     }
 
-    public function updateRestaurant ()
+    public function updateRestaurant()
     {
         $restaurant = new RestaurantModel();
         $errors = null;

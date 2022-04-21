@@ -7,10 +7,8 @@ use App\phpmailer\src\PHPMailer;
 use App\phpmailer\src\SMTP;
 use App\phpmailer\src\Exception;
 
-
 class Mail
 {
-
     public function index()
     {
         $view = new View("testmail");

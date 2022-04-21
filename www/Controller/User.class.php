@@ -14,9 +14,9 @@ class User
     {
         $user = new UserModel();
 
-        if (!empty($_POST)) {
-            Verificator::checkForm($user->getLoginForm(), $_POST + $_FILES);
-        }
+        // if (!empty($_POST)) {
+        //     Verificator::checkForm($user->getLoginForm(), $_POST + $_FILES);
+        // }
 
 
         // $user->setEmail("vivian.fr@free.fr");
@@ -54,7 +54,7 @@ class User
                 Mail::sendConfirmMail($user->getToken(), $user->getEmail());
             }
         }
-        
+
         $view = new View("register");
         $view->assign("user", $user);
         $view->assign("errors", $errors);
@@ -80,13 +80,12 @@ class User
             }
         }
     }
-  
+
     public function createToken()
     {
 
         $view = new View("token");
         //$view->assign("user", $user);
-
     }
 
     public function getToken()
@@ -103,9 +102,8 @@ class User
         echo "<pre>";
         echo ("Token créé " . $user->getToken());
 
-        //envoie du mail 
+        //envoie du mail
         //click sur http://localhost/verifyToken?token=<token>?email=<email>
-
     }
 
     public function loginVerify()
@@ -118,15 +116,14 @@ class User
                 $user->getLoginForm(),
                 $_POST + $_FILES
             );
-            // print_r($result);
         }
 
         $email = $_POST['email'];
         $user->setEmail($email);
         $user->setPassword($_POST['password']);
-        
+
         $params = ["email" => $_POST['email']];
-        
+
         $user->verifyUser($params);
     }
 
@@ -242,7 +239,6 @@ class User
         $user->save();
 
         new View('login');
-
     }
 
     public function logout()

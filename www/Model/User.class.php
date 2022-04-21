@@ -166,124 +166,124 @@ class User extends Sql
         parent::verifyUser($params);
     }
 
-    public function getRegisterForm():array
+    public function getRegisterForm(): array
     {
         return [
-            "config"=>[
-                "method"=>"POST",
-                "action"=>"",
-                "class"=>"formRegister",
-                "id"=>"formRegister",
-                "submit"=>"S'inscrire",
+            "config" => [
+                "method" => "POST",
+                "action" => "",
+                "class" => "formRegister",
+                "id" => "formRegister",
+                "submit" => "S'inscrire",
                 'captcha' => false,
             ],
-            "inputs"=>[
-                "email"=>[
-                    "placeholder"=>"Votre email ...",
-                    "type"=>"email",
-                    "id"=>"emailRegister",
-                    "class"=>"formRegister",
-                    "required"=>true,
-                    "error"=>"Votre email n'est pas correct",
-                    "unicity"=>true,
-                    "errorUnicity"=>"Un compte existe déjà avec cet email"
+            "inputs" => [
+                "email" => [
+                    "placeholder" => "Votre email ...",
+                    "type" => "email",
+                    "id" => "emailRegister",
+                    "class" => "formRegister",
+                    "required" => true,
+                    "error" => "Votre email n'est pas correct",
+                    "unicity" => true,
+                    "errorUnicity" => "Un compte existe déjà avec cet email"
                 ],
-                "password"=>[
-                    "placeholder"=>"Votre mot de passe ...",
-                    "type"=>"password",
-                    "id"=>"pwdRegister",
-                    "class"=>"formRegister",
-                    "required"=>true,
-                    "error"=>"Votre mot de passe doit faire au minimum 8 caractères avec une majuscule et un chiffre"
+                "password" => [
+                    "placeholder" => "Votre mot de passe ...",
+                    "type" => "password",
+                    "id" => "pwdRegister",
+                    "class" => "formRegister",
+                    "required" => true,
+                    "error" => "Votre mot de passe doit faire au minimum 8 caractères avec une majuscule et un chiffre"
                 ],
-                "passwordConfirm"=>[
-                    "placeholder"=>"Confirmation ...",
-                    "type"=>"password",
-                    "id"=>"pwdConfirmRegister",
-                    "class"=>"formRegister",
-                    "required"=>true,
-                    "error"=>"Votre confirmation doit ne correspond pas",
-                    "confirm"=>"password"
+                "passwordConfirm" => [
+                    "placeholder" => "Confirmation ...",
+                    "type" => "password",
+                    "id" => "pwdConfirmRegister",
+                    "class" => "formRegister",
+                    "required" => true,
+                    "error" => "Votre confirmation doit ne correspond pas",
+                    "confirm" => "password"
                 ],
-                "firstname"=>[
-                    "placeholder"=>"Votre prénom ...",
-                    "type"=>"text",
-                    "id"=>"firstnameRegister",
-                    "class"=>"formRegister",
-                    "min"=>2,
-                    "max"=>25,
-                    "error"=>"Votre prénom doit faire entre 2 et 25 caractères"
+                "firstname" => [
+                    "placeholder" => "Votre prénom ...",
+                    "type" => "text",
+                    "id" => "firstnameRegister",
+                    "class" => "formRegister",
+                    "min" => 2,
+                    "max" => 25,
+                    "error" => "Votre prénom doit faire entre 2 et 25 caractères"
                 ],
-                "lastname"=>[
-                    "placeholder"=>"Votre nom ...",
-                    "type"=>"text",
-                    "id"=>"lastnameRegister",
-                    "class"=>"formRegister",
-                    "min"=>2,
-                    "max"=>100,
-                    "error"=>"Votre nom doit faire entre 2 et 100 caractères"
+                "lastname" => [
+                    "placeholder" => "Votre nom ...",
+                    "type" => "text",
+                    "id" => "lastnameRegister",
+                    "class" => "formRegister",
+                    "min" => 2,
+                    "max" => 100,
+                    "error" => "Votre nom doit faire entre 2 et 100 caractères"
                 ],
-                
+
             ]
         ];
     }
 
-    public function getCompleteRegisterForm():array
+    public function getCompleteRegisterForm(): array
     {
         return [
-            "config"=>[
-                "method"=>"POST",
-                "action"=>"",
-                "class"=>"formRegister",
-                "id"=>"formRegister",
-                "submit"=>"Inscription",
+            "config" => [
+                "method" => "POST",
+                "action" => "",
+                "class" => "formRegister",
+                "id" => "formRegister",
+                "submit" => "Inscription",
                 'captcha' => true,
             ],
-            "inputs"=>[
-                "lastname"=>[
-                    "label"=>"Nom",
-                    "type"=>"text",
-                    "id"=>"lastnameRegister",
-                    "class"=>"formRegister",
-                    "min"=>2,
-                    "max"=>100,
-                    "error"=>"Votre nom doit faire entre 2 et 100 caractères"
+            "inputs" => [
+                "lastname" => [
+                    "label" => "Nom",
+                    "type" => "text",
+                    "id" => "lastnameRegister",
+                    "class" => "formRegister",
+                    "min" => 2,
+                    "max" => 100,
+                    "error" => "Votre nom doit faire entre 2 et 100 caractères"
                 ],
-                "firstname"=>[
-                    "label"=>"Prénom",
-                    "type"=>"text",
-                    "id"=>"firstnameRegister",
-                    "class"=>"formRegister",
-                    "min"=>2,
-                    "max"=>25,
-                    "error"=>"Votre prénom doit faire entre 2 et 25 caractères"
+                "firstname" => [
+                    "label" => "Prénom",
+                    "type" => "text",
+                    "id" => "firstnameRegister",
+                    "class" => "formRegister",
+                    "min" => 2,
+                    "max" => 25,
+                    "error" => "Votre prénom doit faire entre 2 et 25 caractères"
                 ],
-                "email"=>[
-                    "label"=>"Adresse mail",
-                    "type"=>"email",
-                    "id"=>"emailRegister",
-                    "class"=>"formRegister",
-                    "required"=>true,
-                    "error"=>"Votre email n'est pas correct",
-                    "unicity"=>'user',
-                    "errorUnicity"=>"Un comte existe déjà avec cet email"
+                "email" => [
+                    "label" => "Adresse mail",
+                    "type" => "email",
+                    "id" => "emailRegister",
+                    "class" => "formRegister",
+                    "required" => true,
+                    "error" => "Votre email n'est pas correct",
+                    "unicity" => 'user',
+                    "errorUnicity" => "Un comte existe déjà avec cet email"
                 ],
-                "password"=>[
-                    "label"=>"Mot de passe  <i id=\"info-password-register\" class=\"fal fa-info-circle\"></i>",
-                    "type"=>"password",
-                    "id"=>"pwdRegister",
-                    "class"=>"formRegister",
-                    "required"=>true,
-                    "error"=>"Votre mot de passe doit faire au minimum 8 caractères avec une majuscule et un chiffre"
+                "password" => [
+                    "label" => "Mot de passe  <i id=\"info-password-register\" class=\"fal fa-info-circle\"></i>",
+                    "type" => "password",
+                    "id" => "pwdRegister",
+                    "class" => "formRegister",
+                    "required" => true,
+                    "error" => "Votre mot de passe doit faire au minimum 8 caractères avec une majuscule et un chiffre"
                 ],
-                "passwordConfirm"=>[
-                    "label"=>"Confirmer mot de passe",
-                    "type"=>"password",
-                    "id"=>"pwdConfirmRegister",
-                    "class"=>"formRegister",
-                    "required"=>true,
-                    "error"=>"Votre confirmation doit ne correspond pas",
-                    "confirm"=>"password"
+                "passwordConfirm" => [
+                    "label" => "Confirmer mot de passe",
+                    "type" => "password",
+                    "id" => "pwdConfirmRegister",
+                    "class" => "formRegister",
+                    "required"= > true,
+                    "error" => "Votre confirmation doit ne correspond pas",
+                    "confirm" => "password"
                 ],
                 "acceptConditions" => [
                     "additionnalDiv"=>true,
@@ -305,33 +305,33 @@ class User extends Sql
         ];
     }
 
-    public function getLoginForm():array
+    public function getLoginForm(): array
     {
         return [
-            "config"=>[
-                "method"=>"POST",
-                "action"=>"loginVerify",
-                "class"=>"formLogin",
-                "id"=>"formLogin",  
-                "submit"=>"Se connecter",
+            "config" => [
+                "method" => "POST",
+                "action" => "loginVerify",
+                "class" => "formLogin",
+                "id" => "formLogin",
+                "submit" => "Se connecter",
                 'captcha' => false,
             ],
-            "inputs"=>[
-                "email"=>[
-                    "placeholder"=>"Votre email ...",
-                    "type"=>"email",
-                    "id"=>"emailLogin",
-                    "class"=>"formLogin",
-                    "required"=>true,
-                    "error"=>"Votre combinaison mail/mot de passe n'est pas correct",
+            "inputs" => [
+                "email" => [
+                    "placeholder" => "Votre email ...",
+                    "type" => "email",
+                    "id" => "emailLogin",
+                    "class" => "formLogin",
+                    "required" => true,
+                    "error" => "Votre combinaison mail/mot de passe n'est pas correct",
                 ],
-                "password"=>[
-                    "placeholder"=>"Votre mot de passe ...",
-                    "type"=>"password",
-                    "id"=>"pwdLogin",
-                    "class"=>"formLogin",
-                    "required"=>true,
-                    "error"=>"Votre combinaison mail/mot de passe n'est pas correct"
+                "password" => [
+                    "placeholder" => "Votre mot de passe ...",
+                    "type" => "password",
+                    "id" => "pwdLogin",
+                    "class" => "formLogin",
+                    "required" => true,
+                    "error" => "Votre combinaison mail/mot de passe n'est pas correct"
                 ],
                 // "captcha" => [
                 //     'type' => 'captcha',
@@ -340,25 +340,25 @@ class User extends Sql
             ]
         ];
     }
-    public function getLostPasswordForm():array
+    public function getLostPasswordForm(): array
     {
         return [
-            "config"=>[
-                "method"=>"POST",
-                "action"=>"lostPasswordAction",
-                "class"=>"formLostPassword",
-                "id"=>"formLostPassword",  
-                "submit"=>"Envoyer",
+            "config" => [
+                "method" => "POST",
+                "action" => "lostPasswordAction",
+                "class" => "formLostPassword",
+                "id" => "formLostPassword",
+                "submit" => "Envoyer",
                 'captcha' => false,
             ],
-            "inputs"=>[
-                "email"=>[
-                    "placeholder"=>"Adresse mail",
-                    "type"=>"email",
-                    "id"=>"emailLogin",
-                    "class"=>"formLostPassword",
-                    "required"=>true,
-                    "error"=>"Votre combinaison mail/mot de passe n'est pas correct",
+            "inputs" => [
+                "email" => [
+                    "placeholder" => "Votre email ...",
+                    "type" => "email",
+                    "id" => "emailLogin",
+                    "class" => "formLostPassword",
+                    "required" => true,
+                    "error" => "Votre combinaison mail/mot de passe n'est pas correct",
                 ],
                 // "captcha" => [
                 //     'type' => 'captcha',
@@ -372,34 +372,33 @@ class User extends Sql
     {
         $action = "resetPasswordAction?email=" . $_GET['email'];
         return [
-            "config"=>[
-                "method"=>"POST",
-                "action"=>$action,
-                "class"=>"formResetPassword",
-                "id"=>"formResetPassword",  
-                "submit"=>"Envoyer",
+            "config" => [
+                "method" => "POST",
+                "action" => $action,
+                "class" => "formResetPassword",
+                "id" => "formResetPassword",
+                "submit" => "Envoyer",
                 'captcha' => false,
             ],
-            "inputs"=>[
-                "password"=>[
-                    "placeholder"=>"Votre mot de passe ...",
-                    "type"=>"password",
-                    "id"=>"pwdRegister",
-                    "class"=>"formRegister",
-                    "required"=>true,
-                    "error"=>"Votre mot de passe doit faire au minimum 8 caractères avec une majuscule et un chiffre"
+            "inputs" => [
+                "password" => [
+                    "placeholder" => "Votre mot de passe ...",
+                    "type" => "password",
+                    "id" => "pwdRegister",
+                    "class" => "formRegister",
+                    "required" => true,
+                    "error" => "Votre mot de passe doit faire au minimum 8 caractères avec une majuscule et un chiffre"
                 ],
-                "passwordConfirm"=>[
-                    "placeholder"=>"Confirmation ...",
-                    "type"=>"password",
-                    "id"=>"pwdConfirmRegister",
-                    "class"=>"formRegister",
-                    "required"=>true,
-                    "error"=>"Votre confirmation doit ne correspond pas",
-                    "confirm"=>"password"
+                "passwordConfirm" => [
+                    "placeholder" => "Confirmation ...",
+                    "type" => "password",
+                    "id" => "pwdConfirmRegister",
+                    "class" => "formRegister",
+                    "required" => true,
+                    "error" => "Votre confirmation doit ne correspond pas",
+                    "confirm" => "password"
                 ]
             ]
         ];
     }
-
 }

@@ -1,5 +1,3 @@
-<!-- <h1>Bienvenue dans votre Dashboard</h1> -->
-<!-- Welcome <?= $firstname ?> <?= $lastname ?> -->
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.6/Chart.bundle.min.js"></script>
 <main class="flex pageDashboard">
     <section class="sidebar">
@@ -27,7 +25,7 @@
             </div>
             <article class="flex align-items-center gap-20">
                 <a href="profile">
-                    <p class="m-0"><?= $_SESSION['user']['firstname'] ?><i class="fas fa-user"></i></p>
+                    <p class="m-0"><?php echo $_SESSION['user']['firstname'] ?><i class="fas fa-user"></i></p>
                 </a>
                 <button style="background: none; border: none">
                     <i class="far fa-moon"></i>

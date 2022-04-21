@@ -152,7 +152,8 @@ class Restaurant extends Sql
         return $restaurants;
     }
 
-    public function getCompleteRegisterForm () {
+    public function getCompleteRegisterForm()
+    {
         return [
             "config"=>[
                 "method"=>"POST",
