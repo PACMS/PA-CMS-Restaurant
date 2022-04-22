@@ -140,19 +140,6 @@ $(document).ready(function () {
   $("form#formLostPassword input#emailLogin").after(
     `<i class="fas fa-envelope"></i>`
   );
-
-  //select choice without password
-  $(
-    "section.container-forgetPassword div#passwordChoice h3#withoutPassword"
-  ).click(function (e) {
-    $(
-      "section.container-forgetPassword div#passwordChoice h3#withPassword"
-    ).removeClass("active");
-    e.target.classList.add("active");
-    $("section.container-forgetPassword p#with-pwd").removeClass("active");
-    $("section.container-forgetPassword p#without-pwd").addClass("active");
-  });
-
   //select choice with password
   $(
     "section.container-forgetPassword div#passwordChoice h3#withPassword"
@@ -240,5 +227,28 @@ $(document).ready(function () {
   // Refilter the table
   $("#min, #max").on("change", function () {
     table.draw();
+  });
+
+  $('#bookingTable2').dataTable( {
+    language: {
+      "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/French.json"
+    },
+    columnDefs: [
+      { className: "dt-center", targets: "_all" },
+      { targets: -1, data: null, defaultContent: "<a href=''><i class='fas fa-pen'></i></a><a href=''><i class='fas fa-times-circle'></i></a>" },
+    ],
+    order: [3, 'desc'],
+    columns: [null, null, null, { type: "date-eu" }, null, null, null, null],
+
+    searching: true,
+    //paging: false,
+    lengthMenu: [10, 20, 30, 40, 50],
+    pageLength: 10,
+    info: true,
+  });
+  // Refilter the table
+  $("#min, #max").on("change", function () {
+    table.draw();
+
   });
 });

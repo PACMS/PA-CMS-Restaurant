@@ -84,7 +84,21 @@
   action: profile
   security: 'employee'
 
+
+#Route pour la reservation
+/reservation:
+  controller: reservation
+  action: reservation
+  security: 'employee'
+
+/addReservation:
+  controller: reservation
+  action: addReservation
+  security: 'employee'
+
+############################
 /notFound:
   controller: user
   action: errorNotFound
   security: 'employee'
+

@@ -166,6 +166,14 @@ abstract class Sql
 
         return $queryPrepared->fetch(\PDO::FETCH_ASSOC);
     }
+    protected function getAll(): array
+    {
+
+        $sql = "SELECT * FROM " . $this->table ;
+        $queryPrepared = $this->pdo->prepare($sql);
+        $queryPrepared->execute();
+        return $queryPrepared->fetchAll(\PDO::FETCH_OBJ);
+    }
 
     public function verifyUser(array $params): void
     {
