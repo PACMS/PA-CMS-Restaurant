@@ -7,3 +7,4 @@ www/vendor/
 .dist/
 .vscode/
 npmignore
+dist/*
