@@ -1,0 +1,197 @@
+main.register {
+    width: 100%;
+    height: 100%;
+    display: flex;
+
+    section#bg-image-register {
+        background-image: url(../assets/img/login.png);
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        height: 100%;
+        width: 60%;
+    }
+
+    section.register {
+        
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        height: 100vh;
+        width: 40%;
+        div.container-register {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            padding: 0 71px;
+            & form {
+                display: flex;
+                flex-direction: column;
+
+                & label {
+                    font-size: rem(14);
+                    color: #888888;
+                    font-weight: bold;
+                    width: fit-content;
+
+                    &[for='password'] {
+                      cursor: pointer;
+                    }
+
+                    & > i {
+                      cursor: pointer;
+                      pointer-events: none;
+                    }
+                }
+
+                & input {
+                    background-color: $grey;
+                    border-radius: 11px;
+                    border: none;
+                    font-weight: normal;
+                    
+                    &:not([type="submit"]):not([type="checkbox"]) {
+                        height: 30px;
+                        margin-bottom: 5px;
+                        padding-left: 15px;
+                    }
+
+                    &[type="checkbox"] {
+                        margin: 0;
+                        accent-color: $grey;
+
+                      &+label[for="acceptConditions"] {
+
+                        & span {
+                          color: $primaryBlue;
+
+                          &:hover {
+                            cursor: pointer;
+                          }
+                        }
+                      }
+                    }
+
+                    &[type="submit"] {
+                        background-color: $primaryBlue;
+                    }
+                }
+
+                div.progress-bar {
+
+                  display: flex;
+                  flex-direction: row;
+                  padding: 5px 0;
+
+                  &.progress-bar-danger {
+                    & > *:nth-child(1) {
+                      background-color: $progress-bar-danger;
+                    }
+                  }
+                  &.progress-bar-danger-confirm {
+                    & > * {
+                      background-color: $progress-bar-danger;
+                    }
+                  }
+                  &.progress-bar-warning{
+                    & > *:nth-child(1), 
+                    & > *:nth-child(2), 
+                    & > *:nth-child(3){
+                      background-color: $progress-bar-warning;
+                    }
+                  }
+                  &.progress-bar-success{
+                    & > * {
+                      background-color: $progress-bar-success;
+                    }
+                  }
+
+                  & > * {
+                    width: 25%;
+                    height: 5px;
+                    margin: 0 5px;
+                    background-color: $checkPassword-bg;
+                    &:first-child {
+                      margin-right: 5px;
+                    }
+                    &:last-child {
+                      margin-left: 5px;
+                    }
+                  }
+                }
+
+            }
+
+            & p {
+              color: #888888;
+              font-size: rem(18);
+              text-align: center;
+            }
+
+            & .options-auth {
+              justify-content: space-between;
+      
+              & a {
+                width: 45%;
+                text-decoration: none;
+      
+                & article {
+                  background-color: #f2f5fa;
+                  border: 2px solid #f2f5fa;
+                  border-radius: 11px;
+      
+                  &:hover {
+                    background-color: white;
+                    border: 2px solid $article-border;
+                  }
+                  & figure {
+                    margin: 0;
+                    width: 32px;
+                    height: 32px;
+                    margin-right: 10px;
+                  }
+      
+                  & p {
+                    color: black;
+                  }
+                }
+              }
+      
+              & + p {
+                margin-top: 10px;
+                font-size: rem(16);
+                & > a {
+                  font-weight: bold;
+                  &:visited {
+                    color: $primaryBlue;
+                  }
+                }
+              }
+            }
+        }
+    }
+}
+
+@media only screen and (max-width: 913px) {
+    main.register {
+      section#bg-image-register {
+        display: none;
+      }
+      section.register {
+        width: 100%;
+      }
+    }
+  }
+  
+  @media only screen and (max-width: 540px) {
+    main.register {
+      section.register > .container-register .options-auth {
+        flex-direction: column;
+        align-items: center;
+        & article {
+          width: 100% !important;
+          margin-bottom: 20px;
+        }
+      }
+    }
+  }

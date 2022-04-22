@@ -4,7 +4,7 @@
     <section class="login">
         <div class="container-login">
             <h1>Connexion</h1>
-            <form method="post" action="loginVerify">
+            <form method="post" action="loginVerify" class="flex flex-column">
                 <label for="email" class="greytext">Adresse mail</label>
                 <input type="email" name="email" />
                 <div class="flex justify-content-between align-items-center">
@@ -19,7 +19,7 @@
             </form>
             <p>Se connecter avec</p>
             <div class="options-auth flex">
-                <a href='https://accounts.google.com/o/oauth2/v2/auth?scope=<?= urlencode('https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email') ?>&access_type=offline&response_type=code&redirect_uri=<?= urlencode(REDIRECT_URI_GOOGLE) ?>&client_id=<?= PUBLIC_KEY_GOOGLE ?>'>
+                <a href='https://accounts.google.com/o/oauth2/v2/auth?scope=<?php echo urlencode('https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email') ?>&access_type=offline&response_type=code&redirect_uri=<?php echo urlencode(REDIRECT_URI_GOOGLE) ?>&client_id=<?php echo PUBLIC_KEY_GOOGLE ?>'>
                     <article class="flex justify-content-center align-items-center">
                         <figure>
                             <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -33,7 +33,7 @@
                         <p>Google</p>
                     </article>
                 </a>
-                <a href='https://www.facebook.com/v13.0/dialog/oauth?client_id=<?= PUBLIC_KEY_FACEBOOK ?>&redirect_uri=<?= urlencode(REDIRECT_URI_FACEBOOK) ?>&scope=email'>
+                <a href='https://www.facebook.com/v13.0/dialog/oauth?client_id=<?php echo PUBLIC_KEY_FACEBOOK ?>&redirect_uri=<?php echo urlencode(REDIRECT_URI_FACEBOOK) ?>&scope=email'>
                     <article class="flex justify-content-center align-items-center">
                         <figure>
                             <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -45,7 +45,7 @@
                     </article>
                 </a>
             </div>
-            <p>Vous n'avez pas de compte ? <a href="#">Créez en un !</a></p>
+            <p>Vous n'avez pas de compte ? <a href="/register">Créez en un !</a></p>
         </div>
     </section>
 </main>

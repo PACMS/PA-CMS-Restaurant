@@ -9,7 +9,7 @@
                 <li><a href="profile" class="sidebar-button--active"><i class="far fa-user-circle sidebar-button-picto"></i><span>Profil</span></a></li>
                 <li><a href="#" class="sidebar-button"><i class="far fa-edit sidebar-button-picto"></i><span>Thèmes</span></a></li>
                 <li><a href="#" class="sidebar-button"><i class="far fa-chart-bar sidebar-button-picto"></i><span>Statistiques</span></a></li>
-                <li><a href="#" class="sidebar-button"><i class="far fa-lemon sidebar-button-picto"></i><span>Restaurants</span></a></li>
+                <li><a href="/restaurants" class="sidebar-button"><i class="far fa-lemon sidebar-button-picto"></i><span>Restaurants</span></a></li>
                 <li> <a href="#" class="sidebar-button"><i class="far fa-list-alt sidebar-button-picto"></i><span>Utilisateurs</span></a></li>
             </ul>
         </nav>
@@ -23,7 +23,7 @@
             </div>
             <div id="profileDiv">
                 <a href="#">
-                    <p><?= $_SESSION['user']['firstname'] ?><i class="fas fa-user"></i></p>
+                    <p><?php echo $_SESSION['user']['firstname'] ?><i class="fas fa-user"></i></p>
                 </a>
                 <button>
                     <i class="far fa-moon"></i>
@@ -39,7 +39,7 @@
                 </div>
 
                 <div class="flex-column">
-                    <p class="title"><?= $_SESSION['user']['firstname'] ?></p>
+                    <p class="title"><?php echo $_SESSION['user']['firstname'] ?></p>
                     <p class="role top-32"><?php echo $_SESSION['user']['role'] == 'admin' ? "Patron" : "Employé"; ?></p>
                 </div>
 

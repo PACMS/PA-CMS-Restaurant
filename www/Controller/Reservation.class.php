@@ -16,8 +16,6 @@ class Reservation
         foreach ($data as $dateReserv ){
             $dateReserv->date = date("d/m/Y", strtotime($dateReserv->date));
         }
-
-        //die(print_r($data[3]->date));
         $view = new View("reservation", "back");
         $view->assign('reservation', $reservation);
         $view->assign('data', $data);
@@ -27,8 +25,6 @@ class Reservation
     public function addReservation()
     {
         $reservation = new ReservationModel();
-
-        //Verificator::checkForm($reservation->getModalForm(), $_POST + $_FILES);
 
         $reservation->hydrate($_POST);
         $reservation->save();

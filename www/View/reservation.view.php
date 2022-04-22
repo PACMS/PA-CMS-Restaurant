@@ -73,7 +73,7 @@
                                        <td> <?php echo $reservation->hour ?> </td>
                                        <td> <?php echo $reservation->numTable ?> </td>
                                        <td> <?php echo $reservation->phoneReserv ?> </td>
-                                        <td></td>
+                                       <td></td>
                                    </tr>
                                 <?php
                                     endforeach;

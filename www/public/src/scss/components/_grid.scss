@@ -8,9 +8,9 @@ $lg-width: 992px;
 $xl-width: 1200px;
 $xxl-width: 1400px;
 
-$container-max-widths: (540px, 720px, 960px, 1140px, 1320px);
+$width: (540px, 720px, 960px, 1140px, 1320px);
 
-$container-prefix: (sm, md, lg, xl, xxl);
+$prefix: (sm, md, lg, xl, xxl);
 
 $prefix-widths: (
   "xs" 0,
@@ -28,6 +28,34 @@ $prefix-widths: (
   margin-right: 8%;
 }
 
+@each $prefix, $width in $prefix-widths {
+  @media screen and (min-width: $width) {
+    @for $i from 1 through $col-nb {
+      .cols-#{$prefix}-#{$i} {
+        width: ((100 / $col-nb) * $i) * 1%;
+        padding: $gutter-width/2;
+        box-sizing: border-box;
+        display: block;
+        margin-left: 0;
+        
+      }
+      .offset-#{$prefix}-#{$i} {
+        margin-left: ((100 / $col-nb) * $i) * 1%;
+      }
+    }
+    .hidden-#{$prefix} {
+      display: none;
+    }
+  }
+}
+
+@for $i from 1 through $col-nb {
+  .cols-#{$i} {
+    width: ((100 / $col-nb) * $i) * 1%;
+    padding: $gutter-width/2;
+    box-sizing: border-box;
+  }
+}
 .row {
   display: flex;
   flex-wrap: wrap;
@@ -60,32 +88,4 @@ $prefix-widths: (
 
 .red {
   background-color: red;
-}
-
-@each $prefix, $width in $prefix-widths {
-  @media screen and (min-width: $width) {
-    @for $i from 1 through $col-nb {
-      .cols-#{$prefix}-#{$i} {
-        width: ((100 / $col-nb) * $i) * 1%;
-        padding: $gutter-width/2;
-        box-sizing: border-box;
-        display: block;
-        margin-left: 0;
-      }
-      .offset-#{$prefix}-#{$i} {
-        margin-left: ((100 / $col-nb) * $i) * 1%;
-      }
-    }
-    .hidden-#{$prefix} {
-      display: none;
-    }
-  }
-}
-
-@for $i from 1 through $col-nb {
-  .cols-#{$i} {
-    width: ((100 / $col-nb) * $i) * 1%;
-    padding: $gutter-width/2;
-    box-sizing: border-box;
-  }
 }

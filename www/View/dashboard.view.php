@@ -10,7 +10,7 @@
                 <li><a href="profile" class="sidebar-button"><i class="far fa-user-circle sidebar-button-picto"></i><span>Profil</span></a></li>
                 <li><a href="#" class="sidebar-button"><i class="far fa-edit sidebar-button-picto"></i><span>Thèmes</span></a></li>
                 <li><a href="#" class="sidebar-button"><i class="far fa-chart-bar sidebar-button-picto"></i><span>Statistiques</span></a></li>
-                <li><a href="#" class="sidebar-button"><i class="far fa-lemon sidebar-button-picto"></i><span>Restaurants</span></a></li>
+                <li><a href="/restaurants" class="sidebar-button"><i class="far fa-lemon sidebar-button-picto"></i><span>Restaurants</span></a></li>
                 <li> <a href="#" class="sidebar-button"><i class="far fa-list-alt sidebar-button-picto"></i><span>Utilisateurs</span></a></li>
             </ul>
         </nav>
@@ -25,7 +25,7 @@
             </div>
             <article class="flex align-items-center gap-20">
                 <a href="profile">
-                    <p class="m-0"><?= $_SESSION['user']['firstname'] ?><i class="fas fa-user"></i></p>
+                    <p class="m-0"><?php echo $_SESSION['user']['firstname'] ?><i class="fas fa-user"></i></p>
                 </a>
                 <button style="background: none; border: none">
                     <i class="far fa-moon"></i>
