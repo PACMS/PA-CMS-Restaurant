@@ -27,8 +27,15 @@ class Admin
     public function users()
     {
         $user = new UserModel();
+        $users = $user->getAll();
+
+        foreach ($users as $user ){
+            $user->createdAt = date("d/m/Y H\hi:s", strtotime($user->createdAt));
+            $user->updatedAt = date("d/m/Y H\hi:s", strtotime($user->updatedAt));
+        }
 
         $view = new View("users", "back");
+        $view->assign("users", $users);
         $view->assign("user", $user);
     }
 }

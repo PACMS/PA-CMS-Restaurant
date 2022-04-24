@@ -251,4 +251,27 @@ $(document).ready(function () {
     table.draw();
 
   });
+
+  $('#usersTable').dataTable( {
+    language: {
+      "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/French.json"
+    },
+    columnDefs: [
+      { className: "dt-center", targets: "_all" },
+      { targets: -1, data: null, defaultContent: "<a href=''><i class='fas fa-pen'></i></a><a href=''><i class='fas fa-times-circle'></i></a>" },
+    ],
+    order: [3, 'desc'],
+    columns: [null, null, null, null, null, null, { type: "date-eu" }, { type: "date-eu" }, null],
+
+    searching: true,
+    //paging: false,
+    lengthMenu: [10, 20, 30, 40, 50],
+    pageLength: 10,
+    info: true,
+  });
+  // Refilter the table
+  $("#min, #max").on("change", function () {
+    table.draw();
+
+  });
 });

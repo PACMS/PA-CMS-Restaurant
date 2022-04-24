@@ -5,11 +5,10 @@
     <div id="pseudo-element"></div>
     <section class="flex flex-column secondPart">
         <div class="flex justify-content-between navbar align-items-center">
-
             <h1>Reservation</h1>
             <div id="profileDiv">
                 <a href="#">
-                    <p>Jean Pierre<i class="fas fa-user"></i></p>
+                    <p><?php echo $_SESSION['user']['firstname'] ?><i class="fas fa-user"></i></p>
                 </a>
                 <button>
                     <i class="far fa-moon"></i>

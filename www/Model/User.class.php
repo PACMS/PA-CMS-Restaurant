@@ -166,6 +166,11 @@ class User extends Sql
         parent::verifyUser($params);
     }
 
+    public function getAll(): array
+    {
+        return parent::getAll();
+    }
+
     public function getRegisterForm(): array
     {
         return [
