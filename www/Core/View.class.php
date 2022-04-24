@@ -28,7 +28,7 @@ class View
         $this->data[$key] = $value;
     }
 
-    public function includePartial($partial, $config): void
+    public function includePartial($partial, $config = null): void
     {
         if (!file_exists("View/Partial/" . $partial . ".partial.php")) {
             die("le partial " . $partial . " n'existe pas");

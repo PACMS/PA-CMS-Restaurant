@@ -23,4 +23,12 @@ class Admin
     {
         $view = new View("profile", "back");
     }
+
+    public function users()
+    {
+        $user = new UserModel();
+
+        $view = new View("users", "back");
+        $view->assign("user", $user);
+    }
 }
