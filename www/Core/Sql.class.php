@@ -16,8 +16,8 @@ namespace App\Core;
  */
 abstract class Sql
 {
-    private $pdo;
-    private $table;
+    private $_pdo;
+    private $_table;
 
     /**
      * Constructor
@@ -28,7 +28,7 @@ abstract class Sql
     {
         //Plus tard il faudra penser au singleton
         try {
-            $this->pdo = new \PDO(
+            $this->_pdo = new \PDO(
                 DBDRIVER .
                 ":host=" . DBHOST .
                 ";port=" . DBPORT .
@@ -42,7 +42,7 @@ abstract class Sql
         }
 
         $getCalledClassExploded = explode("\\", strtolower(get_called_class())); // App\Model\User
-        $this->table = DBPREFIXE . end($getCalledClassExploded);
+        $this->_table = DBPREFIXE . end($getCalledClassExploded);
     }
 
 
@@ -56,10 +56,10 @@ abstract class Sql
             $table = DBPREFIXE . $table;
             $sql = "SELECT * FROM " . $table . " WHERE " . implode(" AND ", $where);
         } else {
-            $sql = "SELECT * FROM " . $this->table . " WHERE " . implode(" AND ", $where);
+            $sql = "SELECT * FROM " . $this->_table . " WHERE " . implode(" AND ", $where);
         }
 
-        $queryPrepared = $this->pdo->prepare($sql);
+        $queryPrepared = $this->_pdo->prepare($sql);
         if ($queryPrepared !== false) {
             // die(print_r($whereClause));
             $success = $queryPrepared->execute($whereClause);
@@ -78,7 +78,7 @@ abstract class Sql
 
     {
 
-        $statement = $this->pdo->prepare($sql);
+        $statement = $this->_pdo->prepare($sql);
         if ($statement !== false) {
             $success = $statement->execute($params);
             if ($success) {
@@ -105,8 +105,8 @@ abstract class Sql
      */
     public function updateStatus(?int $result, ?string $email): void
     {
-        $sql = "UPDATE " . $this->table . " SET " . "status = " . $result . " WHERE email=:email";
-        $queryPrepared = $this->pdo->prepare($sql);
+        $sql = "UPDATE " . $this->_table . " SET " . "status = " . $result . " WHERE email=:email";
+        $queryPrepared = $this->_pdo->prepare($sql);
         $queryPrepared->execute(["email" => $email]);
     }
 
@@ -118,7 +118,7 @@ abstract class Sql
         $columns = array_diff_key($columns, $varToExclude);
 
         if (is_null($columns['id'])) {
-            $sql = "INSERT INTO " . $this->table . " (" . implode(",", array_keys($columns)) . ") VALUES (:" . implode(",:", array_keys($columns)) . ")";
+            $sql = "INSERT INTO " . $this->_table . " (" . implode(",", array_keys($columns)) . ") VALUES (:" . implode(",:", array_keys($columns)) . ")";
         } else {
             $update = [];
             $updateValues = [];
@@ -135,10 +135,10 @@ abstract class Sql
                 }
             }
 
-            $sql = "UPDATE " . $this->table . " SET " . implode(", ", $update) . " WHERE id = :id";
+            $sql = "UPDATE " . $this->_table . " SET " . implode(", ", $update) . " WHERE id = :id";
         }
 
-        $queryPrepared = $this->pdo->prepare($sql);
+        $queryPrepared = $this->_pdo->prepare($sql);
         if (is_null($columns['id'])) {
             $queryPrepared->execute($columns);
         } else {
@@ -177,9 +177,9 @@ abstract class Sql
             $where[] = $key . "=:" . $key;
         }
 
-        $sql = "SELECT * FROM " . $this->table . " WHERE " . implode(",", $where);
+        $sql = "SELECT * FROM " . $this->_table . " WHERE " . implode(",", $where);
 
-        $queryPrepared = $this->pdo->prepare($sql);
+        $queryPrepared = $this->_pdo->prepare($sql);
         $queryPrepared->execute($whereClause);
 
         return $queryPrepared->fetch(\PDO::FETCH_ASSOC);
@@ -187,8 +187,8 @@ abstract class Sql
     protected function getAll(): array
     {
 
-        $sql = "SELECT * FROM " . $this->table ;
-        $queryPrepared = $this->pdo->prepare($sql);
+        $sql = "SELECT * FROM " . $this->_table ;
+        $queryPrepared = $this->_pdo->prepare($sql);
         $queryPrepared->execute();
         return $queryPrepared->fetchAll(\PDO::FETCH_OBJ);
     }
@@ -228,8 +228,8 @@ abstract class Sql
      */
     protected function delete(int $id): void
     {
-        $sql = "DELETE FROM " . $this->table . " WHERE id = :id";
-        $queryPrepared = $this->pdo->prepare($sql);
+        $sql = "DELETE FROM " . $this->_table . " WHERE id = :id";
+        $queryPrepared = $this->_pdo->prepare($sql);
         $queryPrepared->execute(["id" => $id]);
     }
 
