@@ -103,6 +103,21 @@
   action: users
   security: 'admin'
 
+/updateUser:
+  controller: admin
+  action: updateUser
+  security: 'admin'
+
+/updateUserAction:
+  controller: admin
+  action: updateUserAction
+  security: 'admin'
+
+/deleteUser:
+  controller: admin
+  action: deleteUser
+  security: 'admin'
+
 ############################
 /notFound:
   controller: user

@@ -12,6 +12,7 @@ class User extends Sql
     protected $lastname = null;
     protected $email;
     protected $status;
+    protected $role;
     protected $password;
     protected $token = null;
 
@@ -126,6 +127,22 @@ class User extends Sql
     }
 
     /**
+     * @return null
+     */
+    public function getRole(): ?string
+    {
+        return $this->role;
+    }
+
+    /**
+     * @param string $role Nom du rôle (admin, employee, user)
+     */
+    public function setRole(string $role): void
+    {
+        $this->role = $role;
+    }
+
+    /**
      * @param null
      */
     public function generateToken(): void
@@ -159,6 +176,11 @@ class User extends Sql
         return $id['id'];
     }
 
+    public function getUserById(?int $id)
+    {
+        return parent::databaseFindOne(['id' => $id]);
+    }
+
     public function verifyUser(array $params): void
     {
         //Pré traitement par exemple
@@ -169,6 +191,18 @@ class User extends Sql
     public function getAll(): array
     {
         return parent::getAll();
+    }
+
+    /**
+     * Delete an user in the database
+     * 
+     * @param int $id The id of the user to delete
+     * 
+     * @return void
+     */
+    public function deleteUser($id): void
+    {
+        parent::delete($id);
     }
 
     public function getRegisterForm(): array

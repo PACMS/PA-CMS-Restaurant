@@ -2,10 +2,28 @@
 
 namespace App\Core;
 
+/**
+ * Sql class
+ * 
+ * @category Core
+ * 
+ * @package App\Core
+ * 
+ * @access abstract
+ * 
+ * @author PACMS <pa.cms.test@gmail.com>
+ * 
+ */
 abstract class Sql
 {
     private $pdo;
     private $table;
+
+    /**
+     * Constructor
+     * 
+     * @return void
+     */
     public function __construct()
     {
         //Plus tard il faudra penser au singleton
@@ -200,4 +218,20 @@ abstract class Sql
             }
         };
     }
+
+    /**
+     * Delete a line in the database
+     *
+     * @param integer $id The id of the line to delete
+     * 
+     * @return void 
+     */
+    protected function delete(int $id): void
+    {
+        $sql = "DELETE FROM " . $this->table . " WHERE id = :id";
+        $queryPrepared = $this->pdo->prepare($sql);
+        $queryPrepared->execute(["id" => $id]);
+    }
+
+
 }

@@ -258,7 +258,11 @@ $(document).ready(function () {
     },
     columnDefs: [
       { className: "dt-center", targets: "_all" },
-      { targets: -1, data: null, defaultContent: "<a href=''><i class='fas fa-pen'></i></a><a href=''><i class='fas fa-times-circle'></i></a>" },
+      { 
+        targets: -1,
+        data: null,
+        defaultContent: "<button id='updateUser'><i class='fas fa-pen'></i></button><button id='deleteUser'><i class='fas fa-times-circle'></i></button>"
+      },
     ],
     order: [3, 'desc'],
     columns: [null, null, null, null, null, null, { type: "date-eu" }, { type: "date-eu" }, null],
@@ -269,6 +273,17 @@ $(document).ready(function () {
     pageLength: 10,
     info: true,
   });
+
+  $('#usersTable tbody').on('click','#updateUser',function(){
+    var data = $('#usersTable').DataTable().row($(this).parents('tr')).data();
+    window.location.href = "/updateUser?id="+data[0];
+  });
+
+  $('#usersTable tbody').on('click','#deleteUser',function(){
+    var data = $('#usersTable').DataTable().row($(this).parents('tr')).data();
+    window.location.href = "/deleteUser?id="+data[0];
+  });
+
   // Refilter the table
   $("#min, #max").on("change", function () {
     table.draw();
