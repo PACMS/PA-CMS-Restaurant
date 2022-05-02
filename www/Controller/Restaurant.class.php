@@ -34,9 +34,8 @@ class Restaurant
         $table = "restaurant";
 
         $oneRestaurant = $restaurant->getOneRestaurant($table, $id);
-        var_dump($oneRestaurant);
         $view = new View("restaurant");
-        $view->assign('restaurant', $restaurant);
+        $view->assign('restaurant', $oneRestaurant);
         
     }
 
@@ -44,16 +43,16 @@ class Restaurant
     {
         $restaurant = new RestaurantModel();
         $errors = null;
-        if (!empty($_POST)) {
-            $errors = Verificator::checkForm($restaurant->getCompleteRegisterForm(), $_POST + $_FILES);
-            if (!$errors) {
+        // if (!empty($_POST)) {
+            // $errors = Verificator::checkForm($restaurant->getCompleteRegisterForm(), $_POST + $_FILES);
+            
+            // if (!$errors) {
         
 
                 $restaurant->hydrate($_POST);
                 $restaurant->save();
-            }
-        }
-        var_dump($errors);
+            // }
+        // }
         header('Location: /restaurants');
     }
 
@@ -64,7 +63,6 @@ class Restaurant
 
         if (!empty($_POST)) {
             $errors = Verificator::checkForm($restaurant->getCompleteRegisterForm(), $_POST + $_FILES);
-
             if (!$errors) {
                 $restaurant->hydrate($_POST);
                 $restaurant->save();

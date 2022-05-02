@@ -100,8 +100,7 @@ abstract class Sql
         $columns = get_object_vars($this);
         $varToExclude = get_class_vars(get_class());
         $columns = array_diff_key($columns, $varToExclude);
-
-        if (is_null($columns['id'])) {
+        if (is_null($_POST['id'])) {
             $sql = "INSERT INTO " . $this->table . " (" . implode(",", array_keys($columns)) . ") VALUES (:" . implode(",:", array_keys($columns)) . ")";
         } else {
             $update = [];
@@ -193,7 +192,6 @@ abstract class Sql
     protected function databaseDeleteOne(string $sql, array $params)
 
     {
-        var_dump($sql, $params);
         $statement = $this->pdo->prepare($sql);
         if ($statement !== false) {
             $success = $statement->execute($params);
