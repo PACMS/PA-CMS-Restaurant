@@ -32,7 +32,7 @@ class Verificator extends Sql
             if ( $input["type"] == 'file' && !empty($data[$name]['name']) && !self::checkFile($data[$name]['name'], $input["accept"])) $errors[]=$input["error"];
             if ( $input["type"] == 'captcha' && !self::checkCaptcha($data[$name])) $errors[]=$input["error"];
         }
-
+        var_dump("ERREUR", $errors);
         return $errors;
     }
 

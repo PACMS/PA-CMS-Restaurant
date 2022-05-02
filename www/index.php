@@ -37,6 +37,7 @@ if(file_exists($fileRoutes)){
 
 if (strpos($_SERVER["REQUEST_URI"], '?')) $uri = substr($_SERVER["REQUEST_URI"], 0, strpos($_SERVER["REQUEST_URI"], '?'));
 else $uri = $_SERVER["REQUEST_URI"];
+// var_dump($routes);
 
 if(empty($routes[$uri]) || empty($routes[$uri]["controller"]) || empty($routes[$uri]["action"])){
     header('Location: /notFound');

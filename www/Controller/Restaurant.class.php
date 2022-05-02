@@ -8,20 +8,56 @@ use App\Model\Restaurant as RestaurantModel;
 
 class Restaurant
 {
-    public function restaurant ()
+    public function restaurant()
     {
 
         $restaurant = new RestaurantModel();
         // utiliser la fonction getAllRestaurant() de RestaurantModel
-         $allRestaurants = $restaurant->getAllRestaurants();
+        $allRestaurants = $restaurant->getAllRestaurants();
         $view = new View("restaurants");
         $view->assign('restaurant', $allRestaurants);
-        
-        
-
     }
 
-    public function updateRestaurant ()
+    public function deleteRestaurant()
+    {
+        $restaurant = new RestaurantModel();
+        $table = "restaurant";
+        $id = $_POST['id'];
+        $restaurant->databaseDeleteOneRestaurant($table, $id);
+        header('Location: /restaurants');
+    }
+
+    public function getOneRestaurant()
+    {
+        $restaurant = new RestaurantModel();
+        $id = $_GET['id'];
+        $table = "restaurant";
+
+        $oneRestaurant = $restaurant->getOneRestaurant($table, $id);
+        var_dump($oneRestaurant);
+        $view = new View("restaurant");
+        $view->assign('restaurant', $restaurant);
+        
+    }
+
+    public function createOneRestaurant()
+    {
+        $restaurant = new RestaurantModel();
+        $errors = null;
+        if (!empty($_POST)) {
+            $errors = Verificator::checkForm($restaurant->getCompleteRegisterForm(), $_POST + $_FILES);
+            if (!$errors) {
+        
+
+                $restaurant->hydrate($_POST);
+                $restaurant->save();
+            }
+        }
+        var_dump($errors);
+        header('Location: /restaurants');
+    }
+
+    public function updateRestaurant()
     {
         $restaurant = new RestaurantModel();
         $errors = null;
@@ -29,7 +65,7 @@ class Restaurant
         if (!empty($_POST)) {
             $errors = Verificator::checkForm($restaurant->getCompleteRegisterForm(), $_POST + $_FILES);
 
-            if(!$errors) {
+            if (!$errors) {
                 $restaurant->hydrate($_POST);
                 $restaurant->save();
             }
