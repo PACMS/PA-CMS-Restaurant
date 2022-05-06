@@ -108,9 +108,14 @@
   action: updateUser
   security: 'admin'
 
-/updateUserAction:
+/createUser:
   controller: admin
-  action: updateUserAction
+  action: createUser
+  security: 'admin'
+
+/saveUser:
+  controller: admin
+  action: saveUser
   security: 'admin'
 
 /deleteUser:
