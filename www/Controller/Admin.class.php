@@ -57,6 +57,19 @@ class Admin
     }
 
     /**
+     * Form create user
+     *
+     * @return void
+     */
+    public function createUser()
+    {
+        $user = new UserModel();
+
+        $view = new View("createUser", "back");
+        $view->assign("user", $user);
+    }
+
+    /**
      * Form update user
      *
      * @return void
@@ -68,7 +81,6 @@ class Admin
         $userId = htmlspecialchars($_GET['id']);
 
         $userInfos = $user->getUserById($userId);
-
         $view = new View("updateUser", "back");
         $view->assign("user", $user);
         $view->assign("userInfos", $userInfos);
@@ -79,7 +91,7 @@ class Admin
      *
      * @return void
      */
-    public function updateUserAction()
+    public function saveUser()
     {
         $user = new UserModel();
         $user->hydrate($_POST);

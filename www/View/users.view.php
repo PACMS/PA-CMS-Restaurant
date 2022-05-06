@@ -50,6 +50,7 @@
                 </tbody>
             </table>
         </section>
+        <button><a href="createUser">Ajouter un utilisateur</a></button>
     </section>
 </main>
 

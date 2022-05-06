@@ -117,7 +117,7 @@ class User
                 $_POST + $_FILES
             );
         }
-
+        // die(var_dump($_POST));
         $email = $_POST['email'];
         $user->setEmail($email);
         $user->setPassword($_POST['password']);

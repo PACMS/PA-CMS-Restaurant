@@ -46,13 +46,13 @@ abstract class Sql
     }
 
 
-    protected function databaseFindOne(array $whereClause, ?string $table = 'false')
+    protected function databaseFindOne(array $whereClause, ?string $table = null)
     {
         foreach ($whereClause as $key => $whereValue) {
             $where[] = $key . " = :" . $key;
         }
 
-        if ($table != 'false') {
+        if (isset($table)) {
             $table = DBPREFIXE . $table;
             $sql = "SELECT * FROM " . $table . " WHERE " . implode(" AND ", $where);
         } else {
@@ -61,7 +61,6 @@ abstract class Sql
 
         $queryPrepared = $this->_pdo->prepare($sql);
         if ($queryPrepared !== false) {
-            // die(print_r($whereClause));
             $success = $queryPrepared->execute($whereClause);
             if ($success) {
                 $res = $queryPrepared->fetch(\PDO::FETCH_ASSOC);
@@ -137,7 +136,6 @@ abstract class Sql
 
             $sql = "UPDATE " . $this->_table . " SET " . implode(", ", $update) . " WHERE id = :id";
         }
-
         $queryPrepared = $this->_pdo->prepare($sql);
         if (is_null($columns['id'])) {
             $queryPrepared->execute($columns);
