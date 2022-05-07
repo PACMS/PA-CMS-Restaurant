@@ -8,6 +8,17 @@ use App\Core\View;
 use App\Core\OAuth;
 use App\Model\User as UserModel;
 
+/**
+ * User Controller
+ * 
+ * @category Controller
+ * 
+ * @package App\Controller
+ * 
+ * @access public
+ * 
+ * @author PACMS <pa.cms.test@gmail.com>
+ */
 class User
 {
     public function login()

@@ -276,12 +276,12 @@ $(document).ready(function () {
 
   $('#usersTable tbody').on('click','#updateUser',function(){
     var data = $('#usersTable').DataTable().row($(this).parents('tr')).data();
-    window.location.href = "/updateUser?id="+data[0];
+    window.location.href = "/user/update?id="+data[0];
   });
 
   $('#usersTable tbody').on('click','#deleteUser',function(){
     var data = $('#usersTable').DataTable().row($(this).parents('tr')).data();
-    window.location.href = "/deleteUser?id="+data[0];
+    window.location.href = "/user/delete?id="+data[0];
   });
 
   // Refilter the table

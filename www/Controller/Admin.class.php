@@ -19,6 +19,13 @@ use App\Core\View;
  */
 class Admin
 {
+    /**
+     * Dashboard
+     * 
+     * @link http://localhost:81/Dashboard /dashboard
+     *
+     * @return void
+     */
     public function home()
     {
         $user = new UserModel();
@@ -31,6 +38,13 @@ class Admin
     {
     }
 
+    /**
+     * Profile
+     * 
+     * @link http://localhost:81/profile /profile
+     *
+     * @return void
+     */
     public function profile()
     {
         $view = new View("profile", "back");
@@ -38,6 +52,8 @@ class Admin
 
     /**
      * Show the list of users
+     * 
+     * @link http://localhost:81/users /users
      *
      * @return void
      */
@@ -58,6 +74,8 @@ class Admin
 
     /**
      * Form create user
+     * 
+     * @link http://localhost:81/user/create /user/create
      *
      * @return void
      */
@@ -71,6 +89,8 @@ class Admin
 
     /**
      * Form update user
+     * 
+     * @link http://localhost:81/user/update /user/update
      *
      * @return void
      */
@@ -87,7 +107,9 @@ class Admin
     }
 
     /**
-     * Update user
+     * Save an user
+     * 
+     * @link http://localhost:81/user/save /user/save
      *
      * @return void
      */
@@ -100,7 +122,9 @@ class Admin
     }
 
     /**
-     * Delete user
+     * Delete an user
+     * 
+     * @link http://localhost:81/user/delete /user/delete
      *
      * @return void
      */

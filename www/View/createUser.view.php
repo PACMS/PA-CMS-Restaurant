@@ -14,7 +14,7 @@
             </div>
         </div>
         <section class="usersTableHeader flex justify-content-between">
-            <form action="saveUser" method="POST">
+            <form action="/user/save" method="POST">
                 <div class="flex justify-content-between">
                     <div class="flex flex-column">
                         <label for="firstname">Prénom</label>

@@ -103,22 +103,22 @@
   action: users
   security: 'admin'
 
-/updateUser:
+/user/update:
   controller: admin
   action: updateUser
   security: 'admin'
 
-/createUser:
+/user/create:
   controller: admin
   action: createUser
   security: 'admin'
 
-/saveUser:
+/user/save:
   controller: admin
   action: saveUser
   security: 'admin'
 
-/deleteUser:
+/user/delete:
   controller: admin
   action: deleteUser
   security: 'admin'
