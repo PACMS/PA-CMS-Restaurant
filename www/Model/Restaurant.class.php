@@ -17,7 +17,7 @@ class Restaurant extends Sql
     /**
      * @var
      */
-    protected $name = null;
+    protected $name;
     /**
      * @var
      */
@@ -45,6 +45,14 @@ class Restaurant extends Sql
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * @return null
+     */
+    public function setId(int $id): void
+    {
+        $this->id = $id; 
     }
 
     // getter and setter for name	
@@ -165,8 +173,7 @@ class Restaurant extends Sql
         return $restaurant;
     }
 
-
-    public function getCompleteRegisterForm()
+    public function getCompleteRestaurantForm()
     {
         return [
             "config" => [
@@ -178,6 +185,12 @@ class Restaurant extends Sql
                 'captcha' => false,
             ],
             "inputs" => [
+                "id" => [
+                    "type" => "hidden",
+                    "id" => "id",
+                    "class" => "formRestaurant",
+                    "value" => 24,
+                ],
                 "name" => [
                     "placeholder" => "Nom du restaurant*",
                     "type" => "text",
@@ -186,6 +199,7 @@ class Restaurant extends Sql
                     "required" => true,
                     "min" => 2,
                     "max" => 100,
+                    "value" => $this->name,
                     "error" => "Le nom de votre restaurant n'est pas correct",
                 ],
                 "address" => [
@@ -196,6 +210,7 @@ class Restaurant extends Sql
                     "required" => true,
                     "min" => 2,
                     "max" => 255,
+                    "value" => $this->address,
                     "error" => "Le champs adresse contient une erreur",
                 ],
                 "additional_address" => [
@@ -204,6 +219,7 @@ class Restaurant extends Sql
                     "id" => "additional_address",
                     "class" => "formRestaurant",
                     "max" => 255,
+                    "value" => $this->additional_address,
                     "error" => "Le champs complément d'adresse contient une erreur"
                 ],
                 "city" => [
@@ -214,6 +230,7 @@ class Restaurant extends Sql
                     "required" => true,
                     "min" => 2,
                     "max" => 50,
+                    "value" => $this->city,
                     "error" => "Le nom de votre ville n'est pas correct",
                 ],
                 "zipcode" => [
@@ -224,6 +241,7 @@ class Restaurant extends Sql
                     "required" => true,
                     "min" => 2,
                     "max" => 10,
+                    "value" => $this->zipcode,
                     "error" => "Votre code postal est incorrect",
                 ],
                 "phone" => [
@@ -234,6 +252,7 @@ class Restaurant extends Sql
                     "required" => true,
                     "min" => 2,
                     "max" => 15,
+                    "value" => $this->phone,
                     "error" => "Votre numéro de téléphone est incorrect",
                 ],
                 // "captcha" => [

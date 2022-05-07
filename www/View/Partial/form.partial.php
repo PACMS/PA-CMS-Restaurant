@@ -98,6 +98,13 @@
                 name="<?= $name ?>" 
                 id="recaptchaResponse"
             />
+        <?php elseif ($input["type"] === "hidden") : ?>
+            <input 
+                type="hidden" 
+                name="<?= $name ?>" 
+                id="<?= $input["id"] ?? "" ?>" 
+                <?= !empty($input["value"]) ? 'value='.$input["value"] : ""  ?>
+            />
         <?php else : ?>
             <?php if (!empty($input["label"])) : ?>
                 <label for="<?= $name ?>"><?= $input["label"] ?></label>
@@ -109,6 +116,7 @@
                 id="<?= $input["id"] ?? "" ?>" 
                 placeholder="<?= $input["placeholder"] ?? "" ?>" 
                 type="<?= $input["type"] ?? "text" ?>" 
+                <?= !empty($input["value"]) ? 'value='.$input["value"] : ""  ?>
                 <?= !empty($input["required"]) ? 'required="required"' : ""  ?>
             />
 

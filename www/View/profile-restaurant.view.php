@@ -9,4 +9,4 @@
 
     <h1>Ajout d'un restaurant</h1>
 
-<?php $this->includePartial("form", $restaurant->getCompleteRegisterForm()); ?>
+<?php $this->includePartial("form", $restaurant->getCompleteRestaurantForm()); ?>

@@ -32,10 +32,11 @@ class Restaurant
         $restaurant = new RestaurantModel();
         $id = $_GET['id'];
         $table = "restaurant";
-
         $oneRestaurant = $restaurant->getOneRestaurant($table, $id);
+        $restaurant->hydrate($oneRestaurant);
         $view = new View("restaurant");
-        $view->assign('restaurant', $oneRestaurant);
+        $view->assign('restaurant', $restaurant);
+        $view->assign('oneRestaurant', $oneRestaurant);
         
     }
 
@@ -61,13 +62,7 @@ class Restaurant
         $restaurant = new RestaurantModel();
         $errors = null;
 
-        if (!empty($_POST)) {
-            $errors = Verificator::checkForm($restaurant->getCompleteRegisterForm(), $_POST + $_FILES);
-            if (!$errors) {
-                $restaurant->hydrate($_POST);
-                $restaurant->save();
-            }
-        }
+       
 
         $view = new View("profile-restaurant");
         $view->assign('restaurant', $restaurant);

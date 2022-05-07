@@ -96,7 +96,6 @@ abstract class Sql
 
     public function save(): void
     {
-
         $columns = get_object_vars($this);
         $varToExclude = get_class_vars(get_class());
         $columns = array_diff_key($columns, $varToExclude);
