@@ -14,7 +14,7 @@
             </div>
         </div>
         <section class="usersTableHeader flex justify-content-between">
-            <form action="/user/save" method="POST">
+            <!-- <form action="/user/save" method="POST">
                 <div class="flex justify-content-between">
                     <div class="flex flex-column">
                         <label for="firstname">Prénom</label>
@@ -59,7 +59,8 @@
                 <div>
                     <input type="submit" value="Créer">
                 </div>
-            </form>
+            </form> -->
+            <?php $this->includePartial("form", $user->getUserCreationForm()); ?>
         </section>
     </section>
 </main>

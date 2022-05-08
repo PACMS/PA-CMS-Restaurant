@@ -576,4 +576,100 @@ class User extends Sql
             ]
         ];
     }
+
+    public function getUserCreationForm()
+    {
+        return [
+            "config"=>[
+                "method"=>"POST",
+                "action"=>"/user/save",
+                "class"=>"",
+                "id"=>"",
+                "submit"=>"Ajouter l'utilisateur",
+                'captcha' => true,
+            ],
+            "inputs"=>[
+                "firstname"=>[
+                    "label"=>"Prénom",
+                    "type"=>"text",
+                    "id"=>"firstname",
+                    "class"=>"",
+                    "required"=>true,
+                    "min"=>2,
+                    "max"=>255,
+                    "error"=>"Le prénom n'est pas correct",
+                ],
+                "lastname"=>[
+                    "label"=>"Nom",
+                    "type"=>"text",
+                    "id"=>"lastname",
+                    "class"=>"",
+                    "max"=>255,
+                    "error"=>"Le nom n'est pas correct"
+                ],
+                "email" => [
+                    "label" => "Adresse mail",
+                    "type" => "email",
+                    "id" => "emailRegister",
+                    "class" => "formRegister",
+                    "required" => true,
+                    "error" => "Votre email n'est pas correct",
+                    "unicity" => 'user',
+                    "errorUnicity" => "Un comte existe déjà avec cet email"
+                ],
+                "password" => [
+                    "label" => "Mot de passe",
+                    "type" => "password",
+                    "id" => "pwdRegister",
+                    "class" => "formRegister",
+                    "required" => true,
+                    "error" => "Votre mot de passe doit faire au minimum 8 caractères avec une majuscule et un chiffre"
+                ],
+                "passwordConfirm" => [
+                    "placeholder" => "Confirmation ...",
+                    "type" => "password",
+                    "id" => "pwdConfirmRegister",
+                    "class" => "formRegister",
+                    "required" => true,
+                    "error" => "Votre confirmation doit ne correspond pas",
+                    "confirm" => "password"
+                ],
+                "role"=>[
+                    "type"=>"select",
+                    "name"=>"role",
+                    "class"=>"",
+                    "id"=>"role",
+                    "label"=>"Choisissez un role:",
+                    "placeholder"=>"Choisissez...",
+                    "default"=>"Utilisateur",
+                    "options"=>[
+                        "admin"=>"Administrateur",
+                        "user"=>"Utilisateur",
+                        "employee"=>"Employé"
+                        
+                    ],
+                    "error"=>"Vous devez sélectionner une valeur dans la liste"
+                ],
+                "status"=>[
+                    "type"=>"select",
+                    "name"=>"status",
+                    "class"=>"",
+                    "id"=>"status",
+                    "label"=>"Choisissez un status:",
+                    "placeholder"=>"Choisissez...",
+                    "default"=>"Inactif",
+                    "options"=>[
+                        "1"=>"Actif",
+                        "0"=>"Inactif"
+                        
+                    ],
+                    "error"=>"Vous devez sélectionner une valeur dans la liste"
+                ],
+                "captcha" => [
+                    'type' => 'captcha',
+                    'error' => 'Le captcha n\'a pas pu validé votre formulaire'
+                ]
+            ]
+        ];
+    }
 }
