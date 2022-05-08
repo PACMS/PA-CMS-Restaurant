@@ -30,10 +30,6 @@
   controller: user
   action: resetPasswordAction
 
-/logout:
-  controller: user
-  action: logout
-
 /register:
   controller: user
   action: register
@@ -85,7 +81,7 @@
   security: 'employee'
 
 
-#Route pour la reservation
+# Route pour la reservation
 /reservation:
   controller: reservation
   action: reservation
@@ -96,7 +92,13 @@
   action: addReservation
   security: 'employee'
 
-############################
+# Global
+
+/logout:
+  controller: user
+  action: logout
+  security: 'user'
+
 /notFound:
   controller: user
   action: errorNotFound
