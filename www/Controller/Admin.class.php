@@ -33,4 +33,34 @@ class Admin
         $view = new View("profile", "back");
         $view->assign("userInfos", $userInfos);
     }
+
+    public function updateProfile()
+    {
+        $user = new UserModel();
+
+        $user->setId($_SESSION['user']['id']);
+        $user->setFirstname($_POST['firstname']);
+        $user->setLastname($_POST['lastname']);
+        $user->setEmail($_POST['email']);
+
+        if (!empty($_POST['passwordOld']) && !empty($_POST['passwordNew']) && !empty($_POST['confirmNewPassowrd'])) {
+            $userInfos = $user->getUser(["id" => $_SESSION['user']['id']]);
+
+            if (password_verify($_POST['passwordOld'], $userInfos['password'])) {
+                if ($_POST['passwordNew'] === $_POST['confirmNewPassowrd']) {
+                    $user->setPassword($_POST['passwordNew']);
+                } else {
+                    $errors = ["Les mots de passe ne correspondent pas"];
+                    die("Les mots de passe ne correspondent pas");
+                }
+            } else {
+                $errors = ["Le mot de passe actuel est incorrect"];
+                die("Le mot de passe actuel est incorrect");
+            }
+        }
+        
+        $user->save();
+
+        header("Location: /profile");
+    }
 }
