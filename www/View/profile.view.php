@@ -64,7 +64,9 @@
 
                     </div>
                 </form>
+                <?php echo "<p class='greytext'>Profil modifié le ". date("d/m/Y à H\hi", strtotime($userInfos['updatedAt'] . '+2 hours')) . "</p>"; ?>
             </div>
+            <?php echo "<p class='greytext'>Inscrit depuis le ". date("d/m/Y à H\hi", strtotime($userInfos['createdAt'] . '+2 hours')) . "</p>"; ?>
         </section>
     </section>
 
