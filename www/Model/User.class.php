@@ -626,6 +626,7 @@ class User extends Sql
                     "error" => "Votre mot de passe doit faire au minimum 8 caractères avec une majuscule et un chiffre"
                 ],
                 "passwordConfirm" => [
+                    "label" => "Confirmer Mot de passe",
                     "placeholder" => "Confirmation ...",
                     "type" => "password",
                     "id" => "pwdConfirmRegister",
