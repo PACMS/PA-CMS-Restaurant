@@ -84,6 +84,10 @@
   action: profile
   security: 'employee'
 
+/cartes:
+  controller: carte
+  action: carte
+
 
 #Route pour la reservation
 /reservation:

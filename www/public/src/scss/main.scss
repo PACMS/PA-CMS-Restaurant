@@ -11,8 +11,8 @@
 /* --------------------------------- Layouts -------------------------------- */
 
 @import "layout/border", "layout/forms", "layout/display/flex",
-    "layout/navigation", "layout/navbar", "layout/preview-cards", "layout/texts",
-    "layout/margin", "layout/padding", "layout/gap";
+"layout/navigation", "layout/navbar", "layout/preview-cards", "layout/texts",
+"layout/margin", "layout/padding", "layout/gap";
 
 /* ------------------------------- Components ------------------------------- */
 
@@ -20,14 +20,16 @@
 
 /* ---------------------------------- Pages --------------------------------- */
 
-@import
-  "pages/profile",
-  "pages/login",
-  "pages/reservation",
-  "pages/dashboard",
-  "pages/restaurants",
-  "pages/dashboard", 
-  "pages/register", "pages/forgetPassword", "pages/error404";
+@import "pages/profile",
+"pages/login",
+"pages/reservation",
+"pages/dashboard",
+"pages/restaurants",
+"pages/dashboard",
+"pages/register",
+"pages/forgetPassword",
+"pages/error404",
+"pages/cartes";
 
 
 
