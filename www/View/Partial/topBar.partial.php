@@ -12,7 +12,7 @@
             <i class="fas fa-toggle-off"></i>
         </button>
         <button class="buttonsIcon">
-            <i class="fas fa-sign-out-alt"></i>
+            <a href="logout"><i class="fas fa-sign-out-alt"></i></a>
         </button>
     </div>
 </div>
@@ -33,7 +33,7 @@
             <i class="fas fa-toggle-off"></i>
         </button>
         <button class="buttonsIcon">
-            <i class="fas fa-sign-out-alt"></i>
+            <a href="logout"><i class="fas fa-sign-out-alt"></i></a>
         </button>
     </article>
 </section>
