@@ -19,8 +19,18 @@ class Admin
     {
     }
 
+    /**
+     * Show profile of the user
+     *
+     * @link /profile
+     * 
+     * @return void
+     */
     public function profile()
     {
+        $user = new UserModel();
+        $userInfos = $user->getUser(["id" => $_SESSION['user']['id']]);
         $view = new View("profile", "back");
+        $view->assign("userInfos", $userInfos);
     }
 }
