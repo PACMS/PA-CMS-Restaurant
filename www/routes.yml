@@ -80,6 +80,10 @@
   action: profile
   security: 'employee'
 
+/profile/update:
+  controller: admin
+  action: updateProfile
+  security: 'employee'
 
 # Route pour la reservation
 /reservation:
