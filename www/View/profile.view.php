@@ -48,7 +48,7 @@
                 </button>
 
             </div>
-            <div class="container">
+            <div class="container justify-center items-center">
                 <div class="flex flex-row justify-content-between w-full">
 
                     <!-- Prenom -->

@@ -9,6 +9,15 @@ use App\Model\Reservation as ReservationModel;
 
 class Reservation
 {
+    public function index()
+    {
+
+        $view = new View("reservationClient");
+        $reservation = new ReservationModel();
+        $view->assign('reservation', $reservation);
+
+    }
+
     public function reservation()
     {
         $reservation = new ReservationModel();

@@ -34,7 +34,7 @@
         </div>
         <section class="formProfile flex flex-column">
             <div id="open-modal" class="modal-window">
-                <div>
+                <div class="flex flex-column">
                     <a href="#" title="Close" class="modal-close ">x</a>
                     <?php $this->includePartial("formReserv", $reservation->getModalForm()); ?>
                 </div>
