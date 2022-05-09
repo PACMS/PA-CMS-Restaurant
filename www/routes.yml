@@ -78,24 +78,24 @@
 /profile:
   controller: admin
   action: profile
-  #security: 'employee'
+  security: 'employee'
 
 
 # Route pour la reservation
 /reservation:
   controller: reservation
   action: reservation
-  #security: 'employee'
+  security: 'employee'
 
 /reservationClient:
   controller: reservation
   action: index
-  #security: 'employee'
+  security: 'employee'
 
 /addReservation:
   controller: reservation
   action: addReservation
-  #security: 'employee'
+  security: 'employee'
 
 # Global
 

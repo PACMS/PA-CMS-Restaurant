@@ -37,7 +37,8 @@ class Reservation
 
         $reservation->hydrate($_POST);
         $reservation->save();
-        header('Location:/reservation');
+
+        header('Location:'. $_SERVER['HTTP_REFERER']);
 
     }
 }

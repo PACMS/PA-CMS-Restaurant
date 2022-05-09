@@ -992,6 +992,12 @@ section.container-preview-cards article.card figure img {
   cursor: pointer;
 }
 
+button.buttonsIcon {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
 .grid {
   display: grid;
   grid-gap: 0.83333333rem;
