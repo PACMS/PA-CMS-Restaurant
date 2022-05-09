@@ -243,7 +243,8 @@ class User
 
     public function logout()
     {
-        echo "Se déconnecter";
+        session_destroy();
+        header('Location: /login');
     }
 
     public function errorNotFound()
