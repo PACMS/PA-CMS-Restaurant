@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Core\Verificator;
 use App\Model\User as UserModel;
 use App\Core\View;
 
@@ -41,9 +42,13 @@ class Admin
         $user->setId($_SESSION['user']['id']);
         $user->setFirstname($_POST['firstname']);
         $user->setLastname($_POST['lastname']);
+
+        Verificator::checkEmail($_POST['email']) ?: die("Email non valide");
         $user->setEmail($_POST['email']);
 
+        
         if (!empty($_POST['passwordOld']) && !empty($_POST['passwordNew']) && !empty($_POST['confirmNewPassowrd'])) {
+            Verificator::checkPwd($_POST['passwordNew']) ?: die("Mot de passe non valide");
             $userInfos = $user->getUser(["id" => $_SESSION['user']['id']]);
 
             if (password_verify($_POST['passwordOld'], $userInfos['password'])) {
