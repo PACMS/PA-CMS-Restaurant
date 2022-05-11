@@ -35,10 +35,28 @@ class Reservation
     {
         $reservation = new ReservationModel();
 
+
         $reservation->hydrate($_POST);
+        $clientName = $reservation->getName();
+        $reservation->save();
+        $data =  $reservation->getAll();
+
+        $view = new View("reservation", "back", 'success', 'Reservation', 'Création avec succès de la reservation de ' . $clientName . ' !');
+        $view->assign('reservation', $reservation);
+        $view->assign('data', $data);
+
+    }
+
+    public function addReservationClient()
+    {
+        $reservation = new ReservationModel();
+
+        $reservation->hydrate($_POST);
+        $clientName = $reservation->getName();
         $reservation->save();
 
-        header('Location:'. $_SERVER['HTTP_REFERER']);
+        $view = new View("reservationClient", "front", 'success', 'Reservation', 'Création avec succès de la reservation de ' . $clientName . ' !');
+        $view->assign('reservation', $reservation);
 
     }
 }

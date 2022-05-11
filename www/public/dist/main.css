@@ -443,6 +443,18 @@ input[type="submit"]:hover {
   justify-content: space-between;
 }
 
+.text-center {
+  text-align: center;
+}
+
+.text-success-500 {
+  color: #22c55e;
+}
+
+.text-warning-500 {
+  color: #22c55e;
+}
+
 .top-0 {
   top: 0px;
 }
@@ -524,6 +536,36 @@ input[type="submit"]:hover {
   /* 128px */
 }
 
+.mb-1 {
+  margin-bottom: 0.25rem;
+  /* 4px */
+}
+
+.mb-7 {
+  margin-bottom: 1.75rem;
+  /* 28px */
+}
+
+.mb-8 {
+  margin-bottom: 2rem;
+  /* 32px */
+}
+
+.mb-12 {
+  margin-bottom: 3rem;
+  /* 28px */
+}
+
+.mb-20 {
+  margin-bottom: 5rem;
+  /* 80px */
+}
+
+.mb-32 {
+  margin-bottom: 8rem;
+  /* 128px */
+}
+
 .pl-20 {
   padding-left: 5rem;
   /* 80px */
@@ -534,9 +576,24 @@ input[type="submit"]:hover {
   /* 80px */
 }
 
+.w-12 {
+  width: 3rem;
+  /* 48px */
+}
+
+.w-24 {
+  width: 6rem;
+  /* 96px */
+}
+
 .w-48 {
   width: 12rem;
   /* 192px */
+}
+
+.w-64 {
+  width: 32rem;
+  /* 512px */
 }
 
 .w-full {
@@ -1875,6 +1932,67 @@ button.buttonsIcon {
 }
 
 /* ---------------------------------- Pages --------------------------------- */
+.alert-window {
+  position: fixed;
+  background-color: rgba(0, 0, 0, 0.75);
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 999;
+  visibility: visible;
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.alert-window:target {
+  visibility: visible;
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.alert-window > div {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 2em;
+  background: white;
+}
+
+.alert-window header {
+  font-weight: bold;
+}
+
+.alert-window h1 {
+  font-size: 150%;
+  margin: 0 0 15px;
+}
+
+.alert-close {
+  color: #aaa;
+  line-height: 50px;
+  font-size: 80%;
+  position: absolute;
+  right: 0;
+  text-align: center;
+  top: 0;
+  width: 70px;
+  text-decoration: none;
+}
+
+.alert-close:hover {
+  color: black;
+}
+
+.alert-window > div {
+  border-radius: 1rem;
+}
+
+.alert-window div:not(:last-of-type) {
+  margin-bottom: 15px;
+}
+
 section div .profileImg > img {
   height: 100%;
   width: 100px;
@@ -2106,7 +2224,7 @@ a {
   visibility: hidden;
   opacity: 0;
   pointer-events: none;
-  transition: all 0.3s;
+  transition: all 0.3s ease-in-out 250ms;
 }
 
 .modal-window:target {

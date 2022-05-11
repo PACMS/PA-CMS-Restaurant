@@ -90,7 +90,13 @@
 /reservationClient:
   controller: reservation
   action: index
+
+
+/addReservationClient:
+  controller: reservation
+  action: addReservationClient
   security: 'employee'
+
 
 /addReservation:
   controller: reservation
