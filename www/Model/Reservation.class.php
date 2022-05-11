@@ -188,4 +188,57 @@ class Reservation extends Sql
             ]
         ];
     }
+    public function getClientModalForm() {
+        return [
+            "config"=>[
+                "method"=>"POST",
+                "action"=>"addReservationClient",
+                "class"=>"containerForm",
+                "id"=>"formReservation",
+                "submit"=>"Ajouter",
+                'captcha' => false,
+            ],
+            "inputs"=>[
+                "name"=>[
+                    "label"=>"Nom et prénom",
+                    "type"=>"text",
+                    "class"=>"formReservation",
+                ],
+                "numPerson"=>[
+                    "label"=>"Nombre de personne",
+                    "type"=>"number",
+                    "class"=>"formReservation",
+                    "max"=>20,
+                ],
+
+                "numTable"=>[
+                    "label"=>"Numero de table",
+                    "type"=>"number",
+                    "class"=>"formReservation",
+                    "max"=>20,
+                ],
+                "date"=>[
+                    "label"=>"Date de reservation",
+                    "type"=>"date",
+                    "class"=>"formReservation",
+                    "min"=>date('Y-m-d'),
+                    "max"=>date('Y-m-d', strtotime('+1 year')),
+                ],
+                "hour"=>[
+                    "label"=>"Heure de reservation",
+                    "type"=>"time",
+                    "class"=>"formReservation",
+
+                ],
+                "phoneReserv"=>[
+                    "label"=>"Numéro de téléphone",
+                    "type"=>"tel",
+                    "class"=>"formRestaurant",
+                    "min"=>10,
+                    "max"=>10,
+
+                ],
+            ]
+        ];
+    }
 }

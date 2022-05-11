@@ -4159,9 +4159,12 @@ $(document).ready(function () {
     $("input#passwordNew").after(labelConfirm);
     var inputConfirm = $("<input name='confirmNewPassowrd' id='confirmNewPassowrd' type='password'>");
     $("label#labelConfirm").after(inputConfirm);
-    var cancelButton = $("<button class='btn btn-cancel mr-4' id='btncancel'>Annuler </button>");
-    $("div#sectionButton").append(cancelButton);
-    var submitButton = $("<button class='btn btn-submit' id='btncancel'>Confirmer </button>");
+    var cancelButton = $("<a href='profile'><button class='btn btn-cancel mr-4' id='btncancel'>Annuler </button></a>");
+    $("div#sectionButton").append(cancelButton); // $("#btncancel").on("click", function (event) {
+    //   event.target.disabled = true;
+    // });
+
+    var submitButton = $("<button class='btn btn-submit' type='submit' id='btncancel'>Confirmer </button>");
     $("button#btncancel").after(submitButton);
     $(this).off(event);
   });
@@ -4206,6 +4209,42 @@ $(document).ready(function () {
     lengthMenu: [10, 20, 30, 40, 50],
     pageLength: 10,
     info: true
+  }); // Refilter the table
+
+  $("#min, #max").on("change", function () {
+    table.draw();
+  });
+  $('#usersTable').dataTable({
+    language: {
+      "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/French.json"
+    },
+    columnDefs: [{
+      className: "dt-center",
+      targets: "_all"
+    }, {
+      targets: -1,
+      data: null,
+      defaultContent: "<button id='updateUser'><i class='fas fa-pen'></i></button><button id='deleteUser'><i class='fas fa-times-circle'></i></button>"
+    }],
+    order: [3, 'desc'],
+    columns: [null, null, null, null, null, null, {
+      type: "date-eu"
+    }, {
+      type: "date-eu"
+    }, null],
+    searching: true,
+    //paging: false,
+    lengthMenu: [10, 20, 30, 40, 50],
+    pageLength: 10,
+    info: true
+  });
+  $('#usersTable tbody').on('click', '#updateUser', function () {
+    var data = $('#usersTable').DataTable().row($(this).parents('tr')).data();
+    window.location.href = "/user/update?id=" + data[0];
+  });
+  $('#usersTable tbody').on('click', '#deleteUser', function () {
+    var data = $('#usersTable').DataTable().row($(this).parents('tr')).data();
+    window.location.href = "/user/delete?id=" + data[0];
   }); // Refilter the table
 
   $("#min, #max").on("change", function () {
