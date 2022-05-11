@@ -35,7 +35,8 @@
                 </button>
 
             </div>
-            <div class="container">
+
+            <div class="container justify-center items-center">
                 <form action="profile/update" method="post">
                     <div class="flex flex-row justify-content-between w-full">
                         <!-- Prenom -->
@@ -49,7 +50,6 @@
                             <label class="greytext" for="lastname">Nom de famille</label>
                             <input type="text" id="lastname" name="lastname" value="<?php echo $userInfos['lastname'] ?>" disabled>
                         </div>
-
                     </div>
                     <div class="flex flex-column w-full">
                     <!-- Adresse mail -->

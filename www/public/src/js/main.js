@@ -165,6 +165,11 @@ $(document).ready(function () {
   //     format: "MMMM Do YYYY",
   // });
 
+  $("#alert-close").on("click", function (event) {
+    $(".alert-window").css("visibility", "hidden");
+    console.log('ok')
+  });
+
   $("#editProfile").on("click", function (event) {
     $(".container").css("margin-top", "0px");
     $("input").attr("disabled", false);
