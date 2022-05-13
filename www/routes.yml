@@ -99,7 +99,7 @@
 /addReservationClient:
   controller: reservation
   action: addReservationClient
-   security: 'employee'
+  security: 'employee'
 
 
 /addReservation:
