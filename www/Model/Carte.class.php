@@ -91,7 +91,8 @@ class Carte extends Sql
 
     public function getAllCartes()
     {
-        $cartes = parent::databaseFindAll("SELECT * FROM " . DBPREFIXE."carte", []);
+        session_start();
+        $cartes = parent::databaseFindAll("SELECT * FROM " . DBPREFIXE . "carte WHERE id_restaurant = :id_restaurant", ['id_restaurant' => $_SESSION["id_restaurant"]]);
         return $cartes;
     }
 

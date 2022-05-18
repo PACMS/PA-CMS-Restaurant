@@ -11,6 +11,7 @@ class Carte
 
     public function carte()
     {
+
         if (empty($_GET)) {
             $carte = new CarteController();
             $allCartes = $carte->getAllCartes();

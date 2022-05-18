@@ -29,7 +29,9 @@ class Restaurant
     public function getOneRestaurant()
     {
         $restaurant = new RestaurantModel();
-        $id = $_GET['id'];
+        $id = $_POST["id_restaurant"];
+        session_start();
+        $_SESSION["id_restaurant"] = $id;
         $table = "restaurant";
         $oneRestaurant = $restaurant->getOneRestaurant($table, $id);
         $restaurant->hydrate($oneRestaurant);

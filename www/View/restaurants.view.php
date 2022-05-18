@@ -43,14 +43,15 @@
             <div style=" height: 100%; width: 100%; margin:auto; padding-right: 2.5%; margin-top: 100px ">
                 <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); grid-gap: 0 50px;">
                     <?php foreach ($restaurant as $key => $value) : ?>
-                        <div class="restaurant-card">
+                        <form class="restaurant-card" method="POST" action="restaurant">
                             <img src="../public/src/pizza.jpg" alt="graph" />
                             <div class="bandeau">
                                 <p><?= $value["name"] ?></p>
-                                <button ><a href="/restaurant?id=<?= $value["id"] ?>" style="text-decoration:none">Modifier</a></button>
-
+                                <!-- <button><a href="/restaurant?id=<?= $value["id"] ?>" style="text-decoration:none">Modifier</a></button> -->
+                                <input type="hidden" name="id_restaurant" value="<?= $value["id"] ?>"></input>
+                                <button type="submit">Modifier</button>
                             </div>
-                        </div>
+                        </form>
                     <?php endforeach; ?>
                 </div>
             </div>

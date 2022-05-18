@@ -96,7 +96,7 @@
   action: profile
   security: 'employee'
 
-/restaurant/cartes:
+/cartes:
   controller: carte
   action: carte
 
@@ -104,7 +104,7 @@
   controller: carte
   action: createCarte
 
-/updateCarte:
+/restaurant/updateCarte:
   controller: carte
   action: updateCarte
 
