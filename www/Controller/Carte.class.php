@@ -11,12 +11,14 @@ class Carte
 
     public function carte()
     {
-
         if (empty($_GET)) {
             $carte = new CarteController();
             $allCartes = $carte->getAllCartes();
             $view = new View("cartes", "back");
             $view->assign('cartes', $allCartes);
+            if (empty($_SESSION["id_restaurant"])) {
+                header('Location: /restaurants');
+            }
         } elseif (!empty($_GET["id"])) {
             $this->showCarte($_GET["id"]);
         }
