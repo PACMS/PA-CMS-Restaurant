@@ -8,7 +8,6 @@ use App\Model\Restaurant as RestaurantModel;
 
 class Restaurant
 {
-
     public function restaurant()
     {
         $restaurant = new RestaurantModel();
@@ -18,19 +17,51 @@ class Restaurant
         $view->assign('restaurant', $allRestaurants);
     }
 
+    public function deleteRestaurant()
+    {
+        $restaurant = new RestaurantModel();
+        $table = "restaurant";
+        $id = $_POST['id'];
+        $restaurant->databaseDeleteOneRestaurant($table, $id);
+        header('Location: /restaurants');
+    }
+
+    public function getOneRestaurant()
+    {
+        $restaurant = new RestaurantModel();
+        $id = $_GET['id'];
+        $table = "restaurant";
+        $oneRestaurant = $restaurant->getOneRestaurant($table, $id);
+        $restaurant->hydrate($oneRestaurant);
+        $view = new View("restaurant");
+        $view->assign('restaurant', $restaurant);
+        $view->assign('oneRestaurant', $oneRestaurant);
+        
+    }
+
+    public function createOneRestaurant()
+    {
+        $restaurant = new RestaurantModel();
+        $errors = null;
+        // if (!empty($_POST)) {
+            // $errors = Verificator::checkForm($restaurant->getCompleteRegisterForm(), $_POST + $_FILES);
+            
+            // if (!$errors) {
+        
+
+                $restaurant->hydrate($_POST);
+                $restaurant->save();
+            // }
+        // }
+        header('Location: /restaurants');
+    }
+
     public function updateRestaurant()
     {
         $restaurant = new RestaurantModel();
         $errors = null;
 
-        if (!empty($_POST)) {
-            $errors = Verificator::checkForm($restaurant->getCompleteRegisterForm(), $_POST + $_FILES);
-
-            if(!$errors) {
-                $restaurant->hydrate($_POST);
-                $restaurant->save();
-            }
-        }
+       
 
         $view = new View("profile-restaurant");
         $view->assign('restaurant', $restaurant);

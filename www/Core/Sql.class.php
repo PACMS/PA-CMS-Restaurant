@@ -12,9 +12,9 @@ abstract class Sql
         try {
             $this->pdo = new \PDO(
                 DBDRIVER .
-                ":host=" . DBHOST .
-                ";port=" . DBPORT .
-                ";dbname=" . DBNAME,
+                    ":host=" . DBHOST .
+                    ";port=" . DBPORT .
+                    ";dbname=" . DBNAME,
                 DBUSER,
                 DBPWD,
                 [\PDO::ATTR_ERRMODE => \PDO::ERRMODE_WARNING]
@@ -56,7 +56,7 @@ abstract class Sql
         return null;
     }
 
-    public function databaseFindAll(string $sql, array $params)
+    protected function databaseFindAll(string $sql, array $params)
 
     {
 
@@ -94,12 +94,10 @@ abstract class Sql
 
     public function save(): void
     {
-
         $columns = get_object_vars($this);
         $varToExclude = get_class_vars(get_class());
         $columns = array_diff_key($columns, $varToExclude);
-
-        if (is_null($columns['id'])) {
+        if (is_null($_POST['id'])) {
             $sql = "INSERT INTO " . $this->table . " (" . implode(",", array_keys($columns)) . ") VALUES (:" . implode(",:", array_keys($columns)) . ")";
         } else {
             $update = [];
@@ -138,7 +136,7 @@ abstract class Sql
         if (is_null($email)) {
             die("L'email ne correspond pas !");
         } else {
-            if (is_null($this->databaseFindOne(["email" => $email,"token" => $tokenToVerify]))) {
+            if (is_null($this->databaseFindOne(["email" => $email, "token" => $tokenToVerify]))) {
                 echo "Le token est invalide";
             } else {
                 // echo "l'authentification token à réussi";
@@ -199,5 +197,18 @@ abstract class Sql
                 echo "ça fonctionne pas non plus!";
             }
         };
+    }
+
+    protected function databaseDeleteOne(string $sql, array $params)
+
+    {
+        $statement = $this->pdo->prepare($sql);
+        if ($statement !== false) {
+            $success = $statement->execute($params);
+            if ($success) {
+                return "supprimé";
+            }
+        }
+        return null;
     }
 }

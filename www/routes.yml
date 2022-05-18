@@ -75,9 +75,21 @@
   controller: restaurant
   action: restaurant
 
+/restaurant/delete:
+  controller: restaurant
+  action: deleteRestaurant
+
+/restaurant/create:
+  controller: restaurant
+  action: createOneRestaurant
+
 /profile-restaurant:
   controller: restaurant
   action: updateRestaurant
+
+/restaurant:
+  controller: restaurant
+  action: getOneRestaurant
 
 /profile:
   controller: admin
