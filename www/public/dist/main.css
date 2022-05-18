@@ -2894,4 +2894,8 @@ section.cards-page section.list-cards article.card:hover {
   transform: translateY(-2px);
 }
 
+section.cards-page section.list-cards .create > a {
+  width: 100%;
+}
+
 /* --------------------------------- Themes --------------------------------- */
