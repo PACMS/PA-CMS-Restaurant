@@ -19,7 +19,7 @@
                     <p><?= $input["title"] ?></p>
                 <?php endif ?>
                 <?php foreach ($input['values'] as $value => $label) : ?>
-                    <input name="<?= $name ?>[]" class="<?= $input["class"] ?? "" ?>" id="<?= $value ?? "" ?>" type="<?= $input["type"] ?? "text" ?>" value="<?= $value ?>" <?= !empty($input["required"]) ? 'required="required"' : ""  ?> <?php if ($input["checked"] === $value) : ?> checked="checked" <?php endif ?>>
+                    <input name="<?= $name ?>[]" class="<?= $input["class"] ?? "" ?>" id="<?= $value ?? "" ?>" type="<?= $input["type"] ?? "text" ?>" value="<?= $value ?>" <?= !empty($input["required"]) ? 'required="required"' : ""  ?> <?= !empty($input["checked"]) ? 'checked="checked"' : "" ?>>
                     <label for="<?= $value ?>"><?= $label ?></label>
                 <?php endforeach ?>
                 <?php if ($input["additionnalDiv"]) : ?>
@@ -74,7 +74,7 @@
                 id="<?= $input["id"] ?? "" ?>" 
                 placeholder="<?= $input["placeholder"] ?? "" ?>" 
                 type="<?= $input["type"] ?? "text" ?>" 
-                <?= !empty($input["value"]) ? 'value='.$input["value"] : ""  ?>
+                <?= !empty($input["value"]) ? 'value="'.$input["value"].'"' : "" ?>
                 <?= !empty($input["required"]) ? 'required="required"' : ""  ?>
             />
 

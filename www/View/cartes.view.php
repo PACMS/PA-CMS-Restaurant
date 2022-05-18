@@ -44,7 +44,7 @@
                                 <h3><?= $value["name"] ?></h3>
                             </a>
                             <h6>Pour pizza gogo</h6>
-                            <button id="state-card">Activer</button>
+                            <button id="state-card" class="<?= $value["status"] ? "active" : "" ?>"><?= $value["status"] ? "Activé" : "Désactivé" ?></button>
                         </footer>
                     </a>
                     <a href="?id=<?= $value["id"] ?>">

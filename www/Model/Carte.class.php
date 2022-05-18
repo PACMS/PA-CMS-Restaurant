@@ -39,11 +39,11 @@ class Carte extends Sql
      */
     public function getName(): ?string
     {
-        return $this->firstname;
+        return $this->name;
     }
 
     /**
-     * @param string $firstname
+     * @param string $name
      */
     public function setName(string $name): void
     {
@@ -69,17 +69,17 @@ class Carte extends Sql
     /**
      * @return mixed
      */
-    public function getPassword(): string
+    public function getIdRestaurant(): int
     {
-        return $this->password;
+        return $this->id_restaurant;
     }
 
     /**
-     * @param mixed $password
+     * @param mixed $id_restaurant
      */
-    public function setPassword(string $password): void
+    public function setIdRestaurant(int $id_restaurant): void
     {
-        $this->password = password_hash($password, PASSWORD_DEFAULT);
+        $this->id_restaurant = $id_restaurant;
     }
 
     public function save(): void
@@ -102,7 +102,7 @@ class Carte extends Sql
         return $carte;
     }
 
-    public function getUpdateForm(): array
+    public function getUpdateForm(array $carte): array
     {
         return [
             "config" => [
@@ -114,10 +114,32 @@ class Carte extends Sql
                 'captcha' => false
             ],
             "inputs" => [
+                "id" => [
+                    "type" => "hidden",
+                    "value" => $carte["id"],
+                    "error" => "Le nom de la carte n'est pas correct !"
+                ],
                 "name" => [
+                    "label" => "Nom",
                     "type" => "text",
-                    "value" => "jsp",
-                ]
+                    "value" => $carte['name'],                   
+                    "error" => "Le nom de la carte n'est pas correct !"
+                ],
+                "status" => [
+                    "type" => "checkbox",
+                    "additionnalDiv" => false,
+                    "checked" => $carte["status"],
+                    "required" => false,
+                    "values" => [
+                        "status" => "Status",
+                    ],
+                    "error" => "Le nom de la carte n'est pas correct !"
+                ],
+                "idRestaurant" => [
+                    "type" => "hidden",
+                    "value" => $carte["id_restaurant"],
+                    "error" => "Le nom de la carte n'est pas correct !"
+                ],
             ]
         ];
     }

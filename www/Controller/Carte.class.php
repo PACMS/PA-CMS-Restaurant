@@ -30,17 +30,23 @@ class Carte
 
     public function showCarte(string $id)
     {
-        $carte = new CarteController();
+        $carteCtrl = new CarteController();
         $view = new View("carteDetails", "back");
-        $carte = $carte->getOneCarte($id);
+        $carte = $carteCtrl->getOneCarte($id);
         $view->assign('carte', $carte);
+        $view->assign('carteCtrl', $carteCtrl);
     }
 
     public function updateCarte()
     {
         $reservation = new CarteController();
+        if (empty($_POST["status"])) {
+            $_POST["status"] = 0;
+        } else {
+            $_POST["status"] = 1;
+        }
         $reservation->hydrate($_POST);
-        dd($reservation);
-        //$reservation->save();
+        $reservation->save();
+        header('Location: /cartes');
     }
 }

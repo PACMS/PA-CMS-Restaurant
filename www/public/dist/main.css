@@ -7,11 +7,8 @@
 /* --------------------- Green --------------------- */
 /* --------------------- Red --------------------- */
 /* --------------------- Red --------------------- */
-<<<<<<< HEAD
-=======
 /* --------------------- RegisterForm --------------------- */
 /* --------------------- forgetPassword --------------------- */
->>>>>>> origin/feature/PA-23-crud-restaurants
 /* --------------------------------- Vendors -------------------------------- */
 /* ---------------------------------- Base ---------------------------------- */
 /* -------------------------------------------------------------------------- */
@@ -20,49 +17,29 @@
 /* ---------------------------------- Base ---------------------------------- */
 html {
   font-family: "Poppins", sans-serif;
-<<<<<<< HEAD
-  font-size: 1.125rem;
-=======
   font-size: 1rem;
->>>>>>> origin/feature/PA-23-crud-restaurants
 }
 
 /* -------------------------------- Headings -------------------------------- */
 h1 {
   color: #0051ef;
-<<<<<<< HEAD
-  font-size: 1.875rem;
-}
-
-h2 {
-  font-size: 1.875rem;
-=======
   font-size: 1.66666667rem;
 }
 
 h2 {
   font-size: 1.66666667rem;
->>>>>>> origin/feature/PA-23-crud-restaurants
   color: #0051ef;
   font-weight: 400;
 }
 
 small {
-<<<<<<< HEAD
-  font-size: 1.125rem;
-=======
   font-size: 1rem;
->>>>>>> origin/feature/PA-23-crud-restaurants
   color: #9e9e9e;
 }
 
 button {
   font-family: "Poppins", sans-serif;
-<<<<<<< HEAD
-  font-size: 1.125rem !important;
-=======
   font-size: 1rem !important;
->>>>>>> origin/feature/PA-23-crud-restaurants
   font-weight: 400;
 }
 
@@ -220,14 +197,8 @@ div input,
 select {
   border: none;
   border-bottom: 2px solid #333;
-<<<<<<< HEAD
-  font-size: 1.125rem;
-  font-weight: 600;
-  width: 100%;
-=======
   font-size: 1rem;
   font-weight: 600;
->>>>>>> origin/feature/PA-23-crud-restaurants
   padding: 0.5em 0 0.5em 0;
   transition: all 300ms linear;
   outline: none;
@@ -312,12 +283,8 @@ input[type="submit"]:hover {
 .btn {
   background-color: #444444;
   color: #ffffff;
-<<<<<<< HEAD
-  padding: 0.625rem 0 0.625rem 0;
-=======
   width: 120px;
   padding: 10px 0 10px 0;
->>>>>>> origin/feature/PA-23-crud-restaurants
   margin: 8px 0;
   border: none;
   border-radius: 11px;
@@ -529,7 +496,6 @@ input[type="submit"]:hover {
   /* 128px */
 }
 
-<<<<<<< HEAD
 .pl-20 {
   padding-left: 5rem;
   /* 80px */
@@ -545,8 +511,6 @@ input[type="submit"]:hover {
   /* 192px */
 }
 
-=======
->>>>>>> origin/feature/PA-23-crud-restaurants
 .w-full {
   width: 100%;
 }
@@ -595,11 +559,7 @@ input[type="submit"]:hover {
 }
 
 .sidebar-title {
-<<<<<<< HEAD
-  font-size: 1.875rem;
-=======
   font-size: 1.66666667rem;
->>>>>>> origin/feature/PA-23-crud-restaurants
   color: #0051ef;
   text-decoration: none;
   margin-top: 12px;
@@ -666,11 +626,7 @@ input[type="submit"]:hover {
   background-color: #f7f7f7;
   cursor: pointer;
   color: #0051ef;
-<<<<<<< HEAD
-  font-size: 1.125rem;
-=======
   font-size: 1rem;
->>>>>>> origin/feature/PA-23-crud-restaurants
   margin-bottom: 20px;
   margin-right: 20px;
   align-self: flex-end;
@@ -684,11 +640,7 @@ input[type="submit"]:hover {
 .sidebar-resizer::before {
   content: "Reduire";
   display: block;
-<<<<<<< HEAD
-  font-size: 1.125rem !important;
-=======
   font-size: 1rem !important;
->>>>>>> origin/feature/PA-23-crud-restaurants
   margin-right: 10px;
 }
 
@@ -716,11 +668,7 @@ h2 {
   display: flex;
   margin-right: 0;
   align-items: center;
-<<<<<<< HEAD
-  font-size: 0.875rem !important;
-=======
   font-size: 0.77777778rem !important;
->>>>>>> origin/feature/PA-23-crud-restaurants
   justify-content: center;
   width: 100%;
   flex-direction: row-reverse;
@@ -729,11 +677,7 @@ h2 {
 .small .sidebar-resizer::before {
   content: "Agrandir";
   display: block;
-<<<<<<< HEAD
-  font-size: 0.875rem !important;
-=======
   font-size: 0.77777778rem !important;
->>>>>>> origin/feature/PA-23-crud-restaurants
   margin-right: 0px;
 }
 
@@ -818,13 +762,8 @@ section.container-preview-cards {
   background-color: #fbfbfb;
   width: 100%;
   height: 350px;
-<<<<<<< HEAD
-  margin-top: 0.25rem;
-  margin-bottom: 0.25rem;
-=======
   margin-top: 0.22222222rem;
   margin-bottom: 0.22222222rem;
->>>>>>> origin/feature/PA-23-crud-restaurants
   margin-top: auto;
   border-radius: 15px;
   padding: 15px 15px;
@@ -841,13 +780,8 @@ section.container-preview-cards {
 section.container-preview-cards article.card {
   box-sizing: content-box;
   background-color: #ffffff;
-<<<<<<< HEAD
-  margin-left: 1rem;
-  margin-right: 1rem;
-=======
   margin-left: 0.88888889rem;
   margin-right: 0.88888889rem;
->>>>>>> origin/feature/PA-23-crud-restaurants
   width: 209px;
   height: 307px;
   border-radius: 5px;
@@ -880,11 +814,7 @@ section.container-preview-cards article.card figure footer {
 }
 
 section.container-preview-cards article.card figure footer h1 {
-<<<<<<< HEAD
-  font-size: 0.8125rem;
-=======
   font-size: 0.72222222rem;
->>>>>>> origin/feature/PA-23-crud-restaurants
   margin: 0;
   color: #000;
   padding-left: 5px;
@@ -895,11 +825,7 @@ section.container-preview-cards article.card figure footer h1:first-letter {
 }
 
 section.container-preview-cards article.card figure footer h2 {
-<<<<<<< HEAD
-  font-size: 0.625rem;
-=======
   font-size: 0.55555556rem;
->>>>>>> origin/feature/PA-23-crud-restaurants
   margin: 0;
   color: #969696;
   padding-left: 5px;
@@ -916,11 +842,7 @@ section.container-preview-cards article.card figure footer a {
   color: #ffffff;
   transform: translateY(-50%);
   border-radius: 10px;
-<<<<<<< HEAD
-  font-size: 0.9375rem;
-=======
   font-size: 0.83333333rem;
->>>>>>> origin/feature/PA-23-crud-restaurants
   box-shadow: 1 px 3px 5px #cacaca;
   cursor: pointer;
 }
@@ -977,11 +899,7 @@ section.container-preview-cards article.card figure img {
 
 .data {
   color: #000;
-<<<<<<< HEAD
-  font-size: 1.125rem;
-=======
   font-size: 1rem;
->>>>>>> origin/feature/PA-23-crud-restaurants
   font-weight: bold;
 }
 
@@ -1048,60 +966,15 @@ section.container-preview-cards article.card figure img {
 
 .grid {
   display: grid;
-<<<<<<< HEAD
-  grid-gap: 0.9375rem;
-=======
   grid-gap: 0.83333333rem;
->>>>>>> origin/feature/PA-23-crud-restaurants
   height: 100%;
   margin-right: 8%;
 }
 
-<<<<<<< HEAD
-.row {
-  display: flex;
-  flex-wrap: wrap;
-}
-
-.content {
-  height: 100px;
-  text-align: center;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.5rem;
-}
-
-.green {
-  background-color: green;
-}
-
-.purple {
-  background-color: purple;
-}
-
-.yellow {
-  background-color: yellow;
-}
-
-.blue {
-  background-color: blue;
-}
-
-.red {
-  background-color: red;
-}
-
-@media screen and (min-width: 0) {
-  .cols-xs-1 {
-    width: 8.33333333%;
-    padding: 0.46875rem;
-=======
 @media screen and (min-width: 0) {
   .cols-xs-1 {
     width: 8.33333333%;
     padding: 0.41666667rem;
->>>>>>> origin/feature/PA-23-crud-restaurants
     box-sizing: border-box;
     display: block;
     margin-left: 0;
@@ -1111,11 +984,7 @@ section.container-preview-cards article.card figure img {
   }
   .cols-xs-2 {
     width: 16.66666667%;
-<<<<<<< HEAD
-    padding: 0.46875rem;
-=======
     padding: 0.41666667rem;
->>>>>>> origin/feature/PA-23-crud-restaurants
     box-sizing: border-box;
     display: block;
     margin-left: 0;
@@ -1125,11 +994,7 @@ section.container-preview-cards article.card figure img {
   }
   .cols-xs-3 {
     width: 25%;
-<<<<<<< HEAD
-    padding: 0.46875rem;
-=======
     padding: 0.41666667rem;
->>>>>>> origin/feature/PA-23-crud-restaurants
     box-sizing: border-box;
     display: block;
     margin-left: 0;
@@ -1139,11 +1004,7 @@ section.container-preview-cards article.card figure img {
   }
   .cols-xs-4 {
     width: 33.33333333%;
-<<<<<<< HEAD
-    padding: 0.46875rem;
-=======
     padding: 0.41666667rem;
->>>>>>> origin/feature/PA-23-crud-restaurants
     box-sizing: border-box;
     display: block;
     margin-left: 0;
@@ -1153,11 +1014,7 @@ section.container-preview-cards article.card figure img {
   }
   .cols-xs-5 {
     width: 41.66666667%;
-<<<<<<< HEAD
-    padding: 0.46875rem;
-=======
     padding: 0.41666667rem;
->>>>>>> origin/feature/PA-23-crud-restaurants
     box-sizing: border-box;
     display: block;
     margin-left: 0;
@@ -1167,11 +1024,7 @@ section.container-preview-cards article.card figure img {
   }
   .cols-xs-6 {
     width: 50%;
-<<<<<<< HEAD
-    padding: 0.46875rem;
-=======
     padding: 0.41666667rem;
->>>>>>> origin/feature/PA-23-crud-restaurants
     box-sizing: border-box;
     display: block;
     margin-left: 0;
@@ -1181,11 +1034,7 @@ section.container-preview-cards article.card figure img {
   }
   .cols-xs-7 {
     width: 58.33333333%;
-<<<<<<< HEAD
-    padding: 0.46875rem;
-=======
     padding: 0.41666667rem;
->>>>>>> origin/feature/PA-23-crud-restaurants
     box-sizing: border-box;
     display: block;
     margin-left: 0;
@@ -1195,11 +1044,7 @@ section.container-preview-cards article.card figure img {
   }
   .cols-xs-8 {
     width: 66.66666667%;
-<<<<<<< HEAD
-    padding: 0.46875rem;
-=======
     padding: 0.41666667rem;
->>>>>>> origin/feature/PA-23-crud-restaurants
     box-sizing: border-box;
     display: block;
     margin-left: 0;
@@ -1209,11 +1054,7 @@ section.container-preview-cards article.card figure img {
   }
   .cols-xs-9 {
     width: 75%;
-<<<<<<< HEAD
-    padding: 0.46875rem;
-=======
     padding: 0.41666667rem;
->>>>>>> origin/feature/PA-23-crud-restaurants
     box-sizing: border-box;
     display: block;
     margin-left: 0;
@@ -1223,11 +1064,7 @@ section.container-preview-cards article.card figure img {
   }
   .cols-xs-10 {
     width: 83.33333333%;
-<<<<<<< HEAD
-    padding: 0.46875rem;
-=======
     padding: 0.41666667rem;
->>>>>>> origin/feature/PA-23-crud-restaurants
     box-sizing: border-box;
     display: block;
     margin-left: 0;
@@ -1237,11 +1074,7 @@ section.container-preview-cards article.card figure img {
   }
   .cols-xs-11 {
     width: 91.66666667%;
-<<<<<<< HEAD
-    padding: 0.46875rem;
-=======
     padding: 0.41666667rem;
->>>>>>> origin/feature/PA-23-crud-restaurants
     box-sizing: border-box;
     display: block;
     margin-left: 0;
@@ -1251,11 +1084,7 @@ section.container-preview-cards article.card figure img {
   }
   .cols-xs-12 {
     width: 100%;
-<<<<<<< HEAD
-    padding: 0.46875rem;
-=======
     padding: 0.41666667rem;
->>>>>>> origin/feature/PA-23-crud-restaurants
     box-sizing: border-box;
     display: block;
     margin-left: 0;
@@ -1271,11 +1100,7 @@ section.container-preview-cards article.card figure img {
 @media screen and (min-width: 540px) {
   .cols-sm-1 {
     width: 8.33333333%;
-<<<<<<< HEAD
-    padding: 0.46875rem;
-=======
     padding: 0.41666667rem;
->>>>>>> origin/feature/PA-23-crud-restaurants
     box-sizing: border-box;
     display: block;
     margin-left: 0;
@@ -1285,11 +1110,7 @@ section.container-preview-cards article.card figure img {
   }
   .cols-sm-2 {
     width: 16.66666667%;
-<<<<<<< HEAD
-    padding: 0.46875rem;
-=======
     padding: 0.41666667rem;
->>>>>>> origin/feature/PA-23-crud-restaurants
     box-sizing: border-box;
     display: block;
     margin-left: 0;
@@ -1299,11 +1120,7 @@ section.container-preview-cards article.card figure img {
   }
   .cols-sm-3 {
     width: 25%;
-<<<<<<< HEAD
-    padding: 0.46875rem;
-=======
     padding: 0.41666667rem;
->>>>>>> origin/feature/PA-23-crud-restaurants
     box-sizing: border-box;
     display: block;
     margin-left: 0;
@@ -1313,11 +1130,7 @@ section.container-preview-cards article.card figure img {
   }
   .cols-sm-4 {
     width: 33.33333333%;
-<<<<<<< HEAD
-    padding: 0.46875rem;
-=======
     padding: 0.41666667rem;
->>>>>>> origin/feature/PA-23-crud-restaurants
     box-sizing: border-box;
     display: block;
     margin-left: 0;
@@ -1327,11 +1140,7 @@ section.container-preview-cards article.card figure img {
   }
   .cols-sm-5 {
     width: 41.66666667%;
-<<<<<<< HEAD
-    padding: 0.46875rem;
-=======
     padding: 0.41666667rem;
->>>>>>> origin/feature/PA-23-crud-restaurants
     box-sizing: border-box;
     display: block;
     margin-left: 0;
@@ -1341,11 +1150,7 @@ section.container-preview-cards article.card figure img {
   }
   .cols-sm-6 {
     width: 50%;
-<<<<<<< HEAD
-    padding: 0.46875rem;
-=======
     padding: 0.41666667rem;
->>>>>>> origin/feature/PA-23-crud-restaurants
     box-sizing: border-box;
     display: block;
     margin-left: 0;
@@ -1355,11 +1160,7 @@ section.container-preview-cards article.card figure img {
   }
   .cols-sm-7 {
     width: 58.33333333%;
-<<<<<<< HEAD
-    padding: 0.46875rem;
-=======
     padding: 0.41666667rem;
->>>>>>> origin/feature/PA-23-crud-restaurants
     box-sizing: border-box;
     display: block;
     margin-left: 0;
@@ -1369,11 +1170,7 @@ section.container-preview-cards article.card figure img {
   }
   .cols-sm-8 {
     width: 66.66666667%;
-<<<<<<< HEAD
-    padding: 0.46875rem;
-=======
     padding: 0.41666667rem;
->>>>>>> origin/feature/PA-23-crud-restaurants
     box-sizing: border-box;
     display: block;
     margin-left: 0;
@@ -1383,11 +1180,7 @@ section.container-preview-cards article.card figure img {
   }
   .cols-sm-9 {
     width: 75%;
-<<<<<<< HEAD
-    padding: 0.46875rem;
-=======
     padding: 0.41666667rem;
->>>>>>> origin/feature/PA-23-crud-restaurants
     box-sizing: border-box;
     display: block;
     margin-left: 0;
@@ -1397,11 +1190,7 @@ section.container-preview-cards article.card figure img {
   }
   .cols-sm-10 {
     width: 83.33333333%;
-<<<<<<< HEAD
-    padding: 0.46875rem;
-=======
     padding: 0.41666667rem;
->>>>>>> origin/feature/PA-23-crud-restaurants
     box-sizing: border-box;
     display: block;
     margin-left: 0;
@@ -1411,11 +1200,7 @@ section.container-preview-cards article.card figure img {
   }
   .cols-sm-11 {
     width: 91.66666667%;
-<<<<<<< HEAD
-    padding: 0.46875rem;
-=======
     padding: 0.41666667rem;
->>>>>>> origin/feature/PA-23-crud-restaurants
     box-sizing: border-box;
     display: block;
     margin-left: 0;
@@ -1425,11 +1210,7 @@ section.container-preview-cards article.card figure img {
   }
   .cols-sm-12 {
     width: 100%;
-<<<<<<< HEAD
-    padding: 0.46875rem;
-=======
     padding: 0.41666667rem;
->>>>>>> origin/feature/PA-23-crud-restaurants
     box-sizing: border-box;
     display: block;
     margin-left: 0;
@@ -1445,11 +1226,7 @@ section.container-preview-cards article.card figure img {
 @media screen and (min-width: 720px) {
   .cols-md-1 {
     width: 8.33333333%;
-<<<<<<< HEAD
-    padding: 0.46875rem;
-=======
     padding: 0.41666667rem;
->>>>>>> origin/feature/PA-23-crud-restaurants
     box-sizing: border-box;
     display: block;
     margin-left: 0;
@@ -1459,11 +1236,7 @@ section.container-preview-cards article.card figure img {
   }
   .cols-md-2 {
     width: 16.66666667%;
-<<<<<<< HEAD
-    padding: 0.46875rem;
-=======
     padding: 0.41666667rem;
->>>>>>> origin/feature/PA-23-crud-restaurants
     box-sizing: border-box;
     display: block;
     margin-left: 0;
@@ -1473,11 +1246,7 @@ section.container-preview-cards article.card figure img {
   }
   .cols-md-3 {
     width: 25%;
-<<<<<<< HEAD
-    padding: 0.46875rem;
-=======
     padding: 0.41666667rem;
->>>>>>> origin/feature/PA-23-crud-restaurants
     box-sizing: border-box;
     display: block;
     margin-left: 0;
@@ -1487,11 +1256,7 @@ section.container-preview-cards article.card figure img {
   }
   .cols-md-4 {
     width: 33.33333333%;
-<<<<<<< HEAD
-    padding: 0.46875rem;
-=======
     padding: 0.41666667rem;
->>>>>>> origin/feature/PA-23-crud-restaurants
     box-sizing: border-box;
     display: block;
     margin-left: 0;
@@ -1501,11 +1266,7 @@ section.container-preview-cards article.card figure img {
   }
   .cols-md-5 {
     width: 41.66666667%;
-<<<<<<< HEAD
-    padding: 0.46875rem;
-=======
     padding: 0.41666667rem;
->>>>>>> origin/feature/PA-23-crud-restaurants
     box-sizing: border-box;
     display: block;
     margin-left: 0;
@@ -1515,11 +1276,7 @@ section.container-preview-cards article.card figure img {
   }
   .cols-md-6 {
     width: 50%;
-<<<<<<< HEAD
-    padding: 0.46875rem;
-=======
     padding: 0.41666667rem;
->>>>>>> origin/feature/PA-23-crud-restaurants
     box-sizing: border-box;
     display: block;
     margin-left: 0;
@@ -1529,11 +1286,7 @@ section.container-preview-cards article.card figure img {
   }
   .cols-md-7 {
     width: 58.33333333%;
-<<<<<<< HEAD
-    padding: 0.46875rem;
-=======
     padding: 0.41666667rem;
->>>>>>> origin/feature/PA-23-crud-restaurants
     box-sizing: border-box;
     display: block;
     margin-left: 0;
@@ -1543,11 +1296,7 @@ section.container-preview-cards article.card figure img {
   }
   .cols-md-8 {
     width: 66.66666667%;
-<<<<<<< HEAD
-    padding: 0.46875rem;
-=======
     padding: 0.41666667rem;
->>>>>>> origin/feature/PA-23-crud-restaurants
     box-sizing: border-box;
     display: block;
     margin-left: 0;
@@ -1557,11 +1306,7 @@ section.container-preview-cards article.card figure img {
   }
   .cols-md-9 {
     width: 75%;
-<<<<<<< HEAD
-    padding: 0.46875rem;
-=======
     padding: 0.41666667rem;
->>>>>>> origin/feature/PA-23-crud-restaurants
     box-sizing: border-box;
     display: block;
     margin-left: 0;
@@ -1571,11 +1316,7 @@ section.container-preview-cards article.card figure img {
   }
   .cols-md-10 {
     width: 83.33333333%;
-<<<<<<< HEAD
-    padding: 0.46875rem;
-=======
     padding: 0.41666667rem;
->>>>>>> origin/feature/PA-23-crud-restaurants
     box-sizing: border-box;
     display: block;
     margin-left: 0;
@@ -1585,11 +1326,7 @@ section.container-preview-cards article.card figure img {
   }
   .cols-md-11 {
     width: 91.66666667%;
-<<<<<<< HEAD
-    padding: 0.46875rem;
-=======
     padding: 0.41666667rem;
->>>>>>> origin/feature/PA-23-crud-restaurants
     box-sizing: border-box;
     display: block;
     margin-left: 0;
@@ -1599,11 +1336,7 @@ section.container-preview-cards article.card figure img {
   }
   .cols-md-12 {
     width: 100%;
-<<<<<<< HEAD
-    padding: 0.46875rem;
-=======
     padding: 0.41666667rem;
->>>>>>> origin/feature/PA-23-crud-restaurants
     box-sizing: border-box;
     display: block;
     margin-left: 0;
@@ -1619,11 +1352,7 @@ section.container-preview-cards article.card figure img {
 @media screen and (min-width: 960px) {
   .cols-lg-1 {
     width: 8.33333333%;
-<<<<<<< HEAD
-    padding: 0.46875rem;
-=======
     padding: 0.41666667rem;
->>>>>>> origin/feature/PA-23-crud-restaurants
     box-sizing: border-box;
     display: block;
     margin-left: 0;
@@ -1633,11 +1362,7 @@ section.container-preview-cards article.card figure img {
   }
   .cols-lg-2 {
     width: 16.66666667%;
-<<<<<<< HEAD
-    padding: 0.46875rem;
-=======
     padding: 0.41666667rem;
->>>>>>> origin/feature/PA-23-crud-restaurants
     box-sizing: border-box;
     display: block;
     margin-left: 0;
@@ -1647,11 +1372,7 @@ section.container-preview-cards article.card figure img {
   }
   .cols-lg-3 {
     width: 25%;
-<<<<<<< HEAD
-    padding: 0.46875rem;
-=======
     padding: 0.41666667rem;
->>>>>>> origin/feature/PA-23-crud-restaurants
     box-sizing: border-box;
     display: block;
     margin-left: 0;
@@ -1661,11 +1382,7 @@ section.container-preview-cards article.card figure img {
   }
   .cols-lg-4 {
     width: 33.33333333%;
-<<<<<<< HEAD
-    padding: 0.46875rem;
-=======
     padding: 0.41666667rem;
->>>>>>> origin/feature/PA-23-crud-restaurants
     box-sizing: border-box;
     display: block;
     margin-left: 0;
@@ -1675,11 +1392,7 @@ section.container-preview-cards article.card figure img {
   }
   .cols-lg-5 {
     width: 41.66666667%;
-<<<<<<< HEAD
-    padding: 0.46875rem;
-=======
     padding: 0.41666667rem;
->>>>>>> origin/feature/PA-23-crud-restaurants
     box-sizing: border-box;
     display: block;
     margin-left: 0;
@@ -1689,11 +1402,7 @@ section.container-preview-cards article.card figure img {
   }
   .cols-lg-6 {
     width: 50%;
-<<<<<<< HEAD
-    padding: 0.46875rem;
-=======
     padding: 0.41666667rem;
->>>>>>> origin/feature/PA-23-crud-restaurants
     box-sizing: border-box;
     display: block;
     margin-left: 0;
@@ -1703,11 +1412,7 @@ section.container-preview-cards article.card figure img {
   }
   .cols-lg-7 {
     width: 58.33333333%;
-<<<<<<< HEAD
-    padding: 0.46875rem;
-=======
     padding: 0.41666667rem;
->>>>>>> origin/feature/PA-23-crud-restaurants
     box-sizing: border-box;
     display: block;
     margin-left: 0;
@@ -1717,11 +1422,7 @@ section.container-preview-cards article.card figure img {
   }
   .cols-lg-8 {
     width: 66.66666667%;
-<<<<<<< HEAD
-    padding: 0.46875rem;
-=======
     padding: 0.41666667rem;
->>>>>>> origin/feature/PA-23-crud-restaurants
     box-sizing: border-box;
     display: block;
     margin-left: 0;
@@ -1731,11 +1432,7 @@ section.container-preview-cards article.card figure img {
   }
   .cols-lg-9 {
     width: 75%;
-<<<<<<< HEAD
-    padding: 0.46875rem;
-=======
     padding: 0.41666667rem;
->>>>>>> origin/feature/PA-23-crud-restaurants
     box-sizing: border-box;
     display: block;
     margin-left: 0;
@@ -1745,11 +1442,7 @@ section.container-preview-cards article.card figure img {
   }
   .cols-lg-10 {
     width: 83.33333333%;
-<<<<<<< HEAD
-    padding: 0.46875rem;
-=======
     padding: 0.41666667rem;
->>>>>>> origin/feature/PA-23-crud-restaurants
     box-sizing: border-box;
     display: block;
     margin-left: 0;
@@ -1759,11 +1452,7 @@ section.container-preview-cards article.card figure img {
   }
   .cols-lg-11 {
     width: 91.66666667%;
-<<<<<<< HEAD
-    padding: 0.46875rem;
-=======
     padding: 0.41666667rem;
->>>>>>> origin/feature/PA-23-crud-restaurants
     box-sizing: border-box;
     display: block;
     margin-left: 0;
@@ -1773,11 +1462,7 @@ section.container-preview-cards article.card figure img {
   }
   .cols-lg-12 {
     width: 100%;
-<<<<<<< HEAD
-    padding: 0.46875rem;
-=======
     padding: 0.41666667rem;
->>>>>>> origin/feature/PA-23-crud-restaurants
     box-sizing: border-box;
     display: block;
     margin-left: 0;
@@ -1793,11 +1478,7 @@ section.container-preview-cards article.card figure img {
 @media screen and (min-width: 1140px) {
   .cols-xl-1 {
     width: 8.33333333%;
-<<<<<<< HEAD
-    padding: 0.46875rem;
-=======
     padding: 0.41666667rem;
->>>>>>> origin/feature/PA-23-crud-restaurants
     box-sizing: border-box;
     display: block;
     margin-left: 0;
@@ -1807,11 +1488,7 @@ section.container-preview-cards article.card figure img {
   }
   .cols-xl-2 {
     width: 16.66666667%;
-<<<<<<< HEAD
-    padding: 0.46875rem;
-=======
     padding: 0.41666667rem;
->>>>>>> origin/feature/PA-23-crud-restaurants
     box-sizing: border-box;
     display: block;
     margin-left: 0;
@@ -1821,11 +1498,7 @@ section.container-preview-cards article.card figure img {
   }
   .cols-xl-3 {
     width: 25%;
-<<<<<<< HEAD
-    padding: 0.46875rem;
-=======
     padding: 0.41666667rem;
->>>>>>> origin/feature/PA-23-crud-restaurants
     box-sizing: border-box;
     display: block;
     margin-left: 0;
@@ -1835,11 +1508,7 @@ section.container-preview-cards article.card figure img {
   }
   .cols-xl-4 {
     width: 33.33333333%;
-<<<<<<< HEAD
-    padding: 0.46875rem;
-=======
     padding: 0.41666667rem;
->>>>>>> origin/feature/PA-23-crud-restaurants
     box-sizing: border-box;
     display: block;
     margin-left: 0;
@@ -1849,11 +1518,7 @@ section.container-preview-cards article.card figure img {
   }
   .cols-xl-5 {
     width: 41.66666667%;
-<<<<<<< HEAD
-    padding: 0.46875rem;
-=======
     padding: 0.41666667rem;
->>>>>>> origin/feature/PA-23-crud-restaurants
     box-sizing: border-box;
     display: block;
     margin-left: 0;
@@ -1863,11 +1528,7 @@ section.container-preview-cards article.card figure img {
   }
   .cols-xl-6 {
     width: 50%;
-<<<<<<< HEAD
-    padding: 0.46875rem;
-=======
     padding: 0.41666667rem;
->>>>>>> origin/feature/PA-23-crud-restaurants
     box-sizing: border-box;
     display: block;
     margin-left: 0;
@@ -1877,11 +1538,7 @@ section.container-preview-cards article.card figure img {
   }
   .cols-xl-7 {
     width: 58.33333333%;
-<<<<<<< HEAD
-    padding: 0.46875rem;
-=======
     padding: 0.41666667rem;
->>>>>>> origin/feature/PA-23-crud-restaurants
     box-sizing: border-box;
     display: block;
     margin-left: 0;
@@ -1891,11 +1548,7 @@ section.container-preview-cards article.card figure img {
   }
   .cols-xl-8 {
     width: 66.66666667%;
-<<<<<<< HEAD
-    padding: 0.46875rem;
-=======
     padding: 0.41666667rem;
->>>>>>> origin/feature/PA-23-crud-restaurants
     box-sizing: border-box;
     display: block;
     margin-left: 0;
@@ -1905,11 +1558,7 @@ section.container-preview-cards article.card figure img {
   }
   .cols-xl-9 {
     width: 75%;
-<<<<<<< HEAD
-    padding: 0.46875rem;
-=======
     padding: 0.41666667rem;
->>>>>>> origin/feature/PA-23-crud-restaurants
     box-sizing: border-box;
     display: block;
     margin-left: 0;
@@ -1919,11 +1568,7 @@ section.container-preview-cards article.card figure img {
   }
   .cols-xl-10 {
     width: 83.33333333%;
-<<<<<<< HEAD
-    padding: 0.46875rem;
-=======
     padding: 0.41666667rem;
->>>>>>> origin/feature/PA-23-crud-restaurants
     box-sizing: border-box;
     display: block;
     margin-left: 0;
@@ -1933,11 +1578,7 @@ section.container-preview-cards article.card figure img {
   }
   .cols-xl-11 {
     width: 91.66666667%;
-<<<<<<< HEAD
-    padding: 0.46875rem;
-=======
     padding: 0.41666667rem;
->>>>>>> origin/feature/PA-23-crud-restaurants
     box-sizing: border-box;
     display: block;
     margin-left: 0;
@@ -1947,11 +1588,7 @@ section.container-preview-cards article.card figure img {
   }
   .cols-xl-12 {
     width: 100%;
-<<<<<<< HEAD
-    padding: 0.46875rem;
-=======
     padding: 0.41666667rem;
->>>>>>> origin/feature/PA-23-crud-restaurants
     box-sizing: border-box;
     display: block;
     margin-left: 0;
@@ -1967,11 +1604,7 @@ section.container-preview-cards article.card figure img {
 @media screen and (min-width: 1320px) {
   .cols-xxl-1 {
     width: 8.33333333%;
-<<<<<<< HEAD
-    padding: 0.46875rem;
-=======
     padding: 0.41666667rem;
->>>>>>> origin/feature/PA-23-crud-restaurants
     box-sizing: border-box;
     display: block;
     margin-left: 0;
@@ -1981,11 +1614,7 @@ section.container-preview-cards article.card figure img {
   }
   .cols-xxl-2 {
     width: 16.66666667%;
-<<<<<<< HEAD
-    padding: 0.46875rem;
-=======
     padding: 0.41666667rem;
->>>>>>> origin/feature/PA-23-crud-restaurants
     box-sizing: border-box;
     display: block;
     margin-left: 0;
@@ -1995,11 +1624,7 @@ section.container-preview-cards article.card figure img {
   }
   .cols-xxl-3 {
     width: 25%;
-<<<<<<< HEAD
-    padding: 0.46875rem;
-=======
     padding: 0.41666667rem;
->>>>>>> origin/feature/PA-23-crud-restaurants
     box-sizing: border-box;
     display: block;
     margin-left: 0;
@@ -2009,11 +1634,7 @@ section.container-preview-cards article.card figure img {
   }
   .cols-xxl-4 {
     width: 33.33333333%;
-<<<<<<< HEAD
-    padding: 0.46875rem;
-=======
     padding: 0.41666667rem;
->>>>>>> origin/feature/PA-23-crud-restaurants
     box-sizing: border-box;
     display: block;
     margin-left: 0;
@@ -2023,11 +1644,7 @@ section.container-preview-cards article.card figure img {
   }
   .cols-xxl-5 {
     width: 41.66666667%;
-<<<<<<< HEAD
-    padding: 0.46875rem;
-=======
     padding: 0.41666667rem;
->>>>>>> origin/feature/PA-23-crud-restaurants
     box-sizing: border-box;
     display: block;
     margin-left: 0;
@@ -2037,11 +1654,7 @@ section.container-preview-cards article.card figure img {
   }
   .cols-xxl-6 {
     width: 50%;
-<<<<<<< HEAD
-    padding: 0.46875rem;
-=======
     padding: 0.41666667rem;
->>>>>>> origin/feature/PA-23-crud-restaurants
     box-sizing: border-box;
     display: block;
     margin-left: 0;
@@ -2051,11 +1664,7 @@ section.container-preview-cards article.card figure img {
   }
   .cols-xxl-7 {
     width: 58.33333333%;
-<<<<<<< HEAD
-    padding: 0.46875rem;
-=======
     padding: 0.41666667rem;
->>>>>>> origin/feature/PA-23-crud-restaurants
     box-sizing: border-box;
     display: block;
     margin-left: 0;
@@ -2065,11 +1674,7 @@ section.container-preview-cards article.card figure img {
   }
   .cols-xxl-8 {
     width: 66.66666667%;
-<<<<<<< HEAD
-    padding: 0.46875rem;
-=======
     padding: 0.41666667rem;
->>>>>>> origin/feature/PA-23-crud-restaurants
     box-sizing: border-box;
     display: block;
     margin-left: 0;
@@ -2079,11 +1684,7 @@ section.container-preview-cards article.card figure img {
   }
   .cols-xxl-9 {
     width: 75%;
-<<<<<<< HEAD
-    padding: 0.46875rem;
-=======
     padding: 0.41666667rem;
->>>>>>> origin/feature/PA-23-crud-restaurants
     box-sizing: border-box;
     display: block;
     margin-left: 0;
@@ -2093,11 +1694,7 @@ section.container-preview-cards article.card figure img {
   }
   .cols-xxl-10 {
     width: 83.33333333%;
-<<<<<<< HEAD
-    padding: 0.46875rem;
-=======
     padding: 0.41666667rem;
->>>>>>> origin/feature/PA-23-crud-restaurants
     box-sizing: border-box;
     display: block;
     margin-left: 0;
@@ -2107,11 +1704,7 @@ section.container-preview-cards article.card figure img {
   }
   .cols-xxl-11 {
     width: 91.66666667%;
-<<<<<<< HEAD
-    padding: 0.46875rem;
-=======
     padding: 0.41666667rem;
->>>>>>> origin/feature/PA-23-crud-restaurants
     box-sizing: border-box;
     display: block;
     margin-left: 0;
@@ -2121,11 +1714,7 @@ section.container-preview-cards article.card figure img {
   }
   .cols-xxl-12 {
     width: 100%;
-<<<<<<< HEAD
-    padding: 0.46875rem;
-=======
     padding: 0.41666667rem;
->>>>>>> origin/feature/PA-23-crud-restaurants
     box-sizing: border-box;
     display: block;
     margin-left: 0;
@@ -2140,122 +1729,72 @@ section.container-preview-cards article.card figure img {
 
 .cols-1 {
   width: 8.33333333%;
-<<<<<<< HEAD
-  padding: 0.46875rem;
-=======
   padding: 0.41666667rem;
->>>>>>> origin/feature/PA-23-crud-restaurants
   box-sizing: border-box;
 }
 
 .cols-2 {
   width: 16.66666667%;
-<<<<<<< HEAD
-  padding: 0.46875rem;
-=======
   padding: 0.41666667rem;
->>>>>>> origin/feature/PA-23-crud-restaurants
   box-sizing: border-box;
 }
 
 .cols-3 {
   width: 25%;
-<<<<<<< HEAD
-  padding: 0.46875rem;
-=======
   padding: 0.41666667rem;
->>>>>>> origin/feature/PA-23-crud-restaurants
   box-sizing: border-box;
 }
 
 .cols-4 {
   width: 33.33333333%;
-<<<<<<< HEAD
-  padding: 0.46875rem;
-=======
   padding: 0.41666667rem;
->>>>>>> origin/feature/PA-23-crud-restaurants
   box-sizing: border-box;
 }
 
 .cols-5 {
   width: 41.66666667%;
-<<<<<<< HEAD
-  padding: 0.46875rem;
-=======
   padding: 0.41666667rem;
->>>>>>> origin/feature/PA-23-crud-restaurants
   box-sizing: border-box;
 }
 
 .cols-6 {
   width: 50%;
-<<<<<<< HEAD
-  padding: 0.46875rem;
-=======
   padding: 0.41666667rem;
->>>>>>> origin/feature/PA-23-crud-restaurants
   box-sizing: border-box;
 }
 
 .cols-7 {
   width: 58.33333333%;
-<<<<<<< HEAD
-  padding: 0.46875rem;
-=======
   padding: 0.41666667rem;
->>>>>>> origin/feature/PA-23-crud-restaurants
   box-sizing: border-box;
 }
 
 .cols-8 {
   width: 66.66666667%;
-<<<<<<< HEAD
-  padding: 0.46875rem;
-=======
   padding: 0.41666667rem;
->>>>>>> origin/feature/PA-23-crud-restaurants
   box-sizing: border-box;
 }
 
 .cols-9 {
   width: 75%;
-<<<<<<< HEAD
-  padding: 0.46875rem;
-=======
   padding: 0.41666667rem;
->>>>>>> origin/feature/PA-23-crud-restaurants
   box-sizing: border-box;
 }
 
 .cols-10 {
   width: 83.33333333%;
-<<<<<<< HEAD
-  padding: 0.46875rem;
-=======
   padding: 0.41666667rem;
->>>>>>> origin/feature/PA-23-crud-restaurants
   box-sizing: border-box;
 }
 
 .cols-11 {
   width: 91.66666667%;
-<<<<<<< HEAD
-  padding: 0.46875rem;
-=======
   padding: 0.41666667rem;
->>>>>>> origin/feature/PA-23-crud-restaurants
   box-sizing: border-box;
 }
 
 .cols-12 {
   width: 100%;
-<<<<<<< HEAD
-  padding: 0.46875rem;
-  box-sizing: border-box;
-}
-
-=======
   padding: 0.41666667rem;
   box-sizing: border-box;
 }
@@ -2294,7 +1833,6 @@ section.container-preview-cards article.card figure img {
   background-color: red;
 }
 
->>>>>>> origin/feature/PA-23-crud-restaurants
 .calendar {
   border: none;
   background-color: transparent;
@@ -2327,39 +1865,23 @@ section div .profileImg > .fa-folder-open {
 
 .formProfile .role {
   position: absolute;
-<<<<<<< HEAD
-  font-size: 1.125rem;
-=======
   font-size: 1rem;
->>>>>>> origin/feature/PA-23-crud-restaurants
   color: #9e9e9e;
 }
 
 .formProfile .title {
-<<<<<<< HEAD
-  font-size: 1.875rem;
-=======
   font-size: 1.66666667rem;
->>>>>>> origin/feature/PA-23-crud-restaurants
 }
 
 .formProfile #editProfile {
   border: none;
   background-color: #ffffff;
   cursor: pointer;
-<<<<<<< HEAD
-  font-size: 1.125rem;
-}
-
-.greytext {
-  font-size: 1.125rem;
-=======
   font-size: 1rem;
 }
 
 .greytext {
   font-size: 1rem;
->>>>>>> origin/feature/PA-23-crud-restaurants
   color: #9e9e9e;
 }
 
@@ -2400,11 +1922,7 @@ main.login section.login > div.container-login {
 }
 
 main.login section.login > div.container-login form label {
-<<<<<<< HEAD
-  font-size: 0.875rem;
-=======
   font-size: 0.77777778rem;
->>>>>>> origin/feature/PA-23-crud-restaurants
   color: #888888;
   font-weight: bold;
 }
@@ -2412,27 +1930,16 @@ main.login section.login > div.container-login form label {
 main.login section.login > div.container-login form input:not([type="submit"]) {
   border: none;
   border-radius: 11px;
-<<<<<<< HEAD
-  height: 65px;
-  outline: none;
-  background-color: #f2f5fa;
-  margin: 8px 0;
-=======
   height: 40px;
   outline: none;
   background-color: #f2f5fa;
   margin: 8px 0;
   padding-left: 15px;
->>>>>>> origin/feature/PA-23-crud-restaurants
 }
 
 main.login section.login > div.container-login form input[type="submit"] {
   border-radius: 11px;
-<<<<<<< HEAD
-  height: 65px;
-=======
   height: 50px;
->>>>>>> origin/feature/PA-23-crud-restaurants
   outline: none;
 }
 
@@ -2441,21 +1948,14 @@ main.login section.login > div.container-login form > div {
 }
 
 main.login section.login > div.container-login form > div > label[for="password"] + a {
-<<<<<<< HEAD
-  font-size: 0.875rem;
-=======
   font-size: 0.77777778rem;
->>>>>>> origin/feature/PA-23-crud-restaurants
   font-weight: medium;
 }
 
 main.login section.login > div.container-login form > div input[type="password"],
 main.login section.login > div.container-login form > div input[type="text"] {
   padding-right: 60px;
-<<<<<<< HEAD
-=======
   width: 100%;
->>>>>>> origin/feature/PA-23-crud-restaurants
 }
 
 main.login section.login > div.container-login form > div input[type="password"] + i,
@@ -2468,11 +1968,7 @@ main.login section.login > div.container-login form > div input[type="text"] + i
 
 main.login section.login > div.container-login p {
   color: #888888;
-<<<<<<< HEAD
-  font-size: 1.125rem;
-=======
   font-size: 1rem;
->>>>>>> origin/feature/PA-23-crud-restaurants
   text-align: center;
 }
 
@@ -2509,11 +2005,7 @@ main.login section.login > div.container-login .options-auth a article p {
 
 main.login section.login > div.container-login .options-auth + p {
   margin-top: 80px;
-<<<<<<< HEAD
-  font-size: 1rem;
-=======
   font-size: 0.88888889rem;
->>>>>>> origin/feature/PA-23-crud-restaurants
 }
 
 main.login section.login > div.container-login .options-auth + p > a {
@@ -2540,11 +2032,31 @@ main.login section.login > div.container-login .options-auth + p > a {
   }
 }
 
-<<<<<<< HEAD
 .dataTables_wrapper .dataTables_filter {
   float: left !important;
   text-align: left !important;
-  margin-bottom: 0.9375rem;
+  margin-bottom: 0.83333333rem;
+}
+
+.dataTables_length label {
+  margin-right: 1.11111111rem;
+}
+
+.dataTables_length label select {
+  width: unset !important;
+}
+
+.dataTables_filter {
+  position: absolute;
+  right: 20px;
+}
+
+.dataTables_filter label input {
+  width: unset !important;
+}
+
+#bookingTable2 {
+  margin-top: 50px;
 }
 
 a {
@@ -2612,55 +2124,6 @@ a {
 
 .modal-window div:not(:last-of-type) {
   margin-bottom: 15px;
-=======
-.restaurants-container {
-  display: grid;
-}
-
-.restaurant-card {
-  border-radius: 20px;
-  width: 100%;
-  height: 300px;
-  position: relative;
-}
-
-.restaurant-card img {
-  width: 100%;
-  height: 100%;
-  border-radius: 20px;
-  -o-object-fit: cover;
-     object-fit: cover;
-}
-
-.restaurant-card .bandeau {
-  width: 100%;
-  height: 63px;
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  font-family: "Poppins", sans-serif;
-  background-color: #F8F8F8;
-  border-radius: 0 0px 20px 20px;
-}
-
-.restaurant-card p {
-  margin-left: 30px;
-  font-size: 1rem;
-}
-
-.restaurant-card button {
-  margin-right: 20px;
-  background-color: #0051ef;
-  color: #ffffff;
-  width: 120px;
-  padding: 10px 25px;
-  border: none;
-  border-radius: 11px;
-  cursor: pointer;
->>>>>>> origin/feature/PA-23-crud-restaurants
 }
 
 .pageDashboard {
@@ -2766,7 +2229,6 @@ a {
   margin-left: 13.5px;
 }
 
-<<<<<<< HEAD
 #bookingTable2 {
   width: 100%;
   margin-left: 0;
@@ -2796,7 +2258,191 @@ a {
 #bookingTable2 tbody tr td a:last-child {
   color: #f44e4e;
   margin-left: 13.5px;
-=======
+}
+
+.restaurants-container {
+  display: grid;
+}
+
+.restaurant-card {
+  border-radius: 20px;
+  width: 100%;
+  height: 300px;
+  position: relative;
+}
+
+.restaurant-card img {
+  width: 100%;
+  height: 100%;
+  border-radius: 20px;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+
+.restaurant-card .bandeau {
+  width: 100%;
+  height: 63px;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-family: "Poppins", sans-serif;
+  background-color: #F8F8F8;
+  border-radius: 0 0px 20px 20px;
+}
+
+.restaurant-card p {
+  margin-left: 30px;
+  font-size: 1rem;
+}
+
+.restaurant-card button {
+  margin-right: 20px;
+  background-color: #0051ef;
+  color: #ffffff;
+  width: 120px;
+  padding: 10px 25px;
+  border: none;
+  border-radius: 11px;
+  cursor: pointer;
+}
+
+.pageDashboard {
+  height: 100%;
+  width: 100%;
+  gap: 3%;
+}
+
+.secondPart {
+  box-sizing: content-box;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.stats {
+  border-bottom: 3px solid rgba(0, 81, 239, 0.6);
+  padding-bottom: 6px;
+  margin-right: 4%;
+}
+
+.stats > div:first-child {
+  margin-left: 30px;
+  gap: 35px;
+}
+
+.stats > div:last-child {
+  margin-right: 30px;
+}
+
+.stats > div:last-child a {
+  color: #0051ef;
+}
+
+.stats > div p {
+  font-weight: 700;
+  margin-top: 39px;
+  margin-bottom: 0;
+}
+
+.stats > div > div p:last-child {
+  margin-left: 7px;
+}
+
+.stats > div > div p:last-child > i {
+  margin-right: 3px;
+}
+
+.stats .greenStats {
+  color: #4aaf05;
+}
+
+.stats .redStats {
+  color: #f44e4e;
+}
+
+.bookingTableHeader p {
+  color: #0051ef;
+  font-weight: 600;
+  margin: 0 8px;
+}
+
+.bookingTableHeader a {
+  color: #0051ef;
+}
+
+.bookingTableHeader input {
+  height: 32px;
+}
+
+.bookingTableHeader section:last-child {
+  margin-right: 8px;
+}
+
+#bookingTable {
+  width: 100%;
+  margin-left: 0;
+  border: 1px solid #CFCFCF;
+  border-radius: 15px;
+  padding: 5px 25px;
+  background-color: #FBFBFB;
+}
+
+#bookingTable .even {
+  background-color: #FBFBFB !important;
+}
+
+#bookingTable .sorting_1 {
+  background-color: #FBFBFB !important;
+}
+
+#bookingTable .odd {
+  background-color: #FBFBFB !important;
+}
+
+#bookingTable tbody tr td a:first-child {
+  color: #0051ef;
+  margin-right: 13.5px;
+}
+
+#bookingTable tbody tr td a:last-child {
+  color: #f44e4e;
+  margin-left: 13.5px;
+}
+
+#bookingTable2 {
+  width: 100%;
+  margin-left: 0;
+  border: 1px solid #CFCFCF;
+  border-radius: 15px;
+  padding: 5px 25px;
+  background-color: #FBFBFB;
+}
+
+#bookingTable2 .even {
+  background-color: #FBFBFB !important;
+}
+
+#bookingTable2 .sorting_1 {
+  background-color: #FBFBFB !important;
+}
+
+#bookingTable2 .odd {
+  background-color: #FBFBFB !important;
+}
+
+#bookingTable2 tbody tr td a:first-child {
+  color: #0051ef;
+  margin-right: 13.5px;
+}
+
+#bookingTable2 tbody tr td a:last-child {
+  color: #f44e4e;
+  margin-left: 13.5px;
+}
+
 main.register {
   width: 100%;
   height: 100%;
@@ -3131,7 +2777,121 @@ main.error-404 > a {
 
 main.error-404 > a:hover {
   zoom: 110%;
->>>>>>> origin/feature/PA-23-crud-restaurants
+}
+
+section.cards-page {
+  width: 100%;
+  padding: 0 10px;
+}
+
+section.cards-page section.list-cards {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+section.cards-page section.list-cards article.card {
+  margin: 20px;
+  display: flex;
+  flex-direction: column;
+  width: 265px;
+  height: 355px;
+  position: relative;
+}
+
+section.cards-page section.list-cards article.card > img {
+  width: auto;
+  height: calc(355px - 65px);
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  -o-object-fit: cover;
+  object-fit: cover;
+}
+
+section.cards-page section.list-cards article.card footer {
+  background: #FFFFFF;
+  height: 65px;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 0px 0px 5px 5px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-left: 10px;
+}
+
+section.cards-page section.list-cards article.card footer h3 {
+  font-weight: 400;
+  font-size: 0.77777778rem;
+  line-height: 20px;
+  margin: 0;
+}
+
+section.cards-page section.list-cards article.card footer h6 {
+  margin: 0;
+  font-weight: 300;
+  font-size: 0.77777778rem;
+  line-height: 20px;
+  color: #969696;
+}
+
+section.cards-page section.list-cards article.card footer button#state-card {
+  position: absolute;
+  background: #FBFBFB;
+  border-radius: 10px;
+  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+  border: 1px solid #FBFBFB;
+  right: 15px;
+  padding: 8px 20px;
+  transform: translateY(-32.5px);
+  color: #0051EF;
+}
+
+section.cards-page section.list-cards article.card footer button#state-card:hover {
+  border: 1px solid #0051EF;
+}
+
+section.cards-page section.list-cards article.card footer button#state-card.active {
+  background-color: #0051EF;
+  color: white;
+  border: 1px solid #0051EF;
+}
+
+section.cards-page section.list-cards article.card footer button#state-card.active:hover {
+  border: 1px solid #FBFBFB;
+}
+
+section.cards-page section.list-cards article.card a:last-child {
+  position: absolute;
+  right: 5px;
+}
+
+section.cards-page section.list-cards article.card a:last-child svg#edit-card {
+  position: absolute;
+  background-color: white;
+  border-radius: 50%;
+  height: 25px;
+  width: 25px;
+  margin: 10px;
+  padding: 6px;
+  right: 5px;
+  transition: transform 0.2s ease-in-out;
+}
+
+section.cards-page section.list-cards article.card a:last-child svg#edit-card:hover {
+  transform: rotate(-30deg);
+}
+
+section.cards-page section.list-cards article.card main {
+  background-color: #C4C4C4;
+  height: calc(355px - 65px);
+  border-radius: 5px 5px 0px 0px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+section.cards-page section.list-cards article.card:hover {
+  transition: all 10ms ease-in-out;
+  transform: translateY(-2px);
 }
 
 /* --------------------------------- Themes --------------------------------- */
