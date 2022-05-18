@@ -94,5 +94,31 @@ class Carte extends Sql
         $cartes = parent::databaseFindAll("SELECT * FROM " . DBPREFIXE."carte", []);
         return $cartes;
     }
+
+    public function getOneCarte(string $id)
+    {
+        $carte = parent::databaseFindOne(['id' => intval($id)], "carte");
+        return $carte;
+    }
+
+    public function getUpdateForm(): array
+    {
+        return [
+            "config" => [
+                "method" => "POST",
+                "action" => "updateCarte",
+                "class" => "updateCarte",
+                "id" => "updateCarte",
+                "submit" => "Modifier",
+                'captcha' => false
+            ],
+            "inputs" => [
+                "name" => [
+                    "type" => "text",
+                    "value" => "jsp",
+                ]
+            ]
+        ];
+    }
    
 }

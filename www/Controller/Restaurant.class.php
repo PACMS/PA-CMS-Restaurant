@@ -8,6 +8,7 @@ use App\Model\Restaurant as RestaurantModel;
 
 class Restaurant
 {
+
     public function restaurant()
     {
         $restaurant = new RestaurantModel();

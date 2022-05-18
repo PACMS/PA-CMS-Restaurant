@@ -84,9 +84,17 @@
   action: profile
   security: 'employee'
 
-/cartes:
+/restaurant/cartes:
   controller: carte
   action: carte
+
+/createCarte:
+  controller: carte
+  action: createCarte
+
+/updateCarte:
+  controller: carte
+  action: updateCarte
 
 
 #Route pour la reservation
