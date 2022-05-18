@@ -100,13 +100,17 @@
   controller: carte
   action: carte
 
-/createCarte:
+/carte/create:
   controller: carte
   action: createCarte
 
 /updateCarte:
   controller: carte
   action: updateCarte
+
+/carte/delete:
+  controller: carte
+  action: deleteCarte
 
 
 #Route pour la reservation

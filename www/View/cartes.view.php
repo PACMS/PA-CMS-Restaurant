@@ -61,19 +61,21 @@
                     </a>
                 </article>
             <?php endforeach; ?>
-            <article class="card">  
-                <main>
-                    <svg id="add-card" width="90" height="90" viewBox="0 0 90 90" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <line x1="45" y1="26" x2="45" y2="63" stroke="#0051EF" stroke-width="8" stroke-linecap="round"/>
-                        <line x1="26" y1="45" x2="63" y2="45" stroke="#0051EF" stroke-width="8" stroke-linecap="round"/>
-                        <circle cx="45" cy="45" r="44.5" fill="white" fill-opacity="0.1" stroke="#007AFF"/>
-                    </svg>
-                </main>
-                <footer>
-                    <h3>Ajouter une carte</h3>
-                    <h6>Pour pizza gogo</h6>
-                    <button id="state-card" class="active">Créer</button>
-                </footer>
+            <article class="card create">  
+                <a href="/carte/create">
+                    <main>
+                        <svg id="add-card" width="90" height="90" viewBox="0 0 90 90" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <line x1="45" y1="26" x2="45" y2="63" stroke="#0051EF" stroke-width="8" stroke-linecap="round"/>
+                            <line x1="26" y1="45" x2="63" y2="45" stroke="#0051EF" stroke-width="8" stroke-linecap="round"/>
+                            <circle cx="45" cy="45" r="44.5" fill="white" fill-opacity="0.1" stroke="#007AFF"/>
+                        </svg>
+                    </main>
+                    <footer>
+                        <h3>Ajouter une carte</h3>
+                        <h6>Pour pizza gogo</h6>
+                        <button id="state-card" class="active">Créer</button>
+                    </footer>
+                </a>
             </article>
         </section>
     </section>

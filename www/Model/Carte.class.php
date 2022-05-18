@@ -84,8 +84,6 @@ class Carte extends Sql
 
     public function save(): void
     {
-        //Pré traitement par exemple
-        //echo "pre traitement";
         parent::save();
     }
 
@@ -99,6 +97,12 @@ class Carte extends Sql
     public function getOneCarte(string $id)
     {
         $carte = parent::databaseFindOne(['id' => intval($id)], "carte");
+        return $carte;
+    }
+
+    public function deleteCarte(int $id)
+    {
+        $carte = parent::databaseDeleteOne("DELETE FROM " . DBPREFIXE . "carte WHERE id = :id", ['id' => $id]);
         return $carte;
     }
 
@@ -139,6 +143,60 @@ class Carte extends Sql
                     "type" => "hidden",
                     "value" => $carte["id_restaurant"],
                     "error" => "Le nom de la carte n'est pas correct !"
+                ],
+            ]
+        ];
+    }
+
+    public function getCreateForm(): array
+    {
+        return [
+            "config" => [
+                "method" => "POST",
+                "action" => "/updateCarte",
+                "class" => "createCarte",
+                "id" => "createCarte",
+                "submit" => "Créer",
+                'captcha' => false
+            ],
+            "inputs" => [
+                "name" => [
+                    "label" => "Nom",
+                    "type" => "text",
+                    "error" => "Le nom de la carte n'est pas correct !"
+                ],
+                "status" => [
+                    "type" => "checkbox",
+                    "additionnalDiv" => false,
+                    "checked" => false,
+                    "required" => false,
+                    "values" => [
+                        "status" => "Status",
+                    ],
+                    "error" => "Le nom de la carte n'est pas correct !"
+                ],
+                "idRestaurant" => [
+                    "type" => "hidden",
+                    "value" => $_SESSION["id_restaurant"],
+                    "error" => "Le nom de la carte n'est pas correct !"
+                ],
+            ]
+        ];
+    }
+
+    public function getDeleteForm(int $id): array
+    {
+        return [
+            "config" => [
+                "method" => "POST",
+                "action" => "/carte/delete",
+                "submit" => "Supprimer",
+                'captcha' => false
+            ],
+            "inputs" => [
+                "id" => [
+                    "type" => "hidden",
+                    "value" => $id,
                 ],
             ]
         ];

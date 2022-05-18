@@ -22,12 +22,13 @@ class Carte
         } elseif (!empty($_GET["id"])) {
             $this->showCarte($_GET["id"]);
         }
-        
     }
 
     public function createCarte()
     {
-        
+        $carte = new CarteController();
+        $view = new View("createCarte", "back");
+        $view->assign("carte", $carte);
     }
 
     public function showCarte(string $id)
@@ -41,14 +42,21 @@ class Carte
 
     public function updateCarte()
     {
-        $reservation = new CarteController();
+        $carte = new CarteController();
         if (empty($_POST["status"])) {
             $_POST["status"] = 0;
         } else {
             $_POST["status"] = 1;
         }
-        $reservation->hydrate($_POST);
-        $reservation->save();
+        $carte->hydrate($_POST);
+        $carte->save();
+        header('Location: /cartes');
+    }
+
+    public function deleteCarte()
+    {
+        $carte = new CarteController();
+        $carte->deleteCarte($_POST["id"]);
         header('Location: /cartes');
     }
 }
