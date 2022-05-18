@@ -79,17 +79,25 @@
   controller: restaurant
   action: deleteRestaurant
 
+/stock:
+  controller: restaurant
+  action: stock
+
 /restaurant/create:
   controller: restaurant
   action: createOneRestaurant
 
-/profile-restaurant:
+/restaurant/create:
   controller: restaurant
   action: updateRestaurant
 
-/restaurant:
+/restaurant/information:
   controller: restaurant
   action: getOneRestaurant
+
+/restaurant:
+  controller: restaurant
+  action: restaurantOptions
 
 /profile:
   controller: admin

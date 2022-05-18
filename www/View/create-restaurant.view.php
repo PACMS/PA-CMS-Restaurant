@@ -1,3 +1,11 @@
+<?php
+if (isset($errors)) :
+    foreach ($errors as $error) :
+        echo $error;
+        echo '<br>';
+    endforeach;
+endif;
+?>
 <main class="flex pageDashboard">
     <section class="sidebar">
         <nav class="sidebar-nav">
@@ -34,28 +42,8 @@
                 </button>
             </article>
         </section>
-        <section style="padding-right: 4%;">
+        <h1>Ajout d'un restaurant</h1>
 
-            <div style="display: flex; width: 100%; justify-content: right">
-                <a href="/restaurant/create" style="padding: 10px 0; width:200px; background-color : #0051EF; color: white; border: none; border-radius: 11px; font-size: 16px; margin-right: 100px; text-align: center; text-decoration: none;">Ajouter un restaurant</a>
-
-            </div>
-            <div style=" height: 100%; width: 100%; margin:auto; padding-right: 4%; margin-top: 100px ">
-                <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); grid-gap: 0 50px;">
-                    <?php foreach ($restaurant as $key => $value) : ?>
-                        <form class="restaurant-card" method="POST" action="restaurant">
-                            <img src="../public/assets/img/pizza.jpg" alt="graph" />
-                            <div class="bandeau">
-                                <p><?= $value["name"] ?></p>
-                                <!-- <button><a href="/restaurant?id=<?= $_SESSION["id"] ?>" style="text-decoration:none">Modifier</a></button> -->
-                                <input type="hidden" name="id" value="<?= $_SESSION["id"] ?>"></input>
-                                <button type="submit">Modifier</button>
-                            </div>
-                        </form>
-                    <?php endforeach; ?>
-                </div>
-            </div>
-        </section>
-    </section>
+        <?php $this->includePartial("form", $restaurant->getCompleteRestaurantForm()); ?>
     </section>
 </main>
