@@ -68,4 +68,16 @@ class Admin
 
         header("Location: /profile");
     }
+
+    /**
+     * Show all the themes
+     *
+     * @link /themes
+     * 
+     * @return void
+     */
+    public function themes()
+    {
+        $view = new View("themes", "back");
+    }
 }

@@ -40,6 +40,16 @@ class View
         $this->_data[$key] = $value;
     }
 
+    /**
+     * Include the partial view
+     * 
+     * @param string $partial The name of the partial view
+     * @param ?array $config  The config of the partial view | null
+     * 
+     * @example "" Pour la topBar $this->includePartial("topBar", ["title" => "My title"]);
+     * 
+     * @return void include the partial view
+     */
     public function includePartial($partial, ?array $config = null): void
     {
         if (!file_exists("View/Partial/" . $partial . ".partial.php")) {
