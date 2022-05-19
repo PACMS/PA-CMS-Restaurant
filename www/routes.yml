@@ -85,6 +85,13 @@
   action: updateProfile
   security: 'employee'
 
+# Route pour les thèmes
+
+/themes:
+  controller: admin
+  action: themes
+  security: 'admin'
+
 # Route pour la reservation
 /reservation:
   controller: reservation
