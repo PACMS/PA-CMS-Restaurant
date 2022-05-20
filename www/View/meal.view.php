@@ -20,42 +20,44 @@
     <section id="meals-menus" class="">
 
         <?php foreach($categories as $categorieKey => $categorie) : ?>
-            <article>
-                <div class="flex justify-content-between align-items-center">
-                    <h1>
-                        <?= utf8_encode($categorie["name"]) ?>
-                    </h1>
-                    <figure id="editCategorie" data-id-categorie="<?= $categorie["id"] ?>">
-                        <svg width="21" height="20" viewBox="0 0 21 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M16.6931 0C16.416 0 16.1386 0.102599 15.9274 0.308388L14.0787 2.10526L18.4106 6.31579L20.2593 4.51891C20.6828 4.10734 20.6828 3.44095 20.2593 3.03043L17.4588 0.308388C17.2471 0.102599 16.9702 0 16.6931 0ZM12.4543 3.68421L0 15.7895V20H4.33192L16.7862 7.89474L12.4543 3.68421Z" fill="black"/>
-                        </svg>
-                    </figure>
-                </div>
-                <ul>
-                    <?php foreach($allMeals as $key => $value) : ?>
+            <?php if ($categorie["id_carte"] == $_SESSION["id_card"]) : ?>
+                <article>
+                    <div class="flex justify-content-between align-items-center">
+                        <h1>
+                            <?= ($categorie["name"]) ?> <span id="deleteCategorie" class="hidden" data-id-categorie="<?= $categorie["id"] ?>">Supprimer</span>
+                        </h1>
+                        <figure id="editCategorie" data-id-categorie="<?= $categorie["id"] ?>">
+                            <svg width="21" height="20" viewBox="0 0 21 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M16.6931 0C16.416 0 16.1386 0.102599 15.9274 0.308388L14.0787 2.10526L18.4106 6.31579L20.2593 4.51891C20.6828 4.10734 20.6828 3.44095 20.2593 3.03043L17.4588 0.308388C17.2471 0.102599 16.9702 0 16.6931 0ZM12.4543 3.68421L0 15.7895V20H4.33192L16.7862 7.89474L12.4543 3.68421Z" fill="black"/>
+                            </svg>
+                        </figure>
+                    </div>
+                    <ul>
+                        <?php foreach($allMeals as $key => $value) : ?>
 
-                        <?php if ($value["id_categories"] === $categorie["id"]) : ?>
+                            <?php if ($value["id_categories"] === $categorie["id"]) : ?>
 
-                            <li>
-                                <article class="flex flex-column" data-id-categorie="<?= $value["id_categories"] ?>">
-                                    <main class="flex justify-content-between align-items-center">
-                                        <h1 data-value="<?= $value["name"] ?>"><?= $value["name"] ?> <span class="hidden" id="editMeal" data-id-meal="<?= $value["id"] ?>">Editer</span></h1>
-                                        <h3 data-value="<?= $value["price"] ?>"><?= $value["price"] ?> &euro;</h3>
-                                    </main>
-                                    <footer>
-                                        <p><?= utf8_encode($value["description"]) ?></p>
-                                    </footer>
-                                </article>
-                            </li>
+                                <li>
+                                    <article class="flex flex-column" data-id-categorie="<?= $value["id_categories"] ?>">
+                                        <main class="flex justify-content-between align-items-center">
+                                            <h1 data-value="<?= $value["name"] ?>"><?= $value["name"] ?> <span class="hidden" id="editMeal" data-id-meal="<?= $value["id"] ?>">Editer</span><span id="deleteMeal" class="hidden" data-id-meal="<?= $value["id"] ?>">Supprimer</span></h1>
+                                            <h3 data-value="<?= $value["price"] ?>"><?= $value["price"] ?> &euro;</h3>
+                                        </main>
+                                        <footer>
+                                            <p><?= ($value["description"]) ?></p>
+                                        </footer>
+                                    </article>
+                                </li>
 
-                        <?php endif ?>
+                            <?php endif ?>
 
-                    <?php endforeach; ?>
-                </ul>
-            </article>
+                        <?php endforeach; ?>
+                    </ul>
+                </article>
+            <?php endif ?>
 
         <?php endforeach; ?>
-
+       
     </section>
 
 </main>
@@ -117,6 +119,16 @@
             <button type="submit">Modifier</button>
             </form>`);
         });
+    });
+
+    $('span#deleteMeal').click(function(e) {
+        $.post( "/carte/meals/deleteMeal", { id: e.target.getAttribute("data-id-meal") } );
+        location.reload();
+    });
+
+    $('span#deleteCategorie').click(function(e) {
+        $.post( "/carte/meals/deleteCategorie", { id: e.target.getAttribute("data-id-categorie") } );
+        location.reload();
     });
 
 

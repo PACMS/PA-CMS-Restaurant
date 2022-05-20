@@ -127,23 +127,25 @@ class Meal extends Sql
         return $meals;
     }
 
-    public function getOneCarte(string $id)
+    public function deleteMeal(int $id)
     {
-        $carte = parent::databaseFindOne(['id' => intval($id)], "carte");
-        return $carte;
+        $meal = parent::databaseDeleteOne("DELETE FROM " . DBPREFIXE . "meal WHERE id = :id", ['id' => $id]);
+        return $meal;
     }
 
-    public function deleteCarte(int $id)
+    public function deleteMeals(int $id)
     {
-        $carte = parent::databaseDeleteOne("DELETE FROM " . DBPREFIXE . "carte WHERE id = :id", ['id' => $id]);
-        return $carte;
+        $meal = parent::databaseDeleteOne("DELETE FROM " . DBPREFIXE . "meal WHERE id_categories = :id", ['id' => $id]);
+        return $meal;
     }
 
     public function getAddMeal(array $categories): array
     {
         $options = [];
         foreach ($categories as $key => $value) {
-            $options[$value["id"]] = utf8_encode($value["name"]);
+            if ($value["id_carte"] == $_SESSION["id_card"]) {
+                $options[$value["id"]] = ($value["name"]);
+            }
         }
         return [
             "config" => [

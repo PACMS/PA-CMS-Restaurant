@@ -14,7 +14,8 @@ abstract class Sql
                 DBDRIVER .
                     ":host=" . DBHOST .
                     ";port=" . DBPORT .
-                    ";dbname=" . DBNAME,
+                    ";dbname=" . DBNAME .
+                    ";charset=utf8",
                 DBUSER,
                 DBPWD,
                 [\PDO::ATTR_ERRMODE => \PDO::ERRMODE_WARNING]

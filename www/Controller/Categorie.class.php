@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Core\Verificator;
 use App\Core\View;
 use App\Model\Categorie as CategorieModel;
+use App\Model\Meal as MealModel;
 
 class Categorie
 {
@@ -25,6 +26,15 @@ class Categorie
         $categorie->save();
 
         header('Location: /carte/meals');
+    }
+
+    public function deleteCategorie()
+    {
+        $categorie = new CategorieModel();
+        $categorie->deleteCategorie($_POST["id"]);
+        $meal = new MealModel();
+        $meal->deleteMeals($_POST["id"]);
+
     }
 
 }

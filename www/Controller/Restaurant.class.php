@@ -30,6 +30,9 @@ class Restaurant
 
     public function getOneRestaurant()
     {
+        if (empty($_POST)) {
+            header('Location: /restaurants');
+        }
         $restaurant = new RestaurantModel();
         $id = $_POST["id_restaurant"];
         session_start();

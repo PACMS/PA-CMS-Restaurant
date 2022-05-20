@@ -59,4 +59,11 @@ class Meal
         header('Location: /carte/meals');
     }
 
+    public function deleteMeal()
+    {
+        $meal = new MealModel();
+        $meal->deleteMeal($_POST["id"]);
+        //header('Location: /restaurants');
+    }
+
 }

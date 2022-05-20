@@ -68,7 +68,25 @@ main#meals {
             width: 30%;
 
 
-            & div h1 {
+            & div {
+                &:hover {
+                    & span {
+                        display: inline-block;
+                        font-style: italic;
+                        font-weight: 400;
+                        font-size: rem(14);
+                        color: #c4c4c4;
+                        margin-left: 13px;
+                        cursor: pointer;
+
+                        &:hover {
+                            color: #000;
+                        }
+                    }
+                }
+            }
+
+            & h1 {
                 margin: 0;
                 font-weight: 600;
                 font-size: rem(32);
@@ -85,6 +103,8 @@ main#meals {
                     pointer-events: none;
                 }
             }
+
+
 
             & div {
                 &>form {
@@ -155,6 +175,20 @@ main#meals {
                                     color: #c4c4c4;
                                     margin-left: 13px;
                                     cursor: pointer;
+
+                                    & a {
+                                        text-decoration: none;
+                                        font-style: italic;
+                                        font-weight: 400;
+                                        font-size: rem(14);
+                                        color: #c4c4c4;
+                                        margin-left: 13px;
+                                        cursor: pointer;
+                                    }
+
+                                    &:hover {
+                                        color: black;
+                                    }
                                 }
                             }
                         }

@@ -9,6 +9,7 @@ class Categorie extends Sql
 {
     protected $id = null;
     protected $name = null;
+    protected $id_carte = null;
 
     public function __construct()
     {
@@ -48,6 +49,22 @@ class Categorie extends Sql
         $this->name = (new Cleaner($name))->ucw()->e()->value;
     }
 
+    /**
+     * @return int
+     */
+    public function getIdCarte(): string
+    {
+        return $this->id_carte;
+    }
+
+    /**
+     * @param int $id_carte
+     */
+    public function setIdCarte(int $id_carte): void
+    {
+        $this->id_carte = $id_carte;
+    }
+
     public function save(): void
     {
         parent::save();
@@ -59,15 +76,9 @@ class Categorie extends Sql
         return $categories;
     }
 
-    public function getOneCarte(string $id)
+    public function deleteCategorie(int $id)
     {
-        $carte = parent::databaseFindOne(['id' => intval($id)], "carte");
-        return $carte;
-    }
-
-    public function deleteCarte(int $id)
-    {
-        $carte = parent::databaseDeleteOne("DELETE FROM " . DBPREFIXE . "carte WHERE id = :id", ['id' => $id]);
+        $carte = parent::databaseDeleteOne("DELETE FROM " . DBPREFIXE . "categorie WHERE id = :id", ['id' => $id]);
         return $carte;
     }
 
@@ -87,6 +98,11 @@ class Categorie extends Sql
                 "name" => [
                     "type" => "text",
                     "label" => "Nom de la catégorie"
+                ],
+                "IdCarte" => [
+                    "type" => "hidden",
+                    "value" => $_SESSION["id_card"],
+                    "label" => "Description"
                 ],
             ]
         ];

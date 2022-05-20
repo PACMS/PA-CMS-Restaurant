@@ -2963,7 +2963,21 @@ main#meals section#meals-menus article {
   width: 30%;
 }
 
-main#meals section#meals-menus article div h1 {
+main#meals section#meals-menus article div:hover span {
+  display: inline-block;
+  font-style: italic;
+  font-weight: 400;
+  font-size: 0.77777778rem;
+  color: #c4c4c4;
+  margin-left: 13px;
+  cursor: pointer;
+}
+
+main#meals section#meals-menus article div:hover span:hover {
+  color: #000;
+}
+
+main#meals section#meals-menus article h1 {
   margin: 0;
   font-weight: 600;
   font-size: 1.77777778rem;
@@ -3041,6 +3055,20 @@ main#meals section#meals-menus article div + ul li article:hover main > h1 span 
   color: #c4c4c4;
   margin-left: 13px;
   cursor: pointer;
+}
+
+main#meals section#meals-menus article div + ul li article:hover main > h1 span a {
+  text-decoration: none;
+  font-style: italic;
+  font-weight: 400;
+  font-size: 0.77777778rem;
+  color: #c4c4c4;
+  margin-left: 13px;
+  cursor: pointer;
+}
+
+main#meals section#meals-menus article div + ul li article:hover main > h1 span:hover {
+  color: black;
 }
 
 main#meals section#meals-menus article div + ul li form {
