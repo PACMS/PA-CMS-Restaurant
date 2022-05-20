@@ -2823,6 +2823,7 @@ section.cards-page section.list-cards article.card footer h3 {
   font-size: 0.77777778rem;
   line-height: 20px;
   margin: 0;
+  cursor: pointer;
 }
 
 section.cards-page section.list-cards article.card footer h6 {

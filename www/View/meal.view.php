@@ -18,7 +18,6 @@
         <?php $this->includePartial("form", $meal->getAddMeal($categories)); ?>
     </div>
     <section id="meals-menus" class="">
-
         <?php foreach($categories as $categorieKey => $categorie) : ?>
             <?php if ($categorie["id_carte"] == $_SESSION["id_card"]) : ?>
                 <article>

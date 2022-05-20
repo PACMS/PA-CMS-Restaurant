@@ -40,9 +40,8 @@
                 <article class="card">
                     <img src="../public/src/pizza.jpg" alt="graph" />
                         <footer>
-                            <a href="carte/meals" class="linkMeal" data-id-card="<?= $value["id"] ?>">
-                                <h3><?= $value["name"] ?></h3>
-                            </a>
+                                <h3 class="linkMeal" data-id-card="<?= $value["id"] ?>"><?= $value["name"] ?></h3>
+                            
                             <h6>Pour pizza gogo</h6>
                             <button id="state-card" class="<?= $value["status"] ? "active" : "" ?>"><?= $value["status"] ? "Activé" : "Désactivé" ?></button>
                         </footer>
@@ -82,8 +81,10 @@
 </main>
 
 <script>
-    $(".linkMeal").click(function(e) {
-        $.post( "/carte/meals/sendId", { id: e.target.parentElement.getAttribute("data-id-card") } );
+    $("h3.linkMeal").click(function(e) {
+        $.post( "/carte/meals/sendId", { id: e.target.getAttribute("data-id-card") }, function() {
+            location.href = '/carte/meals';
+        } );
     });
 </script>
 

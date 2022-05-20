@@ -16,6 +16,7 @@ class Meal
     {
         session_start();
         $_SESSION["id_card"] = $_POST["id"];
+
     }
 
     public function meal()
@@ -25,20 +26,20 @@ class Meal
             header("Location: /restaurants");
         }
         $restaurantModel = new RestaurantModel();
-        $restaurant = $restaurantModel->getOneRestaurant("restaurant", $_SESSION["id_restaurant"]);
+        $restaurant = $restaurantModel->getOneRestaurant("restaurant", intval($_SESSION["id_restaurant"]));
         $carteModel = new CarteModel();
-        $carte = $carteModel->getOneCarte($_SESSION["id_card"]);
+        $carte = $carteModel->getOneCarte(intval($_SESSION["id_card"]));
         $meals = new MealModel();
         $categorie = new CategorieModel();
         $allCategories = $categorie->getAllCategories();
-        $allMeals = $meals->getAllMeals($_SESSION["id_card"]);
+        $allMeals = $meals->getAllMeals(intval($_SESSION["id_card"]));
         $view = new View("meal", "back");
         $view->assign("allMeals", $allMeals);
         $view->assign("categorie", $categorie);
         $view->assign("meal", $meals);
         $view->assign("categories", $allCategories);
         $view->assign("restaurantName", $restaurant["name"]);
-        $view->assign("carteName", $carte["name"]);
+        $view->assign("carteName", `test`);
     }
 
     public function createMeal()
