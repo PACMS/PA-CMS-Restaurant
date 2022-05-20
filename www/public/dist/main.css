@@ -2898,4 +2898,250 @@ section.cards-page section.list-cards .create > a {
   width: 100%;
 }
 
+header#meals {
+  display: flex;
+  padding: 20px 30px;
+  height: 80px;
+  justify-content: space-between;
+  align-items: center;
+}
+
+header#meals article {
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+}
+
+header#meals article#Add button {
+  background-color: #0051ef;
+  border-radius: 11px;
+  color: white;
+  border: none;
+  padding: 10px 7px;
+  cursor: pointer;
+}
+
+header#meals h1 {
+  font-size: 2rem;
+  font-weight: 600;
+  margin: 0;
+  color: black;
+}
+
+header#meals h3 {
+  font-size: 1.33333333rem;
+  font-weight: 500;
+  margin: 0;
+  color: #0051ef;
+}
+
+main#meals {
+  display: flex;
+  flex-direction: column;
+  padding: 20px 30px;
+  height: calc(100% - 80px - 80px);
+}
+
+main#meals > article#Add {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+main#meals section#meals-menus {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: flex-start;
+  flex-grow: inherit;
+  flex-shrink: initial;
+  height: calc(100% - 31px);
+}
+
+main#meals section#meals-menus article {
+  width: 30%;
+}
+
+main#meals section#meals-menus article div h1 {
+  margin: 0;
+  font-weight: 600;
+  font-size: 1.77777778rem;
+  color: black;
+}
+
+main#meals section#meals-menus article div h1 + figure {
+  margin: 0;
+  width: 21px;
+  height: 20px;
+  cursor: pointer;
+}
+
+main#meals section#meals-menus article div h1 + figure svg {
+  pointer-events: none;
+}
+
+main#meals section#meals-menus article div > form {
+  width: 100%;
+}
+
+main#meals section#meals-menus article div > form button[type="submit"] {
+  border-radius: 11px;
+  border: none;
+  background-color: transparent;
+  font-weight: 500px;
+  cursor: pointer;
+}
+
+main#meals section#meals-menus article div + ul {
+  margin: 28px 0 0 0;
+  padding: 0;
+}
+
+main#meals section#meals-menus article div + ul li {
+  list-style: none;
+  border-bottom: 1px solid #0051ef;
+  margin-bottom: 28px;
+}
+
+main#meals section#meals-menus article div + ul li article {
+  width: 100%;
+}
+
+main#meals section#meals-menus article div + ul li article main h1 {
+  margin: 0;
+  font-weight: 500;
+  font-size: 0.88888889rem;
+  color: #000;
+}
+
+main#meals section#meals-menus article div + ul li article main h3 {
+  margin: 0;
+  font-weight: 700;
+  font-size: 0.88888889rem;
+}
+
+main#meals section#meals-menus article div + ul li article main + footer {
+  margin-top: 12px;
+  margin-bottom: 24px;
+}
+
+main#meals section#meals-menus article div + ul li article main + footer p {
+  margin: 0;
+  font-style: italic;
+  font-weight: 400;
+  font-size: 0.88888889rem;
+}
+
+main#meals section#meals-menus article div + ul li article:hover main > h1 span {
+  display: inline-block;
+  font-style: italic;
+  font-weight: 400;
+  font-size: 0.77777778rem;
+  color: #c4c4c4;
+  margin-left: 13px;
+  cursor: pointer;
+}
+
+main#meals section#meals-menus article div + ul li form {
+  display: flex;
+  flex-direction: column;
+}
+
+main#meals section#meals-menus article div + ul li form label {
+  font-size: 0.77777778rem;
+  color: #888888;
+  font-weight: bold;
+}
+
+main#meals section#meals-menus article div + ul li form input:not([type="submit"]),
+main#meals section#meals-menus article div + ul li form textarea {
+  border: none;
+  border-radius: 11px;
+  height: 40px;
+  outline: none;
+  background-color: #f2f5fa;
+  margin: 8px 0;
+  padding-left: 15px;
+}
+
+main#meals section#meals-menus article div + ul li form textarea {
+  padding-top: 10px;
+}
+
+main#meals section#meals-menus article div + ul li form button[type="submit"] {
+  border-radius: 11px;
+  height: 50px;
+  outline: none;
+  margin-bottom: 28px;
+  background-color: #0051ef;
+  color: white;
+  border: none;
+  cursor: pointer;
+  margin-top: 8px;
+}
+
+main#meals div.modal {
+  position: fixed;
+  background-color: rgba(255, 255, 255, 0.82);
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 999;
+  transition: all 0.3s;
+}
+
+main#meals div.modal form {
+  width: 400px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 2em;
+  background-color: white;
+  flex-direction: column;
+  border-radius: 20px;
+  box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
+}
+
+main#meals div.modal form label {
+  font-size: 0.77777778rem;
+  color: #888888;
+  font-weight: bold;
+}
+
+main#meals div.modal form input:not([type="submit"]) {
+  border: none;
+  border-radius: 11px;
+  height: 40px;
+  outline: none;
+  background-color: #f2f5fa;
+  margin: 8px 0;
+  padding-left: 15px;
+}
+
+main#meals div.modal form input[type="submit"] {
+  border-radius: 11px;
+  height: 50px;
+  outline: none;
+}
+
+main#meals div.modal form p.close {
+  color: #aaa;
+  line-height: 50px;
+  font-size: 80%;
+  position: absolute;
+  right: 2em;
+  text-align: center;
+  top: 0;
+  width: 70px;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+main#meals div.modal form p.close:hover {
+  color: black;
+}
+
 /* --------------------------------- Themes --------------------------------- */

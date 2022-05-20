@@ -185,3 +185,91 @@ COMMIT;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+
+--
+-- Table structure for table `pacm_categorie`
+--
+
+CREATE TABLE `pacm_categorie` (
+  `id` int(11) NOT NULL,
+  `name` varchar(250) NOT NULL,
+  `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `pacm_categorie`
+--
+
+INSERT INTO `pacm_categorie` (`id`, `name`, `created_at`, `updated_at`) VALUES
+(1, 'entrées', '2022-05-19 06:38:55', '2022-05-19 06:38:55'),
+(2, 'plats', '2022-05-19 06:39:16', '2022-05-19 06:39:16'),
+(3, 'pizzas', '2022-05-19 06:39:23', '2022-05-19 06:39:23');
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `pacm_categorie`
+--
+ALTER TABLE `pacm_categorie`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `pacm_categorie`
+--
+ALTER TABLE `pacm_categorie`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+COMMIT;
+
+--
+-- Table structure for table `pacm_meal`
+--
+
+CREATE TABLE `pacm_meal` (
+  `id` int(11) NOT NULL,
+  `name` varchar(250) NOT NULL,
+  `price` float NOT NULL,
+  `description` varchar(250) NOT NULL,
+  `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `update_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `id_carte` int(11) NOT NULL,
+  `id_categories` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `pacm_meal`
+--
+
+INSERT INTO `pacm_meal` (`id`, `name`, `price`, `description`, `created_at`, `update_at`, `id_carte`, `id_categories`) VALUES
+(1, '4 fromages', 15, 'yes bonne pizza sa mère', '2022-05-19 06:42:46', '2022-05-19 06:42:46', 1, 3);
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `pacm_meal`
+--
+ALTER TABLE `pacm_meal`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `pacm_meal`
+--
+ALTER TABLE `pacm_meal`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

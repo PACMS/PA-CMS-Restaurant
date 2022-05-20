@@ -40,7 +40,7 @@
                 <article class="card">
                     <img src="../public/src/pizza.jpg" alt="graph" />
                         <footer>
-                            <a href="?id=<?= $value["id"] ?>">
+                            <a href="carte/meals" class="linkMeal" data-id-card="<?= $value["id"] ?>">
                                 <h3><?= $value["name"] ?></h3>
                             </a>
                             <h6>Pour pizza gogo</h6>
@@ -80,4 +80,10 @@
         </section>
     </section>
 </main>
+
+<script>
+    $(".linkMeal").click(function(e) {
+        $.post( "/carte/meals/sendId", { id: e.target.parentElement.getAttribute("data-id-card") } );
+    });
+</script>
 

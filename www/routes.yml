@@ -112,6 +112,30 @@
   controller: carte
   action: deleteCarte
 
+/carte/meals:
+  controller: meal
+  action: meal
+
+/carte/meals/sendId:
+  controller: meal
+  action: setIdCard
+
+/carte/meals/addCategorie:
+  controller: categorie
+  action: createcategorie
+
+/carte/meals/updateCategorie:
+  controller: categorie
+  action: updateCategorie
+
+/carte/meals/addMeal:
+  controller: meal
+  action: createMeal
+
+/carte/meals/updateMeal:
+  controller: meal
+  action: updateMeal
+
 
 #Route pour la reservation
 /reservation:

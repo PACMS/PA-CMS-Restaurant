@@ -35,12 +35,9 @@
                     <option value="<?= $value ?>" <?php if ($input["default"] === $value) : ?> selected="selected" <?php endif ?>><?= $label ?></option>
                 <?php endforeach ?>
             </select>
-            <br>
         <?php elseif ($input["type"] === "textarea") : ?>
             <label for="<?= $name ?>"><?= $input["label"] ?></label>
-            <textarea name="<?= $name ?>" placeholder="<?= $input["placeholder"] ?? "" ?>" id="<?= $input["id"] ?>" class="<?= $input["class"] ?>" maxlength="<?= $input["maxlength"] ?>" <?= !empty($input["required"]) ? 'required="required"' : ""  ?>>
-            </textarea>
-            <br>
+            <textarea name="<?= $name ?>" placeholder="<?= $input["placeholder"] ?? "" ?>" id="<?= $input["id"] ?>" <?= !empty($input["class"]) ? 'class="'. $input["class"] .'"' : ""  ?> <?= !empty($input["maxlength"]) ? 'maxlength="'. $input["maxlength"] .'"' : ""  ?> <?= !empty($input["required"]) ? 'required="required"' : ""  ?>></textarea>
         <?php elseif ($input["type"] === "file") : ?>
             <label for="<?= $name ?>"><?= $input["label"] ?></label>
             <?php $concatAccept = "" ?>
