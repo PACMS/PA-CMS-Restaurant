@@ -47,8 +47,7 @@
                             <img src="../public/assets/img/pizza.jpg" alt="graph" />
                             <div class="bandeau">
                                 <p><?= $value["name"] ?></p>
-                                <!-- <button><a href="/restaurant?id=<?= $_SESSION["id"] ?>" style="text-decoration:none">Modifier</a></button> -->
-                                <input type="hidden" name="id" value="<?= $_SESSION["id"] ?>"></input>
+                                <input type="hidden" name="id" value="<?=  $value["id"]?>"></input>
                                 <button type="submit">Modifier</button>
                             </div>
                         </form>

@@ -46,12 +46,12 @@ endif;
         <h1><?= $oneRestaurant["name"] ?></h1>
 
         <form action="restaurant/delete" method="POST">
-            <input type="hidden" name="id" value="<?= $_SESSION["id"] ?>">
+            <input type="hidden" name="id" value="<?= $_SESSION["id_restaurant"] ?>">
             <button type="submit">DELETE</button>
-            </form><?= $_SESSION["id"] ?>
+        </form><?= $_SESSION["id_restaurant"] ?>
 
 
-        <?php $this->includePartial("form", $restaurant->getCompleteRestaurantForm()); ?>
+        <?php $this->includePartial("form", $restaurant->getCompleteUpdateRestaurantForm()); ?>
 
     </section>
 </main>

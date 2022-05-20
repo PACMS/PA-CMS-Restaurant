@@ -80,10 +80,10 @@
   action: deleteRestaurant
 
 /stock:
-  controller: restaurant
+  controller: stock
   action: stock
 
-/restaurant/create:
+/restaurant/creation:
   controller: restaurant
   action: createOneRestaurant
 

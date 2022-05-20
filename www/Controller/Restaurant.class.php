@@ -31,7 +31,8 @@ class Restaurant
     {
         $restaurant = new RestaurantModel();
         $id = $_POST["id"];
-        $_SESSION["id"] = $id;
+        $_SESSION["id_restaurant"] = $id;
+
         $table = "restaurant";
         $oneRestaurant = $restaurant->getOneRestaurant($table, $id);
         $restaurant->hydrate($oneRestaurant);
@@ -49,8 +50,8 @@ class Restaurant
 
         // if (!$errors) {
 
-
         $restaurant->hydrate($_POST);
+        // $restaurant->setId(null);
         $restaurant->save();
         // }
         // }
@@ -71,10 +72,12 @@ class Restaurant
 
     public function restaurantOptions()
     {
+
         $restaurant = new RestaurantModel();
         $table = "restaurant";
         $id = $_POST["id"];
-        $_SESSION["id"] = $id;
+        session_start();
+        $_SESSION["id_restaurant"] = $id;
         $oneRestaurant = $restaurant->getOneRestaurant($table, $id);
         $restaurant->hydrate($oneRestaurant);
         $view = new View("restaurant");
@@ -84,6 +87,7 @@ class Restaurant
 
     public function stock()
     {
-        $view = new View("stock");
+        var_dump("SESSION", $_SESSION);
+        // $view = new View("stock");
     }
 }
