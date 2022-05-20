@@ -49,8 +49,8 @@ class Restaurant
             
             // if (!$errors) {
         
-
                 $restaurant->hydrate($_POST);
+                $restaurant->setId(null);
                 $restaurant->save();
             // }
         // }

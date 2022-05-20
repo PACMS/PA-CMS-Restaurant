@@ -50,7 +50,7 @@ class Restaurant extends Sql
     /**
      * @return null
      */
-    public function setId(int $id): void
+    public function setId($id): void
     {
         $this->id = $id; 
     }
@@ -189,7 +189,7 @@ class Restaurant extends Sql
                     "type" => "hidden",
                     "id" => "id",
                     "class" => "formRestaurant",
-                    "value" => 24,
+                    "value" => $this->id,
                 ],
                 "name" => [
                     "placeholder" => "Nom du restaurant*",
