@@ -39,7 +39,7 @@ class Meal
         $view->assign("meal", $meals);
         $view->assign("categories", $allCategories);
         $view->assign("restaurantName", $restaurant["name"]);
-        $view->assign("carteName", `test`);
+        $view->assign("carteName", $carte["name"]);
     }
 
     public function createMeal()

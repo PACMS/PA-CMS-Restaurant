@@ -22,7 +22,7 @@
             <?php if ($categorie["id_carte"] == $_SESSION["id_card"]) : ?>
                 <article>
                     <div class="flex justify-content-between align-items-center">
-                        <h1>
+                        <h1 data-value="<?= ($categorie["name"]) ?>">
                             <?= ($categorie["name"]) ?> <span id="deleteCategorie" class="hidden" data-id-categorie="<?= $categorie["id"] ?>">Supprimer</span>
                         </h1>
                         <figure id="editCategorie" data-id-categorie="<?= $categorie["id"] ?>">
@@ -81,7 +81,7 @@
     $('figure#editCategorie').click(function(e) {
        
         let IdCategorie = e.target.getAttribute("data-id-categorie");
-        let valueToChange = $.trim($(e.target.parentElement.children[0]).text());
+        let valueToChange = $.trim($(e.target.parentElement.children[0]).attr("data-value"));
         $(e.target.parentElement.children[1]).hide();
 
          $(e.target.parentElement.children[0]).replaceWith(function() {
