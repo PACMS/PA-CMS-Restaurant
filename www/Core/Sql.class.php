@@ -58,10 +58,15 @@ abstract class Sql
         return null;
     }
 
-    protected function databaseFindAll(string $sql, array $params)
-
+    protected function databaseFindAll(string $sql, array $params = [])
     {
+        if($params !== []){
 
+            foreach ($params as $key => $whereValue) {
+                $where[] = $key . " = :" . $key;
+            }
+            $sql = $sql . " WHERE " . implode(" AND ", $where);
+        }
         $statement = $this->pdo->prepare($sql);
         if ($statement !== false) {
             $success = $statement->execute($params);

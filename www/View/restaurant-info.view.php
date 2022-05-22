@@ -50,7 +50,6 @@ endif;
             <button type="submit">DELETE</button>
         </form><?= $_SESSION["id_restaurant"] ?>
 
-
         <?php $this->includePartial("form", $restaurant->getCompleteUpdateRestaurantForm()); ?>
 
     </section>

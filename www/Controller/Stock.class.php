@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Core\Verificator;
 use App\Core\View;
 use App\Model\Stock as StockModel;
+use App\Model\Food as FoodModel;
 
 class Stock
 {
@@ -13,24 +14,20 @@ class Stock
         // $id = $_SESSION["id_restaurant"];
         session_start();
         $_SESSION["id_restaurant"] = $_POST["id"];
-        var_dump($_SESSION);
         $stock = new StockModel();
-        $allStocks = $stock->getAllStocks();
-        $temp = false;
-        foreach ($allStocks as $key => $value) {
-            if ($value["restaurantId"] == $_POST['id']) {
-                $temp = true;
-                // $allStocks[$key]["restaurantId"] = $_SESSION["id_restaurant"];
-            }
-        }
-        if ($temp == false) {
-
+        $theStock = $stock->getOneStock('stock',['restaurantId' => $_POST['id']] );
+        if (!$theStock) {
             $stock->hydrate(['restaurantId' => $_POST['id']]);
             $_POST['id'] = null;
-            $stock->save();
+            $stock->save();   
         }
-
+        $food = new FoodModel();
+        $stockId = $theStock["id"];
+        $allFoods = $food->getAllFoods(['stockId' => $stockId]);
+        
         $view = new View("stock");
         $view->assign('stock', $stock);
+        $view->assign('food', $food);
+        $view->assign('allFoods', $allFoods);
     }
 }

@@ -163,7 +163,6 @@ class Restaurant extends Sql
     public function databaseDeleteOneRestaurant(string $table, int $id)
     {
         $restaurant = parent::databaseDeleteOne("DELETE FROM " . DBPREFIXE . $table . " WHERE id = :id", ['id' => $id]);
-        var_dump($restaurant);
         return $restaurant;
     }
 
@@ -176,6 +175,7 @@ class Restaurant extends Sql
     public function getCompleteRestaurantForm()
     {
         return [
+            
             "config" => [
                 "method" => "POST",
                 "action" => "/restaurant/creation",

@@ -34,5 +34,21 @@
                 </button>
             </article>
         </section>
+        <section style="padding-right: 4%;">
+    <!-- Mettre le js de Thibaut pour avoir le popup d'ajout -->
+            <div style="display: flex; width: 100%; justify-content: right">
+                <a href="/restaurant/create" style="padding: 10px 0; width:200px; background-color : #0051EF; color: white; border: none; border-radius: 11px; font-size: 16px; margin-right: 100px; text-align: center; text-decoration: none;">Ajouter un produit</a>
+
+            </div>
+            <div style=" height: 100%; width: 100%; margin:auto; padding-right: 4%; margin-top: 100px ">
+                <!-- <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); grid-gap: 0 50px;"> -->
+                <?php foreach ($allFoods as $key => $value) : ?>
+                        
+                    <p><?= $value["quantity"]. " " .$value["name"]?></p>
+                    <?php endforeach; ?>
+                <!-- </div> -->
+            </div>
+        </section>
+        
     </section>
 </main>

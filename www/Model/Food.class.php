@@ -8,7 +8,7 @@ use App\Core\Cleaner;
 /**
  *
  */
-class Stock extends Sql
+class Food extends Sql
 {
     /**
      * @var null
@@ -17,7 +17,19 @@ class Stock extends Sql
     /**
      * @var
      */
-    protected $restaurantId;
+    protected $name;
+    /**
+     * @var
+     */
+    protected $nature;
+    /**
+     * @var
+     */
+    protected $quantity;
+    /**
+     * @var
+     */
+    protected $stockId;
     
 
     /**
@@ -36,32 +48,78 @@ class Stock extends Sql
         $this->id = $id; 
     }
 
-    // getter and setter for name	
     /**
      * @return mixed
      */
-    public function getRestaurantId()
+    public function getName()
     {
-        return $this->restaurantId;
+        return $this->name;
     }
 
     /**
-     * @param mixed $restaurantId
+     * @param mixed $name
      */
-    public function setRestaurantId(int $restaurantId): void
+    public function setName(string $name): void
     {
-        $this->restaurantId = $restaurantId;
+        $this->name = $name;
+    }
+    /**
+     * @return mixed
+     */
+    public function getNature()
+    {
+        return $this->nature;
+    }
+
+    /**
+     * @param mixed $name
+     */
+    public function setNature(string $nature): void
+    {
+        $this->nature = $nature;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getQuantity()
+    {
+        return $this->quantity;
+    }
+
+    /**
+     * @param mixed $name
+     */
+    public function setQuantity(int $quantity): void
+    {
+        $this->quantity = $quantity;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getStockId()
+    {
+        return $this->stockId;
+    }
+
+    /**
+     * @param mixed $stockId
+     */
+    public function setStockId(int $stockId): void
+    {
+        $this->stockId = $stockId;
     }
 
 
     
 
 
-    public function getAllStocks(array $params)
+    public function getAllFoods(array $params)
     {
-        $stocks = parent::databaseFindAll("SELECT * FROM " . DBPREFIXE . "stock", $params);
-        var_dump($stocks);
-        return $stocks;
+        
+        $foods = parent::databaseFindAll("SELECT * FROM " . DBPREFIXE . "foods", $params);
+        return $foods;
     }
 
     // public function databaseDeleteOneRestaurant(string $table, int $id)
@@ -71,95 +129,62 @@ class Stock extends Sql
     //     return $restaurant;
     // }
 
-    public function getOneStock(string $table, array $params)
-    {
-        $stock = parent::databaseFindOne($params, $table);
-        return $stock;
-    }
-
-    // public function getCompleteRestaurantForm()
+    // public function getOneRestaurant(string $table, int $id)
     // {
-    //     return [
-    //         "config" => [
-    //             "method" => "POST",
-    //             "action" => "/restaurant/creation",
-    //             "class" => "formRestaurant",
-    //             "id" => "formRestaurant",
-    //             "submit" => "Ajouter le restaurant",
-    //             'captcha' => false,
-    //         ],
-    //         "inputs" => [
-    //             "name" => [
-    //                 "placeholder" => "Nom du restaurant*",
-    //                 "type" => "text",
-    //                 "id" => "name",
-    //                 "class" => "formRestaurant",
-    //                 "required" => true,
-    //                 "min" => 2,
-    //                 "max" => 100,
-    //                 "value" => $this->name,
-    //                 "error" => "Le nom de votre restaurant n'est pas correct",
-    //             ],
-    //             "address" => [
-    //                 "placeholder" => "Votre adresse*",
-    //                 "type" => "text",
-    //                 "id" => "address",
-    //                 "class" => "formRestaurant",
-    //                 "required" => true,
-    //                 "min" => 2,
-    //                 "max" => 255,
-    //                 "value" => $this->address,
-    //                 "error" => "Le champs adresse contient une erreur",
-    //             ],
-    //             "additional_address" => [
-    //                 "placeholder" => "Complément d'adresse",
-    //                 "type" => "text",
-    //                 "id" => "additional_address",
-    //                 "class" => "formRestaurant",
-    //                 "max" => 255,
-    //                 "value" => $this->additional_address,
-    //                 "error" => "Le champs complément d'adresse contient une erreur"
-    //             ],
-    //             "city" => [
-    //                 "placeholder" => "Ville*",
-    //                 "type" => "text",
-    //                 "id" => "city",
-    //                 "class" => "formRestaurant",
-    //                 "required" => true,
-    //                 "min" => 2,
-    //                 "max" => 50,
-    //                 "value" => $this->city,
-    //                 "error" => "Le nom de votre ville n'est pas correct",
-    //             ],
-    //             "zipcode" => [
-    //                 "placeholder" => "Code postal*",
-    //                 "type" => "number",
-    //                 "id" => "zipcode",
-    //                 "class" => "formRestaurant",
-    //                 "required" => true,
-    //                 "min" => 2,
-    //                 "max" => 10,
-    //                 "value" => $this->zipcode,
-    //                 "error" => "Votre code postal est incorrect",
-    //             ],
-    //             "phone" => [
-    //                 "placeholder" => "Téléphone*",
-    //                 "type" => "number",
-    //                 "id" => "phone",
-    //                 "class" => "formRestaurant",
-    //                 "required" => true,
-    //                 "min" => 2,
-    //                 "max" => 15,
-    //                 "value" => $this->phone,
-    //                 "error" => "Votre numéro de téléphone est incorrect",
-    //             ],
-    //             // "captcha" => [
-    //             //     'type' => 'captcha',
-    //             //     'error' => 'Le captcha n\'a pas pu validé votre formulaire'
-    //             // ]
-    //         ]
-    //     ];
+    //     $restaurant = parent::databaseFindOne(['id' => $id], $table);
+    //     return $restaurant;
     // }
+
+    public function getCompleteRestaurantForm()
+    {
+        return [
+            "config" => [
+                "method" => "POST",
+                "action" => "/restaurant/creation",
+                "class" => "formRestaurant",
+                "id" => "formRestaurant",
+                "submit" => "Ajouter le restaurant",
+                'captcha' => false,
+            ],
+            "inputs" => [
+                "name" => [
+                    "placeholder" => "Nom du produit*",
+                    "type" => "text",
+                    "id" => "name",
+                    "class" => "formRestaurant",
+                    "required" => true,
+                    "min" => 2,
+                    "max" => 100,
+                    "value" => $this->name,
+                    "error" => "Le nom de votre produit n'est pas correct",
+                ],
+                "nature" => [
+                    "placeholder" => "Nature*",
+                    "type" => "text",
+                    "id" => "nature",
+                    "class" => "formRestaurant",
+                    "required" => true,
+                    "min" => 2,
+                    "max" => 255,
+                    "value" => $this->nature,
+                    "error" => "Le champs adresse contient une erreur",
+                ],
+                "quantity" => [
+                    "placeholder" => "Quantité*",
+                    "type" => "text",
+                    "id" => "quantity",
+                    "class" => "formRestaurant",
+                    "max" => 255,
+                    "value" => $this->quantity,
+                    "error" => "Le champs quantité contient une erreur"
+                ],
+                // "captcha" => [
+                //     'type' => 'captcha',
+                //     'error' => 'Le captcha n\'a pas pu validé votre formulaire'
+                // ]
+            ]
+        ];
+    }
     // public function getCompleteUpdateRestaurantForm()
     // {
     //     return [
