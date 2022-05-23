@@ -18,5 +18,13 @@
     <div id="pseudo-element"></div>
     <section class="flex flex-column secondPart">
         <?php $this->includePartial("topBar", ["title" => "Thèmes"]); ?>
+        <section class="flex">
+            <div>
+                <button>Thème 1</button>
+            </div>
+            <div>
+                <button>Thème 2</button>
+            </div>
+        </section>
     </section>
 </main>
