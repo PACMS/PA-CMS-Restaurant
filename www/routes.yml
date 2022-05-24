@@ -79,17 +79,22 @@
   controller: restaurant
   action: deleteRestaurant
 
-/restaurant/create:
+
+/restaurant/creation:
   controller: restaurant
   action: createOneRestaurant
 
-/profile-restaurant:
+/restaurant/create:
   controller: restaurant
   action: updateRestaurant
 
-/restaurant:
+/restaurant/information:
   controller: restaurant
   action: getOneRestaurant
+
+/restaurant:
+  controller: restaurant
+  action: restaurantOptions
 
 /profile:
   controller: admin
@@ -99,4 +104,3 @@
 /notFound:
   controller: user
   action: errorNotFound
-
