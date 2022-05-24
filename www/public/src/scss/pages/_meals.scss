@@ -269,7 +269,8 @@ main#meals {
                 font-weight: bold;
             }
 
-            & input:not([type="submit"]) {
+            & input:not([type="submit"]),
+            textarea {
                 border: none;
                 border-radius: 11px;
                 height: 40px;
@@ -277,6 +278,10 @@ main#meals {
                 background-color: #f2f5fa;
                 margin: 8px 0;
                 padding-left: 15px;
+            }
+
+            & textarea {
+                padding-top: 10px;
             }
 
             & input[type="submit"] {

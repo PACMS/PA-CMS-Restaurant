@@ -3140,7 +3140,8 @@ main#meals div.modal form label {
   font-weight: bold;
 }
 
-main#meals div.modal form input:not([type="submit"]) {
+main#meals div.modal form input:not([type="submit"]),
+main#meals div.modal form textarea {
   border: none;
   border-radius: 11px;
   height: 40px;
@@ -3148,6 +3149,10 @@ main#meals div.modal form input:not([type="submit"]) {
   background-color: #f2f5fa;
   margin: 8px 0;
   padding-left: 15px;
+}
+
+main#meals div.modal form textarea {
+  padding-top: 10px;
 }
 
 main#meals div.modal form input[type="submit"] {
@@ -3171,6 +3176,63 @@ main#meals div.modal form p.close {
 
 main#meals div.modal form p.close:hover {
   color: black;
+}
+
+section#editCard {
+  position: relative;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 50%;
+  border-radius: 20px;
+  box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.3);
+  padding: 2em;
+}
+
+section#editCard form {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+section#editCard form input[type="checkbox"],
+section#editCard form label[for='status'] {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+section#editCard form label {
+  font-size: 0.77777778rem;
+  color: #888888;
+  font-weight: bold;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+}
+
+section#editCard form input:not([type="submit"]):not([type="checkbox"]) {
+  border: none;
+  border-radius: 11px;
+  height: 40px;
+  outline: none;
+  background-color: #f2f5fa;
+  margin: 8px 0;
+  padding-left: 15px;
+}
+
+section#editCard form[type="checkbox"] {
+  margin: 0;
+  accent-color: #f2f5fa;
+}
+
+section#editCard form input[type="submit"] {
+  border-radius: 11px;
+  height: 50px;
+  outline: none;
+}
+
+section#editCard form input[type="submit"][value="Supprimer"] {
+  background-color: red !important;
 }
 
 /* --------------------------------- Themes --------------------------------- */
