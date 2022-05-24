@@ -4,7 +4,7 @@ namespace App\Controller;
 
 use App\Core\Verificator;
 use App\Core\View;
-use App\Model\Carte as CarteController;
+use App\Model\Carte as CarteModel;
 
 class Carte
 {
@@ -12,7 +12,7 @@ class Carte
     public function carte()
     {
         if (empty($_GET)) {
-            $carte = new CarteController();
+            $carte = new CarteModel();
             $allCartes = $carte->getAllCartes();
             $view = new View("cartes", "back");
             $view->assign('cartes', $allCartes);
@@ -26,14 +26,14 @@ class Carte
 
     public function createCarte()
     {
-        $carte = new CarteController();
+        $carte = new CarteModel();
         $view = new View("createCarte", "back");
         $view->assign("carte", $carte);
     }
 
     public function showCarte(string $id)
     {
-        $carteCtrl = new CarteController();
+        $carteCtrl = new CarteModel();
         $view = new View("carteDetails", "back");
         $carte = $carteCtrl->getOneCarte($id);
         $view->assign('carte', $carte);
@@ -42,7 +42,7 @@ class Carte
 
     public function updateCarte()
     {
-        $carte = new CarteController();
+        $carte = new CarteModel();
         if (empty($_POST["status"])) {
             $_POST["status"] = 0;
         } else {
@@ -55,7 +55,7 @@ class Carte
 
     public function deleteCarte()
     {
-        $carte = new CarteController();
+        $carte = new CarteModel();
         $carte->deleteCarte($_POST["id"]);
         header('Location: /cartes');
     }
