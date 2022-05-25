@@ -4,9 +4,9 @@ namespace App\Core;
 
 class View{
 
-    private $view;
-    private $template;
-    private $data = [];
+    protected $view;
+    protected $template;
+    protected $data = [];
 
     public function __construct($view, $template="front")
     {

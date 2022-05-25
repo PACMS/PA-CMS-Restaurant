@@ -32,17 +32,21 @@ if(file_exists($fileRoutes)){
     die("Le fichier de routing n'existe pas");
 }
 
-
-
-
 if (strpos($_SERVER["REQUEST_URI"], '?')) $uri = substr($_SERVER["REQUEST_URI"], 0, strpos($_SERVER["REQUEST_URI"], '?'));
 else $uri = $_SERVER["REQUEST_URI"];
-// var_dump($routes);
+
+foreach ($routes as $key => $route) {
+    if (strpos($key, ':')) {
+        if (substr($key, 0, strpos($key, ':')) == substr($_SERVER["REQUEST_URI"], 0, strpos($key, ':'))) {
+            $param = substr($_SERVER["REQUEST_URI"], strpos($key, ':'));
+            $uri = $key;
+        }
+    }
+}
 
 if(empty($routes[$uri]) || empty($routes[$uri]["controller"]) || empty($routes[$uri]["action"])){
     header('Location: /notFound');
 }
-
 
 if(!Security::checkRoute($routes[$uri])){
     die("NotAuthorized");
@@ -73,9 +77,8 @@ if( !class_exists($controller)){
 
 $objectController = new $controller();
 
-
 if( !method_exists($objectController, $action) ){
     die("La methode n'existe pas");
 }
 
-$objectController->$action();
+isset($param) ? $objectController->$action($param) : $objectController->$action();

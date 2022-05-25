@@ -1,20 +1,9 @@
-<!doctype html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Thème 1</title>
-</head>
-<body>
-
 <header>
     <ul>
-        <li><a href="">Accueil</a>
-        <li><a href="">Notre histoire</a>
-        <li><a href="">Nos menus</a>
-        <li><a href="">Votre réservation</a>
-        <li><a href="">Nous contacter</a>
+        <li><a href="/theme/1">Accueil</a>
+        <li><a href="/theme/story/1">Notre histoire</a>
+        <li><a href="/theme/menu/1">Nos menus</a>
+        <li><a href="/theme/reservation/1">Votre réservation</a>
+        <li><a href="/theme/contact/1">Nous contacter</a>
     </ul>
 </header>

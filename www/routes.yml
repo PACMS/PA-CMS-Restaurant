@@ -104,7 +104,30 @@
   action: profile
   security: true
 
+/theme:
+  controller: theme
+  action: render
+
+/theme/:id:
+  controller: theme
+  action: home
+
+/theme/story/:id:
+  controller: theme
+  action: story
+
+/theme/menu/:id:
+  controller: theme
+  action: menu
+
+/theme/reservation/:id:
+  controller: theme
+  action: reservation
+
+/theme/contact/:id:
+  controller: theme
+  action: contact
+
 /notFound:
   controller: user
   action: errorNotFound
-

@@ -1,1 +1,12 @@
-Lorem ipsum dolor sit amet, consectetur adipisicing elit. Animi dicta minima officiis optio recusandae repudiandae, sint! Aut et explicabo facilis iure perspiciatis repellat repudiandae soluta tenetur totam vitae? Delectus, modi.
+<section>
+    <h1>Choisissez votre thème</h1>
+    <section>
+        <div>
+            <img src="https://picsum.photos/200/300" alt="">
+            <button>Actif</button>
+            <a href="/theme/1">Modifier</a>
+            <h3>Titre du thème</h3>
+            <p>Descriptif du thème</p>
+        </div>
+    </section>
+</section>
