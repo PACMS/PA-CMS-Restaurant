@@ -92,6 +92,11 @@
   action: themes
   security: 'admin'
 
+/themes/switchTheme:
+  controller: theme
+  action: switchTheme
+  security: 'admin'
+
 # Route pour la reservation
 /reservation:
   controller: reservation
