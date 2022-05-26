@@ -149,7 +149,14 @@ abstract class Sql
         }
     }
 
-    public function findOneBy(array $whereClause): array
+    /**
+     * Find one by
+     * 
+     * @param array $whereClause [key => value]
+     * 
+     * @return null|array
+     */
+    public function findOneBy(array $whereClause): ?array
     {
         $columns = get_object_vars($this);
         $varToExclude = get_class_vars(get_class());
@@ -164,7 +171,7 @@ abstract class Sql
         $queryPrepared = $this->pdo->prepare($sql);
         $queryPrepared->execute($whereClause);
 
-        return $queryPrepared->fetch(\PDO::FETCH_ASSOC);
+        return $queryPrepared->fetch(\PDO::FETCH_ASSOC) ?: null;
     }
     protected function getAll(): array
     {
