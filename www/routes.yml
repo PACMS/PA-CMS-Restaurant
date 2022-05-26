@@ -79,9 +79,13 @@
   controller: restaurant
   action: deleteRestaurant
 
-/stock:
+/restaurant/stock:
   controller: stock
   action: stock
+
+/restaurant/food/create:
+  controller: food
+  action: createFood
 
 /restaurant/creation:
   controller: restaurant

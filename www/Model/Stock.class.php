@@ -77,6 +77,8 @@ class Stock extends Sql
         return $stock;
     }
 
+    
+
     // public function getCompleteRestaurantForm()
     // {
     //     return [

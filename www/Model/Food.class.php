@@ -17,19 +17,19 @@ class Food extends Sql
     /**
      * @var
      */
-    protected $name;
+    protected $name = null;
     /**
      * @var
      */
-    protected $nature;
+    protected $nature = null;
     /**
      * @var
      */
-    protected $quantity;
+    protected $quantity = null;
     /**
      * @var
      */
-    protected $stockId;
+    protected $stockId = null;
     
 
     /**
@@ -118,7 +118,7 @@ class Food extends Sql
     public function getAllFoods(array $params)
     {
         
-        $foods = parent::databaseFindAll("SELECT * FROM " . DBPREFIXE . "foods", $params);
+        $foods = parent::databaseFindAll("SELECT * FROM " . DBPREFIXE . "food", $params);
         return $foods;
     }
 
@@ -135,15 +135,15 @@ class Food extends Sql
     //     return $restaurant;
     // }
 
-    public function getCompleteRestaurantForm()
+    public function getAddProduct()
     {
         return [
             "config" => [
                 "method" => "POST",
-                "action" => "/restaurant/creation",
-                "class" => "formRestaurant",
-                "id" => "formRestaurant",
-                "submit" => "Ajouter le restaurant",
+                "action" => "/restaurant/food/create",
+                "class" => "flex",
+                "id" => "addProduct",
+                "submit" => "Ajouter le produit",
                 'captcha' => false,
             ],
             "inputs" => [
@@ -177,6 +177,11 @@ class Food extends Sql
                     "max" => 255,
                     "value" => $this->quantity,
                     "error" => "Le champs quantité contient une erreur"
+                ],
+                "stockId" => [
+                    "type" => "hidden",
+                    "value" => $_SESSION["id_stock"],
+                    "label" => "StockId",
                 ],
                 // "captcha" => [
                 //     'type' => 'captcha',

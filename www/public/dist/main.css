@@ -1879,6 +1879,74 @@ section div .profileImg > .fa-folder-open {
   justify-content: center;
 }
 
+div.modal {
+  position: fixed;
+  background-color: rgba(255, 255, 255, 0.82);
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 999;
+  transition: all 0.3s;
+}
+
+div.modal form {
+  width: 400px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 2em;
+  background-color: white;
+  flex-direction: column;
+  border-radius: 20px;
+  box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
+}
+
+div.modal form label {
+  font-size: 0.77777778rem;
+  color: #888888;
+  font-weight: bold;
+}
+
+div.modal form input:not([type="submit"]),
+div.modal form textarea {
+  border: none;
+  border-radius: 11px;
+  height: 40px;
+  outline: none;
+  background-color: #f2f5fa;
+  margin: 8px 0;
+  padding-left: 15px;
+}
+
+div.modal form textarea {
+  padding-top: 10px;
+}
+
+div.modal form input[type="submit"] {
+  border-radius: 11px;
+  height: 50px;
+  outline: none;
+}
+
+div.modal form p.close {
+  color: #aaa;
+  line-height: 50px;
+  font-size: 80%;
+  position: absolute;
+  right: 2em;
+  text-align: center;
+  top: 0;
+  width: 70px;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+div.modal form p.close:hover {
+  color: black;
+}
+
 main.login {
   width: 100%;
   height: 100%;
