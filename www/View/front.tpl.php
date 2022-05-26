@@ -21,6 +21,7 @@ if (!isset($_SESSION)) {
     <link rel="stylesheet" href="<?php echo $_SESSION['theme']['path']; ?>/dist/main.css">
     <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
     <script src="../public/dist/main.js"></script>
+    <script src="<?php echo $_SESSION['theme']['path']; ?>/dist/main.js"></script>
 </head>
 
 <body>

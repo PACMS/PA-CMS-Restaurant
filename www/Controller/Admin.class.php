@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Core\Verificator;
 use App\Model\User as UserModel;
+use App\Model\Theme as ThemeModel;
 use App\Core\View;
 
 class Admin
@@ -78,6 +79,10 @@ class Admin
      */
     public function themes()
     {
+        $theme = new ThemeModel();
+        $themes = $theme->getAllThemes();
+        
         $view = new View("themes", "back");
+        $view->assign("themes", $themes);
     }
 }

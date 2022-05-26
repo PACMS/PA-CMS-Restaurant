@@ -19,12 +19,11 @@
     <section class="flex flex-column secondPart">
         <?php $this->includePartial("topBar", ["title" => "Thèmes"]); ?>
         <section class="flex">
+            <?php foreach($themes as $theme) : ?>
             <div>
-                <button>Thème 1</button>
+                <button style="background-color: <?php echo $_SESSION['theme']['id'] !== $theme->id ?: 'red' ?>;"><a href="themes/switchTheme?id=<?php echo $theme->id ?>"><?php echo $theme->name ?></a></button>
             </div>
-            <div>
-                <button>Thème 2</button>
-            </div>
+            <?php endforeach; ?>
         </section>
     </section>
 </main>

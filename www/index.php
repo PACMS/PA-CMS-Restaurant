@@ -23,6 +23,16 @@ function myAutoloader($class)
 spl_autoload_register("App\myAutoloader");
 
 use App\Core\Security;
+use App\Model\Option as OptionModel;
+use App\Model\Theme as ThemeModel;
+
+$option = new OptionModel();
+$idTheme = $option->getOptionByName('theme')['value'];
+$theme = new ThemeModel();
+$currentTheme = $theme->getThemeById($idTheme);
+
+session_start();
+$_SESSION['theme'] = $currentTheme;
 
 $fileRoutes = "routes.yml";
 

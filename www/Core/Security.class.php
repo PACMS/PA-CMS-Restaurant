@@ -6,7 +6,6 @@ class Security
 {
     public static function checkRoute($route): bool
     {
-        session_start();
         if (empty($_SESSION["user"])) {
             return false;
         } elseif ($_SESSION["user"]['role'] == "admin") {
