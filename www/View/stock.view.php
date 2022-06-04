@@ -35,29 +35,39 @@
             </article>
         </section>
         <section style="padding-right: 4%;">
-    <!-- Mettre le js de Thibaut pour avoir le popup d'ajout -->
+            <!-- Mettre le js de Thibaut pour avoir le popup d'ajout -->
             <div id="Add" style="display: flex; width: 100%; justify-content: right">
-                <button  id="addProduct" style="padding: 10px 0; width:200px; background-color : #0051EF; color: white; border: none; border-radius: 11px; font-size: 16px; margin-right: 100px; text-align: center; text-decoration: none;">Ajouter un produit</button>
+                <button id="addProduct" style="padding: 10px 0; width:200px; background-color : #0051EF; color: white; border: none; border-radius: 11px; font-size: 16px; margin-right: 100px; text-align: center; text-decoration: none;">Ajouter un produit</button>
             </div>
 
             <div class="modal hidden addProduct">
-            <?php $this->includePartial("form", $food->getAddProduct()); ?>
+                <?php $this->includePartial("form", $food->getAddProduct()); ?>
 
             </div>
             <div style=" height: 100%; width: 100%; margin:auto; padding-right: 4%; margin-top: 100px ">
                 <!-- <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); grid-gap: 0 50px;"> -->
                 <?php foreach ($allFoods as $key => $value) : ?>
-                        
-                    <p><?= $value["quantity"]. " " .$value["name"]?></p>
-                    <?php endforeach; ?>
+                    <div class="flex align-item-center" id="deleteFood" style="gap: 10px">
+
+                        <p><?= $value["quantity"] . " " . $value["name"] ?></p>
+                        <button food-id="<?= $value["id"] ?>" >Supprimer</button>
+                    </div>
+                <?php endforeach; ?>
                 <!-- </div> -->
             </div>
         </section>
-        
+
     </section>
 </main>
 
 <script defer>
+    $("#deleteFood").click(function(e) {
+        $.post("/restaurant/food/delete", {
+            id: e.target.getAttribute("food-id")
+        }, function() {
+            location.href = '/restaurant/stock';
+        });
+    });
 
     $("div.modal > form").append("<p class='close'>close</p>");
 
@@ -68,6 +78,4 @@
     $("button#addProduct").click(function(e) {
         $("div.modal.addProduct").toggle();
     });
-
-
 </script>

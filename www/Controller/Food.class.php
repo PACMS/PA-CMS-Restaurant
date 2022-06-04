@@ -17,4 +17,12 @@ class Food
        $food->save();
        header('Location: /restaurant/stock'); 
     }
+
+    public function deleteFood()
+    {
+        $food = new FoodModel();
+        $table = "food";
+        $id = $_POST['id'];
+        $food->databaseDeleteOneFood($table, $id);
+    }
 }
