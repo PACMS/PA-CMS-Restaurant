@@ -2459,6 +2459,11 @@ a {
   cursor: pointer;
 }
 
+.restaurant-card button a {
+  color: #ffffff;
+  text-decoration: none;
+}
+
 .pageDashboard {
   height: 100%;
   width: 100%;

@@ -1,23 +1,32 @@
 <?php
 
+/**
+ * PHP version 8.1
+ */
 namespace App\Controller;
 
 use App\Core\Verificator;
-use App\Controller\Mail;
 use App\Core\View;
 use App\Core\OAuth;
 use App\Model\User as UserModel;
 
+/**
+ * Class User
+ * 
+ * @category Controller
+ * 
+ * @package App\Controller
+ */
 class User
 {
-    public function login()
+    /**
+     * Login page
+     *
+     * @return void
+     */
+    public function login(): void
     {
         $user = new UserModel();
-
-        // if (!empty($_POST)) {
-        //     Verificator::checkForm($user->getLoginForm(), $_POST + $_FILES);
-        // }
-
 
         // $user->setEmail("vivian.fr@free.fr");
         // $user->setPassword("Test1234");
@@ -37,7 +46,12 @@ class User
         $view->assign("user", $user);
     }
 
-    public function register()
+    /**
+     * Register page
+     *
+     * @return void
+     */
+    public function register():void
     {
         $user = new UserModel();
         $errors = null;
@@ -46,12 +60,9 @@ class User
             $errors = Verificator::checkForm($user->getCompleteRegisterForm(), $_POST + $_FILES);
 
             if (!$errors) {
-                $user->generateToken();
-                $user->setStatus(0);
                 $user->hydrate($_POST);
                 $user->save();
                 /////////// redirection vers le dashboard à faire
-                Mail::sendConfirmMail($user->getToken(), $user->getEmail());
             }
         }
 
@@ -60,7 +71,12 @@ class User
         $view->assign("errors", $errors);
     }
 
-    public function verifyToken()
+    /**
+     * Verify user token
+     * 
+     * @return void
+     */
+    public function verifyToken(): void
     {
         $user = new UserModel();
 
@@ -81,14 +97,26 @@ class User
         }
     }
 
-    public function createToken()
+    /**
+     * Send token to user
+     * 
+     * @deprecated
+     *
+     * @return void
+     */
+    public function createToken(): void
     {
 
         $view = new View("token");
         //$view->assign("user", $user);
     }
 
-    public function getToken()
+    /**
+     * Retrieve user token
+     * 
+     * @return void
+     */
+    public function getToken(): void
     {
         $user = new UserModel();
         //$user->setId(1);
@@ -106,10 +134,15 @@ class User
         //click sur http://localhost/verifyToken?token=<token>?email=<email>
     }
 
-    public function loginVerify()
+    /**
+     * Verify if user exists
+     * 
+     * @return void
+     */
+    public function loginVerify(): void
     {
         $user = new UserModel();
-
+        
 
         if (!empty($_POST)) {
             Verificator::checkForm(
@@ -117,17 +150,26 @@ class User
                 $_POST + $_FILES
             );
         }
-
-        $email = $_POST['email'];
-        $user->setEmail($email);
+        
+        $user->setEmail($_POST['email']);
         $user->setPassword($_POST['password']);
 
         $params = ["email" => $_POST['email']];
 
         $user->verifyUser($params);
+        
+        
+        $view = new View("loginVerify");
+        $view->assign("title", "Vérification");
+        $view->assign("user", $user);
     }
 
-    public function googleConnect()
+    /**
+     * Google login
+     * 
+     * @return void
+     */
+    public function googleConnect(): void
     {
         $token = new OAuth($_GET['code']);
         $info = $token->google();
@@ -144,7 +186,12 @@ class User
         new View('dashboard');
     }
 
-    public function facebookConnect()
+    /**
+     * Facebook login
+     * 
+     * @return void
+     */
+    public function facebookConnect(): void
     {
         $token = new OAuth($_GET['code']);
         $info = $token->facebook();
@@ -161,7 +208,12 @@ class User
         new View('dashboard');
     }
 
-    public function lostPassword()
+    /**
+     * Lost password page
+     * 
+     * @return void
+     */
+    public function lostPassword(): void
     {
         $user = new UserModel();
 
@@ -170,19 +222,21 @@ class User
         $view->assign("user", $user);
     }
 
-    public function lostPasswordAction()
+    /**
+     * Lost password action page
+     * 
+     * @deprecated
+     * 
+     * @return void
+     */
+    public function lostPasswordAction(): void
     {
         $user = new UserModel();
-
-        $email = $_POST["email"];
-        $retrieveToken = $user->retrieveToken($email);
-
-        Mail::lostPasswordMail($retrieveToken, $email);
 
         $view = new View("lostPasswordAction");
         $view->assign("title", "Mail d'oubli de mdp");
         $view->assign("user", $user);
-
+      
         // if (!empty($_POST)) {
         //     Verificator::checkForm(
         //         $user->getLoginForm(),
@@ -193,7 +247,12 @@ class User
         // $email = $_POST['email'];
     }
 
-    public function resetPassword()
+    /**
+     * Reset password page
+     * 
+     * @return void
+     */
+    public function resetPassword(): void
     {
         $user = new UserModel();
 
@@ -217,7 +276,12 @@ class User
         $view->assign("user", $user);
     }
 
-    public function resetPasswordAction()
+    /**
+     * Reset password action
+     * 
+     * @return void
+     */
+    public function resetPasswordAction(): void
     {
 
         $user = new UserModel();
@@ -241,15 +305,15 @@ class User
         new View('login');
     }
 
+    /**
+     * Logout action
+     * 
+     * @return void
+     */
     public function logout()
     {
         session_destroy();
         header('Location: /login');
     }
 
-    public function errorNotFound()
-    {
-        $view = new View("error404");
-        $view->assign("title", "Error 404");
-    }
 }

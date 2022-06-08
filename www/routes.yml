@@ -71,9 +71,29 @@
   controller: restaurant
   action: restaurant
 
-/profile-restaurant:
+/restaurant/delete:
+  controller: restaurant
+  action: deleteRestaurant
+
+/stock:
+  controller: stock
+  action: stock
+
+/restaurant/creation:
+  controller: restaurant
+  action: createOneRestaurant
+
+/restaurant/create:
   controller: restaurant
   action: updateRestaurant
+
+/restaurant/information:
+  controller: restaurant
+  action: getOneRestaurant
+
+/restaurant:
+  controller: restaurant
+  action: restaurantOptions
 
 /profile:
   controller: admin
@@ -125,6 +145,30 @@
   controller: user
   action: logout
   security: 'user'
+
+/theme:
+  controller: theme
+  action: render
+
+/theme/:id:
+  controller: theme
+  action: home
+
+/theme/story/:id:
+  controller: theme
+  action: story
+
+/theme/menu/:id:
+  controller: theme
+  action: menu
+
+/theme/reservation/:id:
+  controller: theme
+  action: reservation
+
+/theme/contact/:id:
+  controller: theme
+  action: contact
 
 /notFound:
   controller: user
