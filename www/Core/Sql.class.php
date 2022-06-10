@@ -167,7 +167,6 @@ abstract class Sql
     }
     protected function getAll(): array
     {
-
         $sql = "SELECT * FROM " . $this->table ;
         $queryPrepared = $this->pdo->prepare($sql);
         $queryPrepared->execute();

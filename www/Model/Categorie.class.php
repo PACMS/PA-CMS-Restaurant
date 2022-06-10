@@ -97,7 +97,8 @@ class Categorie extends Sql
             "inputs" => [
                 "name" => [
                     "type" => "text",
-                    "label" => "Nom de la catégorie"
+                    "label" => "Nom de la catégorie",
+                    "required" => true
                 ],
                 "IdCarte" => [
                     "type" => "hidden",

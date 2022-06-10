@@ -2936,6 +2936,11 @@ header#meals h3 {
   color: #0051ef;
 }
 
+header#meals h3 a {
+  text-decoration: none;
+  color: #0051ef;
+}
+
 main#meals {
   display: flex;
   flex-direction: column;

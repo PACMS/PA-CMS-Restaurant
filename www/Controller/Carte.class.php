@@ -5,7 +5,7 @@ namespace App\Controller;
 use App\Core\Verificator;
 use App\Core\View;
 use App\Model\Carte as CarteModel;
-
+use App\Model\Restaurant as RestaurantModel;
 class Carte
 {
 
@@ -13,9 +13,13 @@ class Carte
     {
         if (empty($_GET)) {
             $carte = new CarteModel();
+            $restaurantModel = new RestaurantModel();
+            session_start();
+            $restaurant = $restaurantModel->getOneRestaurant("restaurant", $_SESSION["id_restaurant"]);
             $allCartes = $carte->getAllCartes();
             $view = new View("cartes", "back");
             $view->assign('cartes', $allCartes);
+            $view->assign('restaurant', $restaurant);
             if (empty($_SESSION["id_restaurant"])) {
                 header('Location: /restaurants');
             }

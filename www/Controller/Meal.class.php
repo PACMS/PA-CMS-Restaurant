@@ -45,8 +45,18 @@ class Meal
     public function createMeal()
     {
         $meal = new MealModel();
-        $meal->hydrate($_POST).
-        $meal->save();
+         if (!empty($_POST)) {
+             if (is_string($_POST["price"])) {
+                 //il faut notifier l'utilisateur que l'input doit être un float
+             }
+             if ($_POST["price"]) {
+                $_POST["price"] = floatval($_POST["price"]);
+                $meal->hydrate($_POST).
+                $meal->save();
+             }
+
+         
+         }
         
         header('Location: /carte/meals');
     }

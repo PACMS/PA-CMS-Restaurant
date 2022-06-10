@@ -159,30 +159,35 @@ class Meal extends Sql
             "inputs" => [
                 "name" => [
                     "type" => "text",
-                    "label" => "Nom du menu"
+                    "label" => "Nom du menu",
+                    "required" => true
                 ],
                 "price" => [
                     "type" => "text",
-                    "label" => "Prix"
+                    "label" => "Prix",
+                    "required" => true,
+                    "error" => "Votre prix ne peut pas contenir de caractères"
                 ],
                 "description" => [
                     "type" => "textarea",
                     "maxlength" => 200,
                     "id" => "mealDescription",
                     "label" => "Description",
-                    "required" => true
-                ],
+                    ],
                 "IdCarte" => [
                     "type" => "hidden",
                     "value" => $_SESSION["id_card"],
-                    "label" => "Description"
+                    "label" => "Description",
+                    "required" => true
                 ],
                 "IdCategorie" => [
                     "type" => "select",
                     "label" => "Catégorie",
                     "placeholder" => "Choisissez une catégorie",
                     "default" => null,
-                    "options" => $options
+                    "options" => $options,
+                    "required" => true
+
                 ],
             ]
         ];

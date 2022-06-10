@@ -1,7 +1,7 @@
 <header id="meals">
     <article>
         <h1><?= $restaurantName ?></h1>
-        <h3><?= $carteName ?></h3>
+        <h3><a href="/cartes"><?= $carteName ?></a></h3>
     </article>
     <article id="Add">
         <button id="addCategorie">Ajouter une catégorie</button>

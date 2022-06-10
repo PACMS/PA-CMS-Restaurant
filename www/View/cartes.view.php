@@ -40,9 +40,8 @@
                 <article class="card">
                     <img src="../public/src/pizza.jpg" alt="graph" />
                         <footer>
-                                <h3 class="linkMeal" data-id-card="<?= $value["id"] ?>"><?= $value["name"] ?></h3>
-                            
-                            <h6>Pour pizza gogo</h6>
+                            <h3 class="linkMeal" data-id-card="<?= $value["id"] ?>"><?= $value["name"] ?></h3>
+                            <h6><?= $restaurant["name"] ?></h6>
                             <button id="state-card" class="<?= $value["status"] ? "active" : "" ?>"><?= $value["status"] ? "Activé" : "Désactivé" ?></button>
                         </footer>
                     </a>
@@ -71,7 +70,7 @@
                     </main>
                     <footer>
                         <h3>Ajouter une carte</h3>
-                        <h6>Pour pizza gogo</h6>
+                        <h6><?= $restaurant["name"] ?></h6>
                         <button id="state-card" class="active">Créer</button>
                     </footer>
                 </a>
