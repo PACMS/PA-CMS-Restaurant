@@ -13,6 +13,11 @@ class User
     {
         $user = new UserModel();
 
+        // if (!empty($_POST)) {
+        //     Verificator::checkForm($user->getLoginForm(), $_POST + $_FILES);
+        // }
+
+
         // $user->setEmail("vivian.fr@free.fr");
         // $user->setPassword("Test1234");
         // $user->setLastname("Ruhlmann");
@@ -51,7 +56,52 @@ class User
         $view->assign("errors", $errors);
     }
 
-    
+    public function verifyToken()
+    {
+        $user = new UserModel();
+
+        $actualDateTime = new \DateTime();
+        $date = new \DateTime($_GET["date"]);
+        $interval = $actualDateTime->diff($date);
+        $minutes = $interval->format('%i');
+
+        if (isset($_GET["email"]) && isset($_GET["token"]) && $minutes < 10) {
+            $user->verifyToken($_GET["email"], $_GET["token"]);
+            header('Location: /login');
+        } else {
+            if (!isset($_GET["email"]) && !isset($_GET["token"])) {
+                echo "L'email ou le token est null! Vérification impossible";
+            } else {
+                echo "Le lien n'est plus valide";
+            }
+        }
+    }
+
+    public function createToken()
+    {
+
+        $view = new View("token");
+        //$view->assign("user", $user);
+    }
+
+    public function getToken()
+    {
+        $user = new UserModel();
+        //$user->setId(1);
+        $user->setEmail("thibautsembeni@gmail.com");
+        $user->setPassword("Test1234");
+        $user->setLastname("SembEnI   ");
+        $user->setFirstname("  THIBaut   ");
+        $user->generateToken();
+        Mail::sendConfirmMail($user->getToken(), $user->getEmail());
+        //$user->save();
+        echo "<pre>";
+        echo ("Token créé " . $user->getToken());
+
+        //envoie du mail
+        //click sur http://localhost/verifyToken?token=<token>?email=<email>
+    }
+
     public function loginVerify()
     {
         $user = new UserModel();
@@ -62,14 +112,13 @@ class User
                 $user->getLoginForm(),
                 $_POST + $_FILES
             );
-            // print_r($result);
         }
         
         $user->setEmail($_POST['email']);
         $user->setPassword($_POST['password']);
-        
-        $params = ["email" => 'email'];
-        
+
+        $params = ["email" => $_POST['email']];
+
         $user->verifyUser($params);
         
         
@@ -136,12 +185,61 @@ class User
         //     );
         // }
 
-        $email = $_POST['email'];
+        // $email = $_POST['email'];
+    }
+
+    public function resetPassword()
+    {
+        $user = new UserModel();
+
+        $actualDateTime = new \DateTime();
+        $date = new \DateTime($_GET["date"]);
+        $interval = $actualDateTime->diff($date);
+        $minutes = $interval->format('%i');
+
+        if (isset($_GET["email"]) && isset($_GET["token"]) && $minutes < 10) {
+            $user->verifyToken($_GET["email"], $_GET["token"], false);
+        } else {
+            if (!isset($_GET["email"]) && !isset($_GET["token"])) {
+                echo "L'email ou le token est null! Vérification impossible";
+            } else {
+                echo "Le lien n'est plus valide";
+            }
+        }
+
+        $view = new View("resetPassword");
+        $view->assign("title", "Réinitialisation du mot de passe");
+        $view->assign("user", $user);
+    }
+
+    public function resetPasswordAction()
+    {
+
+        $user = new UserModel();
+
+        if (!empty($_POST)) {
+            Verificator::checkForm(
+                $user->getResetPasswordForm(),
+                $_POST + $_FILES
+            );
+            // print_r($result);
+        }
+
+        $id = $user->getIdWithEmail($_GET['email']);
+
+        $user->setId($id);
+        $user->setEmail($_GET['email']);
+        $user->setPassword($_POST['password']);
+
+        $user->save();
+
+        new View('login');
     }
 
     public function logout()
     {
-        echo "Se déconnecter";
+        session_destroy();
+        header('Location: /login');
     }
 
 }

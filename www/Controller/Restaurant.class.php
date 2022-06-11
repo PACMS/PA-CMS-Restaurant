@@ -10,7 +10,6 @@ class Restaurant
 {
     public function restaurant()
     {
-
         $restaurant = new RestaurantModel();
         // utiliser la fonction getAllRestaurant() de RestaurantModel
         $allRestaurants = $restaurant->getAllRestaurants();

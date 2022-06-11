@@ -30,10 +30,6 @@
   controller: user
   action: resetPasswordAction
 
-/logout:
-  controller: user
-  action: logout
-
 /register:
   controller: user
   action: register
@@ -49,7 +45,7 @@
 /dashboard:
   controller: admin
   action: home
-  security: true
+  security: 'employee'
 
 /sendmail:
   controller: mail
@@ -110,9 +106,44 @@
 /profile:
   controller: admin
   action: profile
-  security: true
+  security: 'employee'
+
+/profile/update:
+  controller: admin
+  action: updateProfile
+  security: 'employee'
+
+# Route pour la reservation
+/reservation:
+  controller: reservation
+  action: reservation
+  security: 'employee'
+
+/reservationClient:
+  controller: reservation
+  action: index
+
+
+/addReservationClient:
+  controller: reservation
+  action: addReservationClient
+  security: 'employee'
+
+
+/addReservation:
+  controller: reservation
+  action: addReservation
+  security: 'employee'
+
+# Global
+
+/logout:
+  controller: user
+  action: logout
+  security: 'user'
 
 /notFound:
   controller: user
   action: errorNotFound
+  security: 'employee'
 

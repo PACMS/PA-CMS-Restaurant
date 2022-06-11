@@ -108,3 +108,34 @@
         }
     }
 }
+#bookingTable2 {
+    width: 100%;
+    margin-left: 0;
+    border: 1px solid #CFCFCF;
+    border-radius: 15px;
+    padding: 5px 25px;
+    background-color: #FBFBFB;
+
+    .even {
+        background-color: #FBFBFB !important;
+    }
+    .sorting_1{
+        background-color: #FBFBFB !important;
+    }
+
+    .odd {
+        background-color: #FBFBFB !important;
+    }
+
+    tbody tr td a {
+        &:first-child {
+            color: $main-color;
+            margin-right: 13.5px;
+        }
+
+        &:last-child {
+            color: $dataRed;
+            margin-left: 13.5px;
+        }
+    }
+}

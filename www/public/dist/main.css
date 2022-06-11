@@ -415,6 +415,46 @@ input[type="submit"]:hover {
   flex-wrap: wrap-reverse;
 }
 
+.items-start {
+  align-items: flex-start;
+}
+
+.items-end {
+  align-items: flex-end;
+}
+
+.items-center {
+  align-items: center;
+}
+
+.justify-start {
+  justify-content: flex-start;
+}
+
+.justify-end {
+  justify-content: flex-end;
+}
+
+.justify-center {
+  justify-content: center;
+}
+
+.justify-between {
+  justify-content: space-between;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.text-success-500 {
+  color: #22c55e;
+}
+
+.text-warning-500 {
+  color: #22c55e;
+}
+
 .top-0 {
   top: 0px;
 }
@@ -494,6 +534,66 @@ input[type="submit"]:hover {
 .mt-32 {
   margin-top: 8rem;
   /* 128px */
+}
+
+.mb-1 {
+  margin-bottom: 0.25rem;
+  /* 4px */
+}
+
+.mb-7 {
+  margin-bottom: 1.75rem;
+  /* 28px */
+}
+
+.mb-8 {
+  margin-bottom: 2rem;
+  /* 32px */
+}
+
+.mb-12 {
+  margin-bottom: 3rem;
+  /* 28px */
+}
+
+.mb-20 {
+  margin-bottom: 5rem;
+  /* 80px */
+}
+
+.mb-32 {
+  margin-bottom: 8rem;
+  /* 128px */
+}
+
+.pl-20 {
+  padding-left: 5rem;
+  /* 80px */
+}
+
+.pr-20 {
+  padding-right: 5rem;
+  /* 80px */
+}
+
+.w-12 {
+  width: 3rem;
+  /* 48px */
+}
+
+.w-24 {
+  width: 6rem;
+  /* 96px */
+}
+
+.w-48 {
+  width: 12rem;
+  /* 192px */
+}
+
+.w-64 {
+  width: 32rem;
+  /* 512px */
 }
 
 .w-full {
@@ -946,6 +1046,12 @@ section.container-preview-cards article.card figure img {
 
 .voir-plus-button {
   color: #0051ef;
+  cursor: pointer;
+}
+
+button.buttonsIcon {
+  background: none;
+  border: none;
   cursor: pointer;
 }
 
@@ -1826,6 +1932,67 @@ section.container-preview-cards article.card figure img {
 }
 
 /* ---------------------------------- Pages --------------------------------- */
+.alert-window {
+  position: fixed;
+  background-color: rgba(0, 0, 0, 0.75);
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 999;
+  visibility: visible;
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.alert-window:target {
+  visibility: visible;
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.alert-window > div {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 2em;
+  background: white;
+}
+
+.alert-window header {
+  font-weight: bold;
+}
+
+.alert-window h1 {
+  font-size: 150%;
+  margin: 0 0 15px;
+}
+
+.alert-close {
+  color: #aaa;
+  line-height: 50px;
+  font-size: 80%;
+  position: absolute;
+  right: 0;
+  text-align: center;
+  top: 0;
+  width: 70px;
+  text-decoration: none;
+}
+
+.alert-close:hover {
+  color: black;
+}
+
+.alert-window > div {
+  border-radius: 1rem;
+}
+
+.alert-window div:not(:last-of-type) {
+  margin-bottom: 15px;
+}
+
 section div .profileImg > img {
   height: 100%;
   width: 100px;
@@ -2329,6 +2496,220 @@ main.login section.login > div.container-login .options-auth + p > a {
 }
 
 #bookingTable tbody tr td a:last-child {
+  color: #f44e4e;
+  margin-left: 13.5px;
+}
+
+#bookingTable2 {
+  width: 100%;
+  margin-left: 0;
+  border: 1px solid #CFCFCF;
+  border-radius: 15px;
+  padding: 5px 25px;
+  background-color: #FBFBFB;
+}
+
+#bookingTable2 .even {
+  background-color: #FBFBFB !important;
+}
+
+#bookingTable2 .sorting_1 {
+  background-color: #FBFBFB !important;
+}
+
+#bookingTable2 .odd {
+  background-color: #FBFBFB !important;
+}
+
+#bookingTable2 tbody tr td a:first-child {
+  color: #0051ef;
+  margin-right: 13.5px;
+}
+
+#bookingTable2 tbody tr td a:last-child {
+  color: #f44e4e;
+  margin-left: 13.5px;
+}
+
+.restaurants-container {
+  display: grid;
+}
+
+.restaurant-card {
+  border-radius: 20px;
+  width: 100%;
+  height: 300px;
+  position: relative;
+}
+
+.restaurant-card img {
+  width: 100%;
+  height: 100%;
+  border-radius: 20px;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+
+.restaurant-card .bandeau {
+  width: 100%;
+  height: 63px;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-family: "Poppins", sans-serif;
+  background-color: #F8F8F8;
+  border-radius: 0 0px 20px 20px;
+}
+
+.restaurant-card p {
+  margin-left: 30px;
+  font-size: 1rem;
+}
+
+.restaurant-card button {
+  margin-right: 20px;
+  background-color: #0051ef;
+  color: #ffffff;
+  width: 120px;
+  padding: 10px 25px;
+  border: none;
+  border-radius: 11px;
+  cursor: pointer;
+}
+
+.pageDashboard {
+  height: 100%;
+  width: 100%;
+  gap: 3%;
+}
+
+.secondPart {
+  box-sizing: content-box;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.stats {
+  border-bottom: 3px solid rgba(0, 81, 239, 0.6);
+  padding-bottom: 6px;
+  margin-right: 4%;
+}
+
+.stats > div:first-child {
+  margin-left: 30px;
+  gap: 35px;
+}
+
+.stats > div:last-child {
+  margin-right: 30px;
+}
+
+.stats > div:last-child a {
+  color: #0051ef;
+}
+
+.stats > div p {
+  font-weight: 700;
+  margin-top: 39px;
+  margin-bottom: 0;
+}
+
+.stats > div > div p:last-child {
+  margin-left: 7px;
+}
+
+.stats > div > div p:last-child > i {
+  margin-right: 3px;
+}
+
+.stats .greenStats {
+  color: #4aaf05;
+}
+
+.stats .redStats {
+  color: #f44e4e;
+}
+
+.bookingTableHeader p {
+  color: #0051ef;
+  font-weight: 600;
+  margin: 0 8px;
+}
+
+.bookingTableHeader a {
+  color: #0051ef;
+}
+
+.bookingTableHeader input {
+  height: 32px;
+}
+
+.bookingTableHeader section:last-child {
+  margin-right: 8px;
+}
+
+#bookingTable {
+  width: 100%;
+  margin-left: 0;
+  border: 1px solid #CFCFCF;
+  border-radius: 15px;
+  padding: 5px 25px;
+  background-color: #FBFBFB;
+}
+
+#bookingTable .even {
+  background-color: #FBFBFB !important;
+}
+
+#bookingTable .sorting_1 {
+  background-color: #FBFBFB !important;
+}
+
+#bookingTable .odd {
+  background-color: #FBFBFB !important;
+}
+
+#bookingTable tbody tr td a:first-child {
+  color: #0051ef;
+  margin-right: 13.5px;
+}
+
+#bookingTable tbody tr td a:last-child {
+  color: #f44e4e;
+  margin-left: 13.5px;
+}
+
+#bookingTable2 {
+  width: 100%;
+  margin-left: 0;
+  border: 1px solid #CFCFCF;
+  border-radius: 15px;
+  padding: 5px 25px;
+  background-color: #FBFBFB;
+}
+
+#bookingTable2 .even {
+  background-color: #FBFBFB !important;
+}
+
+#bookingTable2 .sorting_1 {
+  background-color: #FBFBFB !important;
+}
+
+#bookingTable2 .odd {
+  background-color: #FBFBFB !important;
+}
+
+#bookingTable2 tbody tr td a:first-child {
+  color: #0051ef;
+  margin-right: 13.5px;
+}
+
+#bookingTable2 tbody tr td a:last-child {
   color: #f44e4e;
   margin-left: 13.5px;
 }

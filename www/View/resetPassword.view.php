@@ -1,1 +1,3 @@
-<?php $this->includePartial("form", $user->getResetPasswordForm()); ?>
+<?php
+
+$this->includePartial("form", $user->getResetPasswordForm());

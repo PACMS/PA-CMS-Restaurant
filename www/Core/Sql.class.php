@@ -4,7 +4,6 @@ namespace App\Core;
 
 abstract class Sql
 {
-
     private $pdo;
     private $table;
     public function __construct()
@@ -13,9 +12,9 @@ abstract class Sql
         try {
             $this->pdo = new \PDO(
                 DBDRIVER .
-                    ":host=" . DBHOST .
-                    ";port=" . DBPORT .
-                    ";dbname=" . DBNAME,
+                ":host=" . DBHOST .
+                ";port=" . DBPORT .
+                ";dbname=" . DBNAME,
                 DBUSER,
                 DBPWD,
                 [\PDO::ATTR_ERRMODE => \PDO::ERRMODE_WARNING]
@@ -31,7 +30,6 @@ abstract class Sql
 
     protected function databaseFindOne(array $whereClause, ?string $table = 'false')
     {
-
         foreach ($whereClause as $key => $whereValue) {
             $where[] = $key . " = :" . $key;
         }
@@ -142,7 +140,7 @@ abstract class Sql
         if (is_null($email)) {
             die("L'email ne correspond pas !");
         } else {
-            if (is_null($this->databaseFindOne(["email" => $email, "token" => $tokenToVerify]))) {
+            if (is_null($this->databaseFindOne(["email" => $email,"token" => $tokenToVerify]))) {
                 echo "Le token est invalide";
             } else {
                 // echo "l'authentification token à réussi";
@@ -170,6 +168,14 @@ abstract class Sql
 
         return $queryPrepared->fetch(\PDO::FETCH_ASSOC);
     }
+    protected function getAll(): array
+    {
+
+        $sql = "SELECT * FROM " . $this->table ;
+        $queryPrepared = $this->pdo->prepare($sql);
+        $queryPrepared->execute();
+        return $queryPrepared->fetchAll(\PDO::FETCH_OBJ);
+    }
 
     public function verifyUser(array $params): void
     {
@@ -184,8 +190,13 @@ abstract class Sql
                 $_SESSION['user']['email'] = $userVerify['email'];
                 $_SESSION['user']['firstname'] = $userVerify['firstname'];
                 $_SESSION['user']['lastname'] = $userVerify['lastname'];
+                $_SESSION['user']['role'] = $userVerify['role'];
 
-                header('Location: dashboard');
+                if ($userVerify['role'] == 'user') {
+                    header('Location: /');
+                } else {
+                    header('Location: dashboard');
+                }
             } else {
                 echo "ça fonctionne pas non plus!";
             }

@@ -21,11 +21,16 @@
 /* ---------------------------------- Pages --------------------------------- */
 
 @import
+  "pages/alert",
   "pages/profile",
   "pages/products",
   "pages/login",
+  "pages/reservation",
+  "pages/dashboard",
   "pages/restaurants",
   "pages/dashboard", 
   "pages/register", "pages/forgetPassword", "pages/error404";
+
+
 
 /* --------------------------------- Themes --------------------------------- */
