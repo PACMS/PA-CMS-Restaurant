@@ -29,7 +29,7 @@ endif;
         <section class="navbar">
             <div class="flex align-items-center">
                 <!-- <img src="https://images.unsplash.com/photo-1527980965255-d3b416303d12?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxMTgwOTN8MHwxfHNlYXJjaHw2fHxhdmF0YXJ8ZW58MHx8fHwxNjQ1NDQ1MjIx&ixlib=rb-1.2.1&q=80&w=1080" alt="Avatar"> -->
-                <h1>Restaurants</h1>
+                <h1>Informations</h1>
             </div>
             <article class="flex align-items-center gap-20">
                 <a href="profile">
@@ -43,14 +43,36 @@ endif;
                 </button>
             </article>
         </section>
-        <h1><?= $oneRestaurant["name"] ?></h1>
-
-        <form action="restaurant/delete" method="POST">
+        <!-- <form class="" method="POST" action="/restaurant">
+                                <input type="hidden" name="id" value="<?=  $value["id"]?>"></input>
+                                <button type="submit">Retour</button>
+                        </form> -->
+        <!-- <form id="restaurant-delete" action="/restaurant/delete" method="POST">
             <input type="hidden" name="id" value="<?= $_SESSION["id_restaurant"] ?>">
-            <button type="submit">DELETE</button>
-        </form><?= $_SESSION["id_restaurant"] ?>
-
+            <button type="submit" class="cta-button">Supprimer</button>
+        </form> -->
+        <?php $this->includePartial("form", $restaurant->deleteRestaurant()); ?>
         <?php $this->includePartial("form", $restaurant->getCompleteUpdateRestaurantForm()); ?>
-
     </section>
 </main>
+
+<script>
+    // get element input type submit
+    const submitForm = document.getElementById("restaurant-form");
+
+    const submit = submitForm.querySelector("input[type='submit']");
+    submit.setAttribute("class", "cta-button --cta-button-save");
+    const buttonsDiv = document.createElement("div" );
+    buttonsDiv.setAttribute("id", "buttonsDiv");
+    const form = document.getElementById("restaurant-form");
+    form.appendChild(buttonsDiv);
+    // move sumbit to buttonsDiv
+    const deleteForm = document.getElementById("restaurant-delete");
+    const deleteButton = deleteForm.querySelector("input[type='submit']");
+    deleteButton.setAttribute("class", "cta-button --cta-button-delete");
+    buttonsDiv.appendChild(deleteForm);
+    buttonsDiv.appendChild(submit);
+
+        
+
+</script>

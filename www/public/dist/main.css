@@ -2091,7 +2091,7 @@ main.login section.login > div.container-login .options-auth + p > a {
 
 .restaurant-card {
   border-radius: 20px;
-  width: 100%;
+  width: 430px;
   height: 300px;
   position: relative;
 }
@@ -2137,6 +2137,94 @@ main.login section.login > div.container-login .options-auth + p > a {
 .restaurant-card button a {
   color: #ffffff;
   text-decoration: none;
+}
+
+.restaurants-list {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 45px 80px;
+}
+
+.restaurant-form {
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto auto auto;
+  padding-right: 3%;
+}
+
+.restaurant-form .restaurant-name {
+  font-family: "Poppins", sans-serif;
+  font-size: 1.88888889rem;
+  font-weight: bold;
+  border: none;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: 350px;
+  text-align: center;
+  color: black;
+  margin: 0 auto 44px auto;
+}
+
+.restaurant-form .restaurant-inputs {
+  width: 600px;
+  border: none;
+  border-bottom: solid 1px;
+  font-size: 1rem;
+  padding-top: 10px;
+  padding-bottom: 4px;
+  margin-bottom: 45px;
+  font-family: "Poppins", sans-serif;
+  color: black;
+  padding-left: 5px;
+}
+
+.restaurant-form .cta-button {
+  font-family: "Poppins", sans-serif;
+  background-color: #0051ef;
+  color: #ffffff;
+  min-width: 100px;
+  width: 175px;
+  padding: 12px 14px;
+  border: none;
+  border-radius: 11px;
+  cursor: pointer;
+  font-size: 1rem --important;
+  font-weight: 400 --important;
+  margin: auto 0 auto auto;
+}
+
+.restaurant-form label {
+  font-family: "Poppins", sans-serif;
+  font-size: 1rem;
+  color: #9E9E9E;
+}
+
+.restaurant-form #buttonsDiv {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  gap: 30px;
+  align-items: center;
+}
+
+.restaurant-form #buttonsDiv .\--cta-button-delete {
+  background-color: #cd0a0a;
+  margin: auto 0 auto 0;
+  padding: 10px 25px;
+  width: auto;
+  color: #ffffff;
+  font-weight: 400;
+  border-radius: 11px;
+}
+
+.restaurant-form #buttonsDiv .\--cta-button-save {
+  margin: auto 0 auto 0;
+  width: auto;
+  padding: 10px 25px;
+  font-weight: 400;
+  border-radius: 11px;
 }
 
 .pageDashboard {

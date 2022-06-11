@@ -117,7 +117,7 @@
                 placeholder="<?= $input["placeholder"] ?? "" ?>" 
                 type="<?= $input["type"] ?? "text" ?>" 
                 
-                <?= !empty($input["value"]) ? 'value='.$input["value"] : ""  ?>
+                <?= !empty($input["value"]) ? 'value="'.$input["value"].'"' : "" ?>
                 <?= !empty($input["required"]) ? 'required="required"' : ""  ?>
             />
                 

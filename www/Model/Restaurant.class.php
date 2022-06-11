@@ -179,7 +179,7 @@ class Restaurant extends Sql
             "config" => [
                 "method" => "POST",
                 "action" => "/restaurant/creation",
-                "class" => "formRestaurant",
+                "class" => "restaurant-form",
                 "id" => "formRestaurant",
                 "submit" => "Ajouter le restaurant",
                 'captcha' => false,
@@ -189,7 +189,7 @@ class Restaurant extends Sql
                     "placeholder" => "Nom du restaurant*",
                     "type" => "text",
                     "id" => "name",
-                    "class" => "formRestaurant",
+                    "class" => "restaurant-name",
                     "required" => true,
                     "min" => 2,
                     "max" => 100,
@@ -200,7 +200,8 @@ class Restaurant extends Sql
                     "placeholder" => "Votre adresse*",
                     "type" => "text",
                     "id" => "address",
-                    "class" => "formRestaurant",
+                    "label" => "Adresse du restaurant",
+                    "class" => "restaurant-inputs",
                     "required" => true,
                     "min" => 2,
                     "max" => 255,
@@ -211,7 +212,8 @@ class Restaurant extends Sql
                     "placeholder" => "Complément d'adresse",
                     "type" => "text",
                     "id" => "additional_address",
-                    "class" => "formRestaurant",
+                    "label" => "Complément d'adresse",
+                    "class" => "restaurant-inputs",
                     "max" => 255,
                     "value" => $this->additional_address,
                     "error" => "Le champs complément d'adresse contient une erreur"
@@ -220,7 +222,8 @@ class Restaurant extends Sql
                     "placeholder" => "Ville*",
                     "type" => "text",
                     "id" => "city",
-                    "class" => "formRestaurant",
+                    "label" => "Ville",
+                    "class" => "restaurant-inputs",
                     "required" => true,
                     "min" => 2,
                     "max" => 50,
@@ -231,7 +234,8 @@ class Restaurant extends Sql
                     "placeholder" => "Code postal*",
                     "type" => "number",
                     "id" => "zipcode",
-                    "class" => "formRestaurant",
+                    "label" => "Code Postal",
+                    "class" => "restaurant-inputs",
                     "required" => true,
                     "min" => 2,
                     "max" => 10,
@@ -242,7 +246,8 @@ class Restaurant extends Sql
                     "placeholder" => "Téléphone*",
                     "type" => "number",
                     "id" => "phone",
-                    "class" => "formRestaurant",
+                    "label" => "Téléphone",
+                    "class" => "restaurant-inputs",
                     "required" => true,
                     "min" => 2,
                     "max" => 15,
@@ -262,9 +267,9 @@ class Restaurant extends Sql
             "config" => [
                 "method" => "POST",
                 "action" => "/restaurant/creation",
-                "class" => "formRestaurant",
-                "id" => "formRestaurant",
-                "submit" => "Ajouter le restaurant",
+                "class" => "restaurant-form",
+                "id" => "restaurant-form",
+                "submit" => "Enregistrer",
                 'captcha' => false,
             ],
             "inputs" => [
@@ -278,7 +283,7 @@ class Restaurant extends Sql
                     "placeholder" => "Nom du restaurant*",
                     "type" => "text",
                     "id" => "name",
-                    "class" => "formRestaurant",
+                    "class" => "restaurant-name",
                     "required" => true,
                     "min" => 2,
                     "max" => 100,
@@ -289,7 +294,7 @@ class Restaurant extends Sql
                     "placeholder" => "Votre adresse*",
                     "type" => "text",
                     "id" => "address",
-                    "class" => "formRestaurant",
+                    "class" => "restaurant-inputs",
                     "required" => true,
                     "min" => 2,
                     "max" => 255,
@@ -300,7 +305,7 @@ class Restaurant extends Sql
                     "placeholder" => "Complément d'adresse",
                     "type" => "text",
                     "id" => "additional_address",
-                    "class" => "formRestaurant",
+                    "class" => "restaurant-inputs",
                     "max" => 255,
                     "value" => $this->additional_address,
                     "error" => "Le champs complément d'adresse contient une erreur"
@@ -309,7 +314,7 @@ class Restaurant extends Sql
                     "placeholder" => "Ville*",
                     "type" => "text",
                     "id" => "city",
-                    "class" => "formRestaurant",
+                    "class" => "restaurant-inputs",
                     "required" => true,
                     "min" => 2,
                     "max" => 50,
@@ -320,7 +325,7 @@ class Restaurant extends Sql
                     "placeholder" => "Code postal*",
                     "type" => "number",
                     "id" => "zipcode",
-                    "class" => "formRestaurant",
+                    "class" => "restaurant-inputs",
                     "required" => true,
                     "min" => 2,
                     "max" => 10,
@@ -331,12 +336,38 @@ class Restaurant extends Sql
                     "placeholder" => "Téléphone*",
                     "type" => "number",
                     "id" => "phone",
-                    "class" => "formRestaurant",
+                    "class" => "restaurant-inputs",
                     "required" => true,
                     "min" => 2,
                     "max" => 15,
                     "value" => $this->phone,
                     "error" => "Votre numéro de téléphone est incorrect",
+                ],
+                // "captcha" => [
+                //     'type' => 'captcha',
+                //     'error' => 'Le captcha n\'a pas pu validé votre formulaire'
+                // ]
+            ]
+        ];
+    }
+
+
+    public function deleteRestaurant()
+    {
+        return [
+            "config" => [
+                "method" => "POST",
+                "action" => "/restaurant/delete",
+                "id" => "restaurant-delete",
+                "submit" => "Supprimer",
+                'captcha' => false,
+            ],
+            "inputs" => [
+                "id" => [
+                    "type" => "hidden",
+                    "id" => "id",
+                    "class" => "formRestaurant",
+                    "value" => $_SESSION["id_restaurant"],
                 ],
                 // "captcha" => [
                 //     'type' => 'captcha',

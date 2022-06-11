@@ -41,7 +41,7 @@
 
             </div>
             <div style=" height: 100%; width: 100%; margin:auto; padding-right: 4%; margin-top: 100px ">
-                <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); grid-gap: 0 50px;">
+                <div class="restaurants-list">
                     <?php foreach ($restaurant as $key => $value) : ?>
                         <form class="restaurant-card" method="POST" action="restaurant">
                             <img src="../public/assets/img/pizza.jpg" alt="graph" />
