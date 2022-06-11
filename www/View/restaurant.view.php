@@ -45,7 +45,7 @@ endif;
         </section>
         <section style="padding-right: 4%;">
             <div style=" height: 100%; width: 100%; margin:auto; padding-right: 4%; margin-top: 100px ">
-                <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); grid-gap: 0 50px;">
+                <div class="restaurants-container">
 
                     <form class="restaurant-card" method="POST" action="restaurant/information">
                         <img src="../public/assets/img/restauOptions/informations.png" alt="information" />

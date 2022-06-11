@@ -1,5 +1,9 @@
 .restaurants-container {
-    display: grid;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 45px 80px;
+
 }
 
 .restaurant-card {

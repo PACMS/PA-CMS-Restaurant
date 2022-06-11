@@ -76,7 +76,6 @@ class Restaurant
         $restaurant = new RestaurantModel();
         $table = "restaurant";
         $id = $_POST["id"];
-        session_start();
         $_SESSION["id_restaurant"] = $id;
         $oneRestaurant = $restaurant->getOneRestaurant($table, $id);
         $restaurant->hydrate($oneRestaurant);
