@@ -51,14 +51,34 @@
 
             <input name="<?= $name ?>" id="<?= $input["id"] ?>" class="<?= $input["class"] ?>" type="<?= $input["type"] ?>" accept="<?= $concatAccept ?>" <?= !empty($input["required"]) ? 'required="required"' : ""  ?> />
         <?php elseif ($input["type"] === "captcha") : ?>
-            <input type="hidden" name="<?= $name ?>" id="recaptchaResponse" />
+            <input 
+                type="hidden" 
+                name="<?= $name ?>" 
+                id="recaptchaResponse"
+            />
+        <?php elseif ($input["type"] === "hidden") : ?>
+            <input 
+                type="hidden" 
+                name="<?= $name ?>" 
+                id="<?= $input["id"] ?? "" ?>" 
+                <?= !empty($input["value"]) ? 'value='.$input["value"] : ""  ?>
+            />
         <?php else : ?>
             <?php if (!empty($input["label"])) : ?>
                 <label for="<?= $name ?>"><?= $input["label"] ?></label>
             <?php endif ?>
 
-            <input name="<?= $name ?>" class="<?= $input["class"] ?? "" ?>" id="<?= $input["id"] ?? "" ?>" placeholder="<?= $input["placeholder"] ?? "" ?>" type="<?= $input["type"] ?? "text" ?>" <?= !empty($input["required"]) ? 'required="required"' : ""  ?> />
-
+            <input 
+                name="<?= $name ?>" 
+                class="<?= $input["class"] ?? "" ?>" 
+                id="<?= $input["id"] ?? "" ?>" 
+                placeholder="<?= $input["placeholder"] ?? "" ?>" 
+                type="<?= $input["type"] ?? "text" ?>" 
+                
+                <?= !empty($input["value"]) ? 'value="'.$input["value"].'"' : "" ?>
+                <?= !empty($input["required"]) ? 'required="required"' : ""  ?>
+            />
+                
         <?php endif ?>
 
 

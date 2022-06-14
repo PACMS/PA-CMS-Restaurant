@@ -2040,8 +2040,78 @@ section div .profileImg > .fa-folder-open {
 .container {
   display: flex;
   flex-direction: column;
+  align-items: center;
   width: 650px;
   margin: auto;
+  justify-content: center;
+}
+
+div.modal {
+  position: fixed;
+  background-color: rgba(255, 255, 255, 0.82);
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 999;
+  transition: all 0.3s;
+}
+
+div.modal form {
+  width: 400px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 2em;
+  background-color: white;
+  flex-direction: column;
+  border-radius: 20px;
+  box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
+}
+
+div.modal form label {
+  font-size: 0.77777778rem;
+  color: #888888;
+  font-weight: bold;
+}
+
+div.modal form input:not([type="submit"]),
+div.modal form textarea {
+  border: none;
+  border-radius: 11px;
+  height: 40px;
+  outline: none;
+  background-color: #f2f5fa;
+  margin: 8px 0;
+  padding-left: 15px;
+}
+
+div.modal form textarea {
+  padding-top: 10px;
+}
+
+div.modal form input[type="submit"] {
+  border-radius: 11px;
+  height: 50px;
+  outline: none;
+}
+
+div.modal form p.close {
+  color: #aaa;
+  line-height: 50px;
+  font-size: 80%;
+  position: absolute;
+  right: 2em;
+  text-align: center;
+  top: 0;
+  width: 70px;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+div.modal form p.close:hover {
+  color: black;
 }
 
 main.login {
@@ -2182,98 +2252,149 @@ main.login section.login > div.container-login .options-auth + p > a {
   }
 }
 
-.dataTables_wrapper .dataTables_filter {
-  float: left !important;
-  text-align: left !important;
-  margin-bottom: 0.83333333rem;
+.restaurants-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 45px 80px;
 }
 
-.dataTables_length label {
-  margin-right: 1.11111111rem;
+.restaurant-card {
+  border-radius: 20px;
+  width: 430px;
+  height: 300px;
+  position: relative;
 }
 
-.dataTables_length label select {
-  width: unset !important;
+.restaurant-card img {
+  width: 100%;
+  height: 100%;
+  border-radius: 20px;
+  -o-object-fit: cover;
+     object-fit: cover;
 }
 
-.dataTables_filter {
+.restaurant-card .bandeau {
+  width: 100%;
+  height: 63px;
   position: absolute;
-  right: 20px;
-}
-
-.dataTables_filter label input {
-  width: unset !important;
-}
-
-#bookingTable2 {
-  margin-top: 50px;
-}
-
-a {
-  text-decoration: none;
-}
-
-.modal-window {
-  position: fixed;
-  background-color: rgba(0, 0, 0, 0.75);
-  top: 0;
-  right: 0;
   bottom: 0;
   left: 0;
-  z-index: 999;
-  visibility: hidden;
-  opacity: 0;
-  pointer-events: none;
-  transition: all 0.3s ease-in-out 250ms;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-family: "Poppins", sans-serif;
+  background-color: #F8F8F8;
+  border-radius: 0 0px 20px 20px;
 }
 
-.modal-window:target {
-  visibility: visible;
-  opacity: 1;
-  pointer-events: auto;
+.restaurant-card p {
+  margin-left: 30px;
+  font-size: 1rem;
 }
 
-.modal-window > div {
-  width: 400px;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  padding: 2em;
-  background: white;
+.restaurant-card button {
+  margin-right: 20px;
+  background-color: #0051ef;
+  color: #ffffff;
+  width: 120px;
+  padding: 10px 25px;
+  border: none;
+  border-radius: 11px;
+  cursor: pointer;
 }
 
-.modal-window header {
-  font-weight: bold;
-}
-
-.modal-window h1 {
-  font-size: 150%;
-  margin: 0 0 15px;
-}
-
-.modal-close {
-  color: #aaa;
-  line-height: 50px;
-  font-size: 80%;
-  position: absolute;
-  right: 0;
-  text-align: center;
-  top: 0;
-  width: 70px;
+.restaurant-card button a {
+  color: #ffffff;
   text-decoration: none;
 }
 
-.modal-close:hover {
+.restaurants-list {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 45px 80px;
+}
+
+.restaurant-form {
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto auto auto;
+  padding-right: 3%;
+}
+
+.restaurant-form .restaurant-name {
+  font-family: "Poppins", sans-serif;
+  font-size: 1.88888889rem;
+  font-weight: bold;
+  border: none;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: 350px;
+  text-align: center;
   color: black;
+  margin: 0 auto 44px auto;
 }
 
-.modal-window > div {
-  border-radius: 1rem;
+.restaurant-form .restaurant-inputs {
+  width: 600px;
+  border: none;
+  border-bottom: solid 1px;
+  font-size: 1rem;
+  padding-top: 10px;
+  padding-bottom: 4px;
+  margin-bottom: 45px;
+  font-family: "Poppins", sans-serif;
+  color: black;
+  padding-left: 5px;
 }
 
-.modal-window div:not(:last-of-type) {
-  margin-bottom: 15px;
+.restaurant-form .cta-button {
+  font-family: "Poppins", sans-serif;
+  background-color: #0051ef;
+  color: #ffffff;
+  min-width: 100px;
+  width: 175px;
+  padding: 12px 14px;
+  border: none;
+  border-radius: 11px;
+  cursor: pointer;
+  font-size: 1rem --important;
+  font-weight: 400 --important;
+  margin: auto 0 auto auto;
+}
+
+.restaurant-form label {
+  font-family: "Poppins", sans-serif;
+  font-size: 1rem;
+  color: #9E9E9E;
+}
+
+.restaurant-form #buttonsDiv {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  gap: 30px;
+  align-items: center;
+}
+
+.restaurant-form #buttonsDiv .\--cta-button-delete {
+  background-color: #cd0a0a;
+  margin: auto 0 auto 0;
+  padding: 10px 25px;
+  width: auto;
+  color: #ffffff;
+  font-weight: 400;
+  border-radius: 11px;
+}
+
+.restaurant-form #buttonsDiv .\--cta-button-save {
+  margin: auto 0 auto 0;
+  width: auto;
+  padding: 10px 25px;
+  font-weight: 400;
+  border-radius: 11px;
 }
 
 .pageDashboard {

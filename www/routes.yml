@@ -71,9 +71,37 @@
   controller: restaurant
   action: restaurant
 
-/profile-restaurant:
+/restaurant/delete:
+  controller: restaurant
+  action: deleteRestaurant
+
+/restaurant/stock:
+  controller: stock
+  action: stock
+
+/restaurant/food/create:
+  controller: food
+  action: createFood
+
+/restaurant/food/delete:
+  controller: food
+  action: deleteFood
+
+/restaurant/creation:
+  controller: restaurant
+  action: createOneRestaurant
+
+/restaurant/create:
   controller: restaurant
   action: updateRestaurant
+
+/restaurant/information:
+  controller: restaurant
+  action: getOneRestaurant
+
+/restaurant:
+  controller: restaurant
+  action: restaurantOptions
 
 /profile:
   controller: admin

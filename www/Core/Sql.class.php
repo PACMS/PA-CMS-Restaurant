@@ -56,10 +56,15 @@ abstract class Sql
         return null;
     }
 
-    public function databaseFindAll(string $sql, array $params)
-
+    protected function databaseFindAll(string $sql, array $params = [])
     {
+        if($params !== []){
 
+            foreach ($params as $key => $whereValue) {
+                $where[] = $key . " = :" . $key;
+            }
+            $sql = $sql . " WHERE " . implode(" AND ", $where);
+        }
         $statement = $this->pdo->prepare($sql);
         if ($statement !== false) {
             $success = $statement->execute($params);
@@ -94,12 +99,10 @@ abstract class Sql
 
     public function save(): void
     {
-
         $columns = get_object_vars($this);
         $varToExclude = get_class_vars(get_class());
         $columns = array_diff_key($columns, $varToExclude);
-
-        if (is_null($columns['id'])) {
+        if (empty($_POST['id']) || is_null($_POST['id'])) {
             $sql = "INSERT INTO " . $this->table . " (" . implode(",", array_keys($columns)) . ") VALUES (:" . implode(",:", array_keys($columns)) . ")";
         } else {
             $update = [];
@@ -119,7 +122,6 @@ abstract class Sql
 
             $sql = "UPDATE " . $this->table . " SET " . implode(", ", $update) . " WHERE id = :id";
         }
-
         $queryPrepared = $this->pdo->prepare($sql);
         if (is_null($columns['id'])) {
             $queryPrepared->execute($columns);
@@ -199,5 +201,18 @@ abstract class Sql
                 echo "ça fonctionne pas non plus!";
             }
         };
+    }
+
+    protected function databaseDeleteOne(string $sql, array $params)
+
+    {
+        $statement = $this->pdo->prepare($sql);
+        if ($statement !== false) {
+            $success = $statement->execute($params);
+            if ($success) {
+                return "supprimé";
+            }
+        }
+        return null;
     }
 }
