@@ -3,11 +3,14 @@
 namespace App\Controller;
 
 use App\Core\Verificator;
+use App\Core\CreatePage;
 use App\Core\View;
+use App\Model\Page;
 use App\Model\Restaurant as RestaurantModel;
 
 class Restaurant
 {
+
     public function restaurant()
     {
         $restaurant = new RestaurantModel();
@@ -43,17 +46,35 @@ class Restaurant
     public function createOneRestaurant()
     {
         $restaurant = new RestaurantModel();
+        $page = new Page();
         $errors = null;
         // if (!empty($_POST)) {
+
         // $errors = Verificator::checkForm($restaurant->getCompleteRegisterForm(), $_POST + $_FILES);
 
-        // if (!$errors) {
-
         $restaurant->hydrate($_POST);
-        // $restaurant->setId(null);
+
+        $dirname = $_SERVER["DOCUMENT_ROOT"] . '/View/pages/' . $restaurant->getName() . '/';
+        $url ='pages/' . $restaurant->getName() . '/index.php';
+        if (!is_dir($dirname))
+        {
+          mkdir($dirname, 0755, true) ;
+          $fp = fopen('View/' . $url, 'w+');
+         (new \App\Core\CreatePage)->createBasicPage($fp);
+
+        }
+       // dd($restaurant->getName());
         $restaurant->save();
-        // }
-        // }
+        $id_restaurant = new \App\Model\Restaurant();
+        $id_restaurant->findOneBy(['name' => 'v']);
+        dd($id_restaurant);
+        $page->setName($restaurant->getName());
+        $page->setUrl($url);
+        $page->setStatus(0);
+        $page->setIdRestaurant($restaurant->getId());
+
+        $page->save();
+
         header('Location: /restaurants');
     }
 
