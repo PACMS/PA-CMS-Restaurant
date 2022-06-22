@@ -1,0 +1,37 @@
+.border{
+    border-style: solid;
+}
+
+.border-blue {
+    border-color: $primaryBlue;
+}
+
+$border: 4;
+$border_sides: (top, right, bottom, left);
+$border_width: (1, 2, 4, 6, 8);
+@each $i in $border_width {
+  .border-#{$i} {
+    border-width: $i+"px";
+  }
+}
+
+@each $border in $border_sides {
+    .border-#{$border}-blue {
+        border-#{$border}-color: $primaryBlue;
+    }
+}
+@each $border in $border_sides {
+.border-#{$border}-solid {
+    border-#{$border}-style: solid;
+    }
+}
+@each $sides in $border_sides{
+    .border-#{$sides} {
+        border-#{$sides}-width: 1px;
+    }
+    @for $i from 1 through $border {
+        .border-#{$sides}-#{$i * 2} {
+            border-#{$sides}-width: $i * 2px;
+        }
+    }   
+}

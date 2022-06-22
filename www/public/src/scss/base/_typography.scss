@@ -1,0 +1,36 @@
+/* -------------------------------------------------------------------------- */
+/*                                 Typography                                 */
+/* -------------------------------------------------------------------------- */
+
+/* ---------------------------------- Base ---------------------------------- */
+
+html {
+    // background-color: $light-grey;
+    font: {
+        family: $font1;
+        size: rem(18);
+    }
+}
+
+/* -------------------------------- Headings -------------------------------- */
+
+h1 {
+  color: $primaryBlue;
+  font-size: rem(30);
+}
+h2 {
+  font-size: rem(30);
+  color: $main-color;
+  font-weight: 400;
+}
+
+small {
+  font-size: rem(18);
+  color: $navbar-text;
+}
+
+button {
+  font-family: $font1;
+  font-size: rem(18) !important;
+  font-weight: 400;
+}

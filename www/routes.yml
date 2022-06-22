@@ -1,0 +1,149 @@
+/:
+  controller: main
+  action: home
+
+/nous-contacter:
+  controller: main
+  action: contact
+
+/login:
+  controller: user
+  action: login
+
+/loginVerify:
+  controller: user
+  action: loginVerify
+
+/lostPassword:
+  controller: user
+  action: lostPassword
+
+/lostPasswordAction:
+  controller: user
+  action: lostPasswordAction
+
+/resetPassword:
+  controller: user
+  action: resetPassword
+
+/resetPasswordAction:
+  controller: user
+  action: resetPasswordAction
+
+/register:
+  controller: user
+  action: register
+
+/googleConnect:
+  controller: user
+  action: googleConnect
+
+/facebookConnect:
+  controller: user
+  action: facebookConnect
+
+/dashboard:
+  controller: admin
+  action: home
+  security: 'employee'
+
+/sendmail:
+  controller: mail
+  action: sendConfirmMail
+
+/testmail:
+  controller: mail
+  action: index
+
+/createToken:
+  controller: user
+  action: createToken
+
+/getToken:
+  controller: user
+  action: getToken
+
+/verifyToken:
+  controller: user
+  action: verifyToken
+
+/restaurants:
+  controller: restaurant
+  action: restaurant
+
+/restaurant/delete:
+  controller: restaurant
+  action: deleteRestaurant
+
+/restaurant/stock:
+  controller: stock
+  action: stock
+
+/restaurant/food/create:
+  controller: food
+  action: createFood
+
+/restaurant/food/delete:
+  controller: food
+  action: deleteFood
+
+/restaurant/creation:
+  controller: restaurant
+  action: createOneRestaurant
+
+/restaurant/create:
+  controller: restaurant
+  action: updateRestaurant
+
+/restaurant/information:
+  controller: restaurant
+  action: getOneRestaurant
+
+/restaurant:
+  controller: restaurant
+  action: restaurantOptions
+
+/profile:
+  controller: admin
+  action: profile
+  security: 'employee'
+
+/profile/update:
+  controller: admin
+  action: updateProfile
+  security: 'employee'
+
+# Route pour la reservation
+/reservation:
+  controller: reservation
+  action: reservation
+  security: 'employee'
+
+/reservationClient:
+  controller: reservation
+  action: index
+
+
+/addReservationClient:
+  controller: reservation
+  action: addReservationClient
+  security: 'employee'
+
+
+/addReservation:
+  controller: reservation
+  action: addReservation
+  security: 'employee'
+
+# Global
+
+/logout:
+  controller: user
+  action: logout
+  security: 'user'
+
+/notFound:
+  controller: user
+  action: errorNotFound
+  security: 'employee'
+

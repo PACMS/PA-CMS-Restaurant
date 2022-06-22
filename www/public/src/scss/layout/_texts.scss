@@ -1,0 +1,24 @@
+
+
+$colors: (blue);
+
+@each $color in $colors {
+    .text-#{$color} {
+        color: $primaryBlue;
+    }
+}
+
+.data{
+    color: $black;
+    font-size: rem(18);
+    font-weight: bold; 
+}
+
+.percentData--success{
+    color: $dataGreen;
+}
+
+.percentData--warning{
+    color: $dataRed;
+}
+
