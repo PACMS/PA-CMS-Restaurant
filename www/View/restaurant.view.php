@@ -56,7 +56,7 @@ endif;
                             <button type="submit">Modifier</button>
                         </div>
                     </form>
-                    <form class="restaurant-card" method="POST" action="restaurant">
+                    <form class="restaurant-card" method="POST" action="cartes">
                         <img src="../public/assets/img/restauOptions/cartes.jpg" alt="cartes" />
                         <div class="bandeau">
                             <p>Cartes</p>

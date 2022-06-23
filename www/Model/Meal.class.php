@@ -123,19 +123,19 @@ class Meal extends Sql
 
     public function getAllMeals(int $id)
     {
-        $meals = parent::databaseFindAll("SELECT * FROM " . DBPREFIXE . "meal WHERE id_carte = :id_carte", ['id_carte' => $id]);
+        $meals = parent::databaseFindAll("SELECT * FROM " . DBPREFIXE . "meal", ['id_carte' => $id]);
         return $meals;
     }
 
     public function deleteMeal(int $id)
     {
-        $meal = parent::databaseDeleteOne("DELETE FROM " . DBPREFIXE . "meal WHERE id = :id", ['id' => $id]);
+        $meal = parent::databaseDeleteOne("DELETE FROM " . DBPREFIXE . "meal", ['id' => $id]);
         return $meal;
     }
 
     public function deleteMeals(int $id)
     {
-        $meal = parent::databaseDeleteOne("DELETE FROM " . DBPREFIXE . "meal WHERE id_categories = :id", ['id' => $id]);
+        $meal = parent::databaseDeleteOne("DELETE FROM " . DBPREFIXE . "meal", ['id' => $id]);
         return $meal;
     }
 

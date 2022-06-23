@@ -19,32 +19,20 @@
 @import "components/button", "components/grid", "components/input";
 
 /* ---------------------------------- Pages --------------------------------- */
-
-<<<<<<< HEAD
-@import
-  "pages/alert",
-  "pages/profile",
-  "pages/products",
-  "pages/login",
-  "pages/reservation",
-  "pages/dashboard",
-  "pages/restaurants",
-  "pages/dashboard", 
-  "pages/register", "pages/forgetPassword", "pages/error404";
-=======
+  
 @import "pages/profile",
 "pages/login",
 "pages/reservation",
-"pages/dashboard",
 "pages/restaurants",
 "pages/dashboard",
 "pages/register",
 "pages/forgetPassword",
-"pages/error404",
 "pages/cartes",
 "pages/meals",
-"pages/carteDetails";
->>>>>>> menus
+"pages/carteDetails", 
+"pages/alert",
+"pages/products", 
+"pages/error404";
 
 
 

@@ -90,7 +90,7 @@ class Carte extends Sql
     public function getAllCartes()
     {
         // session_start();
-        $cartes = parent::databaseFindAll("SELECT * FROM " . DBPREFIXE . "carte WHERE id_restaurant = :id_restaurant", ['id_restaurant' => $_SESSION["id_restaurant"]]);
+        $cartes = parent::databaseFindAll("SELECT * FROM " . DBPREFIXE . "carte", ['id_restaurant' => $_SESSION["id_restaurant"]]);
         return $cartes;
     }
 
@@ -102,7 +102,7 @@ class Carte extends Sql
 
     public function deleteCarte(int $id)
     {
-        $carte = parent::databaseDeleteOne("DELETE FROM " . DBPREFIXE . "carte WHERE id = :id", ['id' => $id]);
+        $carte = parent::databaseDeleteOne("DELETE FROM " . DBPREFIXE . "carte", ['id' => $id]);
         return $carte;
     }
 

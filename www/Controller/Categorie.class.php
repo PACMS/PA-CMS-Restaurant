@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Core\Verificator;
 use App\Core\View;
+use App\Core\MysqlBuilder;
 use App\Model\Categorie as CategorieModel;
 use App\Model\Meal as MealModel;
 
@@ -12,6 +13,7 @@ class Categorie
 
     public function createcategorie()
     {
+        $queryBuilder = new MysqlBuilder();
         $categorie = new CategorieModel();
         $categorie->hydrate($_POST);
         $categorie->save();

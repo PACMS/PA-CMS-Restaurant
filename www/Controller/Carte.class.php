@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Core\Verificator;
 use App\Core\View;
+use App\Core\MysqlBuilder;
 use App\Model\Carte as CarteModel;
 use App\Model\Restaurant as RestaurantModel;
 class Carte
@@ -54,8 +55,8 @@ class Carte
             $_POST["status"] = 1;
         }
         $carte->hydrate($_POST);
-        $carte->save();
         $this->unselectAllCarte();
+        $carte->save();
         header('Location: /cartes');
     }
 
@@ -71,7 +72,11 @@ class Carte
         session_start();
         $carte = new CarteModel();
         $allCartes = $carte->getAllCartes();
-        dd($_SESSION["id_restaurant"]);
 
+        $queryBuilder = new MysqlBuilder();
+        $queryBuilder
+            ->update('carte', ["status" => 0])
+            ->where("id_restaurant", $_SESSION["id_restaurant"])
+            ->executeQuery();
     }
 }
