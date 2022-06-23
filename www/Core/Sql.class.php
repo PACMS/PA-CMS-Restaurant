@@ -215,4 +215,14 @@ abstract class Sql
         }
         return null;
     }
+
+    protected function count(string $sql): int
+    {
+        return $this->execute($sql)->fetchColumn();
+    }
+
+    protected function execute(string $sql): \PDOStatement|false
+    {
+        return $this->pdo->query($sql);
+    }
 }
