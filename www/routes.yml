@@ -135,6 +135,35 @@
   action: addReservation
   security: 'employee'
 
+# Route pour la gestion des utilisateurs
+
+/users:
+  controller: admin
+  action: users
+  security: 'admin'
+
+/user/update:
+  controller: admin
+  action: updateUser
+  security: 'admin'
+
+/user/create:
+  controller: admin
+  action: createUser
+  security: 'admin'
+
+/user/save:
+  controller: admin
+  action: saveUser
+  security: 'admin'
+
+/user/delete:
+  controller: admin
+  action: deleteUser
+  security: 'admin'
+
+############################
+
 # Global
 
 /logout:

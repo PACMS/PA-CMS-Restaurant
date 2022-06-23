@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : mysql
--- Généré le : ven. 15 avr. 2022 à 10:17
+-- Généré le : ven. 06 mai 2022 à 13:45
 -- Version du serveur : 5.7.36
 -- Version de PHP : 7.4.20
 
@@ -24,41 +24,41 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Structure de la table `pacm_reservation`
+--
+
+CREATE TABLE IF NOT EXISTS `pacm_reservation` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `date` date NOT NULL,
+  `hour` time NOT NULL,
+  `numTable` int(11) NOT NULL,
+  `numPerson` int(11) NOT NULL,
+  `phoneReserv` char(10) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Structure de la table `pacm_user`
 --
 
-CREATE TABLE `pacm_user` (
-  `id` int(11) NOT NULL,
-  `email` varchar(320) NOT NULL,
-  `password` varchar(255) NOT NULL,
-  `firstname` varchar(25) DEFAULT NULL,
-  `lastname` text,
+CREATE TABLE IF NOT EXISTS `pacm_user` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `email` varchar(320) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `firstname` varchar(25) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `lastname` mediumtext COLLATE utf8mb4_unicode_ci,
   `status` tinyint(4) DEFAULT '0',
-  `role` varchar(8) NOT NULL DEFAULT 'user',
-  `token` char(255) DEFAULT NULL,
+  `role` varchar(8) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'user',
+  `token` char(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `createdAt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `updatedAt` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Index pour les tables déchargées
---
-
---
--- Index pour la table `pacm_user`
---
-ALTER TABLE `pacm_user`
-  ADD PRIMARY KEY (`id`);
-
---
--- AUTO_INCREMENT pour les tables déchargées
---
-
---
--- AUTO_INCREMENT pour la table `pacm_user`
---
-ALTER TABLE `pacm_user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  `updatedAt` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
@@ -66,20 +66,11 @@ COMMIT;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 
 --
--- Structure de la table `pacm_reservation`
+-- Déchargement des données de la table `pacm_user`
 --
 
-CREATE TABLE `pacm_reservation` (
-    `id` int(11) NOT NULL,
-    `name` varchar(50) NOT NULL,
-    `date` date NOT NULL,
-    `hour` time NOT NULL,
-    `numTable` int(11) NOT NULL,
-    `numPerson` int(11) NOT NULL,
-    `phoneReserv` char(10) NOT NULL,
-    `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
-    `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+INSERT INTO `pacm_user` (`id`, `email`, `password`, `firstname`, `lastname`, `status`, `role`, `token`, `createdAt`, `updatedAt`) VALUES
+(1, 'admin@admin.fr', '$2y$10$RmqsCm15R7YCsxFcTFlixONe0a3r1MPWwX3CmsvhtXKvd4LWA7KgK', 'Admin', 'ADMIN', 1, 'admin', NULL, '2022-05-06 13:48:09', '2022-05-06 13:48:09');
 
 --
 -- Déchargement des données de la table `pacm_reservation`
@@ -104,28 +95,3 @@ INSERT INTO `pacm_reservation` (`id`, `name`, `date`, `hour`, `numTable`, `numPe
   (19, 'testlength', '2022-04-20', '10:45:00', 10, 10, '0780808080', '2022-04-21 20:35:42', '2022-04-21 20:35:42'),
   (20, 'testlength', '2022-04-20', '10:45:00', 10, 10, '0780808080', '2022-04-21 20:35:43', '2022-04-21 20:35:43'),
   (21, 'testlength', '2022-04-20', '10:45:00', 10, 10, '0780808080', '2022-04-21 20:35:48', '2022-04-21 20:35:48');
-
---
--- Index pour les tables déchargées
---
-
---
--- Index pour la table `pacm_reservation`
---
-ALTER TABLE `pacm_reservation`
-    ADD PRIMARY KEY (`id`);
-
---
--- AUTO_INCREMENT pour les tables déchargées
---
-
---
--- AUTO_INCREMENT pour la table `pacm_reservation`
---
-ALTER TABLE `pacm_reservation`
-    MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
-COMMIT;
-
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
