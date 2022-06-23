@@ -52,6 +52,9 @@ class Restaurant
         $restaurant->hydrate($_POST);
         // $restaurant->setId(null);
         $restaurant->save();
+
+        var_dump($restaurant->last()->id);
+        die();
         // }
         // }
         header('Location: /restaurants');

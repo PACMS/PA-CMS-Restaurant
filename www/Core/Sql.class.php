@@ -170,11 +170,18 @@ abstract class Sql
     }
     protected function getAll(): array
     {
-
         $sql = "SELECT * FROM " . $this->table ;
         $queryPrepared = $this->pdo->prepare($sql);
         $queryPrepared->execute();
         return $queryPrepared->fetchAll(\PDO::FETCH_OBJ);
+    }
+
+    public function last ()
+    {
+        $sql = "SELECT * FROM " . $this->table . " ORDER BY id DESC LIMIT 1";
+        $queryPrepared = $this->pdo->prepare($sql);
+        $queryPrepared->execute();
+        return $queryPrepared->fetch(\PDO::FETCH_OBJ);
     }
 
     public function verifyUser(array $params): void
