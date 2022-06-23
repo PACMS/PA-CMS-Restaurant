@@ -307,4 +307,18 @@ abstract class Sql
         }
         return null;
     }
+
+    function selectQuery(string $sql)
+    {
+        $queryPrepared = $this->_pdo->prepare($sql);
+        $queryPrepared->execute();
+        return $queryPrepared->fetchAll();
+    }
+
+    function upsertQuery(string $sql, array $data)
+    {
+        $queryPrepared= $this->_pdo->prepare($sql);
+        $queryPrepared->execute($data);
+    }
+
 }
