@@ -45,7 +45,7 @@
 /dashboard:
   controller: admin
   action: home
-  security: 'employee'
+  security: "employee"
 
 /sendmail:
   controller: mail
@@ -106,61 +106,106 @@
 /profile:
   controller: admin
   action: profile
-  security: 'employee'
+  security: "employee"
 
 /profile/update:
   controller: admin
   action: updateProfile
-  security: 'employee'
+  security: "employee"
+/cartes:
+  controller: carte
+  action: carte
+
+/carte/create:
+  controller: carte
+  action: createCarte
+
+/updateCarte:
+  controller: carte
+  action: updateCarte
+
+/carte/delete:
+  controller: carte
+  action: deleteCarte
+
+/carte/meals:
+  controller: meal
+  action: meal
+
+/carte/meals/sendId:
+  controller: meal
+  action: setIdCard
+
+/carte/meals/addCategorie:
+  controller: categorie
+  action: createcategorie
+
+/carte/meals/updateCategorie:
+  controller: categorie
+  action: updateCategorie
+
+/carte/meals/deleteCategorie:
+  controller: categorie
+  action: deleteCategorie
+
+/carte/meals/addMeal:
+  controller: meal
+  action: createMeal
+
+/carte/meals/updateMeal:
+  controller: meal
+  action: updateMeal
+
+/carte/meals/deleteMeal:
+  controller: meal
+  action: deleteMeal
 
 # Route pour la reservation
 /reservation:
   controller: reservation
   action: reservation
-  security: 'employee'
+  security: "employee"
 
 /reservationClient:
   controller: reservation
   action: index
 
-
 /addReservationClient:
   controller: reservation
   action: addReservationClient
-  security: 'employee'
-
+  security: "employee"
 
 /addReservation:
   controller: reservation
   action: addReservation
-  security: 'employee'
+  security: "employee"
 
 # Route pour la gestion des utilisateurs
 
 /users:
   controller: admin
   action: users
-  security: 'admin'
+  security: "admin"
 
 /user/update:
   controller: admin
   action: updateUser
-  security: 'admin'
+  security: "admin"
 
 /user/create:
   controller: admin
   action: createUser
-  security: 'admin'
+  security: "admin"
 
 /user/save:
   controller: admin
   action: saveUser
-  security: 'admin'
+  security: "admin"
 
 /user/delete:
   controller: admin
   action: deleteUser
-  security: 'admin'
+  security: "admin"
 
 ############################
 
@@ -169,10 +214,9 @@
 /logout:
   controller: user
   action: logout
-  security: 'user'
+  security: "user"
 
 /notFound:
   controller: user
   action: errorNotFound
-  security: 'employee'
-
+  security: "employee"

@@ -10,6 +10,8 @@ class Restaurant
 {
     public function restaurant()
     {
+        session_start();
+        unset($_SESSION["id_restaurant"]);
         $restaurant = new RestaurantModel();
         // utiliser la fonction getAllRestaurant() de RestaurantModel
         $allRestaurants = $restaurant->getAllRestaurants();
@@ -28,10 +30,13 @@ class Restaurant
 
     public function getOneRestaurant()
     {
+        if (empty($_POST)) {
+            header('Location: /restaurants');
+        }
         $restaurant = new RestaurantModel();
         $id = $_POST["id"];
+        session_start();
         $_SESSION["id_restaurant"] = $id;
-
         $table = "restaurant";
         $oneRestaurant = $restaurant->getOneRestaurant($table, $id);
         $restaurant->hydrate($oneRestaurant);

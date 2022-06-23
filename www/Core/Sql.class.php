@@ -30,9 +30,10 @@ abstract class Sql
         try {
             $this->_pdo = new \PDO(
                 DBDRIVER .
-                ":host=" . DBHOST .
-                ";port=" . DBPORT .
-                ";dbname=" . DBNAME,
+                    ":host=" . DBHOST .
+                    ";port=" . DBPORT .
+                    ";dbname=" . DBNAME .
+                    ";charset=utf8",
                 DBUSER,
                 DBPWD,
                 [\PDO::ATTR_ERRMODE => \PDO::ERRMODE_WARNING]
