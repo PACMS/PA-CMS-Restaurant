@@ -308,11 +308,29 @@ abstract class Sql
         return null;
     }
 
-    function selectQuery(string $sql)
+    function selectQuery(string $sql, int $type)
     {
         $queryPrepared = $this->_pdo->prepare($sql);
         $queryPrepared->execute();
-        return $queryPrepared->fetchAll();
+        return $queryPrepared->fetchAll($type);
+    }
+
+    function selectFetchAll(string $sql, int $type)
+    {
+        $queryPrepared = $this->_pdo->prepare($sql);
+        $queryPrepared->execute();
+        if ($type == 5) {
+            return (object) $queryPrepared->fetchAll($type);
+        } else {
+            return $queryPrepared->fetchAll($type);
+        }
+    }
+
+    function selectFetch(string $sql, int $type)
+    {
+        $queryPrepared = $this->_pdo->prepare($sql);
+        $queryPrepared->execute();
+        return $queryPrepared->fetch($type);
     }
 
     function upsertQuery(string $sql, array $data)

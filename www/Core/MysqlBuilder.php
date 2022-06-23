@@ -15,15 +15,22 @@
 
         public function executeQuery(): ?array;
 
+        public function get();
+
+        public function getOne();
+
         public function insert(string $table, array $columns): QueryBuilder;
 
         public function update(string $table, array $columns): QueryBuilder;
+
+        public function setObject(): QueryBuilder;
     }
 
     class MysqlBuilder extends Sql implements QueryBuilder
     {
         private $query;
         private $data = null;
+        private $type = \PDO::FETCH_ASSOC;
 
         private function reset()
         {
@@ -46,7 +53,7 @@
 
         public function limit(int $from, int $offset = 1): QueryBuilder
         {
-            $this->query->limit = " LIMIT " . $from . ", " . $offset;
+            $this->query->limit = " LIMIT " . $from;
             return $this;
         }
 
@@ -59,29 +66,36 @@
         public function executeQuery(): ?array
         {
 
-            $query = $this->query;
-            $data = $this->data;
+            $sql = $this->createSqlRequest();
 
-            $sql = $query->base;
-
-            if (!empty($query->where)) {
-                $sql .= " WHERE "  . implode(' AND ', $query->where);
-            }
-
-            if (isset($query->order)) {
-                $sql .= $query->order;
-            }
-            
-            if (isset($query->limit)) {
-                $sql .= $query->limit;
-            }
-
-            $sql .= ";";
-
-            if (is_null($data)) {
+            if (is_null($this->data)) {
                 return parent::selectQuery($sql); 
             } else {
-                return parent::upsertQuery($sql, $data);
+                return parent::upsertQuery($sql, $this->data);
+            }
+           
+        }
+
+        public function get()
+        {
+
+            $sql = $this->createSqlRequest();
+
+            if (is_null($this->data)) {
+                return parent::selectFetchAll($sql, $this->type); 
+            } else {
+                return parent::upsertQuery($sql, $this->data);
+            }
+           
+        }
+
+        public function getOne()
+        {
+            $sql = $this->createSqlRequest();
+            if (is_null($this->data)) {
+                return parent::selectFetch($sql, $this->type); 
+            } else {
+                return parent::upsertQuery($sql, $this->data);
             }
            
         }
@@ -117,6 +131,35 @@
             return $this;
 
         }
+
+        public function setObject(): QueryBuilder
+        {
+            $this->type = \PDO::FETCH_OBJ;
+            return $this;
+        }
+
+        private function createSqlRequest()
+        {
+            $query = $this->query;
+            $data = $this->data;
+
+            $sql = $query->base;
+
+            if (!empty($query->where)) {
+                $sql .= " WHERE "  . implode(' AND ', $query->where);
+            }
+
+            if (isset($query->order)) {
+                $sql .= $query->order;
+            }
+            
+            if (isset($query->limit)) {
+                $sql .= $query->limit;
+            }
+
+            $sql .= ";";
+            return $sql;
+        }
     }
 
 
@@ -125,7 +168,8 @@
         
         public function limit(int $from, int $offset = 1): QueryBuilder
         {
-            $this->query->limit = " LIMIT " . $from . " OFFSET " . $offset;
+            // $this->query->limit = " LIMIT " . $from . " OFFSET " . $offset;
+            $this->query->limit = " LIMIT " . $from;
             return $this;
         }
 
