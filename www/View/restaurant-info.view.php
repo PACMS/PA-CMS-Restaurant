@@ -43,14 +43,6 @@ endif;
                 </button>
             </article>
         </section>
-        <!-- <form class="" method="POST" action="/restaurant">
-                                <input type="hidden" name="id" value="<?=  $value["id"]?>"></input>
-                                <button type="submit">Retour</button>
-                        </form> -->
-        <!-- <form id="restaurant-delete" action="/restaurant/delete" method="POST">
-            <input type="hidden" name="id" value="<?= $_SESSION["id_restaurant"] ?>">
-            <button type="submit" class="cta-button">Supprimer</button>
-        </form> -->
         <?php $this->includePartial("form", $restaurant->deleteRestaurant()); ?>
         <?php $this->includePartial("form", $restaurant->getCompleteUpdateRestaurantForm()); ?>
     </section>
@@ -62,7 +54,7 @@ endif;
 
     const submit = submitForm.querySelector("input[type='submit']");
     submit.setAttribute("class", "cta-button --cta-button-save");
-    const buttonsDiv = document.createElement("div" );
+    const buttonsDiv = document.createElement("div");
     buttonsDiv.setAttribute("id", "buttonsDiv");
     const form = document.getElementById("restaurant-form");
     form.appendChild(buttonsDiv);
@@ -72,7 +64,4 @@ endif;
     deleteButton.setAttribute("class", "cta-button --cta-button-delete");
     buttonsDiv.appendChild(deleteForm);
     buttonsDiv.appendChild(submit);
-
-        
-
 </script>
