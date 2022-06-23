@@ -30,7 +30,7 @@ class Food extends Sql
      * @var
      */
     protected $stockId = null;
-    
+
 
     /**
      * @return null
@@ -45,7 +45,7 @@ class Food extends Sql
      */
     public function setId($id): void
     {
-        $this->id = $id; 
+        $this->id = $id;
     }
 
     /**
@@ -112,12 +112,12 @@ class Food extends Sql
     }
 
 
-    
+
 
 
     public function getAllFoods(array $params)
     {
-        
+
         $foods = parent::databaseFindAll("SELECT * FROM " . DBPREFIXE . "food", $params);
         return $foods;
     }
@@ -179,7 +179,7 @@ class Food extends Sql
                 ],
                 "stockId" => [
                     "type" => "hidden",
-                    "value" => $_SESSION["id_stock"],
+                    "value" => $_SESSION["stock"]["id"],
                     "label" => "StockId",
                 ],
                 // "captcha" => [

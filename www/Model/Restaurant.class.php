@@ -52,7 +52,7 @@ class Restaurant extends Sql
      */
     public function setId($id): void
     {
-        $this->id = intval($id); 
+        $this->id = intval($id);
     }
 
     // getter and setter for name	
@@ -175,7 +175,7 @@ class Restaurant extends Sql
     public function getCompleteRestaurantForm()
     {
         return [
-            
+
             "config" => [
                 "method" => "POST",
                 "action" => "/restaurant/creation",
@@ -237,7 +237,7 @@ class Restaurant extends Sql
                     "label" => "Code Postal",
                     "class" => "restaurant-inputs",
                     "required" => true,
-                    "min" => 2,
+                    "min" => 1,
                     "max" => 10,
                     "value" => $this->zipcode,
                     "error" => "Votre code postal est incorrect",
@@ -249,7 +249,7 @@ class Restaurant extends Sql
                     "label" => "Téléphone",
                     "class" => "restaurant-inputs",
                     "required" => true,
-                    "min" => 2,
+                    "min" => 4,
                     "max" => 15,
                     "value" => $this->phone,
                     "error" => "Votre numéro de téléphone est incorrect",
@@ -266,7 +266,7 @@ class Restaurant extends Sql
         return [
             "config" => [
                 "method" => "POST",
-                "action" => "/restaurant/creation",
+                "action" => "/restaurant/update",
                 "class" => "restaurant-form",
                 "id" => "restaurant-form",
                 "submit" => "Enregistrer",
@@ -327,7 +327,7 @@ class Restaurant extends Sql
                     "id" => "zipcode",
                     "class" => "restaurant-inputs",
                     "required" => true,
-                    "min" => 2,
+                    "min" => 1,
                     "max" => 10,
                     "value" => $this->zipcode,
                     "error" => "Votre code postal est incorrect",
@@ -338,7 +338,7 @@ class Restaurant extends Sql
                     "id" => "phone",
                     "class" => "restaurant-inputs",
                     "required" => true,
-                    "min" => 2,
+                    "min" => 4,
                     "max" => 15,
                     "value" => $this->phone,
                     "error" => "Votre numéro de téléphone est incorrect",
@@ -367,7 +367,7 @@ class Restaurant extends Sql
                     "type" => "hidden",
                     "id" => "id",
                     "class" => "formRestaurant",
-                    "value" => $_SESSION["id_restaurant"],
+                    "value" => $_SESSION["restaurant"]["id"],
                 ],
                 // "captcha" => [
                 //     'type' => 'captcha',
