@@ -69,6 +69,139 @@ COMMIT;
 -- Structure de la table `pacm_reservation`
 --
 
+-- Structure de la table `pacm_restaurant`
+--
+
+CREATE TABLE `pacm_restaurant` (
+                                   `id` int(11) NOT NULL,
+                                   `name` varchar(50) NOT NULL,
+                                   `address` varchar(50) NOT NULL,
+                                   `additional_address` varchar(100) DEFAULT NULL,
+                                   `city` varchar(50) NOT NULL,
+                                   `zipcode` int(50) DEFAULT NULL,
+                                   `user_id` varchar(50) DEFAULT NULL,
+                                   `phone` int(50) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Déchargement des données de la table `pacm_restaurant`
+--
+
+INSERT INTO `pacm_restaurant` (`id`, `name`, `address`, `additional_address`, `city`, `zipcode`, `user_id`, `phone`) VALUES
+    (106, 'test', 'Teste', 'Teste', 'STESTES', 1, NULL, 10);
+
+--
+-- Index pour les tables déchargées
+--
+
+--
+-- Index pour la table `pacm_restaurant`
+--
+ALTER TABLE `pacm_restaurant`
+    ADD PRIMARY KEY (`id`);
+
+--
+-- AUTO_INCREMENT pour les tables déchargées
+--
+
+--
+-- AUTO_INCREMENT pour la table `pacm_restaurant`
+--
+ALTER TABLE `pacm_restaurant`
+    MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=107;
+
+CREATE TABLE `pacm_page` (
+                             `id` int(11) NOT NULL,
+                             `url` varchar(100) NOT NULL,
+                             `status` tinyint(4) NOT NULL DEFAULT '0',
+                             `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+                             `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+                             `id_theme` int(11) DEFAULT NULL,
+                             `id_restaurant` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Déchargement des données de la table `pacm_page`
+--
+
+INSERT INTO `pacm_page` (`id`, `url`, `status`, `created_at`, `updated_at`, `id_theme`, `id_restaurant`) VALUES
+    (12, '/test/index.php', 0, '2022-06-21 21:14:54', '2022-06-21 21:14:54', NULL, 106);
+
+--
+-- Index pour les tables déchargées
+--
+
+--
+-- Index pour la table `pacm_page`
+--
+ALTER TABLE `pacm_page`
+    ADD PRIMARY KEY (`id`),
+  ADD KEY `theme` (`id_theme`),
+  ADD KEY `rest` (`id_restaurant`);
+
+--
+-- AUTO_INCREMENT pour les tables déchargées
+--
+
+--
+-- AUTO_INCREMENT pour la table `pacm_page`
+--
+ALTER TABLE `pacm_page`
+    MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+
+--
+-- Contraintes pour les tables déchargées
+--
+
+--
+-- Contraintes pour la table `pacm_page`
+--
+ALTER TABLE `pacm_page`
+    ADD CONSTRAINT `rest` FOREIGN KEY (`id_restaurant`) REFERENCES `pacm_restaurant` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `theme` FOREIGN KEY (`id_theme`) REFERENCES `pacm_theme` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+
+CREATE TABLE `pacm_page_content` (
+                                     `id` int(11) NOT NULL,
+                                     `id_page` int(11) NOT NULL,
+                                     `body` int(11) NOT NULL,
+                                     `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+                                     `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+
+
+--
+-- Index pour les tables déchargées
+--
+
+--
+-- Index pour la table `pacm_page_content`
+--
+ALTER TABLE `pacm_page_content`
+    ADD PRIMARY KEY (`id`),
+  ADD KEY `page` (`id_page`);
+
+--
+-- AUTO_INCREMENT pour les tables déchargées
+--
+
+--
+-- AUTO_INCREMENT pour la table `pacm_page_content`
+--
+ALTER TABLE `pacm_page_content`
+    MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- Contraintes pour les tables déchargées
+--
+
+--
+-- Contraintes pour la table `pacm_page_content`
+--
+ALTER TABLE `pacm_page_content`
+    ADD CONSTRAINT `page` FOREIGN KEY (`id_page`) REFERENCES `pacm_page` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
 CREATE TABLE `pacm_reservation` (
     `id` int(11) NOT NULL,
     `name` varchar(50) NOT NULL,
