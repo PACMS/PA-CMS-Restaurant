@@ -80,16 +80,15 @@ abstract class Sql
         return null;
     }
 
-    /**
-     * Find all values in the database with where clause
-     * 
-     * @param string $sql    The SQL query
-     * @param array  $params An associative array of where clause
-     * 
-     * @return array|null Returns an associative array or null if no result
-     */
-    public function databaseFindAll(string $sql, array $params): ?array
+    protected function databaseFindAll(string $sql, array $params = [])
     {
+        if($params !== []){
+
+            foreach ($params as $key => $whereValue) {
+                $where[] = $key . " = :" . $key;
+            }
+            $sql = $sql . " WHERE " . implode(" AND ", $where);
+        }
         $statement = $this->_pdo->prepare($sql);
         if ($statement !== false) {
             $success = $statement->execute($params);
@@ -144,13 +143,11 @@ abstract class Sql
      */
     public function save(): void
     {
-
         $columns = get_object_vars($this);
         $varToExclude = get_class_vars(get_class());
         $columns = array_diff_key($columns, $varToExclude);
-
-        if (is_null($columns['id'])) {
-            $sql = "INSERT INTO " . $this->_table . " (" . implode(",", array_keys($columns)) . ") VALUES (:" . implode(",:", array_keys($columns)) . ")";
+        if (empty($_POST['id']) || is_null($_POST['id'])) {
+            $sql = "INSERT INTO " . $this->table . " (" . implode(",", array_keys($columns)) . ") VALUES (:" . implode(",:", array_keys($columns)) . ")";
         } else {
             $update = [];
             $updateValues = [];
@@ -298,5 +295,16 @@ abstract class Sql
         $queryPrepared->execute(["id" => $id]);
     }
 
+    protected function databaseDeleteOne(string $sql, array $params)
 
+    {
+        $statement = $this->_pdo->prepare($sql);
+        if ($statement !== false) {
+            $success = $statement->execute($params);
+            if ($success) {
+                return "supprimé";
+            }
+        }
+        return null;
+    }
 }

@@ -9,6 +9,15 @@ use App\Model\Reservation as ReservationModel;
 
 class Reservation
 {
+    public function index()
+    {
+
+        $view = new View("reservationClient");
+        $reservation = new ReservationModel();
+        $view->assign('reservation', $reservation);
+
+    }
+
     public function reservation()
     {
         $reservation = new ReservationModel();
@@ -26,9 +35,28 @@ class Reservation
     {
         $reservation = new ReservationModel();
 
+
         $reservation->hydrate($_POST);
+        $clientName = $reservation->getName();
         $reservation->save();
-        header('Location:/reservation');
+        $data =  $reservation->getAll();
+
+        $view = new View("reservation", "back", 'success', 'Reservation', 'Création avec succès de la reservation de ' . $clientName . ' !');
+        $view->assign('reservation', $reservation);
+        $view->assign('data', $data);
+
+    }
+
+    public function addReservationClient()
+    {
+        $reservation = new ReservationModel();
+
+        $reservation->hydrate($_POST);
+        $clientName = $reservation->getName();
+        $reservation->save();
+
+        $view = new View("reservationClient", "front", 'success', 'Reservation', 'Création avec succès de la reservation de ' . $clientName . ' !');
+        $view->assign('reservation', $reservation);
 
     }
 }

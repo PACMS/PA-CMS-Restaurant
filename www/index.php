@@ -3,6 +3,7 @@
 namespace App;
 
 require "conf.inc.php";
+require "Core/Helpers.php";
 
 function myAutoloader($class)
 {

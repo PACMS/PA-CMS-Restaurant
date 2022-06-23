@@ -278,13 +278,11 @@ class User extends Sql
         return parent::databaseFindOne(['id' => $id]);
     }
 
-    /**
-     * Verify if the user exists and redirects according to the role of the user
-     *
-     * @param array $params An associative array with the email of the user ($params = ["email" => $_POST['email']];)
-     * 
-     * @return void
-     */
+    public function getUser(array $id) 
+    {
+        return parent::databaseFindOne($id);
+    }
+
     public function verifyUser(array $params): void
     {
         //Pré traitement par exemple

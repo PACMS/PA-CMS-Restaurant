@@ -3,7 +3,6 @@
 namespace App\Controller;
 
 use App\Core\Verificator;
-use App\Controller\Mail;
 use App\Core\View;
 use App\Core\OAuth;
 use App\Model\User as UserModel;
@@ -56,13 +55,10 @@ class User
         if (!empty($_POST)) {
             $errors = Verificator::checkForm($user->getCompleteRegisterForm(), $_POST + $_FILES);
 
-            if (!$errors) {
-                $user->generateToken();
-                $user->setStatus(0);
+            if(!$errors) {
                 $user->hydrate($_POST);
                 $user->save();
                 /////////// redirection vers le dashboard à faire
-                Mail::sendConfirmMail($user->getToken(), $user->getEmail());
             }
         }
 
@@ -120,7 +116,7 @@ class User
     public function loginVerify()
     {
         $user = new UserModel();
-
+        
 
         if (!empty($_POST)) {
             Verificator::checkForm(
@@ -128,17 +124,21 @@ class User
                 $_POST + $_FILES
             );
         }
-        // die(var_dump($_POST));
-        $email = $_POST['email'];
-        $user->setEmail($email);
+ 
+        $user->setEmail($_POST['email']);
         $user->setPassword($_POST['password']);
 
         $params = ["email" => $_POST['email']];
 
         $user->verifyUser($params);
+        
+        
+        $view = new View("loginVerify");
+        $view->assign("title", "Vérification");
+        $view->assign("user", $user);
     }
 
-    public function googleConnect()
+    public function googleConnect ()
     {
         $token = new OAuth($_GET['code']);
         $info = $token->google();
@@ -155,7 +155,7 @@ class User
         new View('dashboard');
     }
 
-    public function facebookConnect()
+    public function facebookConnect ()
     {
         $token = new OAuth($_GET['code']);
         $info = $token->facebook();
@@ -172,7 +172,7 @@ class User
         new View('dashboard');
     }
 
-    public function lostPassword()
+    public function lostPassword() 
     {
         $user = new UserModel();
 
@@ -181,19 +181,14 @@ class User
         $view->assign("user", $user);
     }
 
-    public function lostPasswordAction()
+    public function lostPasswordAction() 
     {
         $user = new UserModel();
-
-        $email = $_POST["email"];
-        $retrieveToken = $user->retrieveToken($email);
-
-        Mail::lostPasswordMail($retrieveToken, $email);
 
         $view = new View("lostPasswordAction");
         $view->assign("title", "Mail d'oubli de mdp");
         $view->assign("user", $user);
-
+      
         // if (!empty($_POST)) {
         //     Verificator::checkForm(
         //         $user->getLoginForm(),
@@ -254,12 +249,8 @@ class User
 
     public function logout()
     {
-        echo "Se déconnecter";
+        session_destroy();
+        header('Location: /login');
     }
 
-    public function errorNotFound()
-    {
-        $view = new View("error404");
-        $view->assign("title", "Error 404");
-    }
 }

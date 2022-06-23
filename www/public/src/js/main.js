@@ -165,6 +165,11 @@ $(document).ready(function () {
   //     format: "MMMM Do YYYY",
   // });
 
+  $("#alert-close").on("click", function (event) {
+    $(".alert-window").css("visibility", "hidden");
+    console.log('ok')
+  });
+
   $("#editProfile").on("click", function (event) {
     $(".container").css("margin-top", "0px");
     $("input").attr("disabled", false);
@@ -197,12 +202,16 @@ $(document).ready(function () {
     $("label#labelConfirm").after(inputConfirm);
 
     var cancelButton = $(
-      "<button class='btn btn-cancel mr-4' id='btncancel'>Annuler </button>"
+      "<a href='profile'><button class='btn btn-cancel mr-4' id='btncancel'>Annuler </button></a>"
     );
     $("div#sectionButton").append(cancelButton);
 
+    // $("#btncancel").on("click", function (event) {
+    //   event.target.disabled = true;
+    // });
+
     var submitButton = $(
-      "<button class='btn btn-submit' id='btncancel'>Confirmer </button>"
+      "<button class='btn btn-submit' type='submit' id='btncancel'>Confirmer </button>"
     );
     $("button#btncancel").after(submitButton);
 

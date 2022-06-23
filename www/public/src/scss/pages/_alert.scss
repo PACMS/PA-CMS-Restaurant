@@ -1,34 +1,5 @@
-.dataTables_wrapper .dataTables_filter {
-  float: left !important;
-  text-align: left !important;
-  margin-bottom: rem(15);
-}
-.dataTables_length{
-  label{
-    margin-right: rem(20);
-    select{
-      width: unset !important;
-    }
-  }
-}
-.dataTables_filter{
-  position: absolute;
-  right: 20px;
-  label{
-    input{
-      width: unset !important;
-    }
-  }
-}
-#bookingTable2{
-  margin-top: 50px;
-}
 
-
-a {
-  text-decoration: none;
-}
-.modal-window {
+.alert-window {
   position: fixed;
   background-color: rgba(0, 0, 0, 0.75);
   top: 0;
@@ -36,17 +7,17 @@ a {
   bottom: 0;
   left: 0;
   z-index: 999;
-  visibility: hidden;
-  opacity: 0;
-  pointer-events: none;
-  transition: all 0.3s ease-in-out 250ms;
+  visibility: visible;
+  opacity: 1;
+  pointer-events: auto;
+
   &:target {
+
     visibility: visible;
     opacity: 1;
     pointer-events: auto;
   }
   & > div {
-    width: 400px;
     position: absolute;
     top: 50%;
     left: 50%;
@@ -63,7 +34,7 @@ a {
   }
 }
 
-.modal-close {
+.alert-close {
   color: #aaa;
   line-height: 50px;
   font-size: 80%;
@@ -76,13 +47,14 @@ a {
   &:hover {
     color: black;
   }
+
 }
-.modal-window {
+.alert-window {
   & > div {
     border-radius: 1rem;
   }
 }
 
-.modal-window div:not(:last-of-type) {
+.alert-window div:not(:last-of-type) {
   margin-bottom: 15px;
 }
