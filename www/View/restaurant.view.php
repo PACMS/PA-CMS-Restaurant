@@ -51,8 +51,8 @@ endif;
                         <img src="../public/assets/img/restauOptions/informations.png" alt="information" />
                         <div class="bandeau">
                             <p>Informations</p>
-                            <!-- <button><a href="/restaurant?id=<?= $_SESSION["id_restaurant"] ?>" style="text-decoration:none">Modifier</a></button> -->
-                            <input type="hidden" name="id" value="<?= $_SESSION["id_restaurant"] ?>"></input>
+                            
+                            <input type="hidden" name="id" value="<?= $_SESSION["restaurant"]["id"] ?>"></input>
                             <button type="submit">Modifier</button>
                         </div>
                     </form>
@@ -60,8 +60,8 @@ endif;
                         <img src="../public/assets/img/restauOptions/cartes.jpg" alt="cartes" />
                         <div class="bandeau">
                             <p>Cartes</p>
-                            <!-- <button><a href="/restaurant?id=<?= $_SESSION["id_restaurant"] ?>" style="text-decoration:none">Modifier</a></button> -->
-                            <input type="hidden" name="id" value="<?= $_SESSION["id_restaurant"] ?>"></input>
+                            
+                            <input type="hidden" name="id" value="<?= $_SESSION["restaurant"]["id"] ?>"></input>
                             <button type="submit">Modifier</button>
                         </div>
                     </form>
@@ -69,8 +69,8 @@ endif;
                         <img src="../public/assets/img/restauOptions/salle.jpg" alt="salle" />
                         <div class="bandeau">
                             <p>Salle</p>
-                            <!-- <button><a href="/restaurant?id=<?= $_SESSION["id_restaurant"] ?>" style="text-decoration:none">Modifier</a></button> -->
-                            <input type="hidden" name="id" value="<?= $_SESSION["id_restaurant"] ?>"></input>
+                            
+                            <input type="hidden" name="id" value="<?= $_SESSION["restaurant"]["id"] ?>"></input>
                             <button type="submit">Modifier</button>
                         </div>
                     </form>
@@ -78,8 +78,8 @@ endif;
                         <img src="../public/assets/img/restauOptions/stock.jpg" alt="stock" />
                         <div class="bandeau">
                             <p>Stock</p>
-                            <!-- <button><a href="/restaurant?id=<?= $_SESSION["id_restaurant"] ?>" style="text-decoration:none">Modifier</a></button> -->
-                            <input type="hidden" name="id" value="<?= $_SESSION["id_restaurant"] ?>"></input>
+                            
+                            <input type="hidden" name="id" value="<?= $_SESSION["restaurant"]["id"] ?>"></input>
                             <button type="submit">Modifier</button>
                         </div>
                     </form>
@@ -87,8 +87,8 @@ endif;
                         <img src="../public/assets/img/restauOptions/reservations.jpg" alt="reservations" />
                         <div class="bandeau">
                             <p>Réservation</p>
-                            <!-- <button><a href="/restaurant?id=<?= $_SESSION["id_restaurant"] ?>" style="text-decoration:none">Modifier</a></button> -->
-                            <input type="hidden" name="id" value="<?= $_SESSION["id_restaurant"] ?>"></input>
+                            
+                            <input type="hidden" name="id" value="<?= $_SESSION["restaurant"]["id"] ?>"></input>
                             <button type="submit">Modifier</button>
                         </div>
                     </form>
@@ -96,8 +96,7 @@ endif;
                         <img src="../public/assets/img/restauOptions/mentions-legales.jpg" alt="mentions-legales" />
                         <div class="bandeau">
                             <p>Mentions légales</p>
-                            <!-- <button><a href="/restaurant?id=<?= $_SESSION["id_restaurant"] ?>" style="text-decoration:none">Modifier</a></button> -->
-                            <input type="hidden" name="id" value="<?= $_SESSION["id_restaurant"] ?>"></input>
+                            <input type="hidden" name="id" value="<?= $_SESSION["restaurant"]["id"] ?>"></input>
                             <button type="submit">Modifier</button>
                         </div>
                     </form>
