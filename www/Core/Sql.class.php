@@ -2,15 +2,33 @@
 
 namespace App\Core;
 
+/**
+ * Sql class
+ * 
+ * @category Core
+ * 
+ * @package App\Core
+ * 
+ * @access abstract
+ * 
+ * @author PACMS <pa.cms.test@gmail.com>
+ * 
+ */
 abstract class Sql
 {
-    private $pdo;
-    private $table;
+    private $_pdo;
+    private $_table;
+
+    /**
+     * Constructor
+     * 
+     * @return void
+     */
     public function __construct()
     {
         //Plus tard il faudra penser au singleton
         try {
-            $this->pdo = new \PDO(
+            $this->_pdo = new \PDO(
                 DBDRIVER .
                     ":host=" . DBHOST .
                     ";port=" . DBPORT .
@@ -25,26 +43,32 @@ abstract class Sql
         }
 
         $getCalledClassExploded = explode("\\", strtolower(get_called_class())); // App\Model\User
-        $this->table = DBPREFIXE . end($getCalledClassExploded);
+        $this->_table = DBPREFIXE . end($getCalledClassExploded);
     }
 
-
-    protected function databaseFindOne(array $whereClause, ?string $table = 'false')
+    /**
+     * Find a value in the database with where clause
+     *
+     * @param array       $whereClause An associative array of where clause
+     * @param string|null $table       An optional table name
+     *
+     * @return array|null Returns an associative array or null if no result
+     */
+    protected function databaseFindOne(array $whereClause, ?string $table = null): ?array
     {
         foreach ($whereClause as $key => $whereValue) {
             $where[] = $key . " = :" . $key;
         }
 
-        if ($table != 'false') {
+        if (isset($table)) {
             $table = DBPREFIXE . $table;
             $sql = "SELECT * FROM " . $table . " WHERE " . implode(" AND ", $where);
         } else {
-            $sql = "SELECT * FROM " . $this->table . " WHERE " . implode(" AND ", $where);
+            $sql = "SELECT * FROM " . $this->_table . " WHERE " . implode(" AND ", $where);
         }
 
-        $queryPrepared = $this->pdo->prepare($sql);
+        $queryPrepared = $this->_pdo->prepare($sql);
         if ($queryPrepared !== false) {
-            // die(print_r($whereClause));
             $success = $queryPrepared->execute($whereClause);
             if ($success) {
                 $res = $queryPrepared->fetch(\PDO::FETCH_ASSOC);
@@ -57,11 +81,16 @@ abstract class Sql
         return null;
     }
 
-    protected function databaseFindAll(string $sql, array $params)
-
+    protected function databaseFindAll(string $sql, array $params = [])
     {
+        if($params !== []){
 
-        $statement = $this->pdo->prepare($sql);
+            foreach ($params as $key => $whereValue) {
+                $where[] = $key . " = :" . $key;
+            }
+            $sql = $sql . " WHERE " . implode(" AND ", $where);
+        }
+        $statement = $this->_pdo->prepare($sql);
         if ($statement !== false) {
             $success = $statement->execute($params);
             if ($success) {
@@ -71,6 +100,15 @@ abstract class Sql
         return null;
     }
 
+    /**
+     * Set all values given in the array if they exist in the model
+     * 
+     * Attention : There is no error if the setter doesn't exist in the model
+     *
+     * @param array $data An array of data
+     * 
+     * @return void
+     */
     public function hydrate(array $data)
     {
         foreach ($data as $key => $value) {
@@ -83,22 +121,33 @@ abstract class Sql
 
 
     /**
-     * @param null $email
-     * @param null $result
+     * Update the status of a line in the database
+     * 
+     * @param null $result The status to set (1 or 0)
+     * @param null $email  The email to set
+     * 
+     * @return void
      */
-    public function updateStatus(?int $result, ?string $email): void
+    public function updateStatus(int $result, string $email): void
     {
-        $sql = "UPDATE " . $this->table . " SET " . "status = " . $result . " WHERE email=:email";
-        $queryPrepared = $this->pdo->prepare($sql);
+        $sql = "UPDATE " . $this->_table . " SET " . "status = " . $result . " WHERE email=:email";
+        $queryPrepared = $this->_pdo->prepare($sql);
         $queryPrepared->execute(["email" => $email]);
     }
 
+    /**
+     * Save the current object in the database
+     * 
+     * Insert if the id is null, update if not
+     *
+     * @return void
+     */
     public function save(): void
     {
         $columns = get_object_vars($this);
         $varToExclude = get_class_vars(get_class());
         $columns = array_diff_key($columns, $varToExclude);
-        if (empty($_POST['id'])) {
+        if (empty($_POST['id']) || is_null($_POST['id'])) {
             $sql = "INSERT INTO " . $this->table . " (" . implode(",", array_keys($columns)) . ") VALUES (:" . implode(",:", array_keys($columns)) . ")";
         } else {
             $update = [];
@@ -116,28 +165,34 @@ abstract class Sql
                 }
             }
 
-            $sql = "UPDATE " . $this->table . " SET " . implode(", ", $update) . " WHERE id = :id";
+            $sql = "UPDATE " . $this->_table . " SET " . implode(", ", $update) . " WHERE id = :id";
         }
-
-        $queryPrepared = $this->pdo->prepare($sql);
+        $queryPrepared = $this->_pdo->prepare($sql);
         if (is_null($columns['id'])) {
             $queryPrepared->execute($columns);
         } else {
             $queryPrepared->execute($updateValues);
         }
-
-        //Si ID null alors insert sinon update
     }
 
-
-
-    public function accessToken(?string $email, ?string $tokenToVerify, ?bool $updateStatus = true): void
+    /**
+     * Verify if there is a line in the database with the same email and the same token and update the status
+     *
+     * @param string    $email         The email
+     * @param string    $tokenToVerify The token
+     * @param bool|null $updateStatus  If the status should be updated or not (default : true)
+     * 
+     * @throws \Exception If the token is not valid
+     * 
+     * @return void
+     */
+    public function accessToken(string $email, string $tokenToVerify, ?bool $updateStatus = true): void
     {
         echo "<pre>";
         if (is_null($email)) {
             die("L'email ne correspond pas !");
         } else {
-            if (is_null($this->databaseFindOne(["email" => $email, "token" => $tokenToVerify]))) {
+            if (is_null($this->databaseFindOne(["email" => $email,"token" => $tokenToVerify]))) {
                 echo "Le token est invalide";
             } else {
                 // echo "l'authentification token à réussi";
@@ -148,7 +203,14 @@ abstract class Sql
         }
     }
 
-    public function findOneBy(array $whereClause): array
+    /**
+     * Find a line in the database with where clause
+     * 
+     * @param array $whereClause An associative array of where clause
+     * 
+     * @return array|null Returns an associative array or null if no result
+     */
+    public function findOneBy(array $whereClause): ?array
     {
         $columns = get_object_vars($this);
         $varToExclude = get_class_vars(get_class());
@@ -158,21 +220,42 @@ abstract class Sql
             $where[] = $key . "=:" . $key;
         }
 
-        $sql = "SELECT * FROM " . $this->table . " WHERE " . implode(",", $where);
+        $sql = "SELECT * FROM " . $this->_table . " WHERE " . implode(",", $where);
 
-        $queryPrepared = $this->pdo->prepare($sql);
-        $queryPrepared->execute($whereClause);
-
-        return $queryPrepared->fetch(\PDO::FETCH_ASSOC);
+        $queryPrepared = $this->_pdo->prepare($sql);
+        if ($queryPrepared !== false) {
+            $success = $queryPrepared->execute($whereClause);
+            if ($success) {
+                return $queryPrepared->fetch(\PDO::FETCH_ASSOC);
+            }
+        }
+        return null;
     }
-    protected function getAll(): array
+
+    /**
+     * Find all lines of a table in the database 
+     * 
+     * @return array|null Returns an associative array or null if no result
+     */
+    protected function getAll(): ?array
     {
-        $sql = "SELECT * FROM " . $this->table ;
-        $queryPrepared = $this->pdo->prepare($sql);
+
+        $sql = "SELECT * FROM " . $this->_table ;
+        $queryPrepared = $this->_pdo->prepare($sql);
         $queryPrepared->execute();
         return $queryPrepared->fetchAll(\PDO::FETCH_OBJ);
     }
 
+    /**
+     * Verify if there is an user in the database with the same email and verify if the password is correct
+     *
+     * @param array $params An associative array with the email
+     * 
+     * @throws \Exception If the user doesn't exist
+     * @throws \Exception If the password is not correct
+     * 
+     * @return void
+     */
     public function verifyUser(array $params): void
     {
         $userVerify = $this->findOneBy($params);
@@ -199,10 +282,24 @@ abstract class Sql
         };
     }
 
+    /**
+     * Delete a line in the database
+     *
+     * @param integer $id The id of the line to delete
+     * 
+     * @return void 
+     */
+    protected function delete(int $id): void
+    {
+        $sql = "DELETE FROM " . $this->_table . " WHERE id = :id";
+        $queryPrepared = $this->_pdo->prepare($sql);
+        $queryPrepared->execute(["id" => $id]);
+    }
+
     protected function databaseDeleteOne(string $sql, array $params)
 
     {
-        $statement = $this->pdo->prepare($sql);
+        $statement = $this->_pdo->prepare($sql);
         if ($statement !== false) {
             $success = $statement->execute($params);
             if ($success) {
@@ -211,4 +308,36 @@ abstract class Sql
         }
         return null;
     }
+
+    function selectQuery(string $sql, int $type)
+    {
+        $queryPrepared = $this->_pdo->prepare($sql);
+        $queryPrepared->execute();
+        return $queryPrepared->fetchAll($type);
+    }
+
+    function selectFetchAll(string $sql, int $type)
+    {
+        $queryPrepared = $this->_pdo->prepare($sql);
+        $queryPrepared->execute();
+        if ($type == 5) {
+            return (object) $queryPrepared->fetchAll($type);
+        } else {
+            return $queryPrepared->fetchAll($type);
+        }
+    }
+
+    function selectFetch(string $sql, int $type)
+    {
+        $queryPrepared = $this->_pdo->prepare($sql);
+        $queryPrepared->execute();
+        return $queryPrepared->fetch($type);
+    }
+
+    function upsertQuery(string $sql, array $data)
+    {
+        $queryPrepared= $this->_pdo->prepare($sql);
+        $queryPrepared->execute($data);
+    }
+
 }

@@ -1,20 +1,5 @@
 <main class="flex pageDashboard">
-    <section class="sidebar">
-        <nav class="sidebar-nav">
-            <a href="dashboard">
-                <img class="sidebar-image" src="https://images.unsplash.com/photo-1554469384-e58fac16e23a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxMTgwOTN8MHwxfHNlYXJjaHwzfHxidWlsZGluZ3xlbnwwfHx8fDE2NDUzODA4MTQ&ixlib=rb-1.2.1&q=80&w=1080" alt="Avatar">
-                <h2 class="sidebar-title">Nom Entreprise</h2>
-            </a>
-            <ul class="sidebar-list">
-                <li><a href="profile" class="sidebar-button"><i class="far fa-user-circle sidebar-button-picto"></i><span>Profil</span></a></li>
-                <li><a href="#" class="sidebar-button"><i class="far fa-edit sidebar-button-picto"></i><span>Thèmes</span></a></li>
-                <li><a href="#" class="sidebar-button"><i class="far fa-chart-bar sidebar-button-picto"></i><span>Statistiques</span></a></li>
-                <li><a href="/restaurants" class="sidebar-button--active"><i class="far fa-lemon sidebar-button-picto"></i><span>Restaurants</span></a></li>
-                <li> <a href="#" class="sidebar-button"><i class="far fa-list-alt sidebar-button-picto"></i><span>Utilisateurs</span></a></li>
-            </ul>
-        </nav>
-        <button id="navbarButton" class="sidebar-resizer"><i class="far fa-arrow-alt-circle-left"></i></button>
-    </section>
+<?php $this->includePartial("sidebar"); ?>
     <div id="pseudo-element"></div>
     <section class="flex flex-column secondPart">
         <section class="navbar">
@@ -34,21 +19,20 @@
                 </button>
             </article>
         </section>
-        <section style="padding-right: 2.5%;">
+        <section style="padding-right: 4%;">
 
             <div style="display: flex; width: 100%; justify-content: right">
-                <a href="/profile-restaurant" style="padding: 10px 0; width:200px; background-color : #0051EF; color: white; border: none; border-radius: 11px; font-size: 16px; margin-right: 100px; text-align: center; text-decoration: none;">Ajouter un restaurant</a>
+                <a href="/restaurant/create" style="padding: 10px 0; width:200px; background-color : #0051EF; color: white; border: none; border-radius: 11px; font-size: 16px; margin-right: 100px; text-align: center; text-decoration: none;">Ajouter un restaurant</a>
 
             </div>
-            <div style=" height: 100%; width: 100%; margin:auto; padding-right: 2.5%; margin-top: 100px ">
-                <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); grid-gap: 0 50px;">
+            <div style=" height: 100%; width: 100%; margin:auto; padding-right: 4%; margin-top: 100px ">
+                <div class="restaurants-list">
                     <?php foreach ($restaurant as $key => $value) : ?>
                         <form class="restaurant-card" method="POST" action="restaurant">
-                            <img src="../public/src/pizza.jpg" alt="graph" />
+                            <img src="../public/assets/img/pizza.jpg" alt="graph" />
                             <div class="bandeau">
                                 <p><?= $value["name"] ?></p>
-                                <!-- <button><a href="/restaurant?id=<?= $value["id"] ?>" style="text-decoration:none">Modifier</a></button> -->
-                                <input type="hidden" name="id_restaurant" value="<?= $value["id"] ?>"></input>
+                                <input type="hidden" name="id" value="<?=  $value["id"]?>"></input>
                                 <button type="submit">Modifier</button>
                             </div>
                         </form>

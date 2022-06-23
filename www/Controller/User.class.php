@@ -7,11 +7,27 @@ use App\Core\View;
 use App\Core\OAuth;
 use App\Model\User as UserModel;
 
+/**
+ * User Controller
+ * 
+ * @category Controller
+ * 
+ * @package App\Controller
+ * 
+ * @access public
+ * 
+ * @author PACMS <pa.cms.test@gmail.com>
+ */
 class User
 {
     public function login()
     {
         $user = new UserModel();
+
+        // if (!empty($_POST)) {
+        //     Verificator::checkForm($user->getLoginForm(), $_POST + $_FILES);
+        // }
+
 
         // $user->setEmail("vivian.fr@free.fr");
         // $user->setPassword("Test1234");
@@ -108,7 +124,7 @@ class User
                 $_POST + $_FILES
             );
         }
-        
+ 
         $user->setEmail($_POST['email']);
         $user->setPassword($_POST['password']);
 
@@ -233,7 +249,8 @@ class User
 
     public function logout()
     {
-        echo "Se déconnecter";
+        session_destroy();
+        header('Location: /login');
     }
 
 }

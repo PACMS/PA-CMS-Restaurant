@@ -15,14 +15,15 @@ class Carte
             $carte = new CarteModel();
             $restaurantModel = new RestaurantModel();
             session_start();
+            if (empty($_SESSION["id_restaurant"])) {
+                header('Location: /restaurants');
+            }            
             $restaurant = $restaurantModel->getOneRestaurant("restaurant", $_SESSION["id_restaurant"]);
             $allCartes = $carte->getAllCartes();
             $view = new View("cartes", "back");
             $view->assign('cartes', $allCartes);
             $view->assign('restaurant', $restaurant);
-            if (empty($_SESSION["id_restaurant"])) {
-                header('Location: /restaurants');
-            }
+            
         } elseif (!empty($_GET["id"])) {
             $this->showCarte($_GET["id"]);
         }
@@ -54,6 +55,7 @@ class Carte
         }
         $carte->hydrate($_POST);
         $carte->save();
+        $this->unselectAllCarte();
         header('Location: /cartes');
     }
 
@@ -62,5 +64,14 @@ class Carte
         $carte = new CarteModel();
         $carte->deleteCarte($_POST["id"]);
         header('Location: /cartes');
+    }
+
+    public function unselectAllCarte()
+    {
+        session_start();
+        $carte = new CarteModel();
+        $allCartes = $carte->getAllCartes();
+        dd($_SESSION["id_restaurant"]);
+
     }
 }

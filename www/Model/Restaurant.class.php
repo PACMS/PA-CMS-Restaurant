@@ -50,9 +50,9 @@ class Restaurant extends Sql
     /**
      * @return null
      */
-    public function setId(int $id): void
+    public function setId($id): void
     {
-        $this->id = $id; 
+        $this->id = intval($id); 
     }
 
     // getter and setter for name	
@@ -175,26 +175,21 @@ class Restaurant extends Sql
     public function getCompleteRestaurantForm()
     {
         return [
+            
             "config" => [
                 "method" => "POST",
-                "action" => "restaurant/create",
-                "class" => "formRestaurant",
+                "action" => "/restaurant/creation",
+                "class" => "restaurant-form",
                 "id" => "formRestaurant",
                 "submit" => "Ajouter le restaurant",
                 'captcha' => false,
             ],
             "inputs" => [
-                "id" => [
-                    "type" => "hidden",
-                    "id" => "id",
-                    "class" => "formRestaurant",
-                    "value" => 24,
-                ],
                 "name" => [
                     "placeholder" => "Nom du restaurant*",
                     "type" => "text",
                     "id" => "name",
-                    "class" => "formRestaurant",
+                    "class" => "restaurant-name",
                     "required" => true,
                     "min" => 2,
                     "max" => 100,
@@ -205,7 +200,8 @@ class Restaurant extends Sql
                     "placeholder" => "Votre adresse*",
                     "type" => "text",
                     "id" => "address",
-                    "class" => "formRestaurant",
+                    "label" => "Adresse du restaurant",
+                    "class" => "restaurant-inputs",
                     "required" => true,
                     "min" => 2,
                     "max" => 255,
@@ -216,7 +212,8 @@ class Restaurant extends Sql
                     "placeholder" => "Complément d'adresse",
                     "type" => "text",
                     "id" => "additional_address",
-                    "class" => "formRestaurant",
+                    "label" => "Complément d'adresse",
+                    "class" => "restaurant-inputs",
                     "max" => 255,
                     "value" => $this->additional_address,
                     "error" => "Le champs complément d'adresse contient une erreur"
@@ -225,7 +222,8 @@ class Restaurant extends Sql
                     "placeholder" => "Ville*",
                     "type" => "text",
                     "id" => "city",
-                    "class" => "formRestaurant",
+                    "label" => "Ville",
+                    "class" => "restaurant-inputs",
                     "required" => true,
                     "min" => 2,
                     "max" => 50,
@@ -236,7 +234,8 @@ class Restaurant extends Sql
                     "placeholder" => "Code postal*",
                     "type" => "number",
                     "id" => "zipcode",
-                    "class" => "formRestaurant",
+                    "label" => "Code Postal",
+                    "class" => "restaurant-inputs",
                     "required" => true,
                     "min" => 2,
                     "max" => 10,
@@ -247,12 +246,128 @@ class Restaurant extends Sql
                     "placeholder" => "Téléphone*",
                     "type" => "number",
                     "id" => "phone",
-                    "class" => "formRestaurant",
+                    "label" => "Téléphone",
+                    "class" => "restaurant-inputs",
                     "required" => true,
                     "min" => 2,
                     "max" => 15,
                     "value" => $this->phone,
                     "error" => "Votre numéro de téléphone est incorrect",
+                ],
+                // "captcha" => [
+                //     'type' => 'captcha',
+                //     'error' => 'Le captcha n\'a pas pu validé votre formulaire'
+                // ]
+            ]
+        ];
+    }
+    public function getCompleteUpdateRestaurantForm()
+    {
+        return [
+            "config" => [
+                "method" => "POST",
+                "action" => "/restaurant/creation",
+                "class" => "restaurant-form",
+                "id" => "restaurant-form",
+                "submit" => "Enregistrer",
+                'captcha' => false,
+            ],
+            "inputs" => [
+                "id" => [
+                    "type" => "hidden",
+                    "id" => "id",
+                    "class" => "formRestaurant",
+                    "value" => intval($this->id),
+                ],
+                "name" => [
+                    "placeholder" => "Nom du restaurant*",
+                    "type" => "text",
+                    "id" => "name",
+                    "class" => "restaurant-name",
+                    "required" => true,
+                    "min" => 2,
+                    "max" => 100,
+                    "value" => $this->name,
+                    "error" => "Le nom de votre restaurant n'est pas correct",
+                ],
+                "address" => [
+                    "placeholder" => "Votre adresse*",
+                    "type" => "text",
+                    "id" => "address",
+                    "class" => "restaurant-inputs",
+                    "required" => true,
+                    "min" => 2,
+                    "max" => 255,
+                    "value" => $this->address,
+                    "error" => "Le champs adresse contient une erreur",
+                ],
+                "additional_address" => [
+                    "placeholder" => "Complément d'adresse",
+                    "type" => "text",
+                    "id" => "additional_address",
+                    "class" => "restaurant-inputs",
+                    "max" => 255,
+                    "value" => $this->additional_address,
+                    "error" => "Le champs complément d'adresse contient une erreur"
+                ],
+                "city" => [
+                    "placeholder" => "Ville*",
+                    "type" => "text",
+                    "id" => "city",
+                    "class" => "restaurant-inputs",
+                    "required" => true,
+                    "min" => 2,
+                    "max" => 50,
+                    "value" => $this->city,
+                    "error" => "Le nom de votre ville n'est pas correct",
+                ],
+                "zipcode" => [
+                    "placeholder" => "Code postal*",
+                    "type" => "number",
+                    "id" => "zipcode",
+                    "class" => "restaurant-inputs",
+                    "required" => true,
+                    "min" => 2,
+                    "max" => 10,
+                    "value" => $this->zipcode,
+                    "error" => "Votre code postal est incorrect",
+                ],
+                "phone" => [
+                    "placeholder" => "Téléphone*",
+                    "type" => "number",
+                    "id" => "phone",
+                    "class" => "restaurant-inputs",
+                    "required" => true,
+                    "min" => 2,
+                    "max" => 15,
+                    "value" => $this->phone,
+                    "error" => "Votre numéro de téléphone est incorrect",
+                ],
+                // "captcha" => [
+                //     'type' => 'captcha',
+                //     'error' => 'Le captcha n\'a pas pu validé votre formulaire'
+                // ]
+            ]
+        ];
+    }
+
+
+    public function deleteRestaurant()
+    {
+        return [
+            "config" => [
+                "method" => "POST",
+                "action" => "/restaurant/delete",
+                "id" => "restaurant-delete",
+                "submit" => "Supprimer",
+                'captcha' => false,
+            ],
+            "inputs" => [
+                "id" => [
+                    "type" => "hidden",
+                    "id" => "id",
+                    "class" => "formRestaurant",
+                    "value" => $_SESSION["id_restaurant"],
                 ],
                 // "captcha" => [
                 //     'type' => 'captcha',

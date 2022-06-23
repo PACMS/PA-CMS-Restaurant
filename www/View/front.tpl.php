@@ -24,7 +24,7 @@ if (!isset($_SESSION)) {
 
 <body>
 
-    <?php require $this->view . ".view.php"; ?>
+    <?php require $this->_view . ".view.php"; ?>
 
 </body>
 

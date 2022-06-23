@@ -30,10 +30,6 @@
   controller: user
   action: resetPasswordAction
 
-/logout:
-  controller: user
-  action: logout
-
 /register:
   controller: user
   action: register
@@ -49,7 +45,7 @@
 /dashboard:
   controller: admin
   action: home
-  security: 'employee'
+  security: "employee"
 
 /sendmail:
   controller: mail
@@ -79,23 +75,43 @@
   controller: restaurant
   action: deleteRestaurant
 
-/restaurant/create:
+/restaurant/stock:
+  controller: stock
+  action: stock
+
+/restaurant/food/create:
+  controller: food
+  action: createFood
+
+/restaurant/food/delete:
+  controller: food
+  action: deleteFood
+
+/restaurant/creation:
   controller: restaurant
   action: createOneRestaurant
 
-/profile-restaurant:
+/restaurant/create:
   controller: restaurant
   action: updateRestaurant
 
-/restaurant:
+/restaurant/information:
   controller: restaurant
   action: getOneRestaurant
+
+/restaurant:
+  controller: restaurant
+  action: restaurantOptions
 
 /profile:
   controller: admin
   action: profile
-  security: 'employee'
+  security: "employee"
 
+/profile/update:
+  controller: admin
+  action: updateProfile
+  security: "employee"
 /cartes:
   controller: carte
   action: carte
@@ -144,21 +160,63 @@
   controller: meal
   action: deleteMeal
 
-
-#Route pour la reservation
+# Route pour la reservation
 /reservation:
   controller: reservation
   action: reservation
-  security: 'employee'
+  security: "employee"
+
+/reservationClient:
+  controller: reservation
+  action: index
+
+/addReservationClient:
+  controller: reservation
+  action: addReservationClient
+  security: "employee"
 
 /addReservation:
   controller: reservation
   action: addReservation
-  security: 'employee'
+  security: "employee"
+
+# Route pour la gestion des utilisateurs
+
+/users:
+  controller: admin
+  action: users
+  security: "admin"
+
+/user/update:
+  controller: admin
+  action: updateUser
+  security: "admin"
+
+/user/create:
+  controller: admin
+  action: createUser
+  security: "admin"
+
+/user/save:
+  controller: admin
+  action: saveUser
+  security: "admin"
+
+/user/delete:
+  controller: admin
+  action: deleteUser
+  security: "admin"
 
 ############################
+
+# Global
+
+/logout:
+  controller: user
+  action: logout
+  security: "user"
+
 /notFound:
   controller: user
   action: errorNotFound
-  security: 'employee'
-
+  security: "employee"

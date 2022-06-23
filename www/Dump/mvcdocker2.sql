@@ -2,10 +2,10 @@
 -- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
--- Host: database
--- Generation Time: May 24, 2022 at 08:25 PM
--- Server version: 5.7.38
--- PHP Version: 8.0.19
+-- Hôte : mysql
+-- Généré le : ven. 06 mai 2022 à 13:45
+-- Version du serveur : 5.7.36
+-- Version de PHP : 7.4.20
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -177,48 +177,41 @@ INSERT INTO `pacm_restaurant` (`id`, `name`, `address`, `additional_address`, `c
 -- Table structure for table `pacm_user`
 --
 
-CREATE TABLE `pacm_user` (
-  `id` int(11) NOT NULL,
-  `email` varchar(320) NOT NULL,
-  `password` varchar(255) NOT NULL,
-  `firstname` varchar(25) DEFAULT NULL,
-  `lastname` text,
-  `status` tinyint(4) DEFAULT '0',
-  `role` varchar(8) NOT NULL DEFAULT 'user',
-  `token` char(255) DEFAULT NULL,
-  `createdAt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `updatedAt` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+CREATE TABLE IF NOT EXISTS `pacm_reservation` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `date` date NOT NULL,
+  `hour` time NOT NULL,
+  `numTable` int(11) NOT NULL,
+  `numPerson` int(11) NOT NULL,
+  `phoneReserv` char(10) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
 
 --
--- Dumping data for table `pacm_user`
---
-
-INSERT INTO `pacm_user` (`id`, `email`, `password`, `firstname`, `lastname`, `status`, `role`, `token`, `createdAt`, `updatedAt`) VALUES
-(1, 'thibautsembeni@gmail.com', '$2y$10$kIlXzR4HynuevKPSv.1dOOS0oum.9xC8T80yriAohRW62.fqlHsri', 'Thibaut', 'SEMBENI', 1, 'admin', '0c3ea69fcefe8800f33dbd30d3c2bd2433791e6da606ac2cd402192f752d9d2fba01559bad3fff7b82002d41b06b7501ffac90c0ac97d6011f2fd3c88d67d6cce97b86f02edc2e688f01f3801d66f84167199f23d5f1258d5ac8be0cd0461253a9c138badf3ae98c127ea1a56438f2dcae63937cbb4686e8345752beb1bdc59', '2022-05-06 18:17:14', '2022-05-06 18:18:27'),
-(2, 'thibautsembeni+test@gmail.com', '$2y$10$dPUG5Vz./nBW5VzwcsDEvu8y/QiwwN2e66o/T57HZtCd7WUWzy3k.', 'Thibaut', 'SEMBENI', NULL, 'user', NULL, '2022-05-18 09:23:32', NULL);
-
---
--- Indexes for dumped tables
---
-
---
--- Indexes for table `pacm_carte`
---
-ALTER TABLE `pacm_carte`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `pacm_categorie`
+-- Structure de la table `pacm_user`
 --
 ALTER TABLE `pacm_categorie`
   ADD PRIMARY KEY (`id`);
 
---
--- Indexes for table `pacm_meal`
---
-ALTER TABLE `pacm_meal`
-  ADD PRIMARY KEY (`id`);
+CREATE TABLE IF NOT EXISTS `pacm_user` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `email` varchar(320) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `firstname` varchar(25) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `lastname` mediumtext COLLATE utf8mb4_unicode_ci,
+  `status` tinyint(4) DEFAULT '0',
+  `role` varchar(8) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'user',
+  `token` char(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `createdAt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updatedAt` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+COMMIT;
 
 --
 -- Indexes for table `pacm_reservation`
@@ -227,7 +220,7 @@ ALTER TABLE `pacm_reservation`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `pacm_restaurant`
+-- Déchargement des données de la table `pacm_user`
 --
 ALTER TABLE `pacm_restaurant`
   ADD PRIMARY KEY (`id`);
@@ -242,6 +235,25 @@ ALTER TABLE `pacm_user`
 -- AUTO_INCREMENT for dumped tables
 --
 
+INSERT INTO `pacm_reservation` (`id`, `name`, `date`, `hour`, `numTable`, `numPerson`, `phoneReserv`, `created_at`, `updated_at`) VALUES
+  (1, 'test', '1999-02-10', '10:10:00', 45, 5, '0780808080', '2022-04-18 18:06:11', '2022-04-18 18:06:11'),
+  (2, 'test2', '2022-01-10', '10:10:00', 100, 2, '0780808080', '2022-04-18 21:50:06', '2022-04-18 21:50:06'),
+  (6, 'testlength', '2022-04-20', '10:45:00', 10, 10, '0780808080', '2022-04-21 20:35:20', '2022-04-21 20:35:20'),
+  (7, 'testlength', '2022-04-20', '10:45:00', 10, 10, '0780808080', '2022-04-21 20:35:25', '2022-04-21 20:35:25'),
+  (8, 'testlength', '2022-04-20', '10:45:00', 10, 10, '0780808080', '2022-04-21 20:35:26', '2022-04-21 20:35:26'),
+  (9, 'testlength', '2022-04-20', '10:45:00', 10, 10, '0780808080', '2022-04-21 20:35:28', '2022-04-21 20:35:28'),
+  (10, 'testlength', '2022-04-20', '10:45:00', 10, 10, '0780808080', '2022-04-21 20:35:29', '2022-04-21 20:35:29'),
+  (11, 'testlength', '2022-04-20', '10:45:00', 10, 10, '0780808080', '2022-04-21 20:35:31', '2022-04-21 20:35:31'),
+  (12, 'testlength', '2022-04-20', '10:45:00', 10, 10, '0780808080', '2022-04-21 20:35:32', '2022-04-21 20:35:32'),
+  (13, 'testlength', '2022-04-20', '10:45:00', 10, 10, '0780808080', '2022-04-21 20:35:35', '2022-04-21 20:35:35'),
+  (14, 'testlength', '2022-04-20', '10:45:00', 10, 10, '0780808080', '2022-04-21 20:35:37', '2022-04-21 20:35:37'),
+  (15, 'testlength', '2022-04-20', '10:45:00', 10, 10, '0780808080', '2022-04-21 20:35:38', '2022-04-21 20:35:38'),
+  (16, 'testlength', '2022-04-20', '10:45:00', 10, 10, '0780808080', '2022-04-21 20:35:39', '2022-04-21 20:35:39'),
+  (17, 'testlength', '2022-04-20', '10:45:00', 10, 10, '0780808080', '2022-04-21 20:35:40', '2022-04-21 20:35:40'),
+  (18, 'testlength', '2022-04-20', '10:45:00', 10, 10, '0780808080', '2022-04-21 20:35:41', '2022-04-21 20:35:41'),
+  (19, 'testlength', '2022-04-20', '10:45:00', 10, 10, '0780808080', '2022-04-21 20:35:42', '2022-04-21 20:35:42'),
+  (20, 'testlength', '2022-04-20', '10:45:00', 10, 10, '0780808080', '2022-04-21 20:35:43', '2022-04-21 20:35:43'),
+  (21, 'testlength', '2022-04-20', '10:45:00', 10, 10, '0780808080', '2022-04-21 20:35:48', '2022-04-21 20:35:48');
 --
 -- AUTO_INCREMENT for table `pacm_carte`
 --

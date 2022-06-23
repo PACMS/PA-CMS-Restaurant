@@ -20,6 +20,18 @@
 
 /* ---------------------------------- Pages --------------------------------- */
 
+<<<<<<< HEAD
+@import
+  "pages/alert",
+  "pages/profile",
+  "pages/products",
+  "pages/login",
+  "pages/reservation",
+  "pages/dashboard",
+  "pages/restaurants",
+  "pages/dashboard", 
+  "pages/register", "pages/forgetPassword", "pages/error404";
+=======
 @import "pages/profile",
 "pages/login",
 "pages/reservation",
@@ -32,6 +44,7 @@
 "pages/cartes",
 "pages/meals",
 "pages/carteDetails";
+>>>>>>> menus
 
 
 

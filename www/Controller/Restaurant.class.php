@@ -34,16 +34,15 @@ class Restaurant
             header('Location: /restaurants');
         }
         $restaurant = new RestaurantModel();
-        $id = $_POST["id_restaurant"];
+        $id = $_POST["id"];
         session_start();
         $_SESSION["id_restaurant"] = $id;
         $table = "restaurant";
         $oneRestaurant = $restaurant->getOneRestaurant($table, $id);
         $restaurant->hydrate($oneRestaurant);
-        $view = new View("restaurant");
+        $view = new View("restaurant-info");
         $view->assign('restaurant', $restaurant);
         $view->assign('oneRestaurant', $oneRestaurant);
-        
     }
 
     public function createOneRestaurant()
@@ -51,14 +50,14 @@ class Restaurant
         $restaurant = new RestaurantModel();
         $errors = null;
         // if (!empty($_POST)) {
-            // $errors = Verificator::checkForm($restaurant->getCompleteRegisterForm(), $_POST + $_FILES);
-            
-            // if (!$errors) {
-        
+        // $errors = Verificator::checkForm($restaurant->getCompleteRegisterForm(), $_POST + $_FILES);
 
-                $restaurant->hydrate($_POST);
-                $restaurant->save();
-            // }
+        // if (!$errors) {
+
+        $restaurant->hydrate($_POST);
+        // $restaurant->setId(null);
+        $restaurant->save();
+        // }
         // }
         header('Location: /restaurants');
     }
@@ -68,10 +67,30 @@ class Restaurant
         $restaurant = new RestaurantModel();
         $errors = null;
 
-       
 
-        $view = new View("profile-restaurant");
+
+        $view = new View("create-restaurant");
         $view->assign('restaurant', $restaurant);
         $view->assign("errors", $errors);
+    }
+
+    public function restaurantOptions()
+    {
+
+        $restaurant = new RestaurantModel();
+        $table = "restaurant";
+        $id = $_POST["id"];
+        $_SESSION["id_restaurant"] = $id;
+        $oneRestaurant = $restaurant->getOneRestaurant($table, $id);
+        $restaurant->hydrate($oneRestaurant);
+        $view = new View("restaurant");
+        $view->assign('restaurant', $restaurant);
+        $view->assign('oneRestaurant', $oneRestaurant);
+    }
+
+    public function stock()
+    {
+        var_dump("SESSION", $_SESSION);
+        // $view = new View("stock");
     }
 }
