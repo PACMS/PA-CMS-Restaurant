@@ -176,3 +176,7 @@
   action: errorNotFound
   security: 'employee'
 
+/sitemap.xml:
+  controller: globalController
+  action: sitemap
+
