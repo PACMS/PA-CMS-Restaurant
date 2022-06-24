@@ -16,7 +16,7 @@ class Restaurant
         session_start();
         $restaurant = new RestaurantModel();
         // utiliser la fonction getAllRestaurant() de RestaurantModel
-        $allRestaurants = $restaurant->getAllRestaurants();
+        $allRestaurants = $restaurant->getAllRestaurants(['user_id' => $_SESSION["user"]["id"]]);
         $restaurantsIds = [];
         foreach ($allRestaurants as $restau) {
             array_push($restaurantsIds, $restau["id"]);
@@ -60,12 +60,11 @@ class Restaurant
     {
         $restaurant = new RestaurantModel();
         $errors = null;
-
-        if (!empty($_POST)) {
+        
+        session_start();
+        if (!empty($_POST) && $_POST["user_id"] === $_SESSION["user"]["id"]) {
             $errors = Verificator::checkForm($restaurant->getCompleteRestaurantForm(), $_POST + $_FILES);
-
             if (!$errors) {
-
                 $restaurant->hydrate($_POST);
                 // $restaurant->setId(null);
                 $restaurant->save();
@@ -76,6 +75,7 @@ class Restaurant
                 return header('Location: /restaurants');
             }
         }
+        
         return header('Location: /restaurant/create');
     }
 
