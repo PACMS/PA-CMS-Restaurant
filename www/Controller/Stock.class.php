@@ -11,10 +11,8 @@ class Stock
 {
     public function stock()
     {
-        // $id = $_SESSION["restaurant"]["id"];
         session_start();
-        if (!empty($_POST["id"] && !in_array($_POST["id"], $_SESSION["restaurantsIds"]))) {
-
+        if (!$_SESSION["restaurant"] || !$_SESSION["restaurant"]["id"]) {
             return header("Location: /restaurants");
         }
         $stock = new StockModel();

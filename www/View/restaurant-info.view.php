@@ -43,7 +43,10 @@ endif;
                 </button>
             </article>
         </section>
-        <?php $this->includePartial("form", $restaurant->deleteRestaurant()); ?>
+        
+        <div id="restaurant-delete">
+            <a href="/restaurant/delete" id="delete">Supprimer</a>
+        </div>
         <?php $this->includePartial("form", $restaurant->getCompleteUpdateRestaurantForm()); ?>
     </section>
 </main>
@@ -60,7 +63,7 @@ endif;
     form.appendChild(buttonsDiv);
     // move sumbit to buttonsDiv
     const deleteForm = document.getElementById("restaurant-delete");
-    const deleteButton = deleteForm.querySelector("input[type='submit']");
+    const deleteButton = deleteForm.querySelector("#delete");
     deleteButton.setAttribute("class", "cta-button --cta-button-delete");
     buttonsDiv.appendChild(deleteForm);
     buttonsDiv.appendChild(submit);

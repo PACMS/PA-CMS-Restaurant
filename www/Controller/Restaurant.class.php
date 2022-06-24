@@ -9,6 +9,8 @@ use App\Model\Stock as StockModel;
 
 class Restaurant
 {
+
+    // Récuperer tout les restaurants sur la page /restaurants
     public function restaurant()
     {
         session_start();
@@ -16,8 +18,7 @@ class Restaurant
         // utiliser la fonction getAllRestaurant() de RestaurantModel
         $allRestaurants = $restaurant->getAllRestaurants();
         $restaurantsIds = [];
-        foreach($allRestaurants as $restau)
-        {
+        foreach ($allRestaurants as $restau) {
             array_push($restaurantsIds, $restau["id"]);
         }
         $_SESSION["restaurantsIds"] = $restaurantsIds;
@@ -25,10 +26,11 @@ class Restaurant
         $view->assign('restaurant', $allRestaurants);
     }
 
+    // Supprimer un restaurant depuis la page /restaurant/information
     public function deleteRestaurant()
     {
         session_start();
-        if(!$_POST || !$_POST["id"] || $_SESSION["restaurant"] || $_SESSION["restaurant"]["id"] || $_POST["id"] !== $_SESSION["restaurant"]["id"]){
+        if (!$_SESSION["restaurant"] || !$_SESSION["restaurant"]["id"]) {
             header('Location: /restaurants');
         }
         $restaurant = new RestaurantModel();
@@ -37,20 +39,23 @@ class Restaurant
         header('Location: /restaurants');
     }
 
+    // Formulaire update restaurant /restaurant/information
     public function getOneRestaurant()
     {
+        session_start();
         $restaurant = new RestaurantModel();
-        $id = $_POST["id"];
-        $_SESSION["restaurant"]["id"] = $id;
+        // $id = $_POST["id"];
+        // $_SESSION["restaurant"]["id"] = $id;
 
         $table = "restaurant";
-        $oneRestaurant = $restaurant->getOneRestaurant($table, $id);
+        $oneRestaurant = $restaurant->getOneRestaurant($table, $_SESSION["restaurant"]["id"]);
         $restaurant->hydrate($oneRestaurant);
         $view = new View("restaurant-info");
         $view->assign('restaurant', $restaurant);
         $view->assign('oneRestaurant', $oneRestaurant);
     }
 
+    // Creation du restaurant
     public function createOneRestaurant()
     {
         $restaurant = new RestaurantModel();
@@ -68,31 +73,32 @@ class Restaurant
                 $stock = new StockModel;
                 $stock->hydrate(['restaurantId' => $restaurantId]);
                 $stock->save();
+                return header('Location: /restaurants');
             }
         }
-        header('Location: /restaurants');
+        return header('Location: /restaurant/create');
     }
 
+    // Validation update restaurant 
     public function updateRestaurant()
     {
         session_start();
         $restaurant = new RestaurantModel();
         $errors = null;
-
         if (!empty($_POST) && $_POST["id"] === $_SESSION["restaurant"]["id"]) {
             $errors = Verificator::checkForm($restaurant->getCompleteUpdateRestaurantForm(), $_POST + $_FILES);
-
             if (!$errors) {
-
                 $restaurant->hydrate($_POST);
-                // $restaurant->setId(null);
                 $restaurant->save();
+                
+                return header('Location: /restaurants');
             }
         }
-        header('Location: /restaurants');
+        return header('Location: /restaurant/information');
     }
 
-    public function updateRestaurantForm()
+    // Formulaire de creation de restaurant /restaurant/create
+    public function createRestaurantForm()
     {
         $restaurant = new RestaurantModel();
         $errors = null;
@@ -101,10 +107,11 @@ class Restaurant
         $view->assign("errors", $errors);
     }
 
+    // Page avec les options pour un restaurant /restaurant
     public function restaurantOptions()
     {
         session_start();
-        if(!in_array( $_POST["id"], $_SESSION["restaurantsIds"])){
+        if (!in_array($_POST["id"], $_SESSION["restaurantsIds"])) {
             return header('Location: /restaurants');
         }
         $id = $_POST["id"];
@@ -118,9 +125,4 @@ class Restaurant
         $view->assign('oneRestaurant', $oneRestaurant);
     }
 
-    public function stock()
-    {
-        var_dump("SESSION", $_SESSION);
-        // $view = new View("stock");
-    }
 }

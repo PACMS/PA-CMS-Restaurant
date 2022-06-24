@@ -97,7 +97,7 @@
 
 /restaurant/create:
   controller: restaurant
-  action: updateRestaurantForm
+  action: createRestaurantForm
 
 /restaurant/information:
   controller: restaurant
