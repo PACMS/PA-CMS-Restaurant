@@ -47,10 +47,10 @@
             <div style=" height: 100%; width: 100%; margin:auto; padding-right: 4%; margin-top: 100px ">
                 <!-- <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); grid-gap: 0 50px;"> -->
                 <?php foreach ($allFoods as $key => $value) : ?>
-                    <div class="flex align-item-center" id="deleteFood" style="gap: 10px">
+                    <div class="flex align-item-center"  style="gap: 10px">
 
                         <p><?= $value["quantity"] . " " . $value["name"] ?></p>
-                        <button food-id="<?= $value["id"] ?>" >Supprimer</button>
+                        <button id="deleteFood" food-id="<?= $value["id"] ?>" >Supprimer</button>
                     </div>
                 <?php endforeach; ?>
                 <!-- </div> -->
@@ -61,12 +61,13 @@
 </main>
 
 <script defer>
-    $("#deleteFood").click(function(e) {
-        $.post("/restaurant/food/delete", {
-            id: e.target.getAttribute("food-id")
-        }, function() {
-            location.href = '/restaurant/stock';
+   $('div#deleteFood').click(function(e) {
+        $.post( "/restaurant/food/delete", { id: e.currentTarget.getAttribute("food-id") } 
+        ).done(function( data ) {
+            console.log(data);
+            location.reload();
         });
+        
     });
 
     $("div.modal > form").append("<p class='close'>close</p>");

@@ -34,8 +34,8 @@ class Restaurant
             header('Location: /restaurants');
         }
         $restaurant = new RestaurantModel();
-        $table = "restaurant";
-        $restaurant->databaseDeleteOneRestaurant($table, $_SESSION["restaurant"]["id"]);
+        $restaurant->databaseDeleteOneRestaurant(["id" => $_SESSION["restaurant"]["id"]]);
+        $_SESSION["restaurant"]["id"] = null;
         header('Location: /restaurants');
     }
 
@@ -115,7 +115,7 @@ class Restaurant
             return header('Location: /restaurants');
         }
         $id = $_POST["id"];
-        $_SESSION["restaurant"]["id"] = $id;
+        $_SESSION["restaurant"]["id"] = intval($id);
         $restaurant = new RestaurantModel();
         $table = "restaurant";
         $oneRestaurant = $restaurant->getOneRestaurant($table, $id);

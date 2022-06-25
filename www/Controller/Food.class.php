@@ -14,15 +14,16 @@ class Food
         session_start();
        $food = new FoodModel();
        $food->hydrate($_POST);
+       
        $food->save();
        header('Location: /restaurant/stock'); 
     }
 
     public function deleteFood()
     {
+        session_start();
         $food = new FoodModel();
-        $table = "food";
-        $id = $_POST['id'];
-        $food->databaseDeleteOneFood($table, $id);
+        $id = intval($_POST['id']);
+        $food->deleteFood($id);
     }
 }

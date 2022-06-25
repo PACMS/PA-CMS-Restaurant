@@ -129,3 +129,108 @@ COMMIT;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+
+CREATE TABLE `pacm_stock` (
+  `id` int(11) NOT NULL,
+  `restaurantId` int(11) NOT NULL,
+  `createdAt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `updatedAt` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+
+--
+-- Index pour les tables déchargées
+--
+
+--
+-- Index pour la table `pacm_stock`
+--
+ALTER TABLE `pacm_stock`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- AUTO_INCREMENT pour les tables déchargées
+--
+
+--
+-- AUTO_INCREMENT pour la table `pacm_stock`
+--
+ALTER TABLE `pacm_stock`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+
+CREATE TABLE `pacm_restaurant` (
+  `id` int(11) NOT NULL,
+  `name` varchar(50) NOT NULL,
+  `address` varchar(50) NOT NULL,
+  `additional_address` varchar(100) DEFAULT NULL,
+  `city` varchar(50) NOT NULL,
+  `zipcode` int(50) DEFAULT NULL,
+  `user_id` varchar(50) DEFAULT NOT NULL,
+  `phone` int(50) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Index pour les tables déchargées
+--
+
+--
+-- Index pour la table `pacm_restaurant`
+--
+ALTER TABLE `pacm_restaurant`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- AUTO_INCREMENT pour les tables déchargées
+--
+
+--
+-- AUTO_INCREMENT pour la table `pacm_restaurant`
+--
+ALTER TABLE `pacm_restaurant`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+
+CREATE TABLE `pacm_food` (
+  `id` int(11) NOT NULL,
+  `name` varchar(50) NOT NULL,
+  `nature` varchar(50) NOT NULL,
+  `quantity` int(10) DEFAULT NULL,
+  `stockId` int(10) NOT NULL,
+  `createdAt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `updatedAt` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+
+--
+-- Index pour les tables déchargées
+--
+
+--
+-- Index pour la table `pacm_food`
+--
+ALTER TABLE `pacm_food`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- AUTO_INCREMENT pour les tables déchargées
+--
+
+--
+-- AUTO_INCREMENT pour la table `pacm_food`
+--
+ALTER TABLE `pacm_food`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

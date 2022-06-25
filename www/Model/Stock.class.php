@@ -60,7 +60,6 @@ class Stock extends Sql
     public function getAllStocks(array $params)
     {
         $stocks = parent::databaseFindAll("SELECT * FROM " . DBPREFIXE . "stock", $params);
-        var_dump($stocks);
         return $stocks;
     }
 
@@ -71,9 +70,18 @@ class Stock extends Sql
     //     return $restaurant;
     // }
 
+    public function deleteOneStock($params)
+    {
+        $deletedStock = parent::databaseDeleteOne("DELETE FROM " . DBPREFIXE . "stock" . " WHERE restaurantId = :restaurantId", $params);
+        return $deletedStock;
+    }
+
+
     public function getOneStock(string $table, array $params)
     {
         $stock = parent::databaseFindOne($params, $table);
         return $stock;
     }
+
+    
 }

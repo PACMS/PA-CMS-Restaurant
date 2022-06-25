@@ -122,9 +122,9 @@ class Food extends Sql
         return $foods;
     }
 
-    public function databaseDeleteOneFood(string $table, int $id)
+    public function deleteFood(int $id)
     {
-        $food = parent::databaseDeleteOne("DELETE FROM " . DBPREFIXE . $table . " WHERE id = :id", ['id' => $id]);
+        $food = parent::databaseDeleteOne("DELETE FROM " . DBPREFIXE . "food" . " WHERE id = :id " , ['id' => $id]);
         return $food;
     }
 

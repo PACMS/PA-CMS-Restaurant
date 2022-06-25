@@ -180,9 +180,9 @@ class Restaurant extends Sql
         return $restaurants;
     }
 
-    public function databaseDeleteOneRestaurant(string $table, int $id)
+    public function databaseDeleteOneRestaurant(array $params)
     {
-        $restaurant = parent::databaseDeleteOne("DELETE FROM " . DBPREFIXE . $table . " WHERE id = :id", ['id' => $id]);
+        $restaurant = parent::databaseDeleteOne("DELETE FROM " . DBPREFIXE . "restaurant" . " WHERE id = :id", $params);
         return $restaurant;
     }
 

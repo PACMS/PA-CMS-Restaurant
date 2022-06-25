@@ -17,16 +17,10 @@ class Stock
         }
         $stock = new StockModel();
         $theStock = $stock->getOneStock('stock', ['restaurantId' => $_SESSION["restaurant"]["id"]]);
-        if (!$theStock) {
-            $stock->hydrate(['restaurantId' => $_SESSION["restaurant"]["id"]]);
-            $_SESSION["restaurant"]["id"] = null;
-            $stock->save();
-        }
         $food = new FoodModel();
         $stockId = $theStock["id"];
-        $_SESSION["stock"]["id"] = $stockId;
+        $_SESSION["stock"]["id"] = intval($stockId);
         $allFoods = $food->getAllFoods(['stockId' => $stockId]);
-
         $view = new View("stock");
         $view->assign('stock', $stock);
         $view->assign('food', $food);
