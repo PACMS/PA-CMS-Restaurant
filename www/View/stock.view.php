@@ -61,7 +61,7 @@
 </main>
 
 <script defer>
-   $('div#deleteFood').click(function(e) {
+   $('button#deleteFood').click(function(e) {
         $.post( "/restaurant/food/delete", { id: e.currentTarget.getAttribute("food-id") } 
         ).done(function( data ) {
             console.log(data);
