@@ -87,6 +87,14 @@
   controller: food
   action: deleteFood
 
+/restaurant/food:
+  controller: food
+  action: getOneFood
+
+/restaurant/food/update:
+  controller: food
+  action: updateFood
+
 /restaurant/creation:
   controller: restaurant
   action: createOneRestaurant

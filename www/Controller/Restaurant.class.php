@@ -85,12 +85,11 @@ class Restaurant
         session_start();
         $restaurant = new RestaurantModel();
         $errors = null;
-        if (!empty($_POST) && $_POST["id"] === $_SESSION["restaurant"]["id"]) {
+        if (!empty($_POST) && $_POST["id"] == $_SESSION["restaurant"]["id"]) {
             $errors = Verificator::checkForm($restaurant->getCompleteUpdateRestaurantForm(), $_POST + $_FILES);
             if (!$errors) {
                 $restaurant->hydrate($_POST);
                 $restaurant->save();
-                
                 return header('Location: /restaurants');
             }
         }
@@ -119,6 +118,7 @@ class Restaurant
         $restaurant = new RestaurantModel();
         $table = "restaurant";
         $oneRestaurant = $restaurant->getOneRestaurant($table, $id);
+        $_SESSION["restaurant"]["name"] = $oneRestaurant["name"];
         $restaurant->hydrate($oneRestaurant);
         $view = new View("restaurant");
         $view->assign('restaurant', $restaurant);

@@ -9,7 +9,6 @@ class Verificator extends Sql
     public static function checkForm($config, $data): array
     {
         $errors = [];
-
         if (count($config["inputs"]) != count($_POST + $_FILES)) {
             die("Tentative de hack");
         }
