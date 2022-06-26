@@ -99,6 +99,14 @@
   controller: restaurant
   action: getOneRestaurant
 
+/restaurant/page:
+  controller: page
+  action: index
+
+/restaurant/pagecreate:
+  controller: page
+  action: createPage
+
 /restaurant:
   controller: restaurant
   action: restaurantOptions

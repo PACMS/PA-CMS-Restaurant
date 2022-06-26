@@ -46,7 +46,7 @@ endif;
         <section style="padding-right: 4%;">
             <div style=" height: 100%; width: 100%; margin:auto; padding-right: 4%; margin-top: 100px ">
                 <div class="restaurants-container">
-                    <form class="restaurant-card" method="POST" action="restaurant">
+                    <form class="restaurant-card" method="POST" action="restaurant/page">
                         <img src="../public/assets/img/restauOptions/mentions-legales.jpg" alt="mentions-legales" />
                         <div class="bandeau">
                             <p>Pages</p>
