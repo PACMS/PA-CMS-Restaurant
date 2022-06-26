@@ -1,6 +1,6 @@
 <section id="editCard">
     <?php $this->includePartial("form", $carteCtrl->getUpdateForm($carte)); ?>
-    <?php $this->includePartial("form", $carteCtrl->getDeleteForm($carte["id"])); ?>
+    <?php $this->includePartial("form", $carteCtrl->getDeleteForm($carte->getId())); ?>
 </section>
 
 <script defer>

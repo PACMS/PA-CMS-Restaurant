@@ -58,8 +58,6 @@ $controller = ucfirst(strtolower($routes[$uri]["controller"]));
 $action = strtolower($routes[$uri]["action"]);
 
 
-
-
 // $uri = /login
 // $Controller = User
 // $action = login

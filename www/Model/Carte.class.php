@@ -106,7 +106,7 @@ class Carte extends Sql
         return $carte;
     }
 
-    public function getUpdateForm(array $carte): array
+    public function getUpdateForm(Carte $carte): array
     {
         return [
             "config" => [
@@ -120,19 +120,19 @@ class Carte extends Sql
             "inputs" => [
                 "id" => [
                     "type" => "hidden",
-                    "value" => $carte["id"],
+                    "value" => $carte->getId(),
                     "error" => "Le nom de la carte n'est pas correct !"
                 ],
                 "name" => [
                     "label" => "Nom",
                     "type" => "text",
-                    "value" => $carte['name'],                   
+                    "value" => $carte->getName(),                   
                     "error" => "Le nom de la carte n'est pas correct !"
                 ],
                 "status" => [
                     "type" => "checkbox",
                     "additionnalDiv" => false,
-                    "checked" => $carte["status"],
+                    "checked" => $carte->getStatus(),
                     "required" => false,
                     "values" => [
                         "status" => "Status",
@@ -141,7 +141,7 @@ class Carte extends Sql
                 ],
                 "idRestaurant" => [
                     "type" => "hidden",
-                    "value" => $carte["id_restaurant"],
+                    "value" => $carte->getIdRestaurant(),
                     "error" => "Le nom de la carte n'est pas correct !"
                 ],
             ]
