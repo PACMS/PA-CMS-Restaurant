@@ -151,7 +151,7 @@ abstract class Sql
         }
     }
 
-    public function findOneBy(array $whereClause): array
+    public function findOneBy(array $whereClause): mixed
     {
         $columns = get_object_vars($this);
         $varToExclude = get_class_vars(get_class());
@@ -162,9 +162,10 @@ abstract class Sql
         }
 
         $sql = "SELECT * FROM " . $this->table . " WHERE " . implode(",", $where);
-
         $queryPrepared = $this->pdo->prepare($sql);
+
         $queryPrepared->execute($whereClause);
+        //dd($queryPrepared->fetch(\PDO::FETCH_ASSOC), $queryPrepared, $columns, $varToExclude, $sql,$whereClause);
 
         return $queryPrepared->fetch(\PDO::FETCH_ASSOC);
     }

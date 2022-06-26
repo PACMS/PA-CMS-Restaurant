@@ -55,23 +55,19 @@ class Restaurant
         $restaurant->hydrate($_POST);
 
         $dirname = $_SERVER["DOCUMENT_ROOT"] . '/View/pages/' . $restaurant->getName() . '/';
-        $url ='pages/' . $restaurant->getName() . '/index.php';
+        $url ='/pages/' . $restaurant->getName() . '/index';
         if (!is_dir($dirname))
         {
           mkdir($dirname, 0755, true) ;
-          $fp = fopen('View/' . $url, 'w+');
-         (new \App\Core\CreatePage)->createBasicPage($fp);
+          $fp = fopen('View/' . $url . '.view.php', 'w+');
+          (new \App\Core\CreatePage)->createBasicPageIndex($fp);
 
         }
-       // dd($restaurant->getName());
         $restaurant->save();
-        $id_restaurant = new \App\Model\Restaurant();
-        $id_restaurant->findOneBy(['name' => 'v']);
-        dd($id_restaurant);
-        $page->setName($restaurant->getName());
+        $pageRestaurant = $restaurant->findOneBy(['name' => $restaurant->getName()]);
         $page->setUrl($url);
         $page->setStatus(0);
-        $page->setIdRestaurant($restaurant->getId());
+        $page->setIdRestaurant($pageRestaurant['id']);
 
         $page->save();
 

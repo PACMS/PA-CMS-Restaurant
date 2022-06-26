@@ -7,7 +7,6 @@ use App\Core\Sql;
 class Page extends Sql
 {
     protected $id = null;
-    protected $name;
     protected $url ;
     protected $status ;
     protected $id_theme ;
@@ -29,21 +28,6 @@ class Page extends Sql
         $this->id = $id;
     }
 
-    /**
-     * @return null
-     */
-    public function getName()
-    {
-        return $this->name;
-    }
-
-    /**
-     * @param null $name
-     */
-    public function setName($name): void
-    {
-        $this->name = $name;
-    }
 
     /**
      * @return null
