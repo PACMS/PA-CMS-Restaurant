@@ -38,6 +38,10 @@ class Restaurant extends Sql
      * @var
      */
     protected $phone;
+     /**
+     * @var
+     */
+    protected $user_id;
 
     /**
      * @return null
@@ -153,6 +157,22 @@ class Restaurant extends Sql
         $this->phone = (new Cleaner($phone))->value;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getUser_id(): string
+    {
+        return $this->user_id;
+    }
+
+    /**
+     * @param mixed $user_id
+     */
+    public function setUser_id(string $user_id): void
+    {
+        $this->user_id = intval($user_id);
+    }
+
 
     public function getAllRestaurants()
     {
@@ -185,6 +205,11 @@ class Restaurant extends Sql
                 'captcha' => false,
             ],
             "inputs" => [
+                "user_id" => [
+                    "type" => "hidden",
+                    "id" => "user_id",
+                    "value" => $_SESSION['user']['id'],
+                ],
                 "name" => [
                     "placeholder" => "Nom du restaurant*",
                     "type" => "text",
@@ -253,7 +278,7 @@ class Restaurant extends Sql
                     "max" => 15,
                     "value" => $this->phone,
                     "error" => "Votre numéro de téléphone est incorrect",
-                ],
+                ]                
                 // "captcha" => [
                 //     'type' => 'captcha',
                 //     'error' => 'Le captcha n\'a pas pu validé votre formulaire'
@@ -343,6 +368,7 @@ class Restaurant extends Sql
                     "value" => $this->phone,
                     "error" => "Votre numéro de téléphone est incorrect",
                 ],
+
                 // "captcha" => [
                 //     'type' => 'captcha',
                 //     'error' => 'Le captcha n\'a pas pu validé votre formulaire'

@@ -26,6 +26,8 @@
         public function fetchAll();
 
         public function fetchClass(string $class): QueryBuilder;
+
+        public function execute(): void;
     }
 
     class MysqlBuilder implements QueryBuilder
@@ -160,6 +162,13 @@
         {
             $this->fetchClass = ucfirst($class);
             return $this;
+        }
+
+        public function execute(): void
+        {
+            $this->getQuery();
+            $pdo = Pdo::getInstance();
+            $pdo->execute($this->query->sql, $this->data);
         }
     }
 

@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Core\Verificator;
 use App\Core\View;
 use App\Model\Restaurant as RestaurantModel;
+use App\Core\MysqlBuilder;
 
 class Restaurant
 {
@@ -35,7 +36,6 @@ class Restaurant
         }
         $restaurant = new RestaurantModel();
         $id = $_POST["id"];
-        dd($id);
         session_start();
         $_SESSION["id_restaurant"] = $id;
         $table = "restaurant";
@@ -49,16 +49,15 @@ class Restaurant
     public function createOneRestaurant()
     {
         $restaurant = new RestaurantModel();
+        $builder = new MysqlBuilder();
         $errors = null;
         // if (!empty($_POST)) {
         // $errors = Verificator::checkForm($restaurant->getCompleteRegisterForm(), $_POST + $_FILES);
 
         // if (!$errors) {
-
-        $restaurant->hydrate($_POST);
-        // $restaurant->setId(null);
-        $restaurant->save();
-        // }
+        $request =  $builder->insert('restaurant', $_POST)
+            ->execute();            
+            // }
         // }
         header('Location: /restaurants');
     }
@@ -67,7 +66,6 @@ class Restaurant
     {
         $restaurant = new RestaurantModel();
         $errors = null;
-
 
 
         $view = new View("create-restaurant");
