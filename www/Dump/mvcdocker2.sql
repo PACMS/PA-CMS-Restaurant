@@ -185,7 +185,7 @@ CREATE TABLE `pacm_restaurant` (
   `additional_address` varchar(100) DEFAULT NULL,
   `city` varchar(50) NOT NULL,
   `zipcode` int(50) DEFAULT NULL,
-  `user_id` varchar(50) NOT NULL,
+  `user_id` int(50) NOT NULL,
   `phone` int(50) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 

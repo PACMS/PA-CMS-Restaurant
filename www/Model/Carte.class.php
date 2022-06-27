@@ -102,7 +102,7 @@ class Carte extends Sql
 
     public function deleteCarte(int $id)
     {
-        $carte = parent::databaseDeleteOne("DELETE FROM " . DBPREFIXE . "carte" . " WHERE id = :id", ['id' => $id]);
+        $carte = parent::databaseDeleteOne("DELETE FROM " . DBPREFIXE . "carte WHERE id = :id", ['id' => $id]);
         return $carte;
     }
 
