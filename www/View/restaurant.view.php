@@ -53,7 +53,7 @@ endif;
                             <p>Informations</p>
                             <button><a href="/restaurant/information">Modifier</a></button>
                         </div>
-                    </form>
+                    </div>
                     <form class="restaurant-card" method="POST" action="cartes">
                         <img src="../public/assets/img/restauOptions/cartes.jpg" alt="cartes" />
                         <div class="bandeau">
