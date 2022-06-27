@@ -147,6 +147,7 @@ class Meal extends Sql
                 $options[$value["id"]] = ($value["name"]);
             }
         }
+        $tableFood = ["1" => "tomates", "2" => "ketchup", "3" => "nutella"];
         return [
             "config" => [
                 "method" => "POST",
@@ -187,7 +188,15 @@ class Meal extends Sql
                     "default" => null,
                     "options" => $options,
                     "required" => true
-
+                ],
+                "ingredients" => [
+                    "type" => "select",
+                    "label" => "Ingrédients",
+                    "placeholder" => "Choisissez un/plusieurs ingrédient(s)",
+                    "default" => null,
+                    "multiple" => true,
+                    "options" => $tableFood,
+                    "required" => false
                 ],
             ]
         ];

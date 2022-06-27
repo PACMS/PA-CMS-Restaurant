@@ -29,7 +29,7 @@
             <?php if (!empty($input["label"])) : ?>
                 <p><?= $input["label"] ?></p>
             <?php endif ?>
-            <select name="<?= $name ?>" class="<?= $input["class"] ?? "" ?>" id="<?= $name ?? "" ?>" type="<?= $input["type"] ?? "text" ?>" <?= !empty($input["required"]) ? 'required="required"' : ""  ?>>
+            <select name="<?= $name ?>" class="<?= $input["class"] ?? "" ?>" id="<?= $name ?? "" ?>" type="<?= $input["type"] ?? "text" ?>" <?= !empty($input["required"]) ? 'required="required"' : ""  ?> <?php if ($input["multiple"] == true) : ?> multiple="multiple" <?php endif ?>>
                 <option disabled="disabled"><?= $input["placeholder"] ?></option>
                 <?php foreach ($input['options'] as $value => $label) : ?>
                     <option value="<?= $value ?>" <?php if ($input["default"] === $value) : ?> selected="selected" <?php endif ?>><?= $label ?></option>

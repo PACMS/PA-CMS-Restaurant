@@ -53,7 +53,6 @@ class Carte
     public function showCarte(string $id)
     {
         session_start();
-        dd($id, $_SESSION["restaurant"]["cartesIds"]);
         if (!in_array($id, $_SESSION["restaurant"]["cartesIds"])) {
             header('Location: /restaurant/cartes');
         }
