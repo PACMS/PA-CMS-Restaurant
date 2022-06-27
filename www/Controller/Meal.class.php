@@ -55,7 +55,7 @@ class Meal
             }
         }
 
-        header('Location: /carte/meals');
+        header('Location: /restaurant/carte/meals');
     }
 
     public function updateMeal()
@@ -64,7 +64,7 @@ class Meal
         $meal->hydrate($_POST) .
             $meal->save();
 
-        header('Location: /carte/meals');
+        header('Location: /restaurant/carte/meals');
     }
 
     public function deleteMeal()

@@ -111,7 +111,7 @@ class Carte extends Sql
         return [
             "config" => [
                 "method" => "POST",
-                "action" => "updateCarte",
+                "action" => "/restaurant/updateCarte",
                 "class" => "updateCarte",
                 "id" => "updateCarte",
                 "submit" => "Modifier",
@@ -153,7 +153,7 @@ class Carte extends Sql
         return [
             "config" => [
                 "method" => "POST",
-                "action" => "/updateCarte",
+                "action" => "/restaurant/updateCarte",
                 "class" => "createCarte",
                 "id" => "createCarte",
                 "submit" => "Créer",
@@ -189,7 +189,7 @@ class Carte extends Sql
         return [
             "config" => [
                 "method" => "POST",
-                "action" => "/carte/delete",
+                "action" => "/restaurant/carte/delete",
                 "submit" => "Supprimer",
                 'captcha' => false
             ],

@@ -150,7 +150,7 @@ class Meal extends Sql
         return [
             "config" => [
                 "method" => "POST",
-                "action" => "/carte/meals/addMeal",
+                "action" => "/restaurant/carte/meals/addMeal",
                 "class" => "flex",
                 "id" => "addMeal",
                 "submit" => "Ajouter",

@@ -1,6 +1,6 @@
 <header id="meals">
     <article>
-        <h1><a href="/cartes"><?= $restaurantName ?></a></h1>
+        <h1><a href="/restaurant/cartes"><?= $restaurantName ?></a></h1>
         <h3><?= $carteName ?></a></h3>
     </article>
     <article id="Add">
@@ -85,7 +85,7 @@
         $(e.target.parentElement.children[1]).hide();
 
          $(e.target.parentElement.children[0]).replaceWith(function() {
-            return $(`<form method="POST" action="/carte/meals/updateCategorie" class="flex justify-content-between">
+            return $(`<form method="POST" action="/restaurant/carte/meals/updateCategorie" class="flex justify-content-between">
             <input type="text" name="name" value="${valueToChange}" />
             <input type="hidden" name="id" value="${IdCategorie}" />
             <button type="submit">Modifier</button>
@@ -105,7 +105,7 @@
         $(e.target.parentElement.parentElement.parentElement).hide();
         console.log(name, price, description);
         $(e.target.parentElement.parentElement.parentElement).replaceWith(function() {
-            return $(`<form method="POST" action="/carte/meals/updateMeal">
+            return $(`<form method="POST" action="/restaurant/carte/meals/updateMeal">
             <label for="name">Nom du menu</label>
             <input type="text" name="name" value="${name}" />
             <label for="price">Prix</label>
@@ -121,12 +121,12 @@
     });
 
     $('span#deleteMeal').click(function(e) {
-        $.post( "/carte/meals/deleteMeal", { id: e.target.getAttribute("data-id-meal") } );
+        $.post( "/restaurant/carte/meals/deleteMeal", { id: e.target.getAttribute("data-id-meal") } );
         location.reload();
     });
 
     $('span#deleteCategorie').click(function(e) {
-        $.post( "/carte/meals/deleteCategorie", { id: e.target.getAttribute("data-id-categorie") } );
+        $.post( "/restaurant/carte/meals/deleteCategorie", { id: e.target.getAttribute("data-id-categorie") } );
         location.reload();
     });
 

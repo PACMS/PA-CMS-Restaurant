@@ -13,16 +13,12 @@ class Carte
 
     public function carte()
     {
-        
 
         if (empty($_GET)) {
-            $carte = new CarteModel();
-
-            $restaurantModel = new RestaurantModel();
             session_start();
             if (empty($_SESSION["restaurant"]["id"])) {
                 header('Location: /restaurants');
-            }            
+            }
             $builder = new MysqlBuilder();
             $restaurant = $builder
                 ->select('restaurant', ["*"])
@@ -31,12 +27,17 @@ class Carte
                 ->fetch();
             $allCartes = $builder
                 ->select('carte', ["*"])
+                ->where("id_restaurant", $_SESSION["restaurant"]["id"])
                 ->fetchClass("carte")
                 ->fetchAll();
+            $allCartesIds = [];
+            foreach ($allCartes as $value) {
+                array_push($allCartesIds, $value->getId());
+            }
+            $_SESSION["restaurant"]["cartesIds"]   = $allCartesIds;
             $view = new View("cartes", "back");
             $view->assign('cartes', $allCartes);
             $view->assign('restaurant', $restaurant);
-
         } elseif (!empty($_GET["id"])) {
             $this->showCarte($_GET["id"]);
         }
@@ -51,6 +52,11 @@ class Carte
 
     public function showCarte(string $id)
     {
+        session_start();
+        dd($id, $_SESSION["restaurant"]["cartesIds"]);
+        if (!in_array($id, $_SESSION["restaurant"]["cartesIds"])) {
+            header('Location: /restaurant/cartes');
+        }
         $carteCtrl = new CarteModel();
         $view = new View("carteDetails", "back");
         $builder = new MysqlBuilder();
@@ -72,11 +78,11 @@ class Carte
             $_POST["status"] = 1;
         }
         $carte->hydrate($_POST);
-        if($_POST["status"] === 1){
+        if ($_POST["status"] === 1) {
             $this->unselectAllCarte();
         }
         $carte->save();
-        header('Location: /cartes');
+        header('Location: /restaurant/cartes');
     }
 
     public function deleteCarte()
@@ -86,7 +92,7 @@ class Carte
             ->delete('carte', ["id" => $_POST["id"]])
             ->fetchClass("carte")
             ->fetch();
-        header('Location: /cartes');
+        header('Location: /restaurant/cartes');
     }
 
     public function unselectAllCarte()

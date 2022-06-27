@@ -88,7 +88,7 @@ class Categorie extends Sql
         return [
             "config" => [
                 "method" => "POST",
-                "action" => "/carte/meals/addCategorie",
+                "action" => "/restaurant/carte/meals/addCategorie",
                 "class" => "flex",
                 "id" => "addCategorie",
                 "submit" => "Ajouter",

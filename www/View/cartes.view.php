@@ -60,7 +60,7 @@
                 </article>
             <?php endforeach; ?>
             <article class="card create">  
-                <a href="/carte/create">
+                <a href="/restaurant/carte/create">
                     <main>
                         <svg id="add-card" width="90" height="90" viewBox="0 0 90 90" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <line x1="45" y1="26" x2="45" y2="63" stroke="#0051EF" stroke-width="8" stroke-linecap="round"/>
@@ -81,8 +81,8 @@
 
 <script>
     $("h3.linkMeal").click(function(e) {
-        $.post( "/carte/meals/sendId", { id: e.target.getAttribute("data-id-card") }, function() {
-            location.href = '/carte/meals';
+        $.post( "/restaurant/carte/meals/sendId", { id: e.target.getAttribute("data-id-card") }, function() {
+            location.href = '/restaurant/carte/meals';
         } );
     });
 </script>
