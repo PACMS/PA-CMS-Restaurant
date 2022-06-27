@@ -19,6 +19,10 @@ class Stock extends Sql
      */
     protected $restaurantId;
     
+    public function __construct()
+    {
+        parent::__construct();
+    }
 
     /**
      * @return null

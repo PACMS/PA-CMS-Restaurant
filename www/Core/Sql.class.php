@@ -21,6 +21,7 @@ abstract class Sql
 {
     private $_pdo;
     private $_table;
+    private static $instance = null;
 
     /**
      * Constructor
@@ -39,6 +40,7 @@ abstract class Sql
         $getCalledClassExploded = explode("\\", strtolower(get_called_class())); // App\Model\User
         $this->_table = DBPREFIXE . end($getCalledClassExploded);
     }
+    
 
     /**
      * Find a value in the database with where clause

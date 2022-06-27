@@ -10,6 +10,10 @@ use App\Core\Cleaner;
  */
 class Restaurant extends Sql
 {
+
+
+    
+
     /**
      * @var null
      */
@@ -42,6 +46,13 @@ class Restaurant extends Sql
      * @var
      */
     protected $user_id;
+
+    public function __construct()
+    {
+        parent::__construct();
+    }
+
+
 
     /**
      * @return null
