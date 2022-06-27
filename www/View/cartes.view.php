@@ -40,12 +40,12 @@
                 <article class="card">
                     <img src="../public/src/pizza.jpg" alt="graph" />
                         <footer>
-                            <h3 class="linkMeal" data-id-card="<?= $value["id"] ?>"><?= $value["name"] ?></h3>
-                            <h6><?= $restaurant["name"] ?></h6>
-                            <button id="state-card" class="<?= $value["status"] ? "active" : "" ?>"><?= $value["status"] ? "Activé" : "Désactivé" ?></button>
+                            <h3 class="linkMeal" data-id-card="<?= $value->getId() ?>"><?= $value->getName() ?></h3>
+                            <h6><?= $restaurant->getName() ?></h6>
+                            <button id="state-card" class="<?= $value->getStatus() ? "active" : "" ?>"><?= $value->getStatus() ? "Activé" : "Désactivé" ?></button>
                         </footer>
                     </a>
-                    <a href="?id=<?= $value["id"] ?>">
+                    <a href="?id=<?= $value->getId() ?>">
                         <svg id="edit-card" width="25" height="23" viewBox="0 0 25 23" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <g clip-path="url(#clip0_641_4396)">
                             <path d="M3.36548 16.668V19.7195H7.12968L18.2316 10.7196L14.4674 7.66814L3.36548 16.668ZM21.1426 8.35981C21.534 8.04246 21.534 7.52981 21.1426 7.21245L18.7937 5.30833C18.4022 4.99097 17.7698 4.99097 17.3784 5.30833L15.5414 6.79745L19.3056 9.84894L21.1426 8.35981Z" fill="#0051EF"/>
@@ -70,7 +70,7 @@
                     </main>
                     <footer>
                         <h3>Ajouter une carte</h3>
-                        <h6><?= $restaurant["name"] ?></h6>
+                        <h6><?= $restaurant->getName() ?></h6>
                         <button id="state-card" class="active">Créer</button>
                     </footer>
                 </a>

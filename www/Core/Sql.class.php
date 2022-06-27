@@ -330,11 +330,13 @@ abstract class Sql
     {
         $queryPrepared = $this->_pdo->prepare($sql);
         $queryPrepared->execute();
-        if ($type == 5) {
-            return (object) $queryPrepared->fetchAll($type);
-        } else {
-            return $queryPrepared->fetchAll($type);
-        }
+        $queryPrepared->setFetchMode(\PDO::FETCH_CLASS, 'CarteModel');
+        return $queryPrepared->fetch();
+        // if ($type == 5) {
+        //     return (object) $queryPrepared->fetchAll($type);
+        // } else {
+        //     return $queryPrepared->fetchAll($type);
+        // }
     }
 
     function selectFetch(string $sql, int $type)
