@@ -100,9 +100,9 @@ INSERT INTO `pacm_meal` (`id`, `name`, `price`, `description`, `created_at`, `up
 (20, 'Nom Du Chef', 18, 'lorem ipsum description, salades, tomates, oignons', '2022-05-20 16:37:25', '2022-05-24 20:24:55', 1, 11),
 (21, 'Nom Du Menu', 18, 'lorem ipsum description, salades, tomates, oignons', '2022-05-20 16:37:38', '2022-05-20 16:37:38', 1, 11),
 (24, 'Dessert', 78, 'oui\r\n', '2022-05-20 16:59:06', '2022-05-20 16:59:06', 2, 13),
-(25, 'T\'a Darrone La Tchoin', 1, '1€ symbolique tu connais', '2022-05-20 18:19:02', '2022-05-20 18:19:17', 3, 14),
-(27, 'T\'a Darrone La Tchoin', 1, '1€ symbolique tu connais', '2022-05-20 18:20:19', '2022-05-20 18:20:19', 3, 15),
-(28, 'T\'a Darrone La Tchoin', 1, '1€ symbolique tu connais', '2022-05-20 18:20:32', '2022-05-20 18:20:32', 3, 16),
+(25, 'Ta Darrone La Tchoin', 1, '1€ symbolique tu connais', '2022-05-20 18:19:02', '2022-05-20 18:19:17', 3, 14),
+(27, 'Ta Darrone La Tchoin', 1, '1€ symbolique tu connais', '2022-05-20 18:20:19', '2022-05-20 18:20:19', 3, 15),
+(28, 'Ta Darrone La Tchoin', 1, '1€ symbolique tu connais', '2022-05-20 18:20:32', '2022-05-20 18:20:32', 3, 16),
 (29, '67 Fromages', 4, 'pas mal', '2022-05-24 10:59:54', '2022-05-24 10:59:54', 4, 17);
 
 -- --------------------------------------------------------
@@ -150,26 +150,138 @@ INSERT INTO `pacm_reservation` (`id`, `name`, `date`, `hour`, `numTable`, `numPe
 -- --------------------------------------------------------
 
 --
--- Table structure for table `pacm_restaurant`
+-- Structure de la table `pacm_food`
+--
+
+CREATE TABLE `pacm_food` (
+  `id` int(11) NOT NULL,
+  `name` varchar(50) NOT NULL,
+  `nature` varchar(50) DEFAULT NULL,
+  `quantity` int(10) DEFAULT NULL,
+  `stockId` int(10) NOT NULL,
+  `createdAt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `updatedAt` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Déchargement des données de la table `pacm_food`
+--
+
+INSERT INTO `pacm_food` (`id`, `name`, `nature`, `quantity`, `stockId`, `createdAt`, `updatedAt`) VALUES
+(49, 'Tomates', 'LÃ©gumes', 123, 41, '2022-06-26 23:14:44', NULL),
+(51, 'Tomates', 'LÃ©gumes', 123456, 41, '2022-06-26 23:15:46', NULL),
+(56, 'test', 'test2', 222, 40, '2022-06-26 23:01:15', NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `pacm_restaurant`
 --
 
 CREATE TABLE `pacm_restaurant` (
   `id` int(11) NOT NULL,
-  `name` varchar(255) NOT NULL,
-  `address` varchar(255) NOT NULL,
-  `additional_address` varchar(255) NOT NULL,
-  `city` varchar(255) NOT NULL,
-  `zipcode` varchar(255) NOT NULL,
-  `user_id` int(11) NOT NULL,
-  `phone` varchar(255) NOT NULL
+  `name` varchar(50) NOT NULL,
+  `address` varchar(50) NOT NULL,
+  `additional_address` varchar(100) DEFAULT NULL,
+  `city` varchar(50) NOT NULL,
+  `zipcode` int(50) DEFAULT NULL,
+  `user_id` int(50) NOT NULL,
+  `phone` int(50) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `pacm_restaurant`
+-- Déchargement des données de la table `pacm_restaurant`
 --
 
 INSERT INTO `pacm_restaurant` (`id`, `name`, `address`, `additional_address`, `city`, `zipcode`, `user_id`, `phone`) VALUES
-(1, 'Test test', 'test', 'test', 'france', '02310', 1, '9833');
+(56, 'test33', 'Test2', 'Tt', 'PARISSSS', 111111, '13', 1111111),
+(57, 'test', 'Test', 'Test', 'TEST', 1234, '13', 1234123);
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `pacm_stock`
+--
+
+CREATE TABLE `pacm_stock` (
+  `id` int(11) NOT NULL,
+  `restaurantId` int(11) NOT NULL,
+  `createdAt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `updatedAt` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Déchargement des données de la table `pacm_stock`
+--
+
+INSERT INTO `pacm_stock` (`id`, `restaurantId`, `createdAt`, `updatedAt`) VALUES
+(40, 56, '2022-06-24 19:52:59', NULL),
+(41, 57, '2022-06-25 09:48:35', NULL);
+
+-- --------------------------------------------------------
+
+
+
+--
+-- Index pour la table `pacm_food`
+--
+ALTER TABLE `pacm_food`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `stockId` (`stockId`);
+
+--
+-- Index pour la table `pacm_restaurant`
+--
+ALTER TABLE `pacm_restaurant`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Index pour la table `pacm_stock`
+--
+ALTER TABLE `pacm_stock`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `restaurantId` (`restaurantId`);
+
+
+--
+-- AUTO_INCREMENT pour les tables déchargées
+--
+
+--
+-- AUTO_INCREMENT pour la table `pacm_food`
+--
+ALTER TABLE `pacm_food`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=57;
+
+--
+-- AUTO_INCREMENT pour la table `pacm_restaurant`
+--
+ALTER TABLE `pacm_restaurant`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=58;
+
+--
+-- AUTO_INCREMENT pour la table `pacm_stock`
+--
+ALTER TABLE `pacm_stock`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
+
+  --
+-- Contraintes pour les tables déchargées
+--
+
+--
+-- Contraintes pour la table `pacm_food`
+--
+ALTER TABLE `pacm_food`
+  ADD CONSTRAINT `stockDeleteFood` FOREIGN KEY (`stockId`) REFERENCES `pacm_stock` (`id`) ON DELETE CASCADE;
+
+--
+-- Contraintes pour la table `pacm_stock`
+--
+ALTER TABLE `pacm_stock`
+  ADD CONSTRAINT `restauDeleteStock` FOREIGN KEY (`restaurantId`) REFERENCES `pacm_restaurant` (`id`) ON DELETE CASCADE;
+COMMIT;
+
 
 -- --------------------------------------------------------
 
@@ -198,6 +310,12 @@ CREATE TABLE IF NOT EXISTS `pacm_reservation` (
 ALTER TABLE `pacm_categorie`
   ADD PRIMARY KEY (`id`);
 
+ALTER TABLE `pacm_carte`
+  ADD PRIMARY KEY (`id`);
+
+ALTER TABLE `pacm_meal`
+  ADD PRIMARY KEY (`id`);
+
 CREATE TABLE IF NOT EXISTS `pacm_user` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `email` varchar(320) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -219,46 +337,12 @@ COMMIT;
 ALTER TABLE `pacm_reservation`
   ADD PRIMARY KEY (`id`);
 
---
--- Déchargement des données de la table `pacm_user`
---
-ALTER TABLE `pacm_restaurant`
-  ADD PRIMARY KEY (`id`);
 
---
--- Indexes for table `pacm_user`
---
-ALTER TABLE `pacm_user`
-  ADD PRIMARY KEY (`id`);
 
---
--- AUTO_INCREMENT for dumped tables
---
-
-INSERT INTO `pacm_reservation` (`id`, `name`, `date`, `hour`, `numTable`, `numPerson`, `phoneReserv`, `created_at`, `updated_at`) VALUES
-  (1, 'test', '1999-02-10', '10:10:00', 45, 5, '0780808080', '2022-04-18 18:06:11', '2022-04-18 18:06:11'),
-  (2, 'test2', '2022-01-10', '10:10:00', 100, 2, '0780808080', '2022-04-18 21:50:06', '2022-04-18 21:50:06'),
-  (6, 'testlength', '2022-04-20', '10:45:00', 10, 10, '0780808080', '2022-04-21 20:35:20', '2022-04-21 20:35:20'),
-  (7, 'testlength', '2022-04-20', '10:45:00', 10, 10, '0780808080', '2022-04-21 20:35:25', '2022-04-21 20:35:25'),
-  (8, 'testlength', '2022-04-20', '10:45:00', 10, 10, '0780808080', '2022-04-21 20:35:26', '2022-04-21 20:35:26'),
-  (9, 'testlength', '2022-04-20', '10:45:00', 10, 10, '0780808080', '2022-04-21 20:35:28', '2022-04-21 20:35:28'),
-  (10, 'testlength', '2022-04-20', '10:45:00', 10, 10, '0780808080', '2022-04-21 20:35:29', '2022-04-21 20:35:29'),
-  (11, 'testlength', '2022-04-20', '10:45:00', 10, 10, '0780808080', '2022-04-21 20:35:31', '2022-04-21 20:35:31'),
-  (12, 'testlength', '2022-04-20', '10:45:00', 10, 10, '0780808080', '2022-04-21 20:35:32', '2022-04-21 20:35:32'),
-  (13, 'testlength', '2022-04-20', '10:45:00', 10, 10, '0780808080', '2022-04-21 20:35:35', '2022-04-21 20:35:35'),
-  (14, 'testlength', '2022-04-20', '10:45:00', 10, 10, '0780808080', '2022-04-21 20:35:37', '2022-04-21 20:35:37'),
-  (15, 'testlength', '2022-04-20', '10:45:00', 10, 10, '0780808080', '2022-04-21 20:35:38', '2022-04-21 20:35:38'),
-  (16, 'testlength', '2022-04-20', '10:45:00', 10, 10, '0780808080', '2022-04-21 20:35:39', '2022-04-21 20:35:39'),
-  (17, 'testlength', '2022-04-20', '10:45:00', 10, 10, '0780808080', '2022-04-21 20:35:40', '2022-04-21 20:35:40'),
-  (18, 'testlength', '2022-04-20', '10:45:00', 10, 10, '0780808080', '2022-04-21 20:35:41', '2022-04-21 20:35:41'),
-  (19, 'testlength', '2022-04-20', '10:45:00', 10, 10, '0780808080', '2022-04-21 20:35:42', '2022-04-21 20:35:42'),
-  (20, 'testlength', '2022-04-20', '10:45:00', 10, 10, '0780808080', '2022-04-21 20:35:43', '2022-04-21 20:35:43'),
-  (21, 'testlength', '2022-04-20', '10:45:00', 10, 10, '0780808080', '2022-04-21 20:35:48', '2022-04-21 20:35:48');
 --
 -- AUTO_INCREMENT for table `pacm_carte`
 --
-ALTER TABLE `pacm_carte`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+ALTER TABLE `pacm_carte` CHANGE `id` `id` INT(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `pacm_categorie`
@@ -272,11 +356,7 @@ ALTER TABLE `pacm_categorie`
 ALTER TABLE `pacm_meal`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
---
--- AUTO_INCREMENT for table `pacm_reservation`
---
-ALTER TABLE `pacm_reservation`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+
 
 --
 -- AUTO_INCREMENT for table `pacm_restaurant`
@@ -290,6 +370,10 @@ ALTER TABLE `pacm_restaurant`
 ALTER TABLE `pacm_user`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 COMMIT;
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

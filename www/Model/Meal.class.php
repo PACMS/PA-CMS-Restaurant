@@ -129,7 +129,7 @@ class Meal extends Sql
 
     public function deleteMeal(int $id)
     {
-        $meal = parent::databaseDeleteOne("DELETE FROM " . DBPREFIXE . "meal", ['id' => $id]);
+        $meal = parent::databaseDeleteOne("DELETE FROM " . DBPREFIXE . "meal WHERE id = :id", ['id' => $id]);
         return $meal;
     }
 

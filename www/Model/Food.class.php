@@ -30,7 +30,7 @@ class Food extends Sql
      * @var
      */
     protected $stockId = null;
-    
+
 
     /**
      * @return null
@@ -45,7 +45,7 @@ class Food extends Sql
      */
     public function setId($id): void
     {
-        $this->id = $id; 
+        $this->id = $id;
     }
 
     /**
@@ -112,19 +112,23 @@ class Food extends Sql
     }
 
 
-    
+    public function getOneFood(string $table, int $id)
+    {
+        $restaurant = parent::databaseFindOne(['id' => $id], $table);
+        return $restaurant;
+    }
 
 
     public function getAllFoods(array $params)
     {
-        
+
         $foods = parent::databaseFindAll("SELECT * FROM " . DBPREFIXE . "food", $params);
         return $foods;
     }
 
-    public function databaseDeleteOneFood(string $table, int $id)
+    public function deleteFood(int $id)
     {
-        $food = parent::databaseDeleteOne("DELETE FROM " . DBPREFIXE . $table . " WHERE id = :id", ['id' => $id]);
+        $food = parent::databaseDeleteOne("DELETE FROM " . DBPREFIXE . "food" . " WHERE id = :id " , ['id' => $id]);
         return $food;
     }
 
@@ -174,108 +178,96 @@ class Food extends Sql
                     "id" => "quantity",
                     "class" => "formRestaurant",
                     "max" => 255,
+                    "required" => true,
                     "value" => $this->quantity,
                     "error" => "Le champs quantité contient une erreur"
                 ],
                 "stockId" => [
                     "type" => "hidden",
-                    "value" => $_SESSION["id_stock"],
+                    "value" => $_SESSION["stock"]["id"],
                     "label" => "StockId",
                 ],
-                // "captcha" => [
-                //     'type' => 'captcha',
-                //     'error' => 'Le captcha n\'a pas pu validé votre formulaire'
-                // ]
             ]
         ];
     }
-    // public function getCompleteUpdateRestaurantForm()
-    // {
-    //     return [
-    //         "config" => [
-    //             "method" => "POST",
-    //             "action" => "/restaurant/creation",
-    //             "class" => "formRestaurant",
-    //             "id" => "formRestaurant",
-    //             "submit" => "Ajouter le restaurant",
-    //             'captcha' => false,
-    //         ],
-    //         "inputs" => [
-    //             "id" => [
-    //                 "type" => "hidden",
-    //                 "id" => "id",
-    //                 "class" => "formRestaurant",
-    //                 "value" => intval($this->id),
-    //             ],
-    //             "name" => [
-    //                 "placeholder" => "Nom du restaurant*",
-    //                 "type" => "text",
-    //                 "id" => "name",
-    //                 "class" => "formRestaurant",
-    //                 "required" => true,
-    //                 "min" => 2,
-    //                 "max" => 100,
-    //                 "value" => $this->name,
-    //                 "error" => "Le nom de votre restaurant n'est pas correct",
-    //             ],
-    //             "address" => [
-    //                 "placeholder" => "Votre adresse*",
-    //                 "type" => "text",
-    //                 "id" => "address",
-    //                 "class" => "formRestaurant",
-    //                 "required" => true,
-    //                 "min" => 2,
-    //                 "max" => 255,
-    //                 "value" => $this->address,
-    //                 "error" => "Le champs adresse contient une erreur",
-    //             ],
-    //             "additional_address" => [
-    //                 "placeholder" => "Complément d'adresse",
-    //                 "type" => "text",
-    //                 "id" => "additional_address",
-    //                 "class" => "formRestaurant",
-    //                 "max" => 255,
-    //                 "value" => $this->additional_address,
-    //                 "error" => "Le champs complément d'adresse contient une erreur"
-    //             ],
-    //             "city" => [
-    //                 "placeholder" => "Ville*",
-    //                 "type" => "text",
-    //                 "id" => "city",
-    //                 "class" => "formRestaurant",
-    //                 "required" => true,
-    //                 "min" => 2,
-    //                 "max" => 50,
-    //                 "value" => $this->city,
-    //                 "error" => "Le nom de votre ville n'est pas correct",
-    //             ],
-    //             "zipcode" => [
-    //                 "placeholder" => "Code postal*",
-    //                 "type" => "number",
-    //                 "id" => "zipcode",
-    //                 "class" => "formRestaurant",
-    //                 "required" => true,
-    //                 "min" => 2,
-    //                 "max" => 10,
-    //                 "value" => $this->zipcode,
-    //                 "error" => "Votre code postal est incorrect",
-    //             ],
-    //             "phone" => [
-    //                 "placeholder" => "Téléphone*",
-    //                 "type" => "number",
-    //                 "id" => "phone",
-    //                 "class" => "formRestaurant",
-    //                 "required" => true,
-    //                 "min" => 2,
-    //                 "max" => 15,
-    //                 "value" => $this->phone,
-    //                 "error" => "Votre numéro de téléphone est incorrect",
-    //             ],
-    //             // "captcha" => [
-    //             //     'type' => 'captcha',
-    //             //     'error' => 'Le captcha n\'a pas pu validé votre formulaire'
-    //             // ]
-    //         ]
-    //     ];
-    // }
+    public function editFoodInfo()
+    {
+        return [
+            "config" => [
+                "method" => "POST",
+                "action" => "/restaurant/food",
+                "class" => "flex",
+                "id" => "editProduct",
+                "submit" => "Modifier",
+                'captcha' => false,
+            ],
+            "inputs" => [
+                "id" => [
+                    "type" => "hidden",
+                    "id" => "id",
+                    "class" => "formRestaurant",
+                    "value" => intval($this->id),
+                ],
+            ]
+        ];
+    }
+    public function updateFoodForm()
+    {
+        return [
+            "config" => [
+                "method" => "POST",
+                "action" => "/restaurant/food/update",
+                "class" => "restaurant-form",
+                "id" => "restaurant-form",
+                "submit" => "Sauvegarder les modifications",
+                'captcha' => false,
+            ],
+            "inputs" => [
+                "id" => [
+                    "type" => "hidden",
+                    "id" => "id",
+                    "class" => "restaurant-inputs",
+                    "value" => intval($this->id),
+                ],
+                "name" => [
+                    "placeholder" => "Nom du produit*",
+                    "type" => "text",
+                    "id" => "name",
+                    "class" => "restaurant-name",
+                    "required" => true,
+                    "min" => 2,
+                    "max" => 100,
+                    "value" => $this->name,
+                    "error" => "Le nom de votre produit n'est pas correct",
+                ],
+                "nature" => [
+                    "placeholder" => "Nature du produit*",
+                    "type" => "text",
+                    "id" => "nature",
+                    "class" => "restaurant-inputs",
+                    "required" => true,
+                    "min" => 2,
+                    "max" => 100,
+                    "value" => $this->nature,
+                    "error" => "La nature de votre produit n'est pas correct",
+                ],
+                "quantity" => [
+                    "placeholder" => "Quantité*",
+                    "type" => "text",
+                    "id" => "quantity",
+                    "required" => true,
+                    "class" => "restaurant-inputs",
+                    "max" => 255,
+                    "value" => $this->quantity,
+                    "error" => "Le champs quantité contient une erreur"
+                ],
+                "stockId" => [
+                    "type" => "hidden",
+                    "value" => $_SESSION["stock"]["id"],
+                    "label" => "StockId",
+                ],
+            ]
+        ];
+    }
+    
 }

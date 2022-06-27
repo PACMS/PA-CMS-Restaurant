@@ -146,6 +146,7 @@ abstract class Sql
         $columns = get_object_vars($this);
         $varToExclude = get_class_vars(get_class());
         $columns = array_diff_key($columns, $varToExclude);
+        
         if (empty($_POST['id']) || is_null($_POST['id'])) {
             $sql = "INSERT INTO " . $this->_table . " (" . implode(",", array_keys($columns)) . ") VALUES (:" . implode(",:", array_keys($columns)) . ")";
         } else {
@@ -168,6 +169,7 @@ abstract class Sql
         }
         $queryPrepared = $this->_pdo->prepare($sql);
         if (is_null($columns['id'])) {
+            
             $queryPrepared->execute($columns);
         } else {
             $queryPrepared->execute($updateValues);
@@ -245,6 +247,14 @@ abstract class Sql
         return $queryPrepared->fetchAll(\PDO::FETCH_OBJ);
     }
 
+    public function last()
+    {
+        $sql = "SELECT * FROM " . $this->_table . " ORDER BY id DESC LIMIT 1";
+        $queryPrepared = $this->_pdo->prepare($sql);
+        $queryPrepared->execute();
+        return $queryPrepared->fetch(\PDO::FETCH_OBJ);
+    }
+
     /**
      * Verify if there is an user in the database with the same email and verify if the password is correct
      *
@@ -298,6 +308,7 @@ abstract class Sql
     protected function databaseDeleteOne(string $sql, array $params)
 
     {
+
         $statement = $this->_pdo->prepare($sql);
         if ($statement !== false) {
             $success = $statement->execute($params);

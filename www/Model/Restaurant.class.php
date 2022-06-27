@@ -38,6 +38,10 @@ class Restaurant extends Sql
      * @var
      */
     protected $phone;
+    /**
+     * @var
+     */
+    protected $user_id;
 
     /**
      * @return null
@@ -52,7 +56,7 @@ class Restaurant extends Sql
      */
     public function setId($id): void
     {
-        $this->id = intval($id); 
+        $this->id = intval($id);
     }
 
     // getter and setter for name	
@@ -153,29 +157,45 @@ class Restaurant extends Sql
         $this->phone = (new Cleaner($phone))->value;
     }
 
-
-    public function getAllRestaurants()
+    /**
+     * @return mixed
+     */
+    public function getUser_id(): string
     {
-        $restaurants = parent::databaseFindAll("SELECT * FROM " . DBPREFIXE . "restaurant", []);
+        return $this->user_id;
+    }
+
+    /**
+     * @param mixed $user_id
+     */
+    public function setUser_id(string $user_id): void
+    {
+        $this->user_id = intval($user_id);
+    }
+
+
+    public function getAllRestaurants(array $params = [])
+    {
+        $restaurants = parent::databaseFindAll("SELECT * FROM " . DBPREFIXE . "restaurant", $params);
         return $restaurants;
     }
 
-    public function databaseDeleteOneRestaurant(string $table, int $id)
+    public function databaseDeleteOneRestaurant(array $params)
     {
-        $restaurant = parent::databaseDeleteOne("DELETE FROM " . DBPREFIXE . $table . " WHERE id = :id", ['id' => $id]);
+        $restaurant = parent::databaseDeleteOne("DELETE FROM " . DBPREFIXE . "restaurant" . " WHERE id = :id", $params);
         return $restaurant;
     }
 
-    public function getOneRestaurant(string $table, int $id)
+    public function getOneRestaurant(int $id)
     {
-        $restaurant = parent::databaseFindOne(['id' => $id], $table);
+        $restaurant = parent::databaseFindOne(['id' => $id], "restaurant");
         return $restaurant;
     }
 
     public function getCompleteRestaurantForm()
     {
         return [
-            
+
             "config" => [
                 "method" => "POST",
                 "action" => "/restaurant/creation",
@@ -185,6 +205,11 @@ class Restaurant extends Sql
                 'captcha' => false,
             ],
             "inputs" => [
+                "user_id" => [
+                    "type" => "hidden",
+                    "id" => "user_id",
+                    "value" => $_SESSION['user']['id'],
+                ],
                 "name" => [
                     "placeholder" => "Nom du restaurant*",
                     "type" => "text",
@@ -237,7 +262,7 @@ class Restaurant extends Sql
                     "label" => "Code Postal",
                     "class" => "restaurant-inputs",
                     "required" => true,
-                    "min" => 2,
+                    "min" => 1,
                     "max" => 10,
                     "value" => $this->zipcode,
                     "error" => "Votre code postal est incorrect",
@@ -249,11 +274,11 @@ class Restaurant extends Sql
                     "label" => "Téléphone",
                     "class" => "restaurant-inputs",
                     "required" => true,
-                    "min" => 2,
+                    "min" => 4,
                     "max" => 15,
                     "value" => $this->phone,
                     "error" => "Votre numéro de téléphone est incorrect",
-                ],
+                ],                
                 // "captcha" => [
                 //     'type' => 'captcha',
                 //     'error' => 'Le captcha n\'a pas pu validé votre formulaire'
@@ -266,7 +291,7 @@ class Restaurant extends Sql
         return [
             "config" => [
                 "method" => "POST",
-                "action" => "/restaurant/creation",
+                "action" => "/restaurant/update",
                 "class" => "restaurant-form",
                 "id" => "restaurant-form",
                 "submit" => "Enregistrer",
@@ -327,7 +352,7 @@ class Restaurant extends Sql
                     "id" => "zipcode",
                     "class" => "restaurant-inputs",
                     "required" => true,
-                    "min" => 2,
+                    "min" => 1,
                     "max" => 10,
                     "value" => $this->zipcode,
                     "error" => "Votre code postal est incorrect",
@@ -338,7 +363,7 @@ class Restaurant extends Sql
                     "id" => "phone",
                     "class" => "restaurant-inputs",
                     "required" => true,
-                    "min" => 2,
+                    "min" => 4,
                     "max" => 15,
                     "value" => $this->phone,
                     "error" => "Votre numéro de téléphone est incorrect",
@@ -367,7 +392,7 @@ class Restaurant extends Sql
                     "type" => "hidden",
                     "id" => "id",
                     "class" => "formRestaurant",
-                    "value" => $_SESSION["id_restaurant"],
+                    "value" => $_SESSION["restaurant"]["id"],
                 ],
                 // "captcha" => [
                 //     'type' => 'captcha',

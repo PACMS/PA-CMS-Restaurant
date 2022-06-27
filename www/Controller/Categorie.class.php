@@ -34,8 +34,6 @@ class Categorie
     {
         $categorie = new CategorieModel();
         $categorie->deleteCategorie($_POST["id"]);
-        $meal = new MealModel();
-        $meal->deleteMeals($_POST["id"]);
 
     }
 

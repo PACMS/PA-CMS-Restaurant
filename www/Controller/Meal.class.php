@@ -16,7 +16,6 @@ class Meal
     {
         session_start();
         $_SESSION["id_card"] = $_POST["id"];
-
     }
 
     public function meal()
@@ -26,7 +25,7 @@ class Meal
             header("Location: /restaurants");
         }
         $restaurantModel = new RestaurantModel();
-        $restaurant = $restaurantModel->getOneRestaurant("restaurant", intval($_SESSION["id_restaurant"]));
+        $restaurant = $restaurantModel->getOneRestaurant(intval($_SESSION["restaurant"]["id"]));
         $carteModel = new CarteModel();
         $carte = $carteModel->getOneCarte(intval($_SESSION["id_card"]));
         $meals = new MealModel();
@@ -45,27 +44,25 @@ class Meal
     public function createMeal()
     {
         $meal = new MealModel();
-         if (!empty($_POST)) {
-             if (is_string($_POST["price"])) {
-                 //il faut notifier l'utilisateur que l'input doit être un float
-             }
-             if ($_POST["price"]) {
+        if (!empty($_POST)) {
+            if (is_string($_POST["price"])) {
+                //il faut notifier l'utilisateur que l'input doit être un float
+            }
+            if ($_POST["price"]) {
                 $_POST["price"] = floatval($_POST["price"]);
-                $meal->hydrate($_POST).
-                $meal->save();
-             }
+                $meal->hydrate($_POST) .
+                    $meal->save();
+            }
+        }
 
-         
-         }
-        
         header('Location: /carte/meals');
     }
 
     public function updateMeal()
     {
         $meal = new MealModel();
-        $meal->hydrate($_POST).
-        $meal->save();
+        $meal->hydrate($_POST) .
+            $meal->save();
 
         header('Location: /carte/meals');
     }
@@ -76,5 +73,4 @@ class Meal
         $meal->deleteMeal($_POST["id"]);
         //header('Location: /restaurants');
     }
-
 }

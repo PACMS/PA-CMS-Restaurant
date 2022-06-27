@@ -7,6 +7,7 @@ use App\Core\View;
 use App\Core\MysqlBuilder;
 use App\Model\Carte as CarteModel;
 use App\Model\Restaurant as RestaurantModel;
+
 class Carte
 {
 
@@ -19,13 +20,13 @@ class Carte
 
             $restaurantModel = new RestaurantModel();
             session_start();
-            if (empty($_SESSION["id_restaurant"])) {
+            if (empty($_SESSION["restaurant"]["id"])) {
                 header('Location: /restaurants');
             }            
             $builder = new MysqlBuilder();
             $restaurant = $builder
                 ->select('restaurant', ["*"])
-                ->where("id", $_SESSION["id_restaurant"])
+                ->where("id", $_SESSION["restaurant"]["id"])
                 ->fetchClass("restaurant")
                 ->fetch();
             $allCartes = $builder
@@ -71,7 +72,9 @@ class Carte
             $_POST["status"] = 1;
         }
         $carte->hydrate($_POST);
-        $this->unselectAllCarte();
+        if($_POST["status"] === 1){
+            $this->unselectAllCarte();
+        }
         $carte->save();
         header('Location: /cartes');
     }
@@ -92,7 +95,7 @@ class Carte
         $request = new MysqlBuilder();
         $request
             ->update('carte', ["status" => 0])
-            ->where("id_restaurant", $_SESSION["id_restaurant"])
+            ->where("id_restaurant", $_SESSION["restaurant"]["id"])
             ->fetchClass("carte")
             ->fetchAll();
     }

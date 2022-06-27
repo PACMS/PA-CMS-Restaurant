@@ -90,7 +90,7 @@ class Carte extends Sql
     public function getAllCartes()
     {
         // session_start();
-        $cartes = parent::databaseFindAll("SELECT * FROM " . DBPREFIXE . "carte", ['id_restaurant' => $_SESSION["id_restaurant"]]);
+        $cartes = parent::databaseFindAll("SELECT * FROM " . DBPREFIXE . "carte", ['id_restaurant' => $_SESSION["restaurant"]["id"]]);
         return $cartes;
     }
 
@@ -102,7 +102,7 @@ class Carte extends Sql
 
     public function deleteCarte(int $id)
     {
-        $carte = parent::databaseDeleteOne("DELETE FROM " . DBPREFIXE . "carte", ['id' => $id]);
+        $carte = parent::databaseDeleteOne("DELETE FROM " . DBPREFIXE . "carte WHERE id = :id", ['id' => $id]);
         return $carte;
     }
 
@@ -177,7 +177,7 @@ class Carte extends Sql
                 ],
                 "idRestaurant" => [
                     "type" => "hidden",
-                    "value" => $_SESSION["id_restaurant"],
+                    "value" => $_SESSION["restaurant"]["id"],
                     "error" => "Le nom de la carte n'est pas correct !"
                 ],
             ]
@@ -201,5 +201,4 @@ class Carte extends Sql
             ]
         ];
     }
-   
 }
