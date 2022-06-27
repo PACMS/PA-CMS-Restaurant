@@ -25,7 +25,7 @@ class Meal
             header("Location: /restaurants");
         }
         $restaurantModel = new RestaurantModel();
-        $restaurant = $restaurantModel->getOneRestaurant("restaurant", intval($_SESSION["restaurant"]["id"]));
+        $restaurant = $restaurantModel->getOneRestaurant(intval($_SESSION["restaurant"]["id"]));
         $carteModel = new CarteModel();
         $carte = $carteModel->getOneCarte(intval($_SESSION["id_card"]));
         $meals = new MealModel();

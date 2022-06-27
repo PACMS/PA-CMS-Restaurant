@@ -20,7 +20,7 @@ class Carte
             if (empty($_SESSION["restaurant"]["id"])) {
                 header('Location: /restaurants');
             }
-            $restaurant = $restaurantModel->getOneRestaurant("restaurant", $_SESSION["restaurant"]["id"]);
+            $restaurant = $restaurantModel->getOneRestaurant($_SESSION["restaurant"]["id"]);
             $allCartes = $carte->getAllCartes();
             $view = new View("cartes", "back");
             $view->assign('cartes', $allCartes);
@@ -55,7 +55,9 @@ class Carte
             $_POST["status"] = 1;
         }
         $carte->hydrate($_POST);
-        $this->unselectAllCarte();
+        if($_POST["status"] === 1){
+            $this->unselectAllCarte();
+        }
         $carte->save();
         header('Location: /cartes');
     }
