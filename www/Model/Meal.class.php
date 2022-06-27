@@ -161,13 +161,15 @@ class Meal extends Sql
                 "name" => [
                     "type" => "text",
                     "label" => "Nom du menu",
-                    "required" => true
+                    "required" => true,
+                    "value" => "test",
                 ],
                 "price" => [
                     "type" => "text",
                     "label" => "Prix",
                     "required" => true,
-                    "error" => "Votre prix ne peut pas contenir de caractères"
+                    "error" => "Votre prix ne peut pas contenir de caractères",
+                    "value" => "12"
                 ],
                 "description" => [
                     "type" => "textarea",
@@ -186,12 +188,14 @@ class Meal extends Sql
                     "label" => "Catégorie",
                     "placeholder" => "Choisissez une catégorie",
                     "default" => null,
+                    "multiple" => false,
                     "options" => $options,
                     "required" => true
                 ],
                 "ingredients" => [
                     "type" => "select",
                     "label" => "Ingrédients",
+                    "id" => "ingredients",
                     "placeholder" => "Choisissez un/plusieurs ingrédient(s)",
                     "default" => null,
                     "multiple" => true,

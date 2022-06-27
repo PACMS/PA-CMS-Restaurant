@@ -44,6 +44,7 @@ class Meal
     public function createMeal()
     {
         $meal = new MealModel();
+        dd($_POST);
         if (!empty($_POST)) {
             if (is_string($_POST["price"])) {
                 //il faut notifier l'utilisateur que l'input doit être un float

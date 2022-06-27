@@ -59,7 +59,7 @@ class Restaurant
         $errors = null;
 
         session_start();
-        if (!empty($_POST) && $_POST["user_id"] === $_SESSION["user"]["id"]) {
+        if (!empty($_POST) && $_POST["user_id"] == $_SESSION["user"]["id"]) {
             $errors = Verificator::checkForm($restaurant->getCompleteRestaurantForm(), $_POST + $_FILES);
             if (!$errors) {
                 $restaurant->hydrate($_POST);
