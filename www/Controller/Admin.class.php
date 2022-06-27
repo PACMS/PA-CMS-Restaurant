@@ -57,14 +57,13 @@ class Admin
     public function updateProfile()
     {
         $user = new UserModel();
-
+        
         $user->setId($_SESSION['user']['id']);
         $user->setFirstname($_POST['firstname']);
         $user->setLastname($_POST['lastname']);
-
+        
         Verificator::checkEmail($_POST['email']) ?: die("Email non valide");
         $user->setEmail($_POST['email']);
-
         
         if (!empty($_POST['passwordOld']) && !empty($_POST['passwordNew']) && !empty($_POST['confirmNewPassowrd'])) {
             Verificator::checkPwd($_POST['passwordNew']) ?: die("Mot de passe non valide");
@@ -84,6 +83,10 @@ class Admin
         }
         
         $user->save();
+        
+        $_SESSION['user']['email'] = $user->getEmail();
+        $_SESSION['user']['firstname'] = $user->getFirstname();
+        $_SESSION['user']['lastname'] = $user->getLastname();
 
         header("Location: /profile");
     }

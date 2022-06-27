@@ -146,7 +146,7 @@ abstract class Sql
         $columns = get_object_vars($this);
         $varToExclude = get_class_vars(get_class());
         $columns = array_diff_key($columns, $varToExclude);
-        if (empty($_POST['id']) || is_null($_POST['id'])) {
+        if ((empty($_POST['id']) || is_null($_POST['id'])) && is_null($columns['id'])) {
             $sql = "INSERT INTO " . $this->_table . " (" . implode(",", array_keys($columns)) . ") VALUES (:" . implode(",:", array_keys($columns)) . ")";
         } else {
             $update = [];

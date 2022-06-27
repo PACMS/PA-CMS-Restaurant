@@ -124,6 +124,7 @@
   controller: admin
   action: updateProfile
   security: "employee"
+
 /cartes:
   controller: carte
   action: carte
