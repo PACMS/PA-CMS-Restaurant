@@ -186,9 +186,9 @@ class Restaurant extends Sql
         return $restaurant;
     }
 
-    public function getOneRestaurant(string $table, int $id)
+    public function getOneRestaurant(int $id)
     {
-        $restaurant = parent::databaseFindOne(['id' => $id], $table);
+        $restaurant = parent::databaseFindOne(['id' => $id], "restaurant");
         return $restaurant;
     }
 

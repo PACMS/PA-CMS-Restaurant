@@ -51,10 +51,9 @@ class User
     {
         $user = new UserModel();
         $errors = null;
-
         if (!empty($_POST)) {
             $errors = Verificator::checkForm($user->getCompleteRegisterForm(), $_POST + $_FILES);
-
+            
             if(!$errors) {
                 $user->hydrate($_POST);
                 $user->save();

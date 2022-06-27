@@ -247,8 +247,8 @@ abstract class Sql
 
     public function last()
     {
-        $sql = "SELECT * FROM " . $this->table . " ORDER BY id DESC LIMIT 1";
-        $queryPrepared = $this->pdo->prepare($sql);
+        $sql = "SELECT * FROM " . $this->_table . " ORDER BY id DESC LIMIT 1";
+        $queryPrepared = $this->_pdo->prepare($sql);
         $queryPrepared->execute();
         return $queryPrepared->fetch(\PDO::FETCH_OBJ);
     }
