@@ -308,6 +308,7 @@ abstract class Sql
     protected function databaseDeleteOne(string $sql, array $params)
 
     {
+
         $statement = $this->_pdo->prepare($sql);
         if ($statement !== false) {
             $success = $statement->execute($params);
