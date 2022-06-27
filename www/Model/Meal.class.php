@@ -116,6 +116,10 @@ class Meal extends Sql
         $this->id_categories = $id_categories;
     }
 
+   
+
+     
+
     public function save(): void
     {
         parent::save();
@@ -139,7 +143,7 @@ class Meal extends Sql
         return $meal;
     }
 
-    public function getAddMeal(array $categories): array
+    public function getAddMeal(array $categories, array $food): array
     {
         $options = [];
         foreach ($categories as $key => $value) {
@@ -147,7 +151,6 @@ class Meal extends Sql
                 $options[$value["id"]] = ($value["name"]);
             }
         }
-        $tableFood = ["1" => "tomates", "2" => "ketchup", "3" => "nutella"];
         return [
             "config" => [
                 "method" => "POST",
@@ -177,13 +180,13 @@ class Meal extends Sql
                     "id" => "mealDescription",
                     "label" => "Description",
                     ],
-                "IdCarte" => [
+                "id_carte" => [
                     "type" => "hidden",
-                    "value" => $_SESSION["id_card"],
+                    "value" => intval($_SESSION["id_card"]),
                     "label" => "Description",
                     "required" => true
                 ],
-                "IdCategorie" => [
+                "id_categories" => [
                     "type" => "select",
                     "label" => "Catégorie",
                     "placeholder" => "Choisissez une catégorie",
@@ -199,7 +202,7 @@ class Meal extends Sql
                     "placeholder" => "Choisissez un/plusieurs ingrédient(s)",
                     "default" => null,
                     "multiple" => true,
-                    "options" => $tableFood,
+                    "options" => $food,
                     "required" => false
                 ],
             ]

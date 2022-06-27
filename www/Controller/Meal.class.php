@@ -8,6 +8,7 @@ use App\Model\Meal as MealModel;
 use App\Model\Categorie as CategorieModel;
 use App\Model\Restaurant as RestaurantModel;
 use App\Model\Carte as CarteModel;
+use App\Core\MysqlBuilder;
 
 class Meal
 {
@@ -24,6 +25,7 @@ class Meal
         if (empty($_SESSION["id_card"])) {
             header("Location: /restaurants");
         }
+
         $restaurantModel = new RestaurantModel();
         $restaurant = $restaurantModel->getOneRestaurant(intval($_SESSION["restaurant"]["id"]));
         $carteModel = new CarteModel();
@@ -32,27 +34,43 @@ class Meal
         $categorie = new CategorieModel();
         $allCategories = $categorie->getAllCategories();
         $allMeals = $meals->getAllMeals(intval($_SESSION["id_card"]));
+        $builder = new MysqlBuilder();
+        $food = $builder->select("food", ["*"])
+            ->where("stockId", intval($_SESSION["stock"]["id"]))
+            ->fetchClass("food")
+            ->fetchAll();
+
+        $foods = [];
+        $_SESSION["stock"]["allFoodsIds"] = [];
+        foreach ($food as $value) {
+            $foods[$value->getId()] = $value->getName();
+            $_SESSION["stock"]["allFoodsIds"][] = $value->getId();
+        }
         $view = new View("meal", "back");
         $view->assign("allMeals", $allMeals);
         $view->assign("categorie", $categorie);
         $view->assign("meal", $meals);
         $view->assign("categories", $allCategories);
+        $view->assign("food", $foods);
         $view->assign("restaurantName", $restaurant["name"]);
         $view->assign("carteName", $carte["name"]);
     }
 
     public function createMeal()
     {
-        $meal = new MealModel();
-        dd($_POST);
+        session_start();
         if (!empty($_POST)) {
             if (is_string($_POST["price"])) {
                 //il faut notifier l'utilisateur que l'input doit être un float
             }
             if ($_POST["price"]) {
                 $_POST["price"] = floatval($_POST["price"]);
-                $meal->hydrate($_POST) .
-                    $meal->save();
+                $builder = new MysqlBuilder();
+                $foods = $_POST["ingredients"];
+                unset($_POST["ingredients"]);
+                $mealFood = $builder->insert("meal", $_POST)
+                    ->fetchClass("meal")
+                    ->execute();
             }
         }
 

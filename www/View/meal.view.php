@@ -15,7 +15,7 @@
     </div>
 
     <div class="modal hidden addMeal">
-        <?php $this->includePartial("form", $meal->getAddMeal($categories)); ?>
+        <?php $this->includePartial("form",  $meal->getAddMeal($categories, $food)); ?>
     </div>
     <section id="meals-menus" class="">
         <?php foreach($categories as $categorieKey => $categorie) : ?>

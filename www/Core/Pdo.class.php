@@ -61,4 +61,13 @@ class Pdo
         return $queryPrepared->fetchAll();
     }
 
+    public function execute(string $sql, array $data = null) {
+        $queryPrepared = $this->_pdo->prepare($sql);
+        if (is_null($data)) {
+            $queryPrepared->execute();
+        } else {
+            $queryPrepared->execute($data);
+        }
+    }
+
    }
