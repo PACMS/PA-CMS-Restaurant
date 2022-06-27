@@ -1,0 +1,39 @@
+# This is a basic workflow to help you get started with Actions
+
+name: CI-CD-Prod
+
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push or pull request events but only for the main branch
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  connect:
+    name: Connexion au serveur de prod
+    runs-on: ubuntu-latest
+    steps:
+    - name: Connect with SSH to server
+      uses: fifsky/ssh-action@master
+      with:
+        command: |
+          sudo -i
+          cd /var/www/pacms_prod
+          git stash
+          git pull origin main --rebase
+          git status
+          git stash pop
+          git status
+          git log --oneline
+          cd www/public/webpack
+          npm run prod
+        host: ${{ secrets.HOST_PROD }}
+        user: ${{ secrets.USERNAME_PROD }}
+        key: ${{ secrets.KEY_PROD }}

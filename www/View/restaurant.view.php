@@ -53,14 +53,15 @@ endif;
                             <p>Informations</p>
                             <button><a href="/restaurant/information">Modifier</a></button>
                         </div>
-                    </div>
-                    <div class="restaurant-card">
+                    </form>
+                    <form class="restaurant-card" method="POST" action="cartes">
                         <img src="../public/assets/img/restauOptions/cartes.jpg" alt="cartes" />
                         <div class="bandeau">
                             <p>Cartes</p>
-                            <button><a href="/restaurants">Modifier</a></button>
+                            <input type="hidden" name="id" value="<?= $_SESSION["restaurant"]["id"] ?>"></input>
+                            <button type="submit">Modifier</button>
                         </div>
-                    </div>
+                    </form>
                     <div class="restaurant-card">
                         <img src="../public/assets/img/restauOptions/salle.jpg" alt="salle" />
                         <div class="bandeau">

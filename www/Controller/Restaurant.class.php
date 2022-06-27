@@ -14,6 +14,7 @@ class Restaurant
     public function restaurant()
     {
         session_start();
+        unset($_SESSION["restaurant"]["id"]);
         $restaurant = new RestaurantModel();
         // utiliser la fonction getAllRestaurant() de RestaurantModel
         $allRestaurants = $restaurant->getAllRestaurants(['user_id' => $_SESSION["user"]["id"]]);
@@ -44,8 +45,7 @@ class Restaurant
     {
         session_start();
         $restaurant = new RestaurantModel();
-        // $id = $_POST["id"];
-        // $_SESSION["restaurant"]["id"] = $id;
+
 
         $table = "restaurant";
         $oneRestaurant = $restaurant->getOneRestaurant($table, $_SESSION["restaurant"]["id"]);
@@ -60,7 +60,7 @@ class Restaurant
     {
         $restaurant = new RestaurantModel();
         $errors = null;
-        
+
         session_start();
         if (!empty($_POST) && $_POST["user_id"] === $_SESSION["user"]["id"]) {
             $errors = Verificator::checkForm($restaurant->getCompleteRestaurantForm(), $_POST + $_FILES);
@@ -75,7 +75,7 @@ class Restaurant
                 return header('Location: /restaurants');
             }
         }
-        
+
         return header('Location: /restaurant/create');
     }
 
@@ -124,5 +124,4 @@ class Restaurant
         $view->assign('restaurant', $restaurant);
         $view->assign('oneRestaurant', $oneRestaurant);
     }
-
 }

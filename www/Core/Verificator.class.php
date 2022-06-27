@@ -60,7 +60,6 @@ class Verificator extends Sql
                 $errors[] = $input["error"];
             }
         }
-        var_dump("ERREUR", $errors);
         return $errors;
     }
 
