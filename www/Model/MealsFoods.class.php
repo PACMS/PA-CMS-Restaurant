@@ -35,7 +35,7 @@ class MealsFoods extends Sql
     /**
      * @return mixed
      */
-    public function getMealId(): int
+    public function getMealId(): string
     {
         return $this->meal_id;
     }
@@ -43,7 +43,7 @@ class MealsFoods extends Sql
     /**
      * @param mixed $getFoodId
      */
-    public function setMealId(int $meal_id): void
+    public function setMealId(string $meal_id): void
     {
         $this->meal_id = $meal_id;
     }
@@ -51,17 +51,17 @@ class MealsFoods extends Sql
     /**
      * @return mixed
      */
-    public function getFoodId(): int
+    public function getFoodId(): string
     {
-        return $this->getFoodId;
+        return $this->food_id;
     }
 
     /**
-     * @param mixed $getFoodId
+     * @param mixed $food_id
      */
-    public function setFoodId(int $getFoodId): void
+    public function setFoodId(string $food_id): void
     {
-        $this->getFoodId = $getFoodId;
+        $this->food_id = $food_id;
     }
     
 }

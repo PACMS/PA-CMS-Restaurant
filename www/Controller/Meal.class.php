@@ -60,17 +60,37 @@ class Meal
     {
         session_start();
         if (!empty($_POST)) {
-            if (is_string($_POST["price"])) {
-                //il faut notifier l'utilisateur que l'input doit être un float
-            }
-            if ($_POST["price"]) {
-                $_POST["price"] = floatval($_POST["price"]);
-                $builder = new MysqlBuilder();
+            $errors = null;
+            $meal = new MealModel();
+            $_POST["price"] = floatval($_POST["price"]);
+            $builder = new MysqlBuilder();
+            if (!empty($_POST["ingredients"])) {
+
                 $foods = $_POST["ingredients"];
                 unset($_POST["ingredients"]);
-                $mealFood = $builder->insert("meal", $_POST)
-                    ->fetchClass("meal")
-                    ->execute();
+            }
+            $builder->insert("meal", $_POST)
+                ->fetchClass("meal")
+                ->execute();
+            if ($foods) {
+                $id = $builder->select("meal", ["id"])
+                    ->order("id", "DESC")
+                    ->fetch();
+                $mealId = $id->getId();
+                foreach ($foods as $key => $value) {
+                        if(in_array($value, $_SESSION["stock"]["allFoodsIds"])){
+                            $lastInserted = $builder->select("mealsFoods", ["meal_id","food_id"])
+                            ->order("id", "DESC")
+                            ->fetchClass("mealsFoods")
+                            ->fetch();
+                            if($lastInserted->getFoodId() != $value || $lastInserted->getMealId() != $mealId ){
+
+                                $builder->insert("mealsFoods", ["meal_id" => $mealId, "food_id" => $value])
+                                ->fetchClass("mealsFoods")
+                                ->execute();
+                            }
+                        }
+                    }
             }
         }
 

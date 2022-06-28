@@ -143,7 +143,7 @@ class Meal extends Sql
         return $meal;
     }
 
-    public function getAddMeal(array $categories, array $food): array
+    public function getAddMeal(array $categories = [], array $food = []): array
     {
         $options = [];
         foreach ($categories as $key => $value) {
