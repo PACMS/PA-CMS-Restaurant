@@ -167,7 +167,6 @@ $(document).ready(function () {
 
   $("#alert-close").on("click", function (event) {
     $(".alert-window").css("visibility", "hidden");
-    console.log('ok')
   });
 
   $("#editProfile").on("click", function (event) {

@@ -107,6 +107,10 @@
   controller: page
   action: createPage
 
+/restaurant/pagesave:
+  controller: page
+  action: savePage
+
 /restaurant:
   controller: restaurant
   action: restaurantOptions

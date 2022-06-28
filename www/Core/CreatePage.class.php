@@ -5,9 +5,9 @@ namespace App\Core;
 class CreatePage
 {
 
-    public function createBasicPageIndex($fp){
+    public function createBasicPageIndex($fp, $inputs, $array_body){
 
-        $basicIndex = '
+        $page = '
 <!DOCTYPE html>
 <html>
 
@@ -23,13 +23,19 @@ class CreatePage
 
 <body>
 
-    <h1 class="flex justify-center">Index<h1>
+    <h1 class="flex justify-center">' . $inputs['title'] . '<h1>';
 
+        foreach ($array_body as $body){
+            $page .= '<section>' . $body . '</section>';
+        }
+
+        $page .='
 </body>
 
-</html>
-';
-        fwrite($fp, $basicIndex);
+</html>';
+
+
+        fwrite($fp, $page);
         fclose($fp);
     }
 }

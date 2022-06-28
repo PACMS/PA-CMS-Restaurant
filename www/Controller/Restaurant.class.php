@@ -55,7 +55,7 @@ class Restaurant
         $restaurant->hydrate($_POST);
 
         $dirname = $_SERVER["DOCUMENT_ROOT"] . '/View/pages/' . $restaurant->getName() . '/';
-        $url ='/pages/' . $restaurant->getName() . '/index';
+        $url ='pages/' . $restaurant->getName() . '/index';
         if (!is_dir($dirname))
         {
           mkdir($dirname, 0755, true) ;

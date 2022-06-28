@@ -1,3 +1,10 @@
+.bg-white {
+    background: white;
+}
+.border-none {
+    border: none;
+}
+
 .flex {
     display: flex;
 }
@@ -197,6 +204,10 @@
     margin-top: 0.25rem; /* 4px */
 }
 
+.mt-2 {
+    margin-top: 0.5rem; /* 8px */
+}
+
 .mt-7 {
     margin-top: 1.75rem; /* 28px */
 }
@@ -217,6 +228,10 @@
 }
 .mb-1 {
     margin-bottom: 0.25rem; /* 4px */
+}
+
+.mb-2 {
+    margin-bottom: 0.5rem; /* 8px */
 }
 
 .mb-7 {
