@@ -45,6 +45,7 @@ if (strpos($_SERVER["REQUEST_URI"], '?')) {
 $uribdd = substr($uri ,1);
 $uriPage = new Page();
 $uriPage = $uriPage->findOneBy(['url' => $uribdd]);
+
 //dd($uriPage->findOneBy(['url' => $uribdd]));
 if (!$uriPage){
 
