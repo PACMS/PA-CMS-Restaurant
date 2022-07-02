@@ -29,8 +29,10 @@ class GlobalController
         new View('setup-config','back');
 
         if(!empty($_POST)) {
+
+            // Test connexion à la base de données
             try {
-                new \PDO(
+                $pdo = new \PDO(
                     $_POST['driver'] .
                     ":host=" . $_POST['host'] .
                     ";port=" . $_POST['port'] .
@@ -43,6 +45,8 @@ class GlobalController
                 header('Location: /setup?step=1&error=Les identifiants ne sont pas bons');
                 die("Erreur SQL : " . $e->getMessage());
             }
+
+            // Créer le fichier de conf
             $config_file = file('conf.inc-sample.php');
             foreach ( $config_file as $line_num => $line ) {
                 preg_match( '/^define\(\s*\'([A-Z_]+)\',([ ]+)/', $line, $match );
@@ -79,6 +83,25 @@ class GlobalController
                 fwrite( $file, $line );
             }
             fclose($file);
+
+            // Créer les tables de la base de données
+            $requetes="";
+ 
+            $sqlFile = file('Dump/mvcdocker22.sql'); // on charge le fichier SQL
+            foreach($sqlFile as $l){ // on le lit
+                if (substr(trim($l),0,2)!="--") { // suppression des commentaires
+                    $requetes .= $l;
+                }
+            }
+            $reqs = explode(";",$requetes);// on sépare les requêtes
+            foreach($reqs as $req){	// et on les éxécute
+                if (trim($req)!="") {
+                    if(!$pdo->query($req)) {
+                        die("ERROR : ".$req); // stop si erreur 
+                    };
+                }
+            }
+
             header('Location: /setup?step=3');
         }
     }
