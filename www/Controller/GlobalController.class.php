@@ -20,6 +20,93 @@ use SimpleXMLElement;
 class GlobalController
 {
     /**
+     * Setup
+     *
+     * @return void
+     */
+    function setup()
+    {
+        new View('setup-config','back');
+
+        if(!empty($_POST)) {
+            try {
+                new \PDO(
+                    $_POST['driver'] .
+                    ":host=" . $_POST['host'] .
+                    ";port=" . $_POST['port'] .
+                    ";dbname=" . $_POST['name'],
+                    $_POST['user'],
+                    $_POST['password'],
+                    [\PDO::ATTR_ERRMODE => \PDO::ERRMODE_WARNING]
+                );
+            } catch (\Exception $e) {
+                header('Location: /setup?step=1&error=Les identifiants ne sont pas bons');
+                die("Erreur SQL : " . $e->getMessage());
+            }
+            $config_file = file('conf.inc-sample.php');
+            foreach ( $config_file as $line_num => $line ) {
+                preg_match( '/^define\(\s*\'([A-Z_]+)\',([ ]+)/', $line, $match );
+                switch($match[1]) {
+                    case 'DBDRIVER':
+                        $config_file[ $line_num ] = "define('" . $match[1] . "', '" . $_POST['driver'] . "');\r\n";
+                        break;
+                    case 'DBUSER':
+                        $config_file[ $line_num ] = "define('" . $match[1] . "', '" . $_POST['user'] . "');\r\n";
+                        break;
+                    case 'DBPWD':
+                        $config_file[ $line_num ] = "define('" . $match[1] . "', '" . $_POST['password'] . "');\r\n";
+                        break;
+                    case 'DBHOST':
+                        $config_file[ $line_num ] = "define('" . $match[1] . "', '" . $_POST['host'] . "');\r\n";
+                        break;
+                    case 'DBPORT':
+                        $config_file[ $line_num ] = "define('" . $match[1] . "', '" . $_POST['port'] . "');\r\n";
+                        break;
+                    case 'DBNAME':
+                        $config_file[ $line_num ] = "define('" . $match[1] . "', '" . $_POST['name'] . "');\r\n";
+                        break;
+                    case 'DBPREFIXE':
+                        $config_file[ $line_num ] = "define('" . $match[1] . "', '" . $_POST['prefixe'] . "');\r\n";
+                        break;
+                }
+            }
+            $config_text = '';
+            foreach ( $config_file as $line ) {
+                $config_text .= htmlentities( $line, ENT_COMPAT, 'UTF-8' );
+            }
+            $file = fopen('conf.inc-test.php', 'w');
+            foreach ( $config_file as $line ) {
+                fwrite( $file, $line );
+            }
+            fclose($file);
+            header('Location: /setup?step=3');
+        }
+    }
+
+    /**
+     * Setup action
+     *
+     * @return void
+     */
+    function setupAction()
+    {
+        dd($_POST);
+        try {
+            new \PDO(
+                $_POST['driver'] .
+                ":host=" . $_POST['address'] .
+                ";port=" . $_POST['port'] .
+                ";dbname=" . $_POST['name'],
+                $_POST['user'],
+                $_POST['password'],
+                [\PDO::ATTR_ERRMODE => \PDO::ERRMODE_WARNING]
+            );
+        } catch (\Exception $e) {
+            die("Erreur SQL : " . $e->getMessage());
+        }
+    }
+
+    /**
      * Sitemap
      *
      * @return void

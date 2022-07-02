@@ -180,3 +180,11 @@
   controller: globalController
   action: sitemap
 
+/setup:
+  controller: globalController
+  action: setup
+
+/setupAction:
+  controller: globalController
+  action: setupAction
+
