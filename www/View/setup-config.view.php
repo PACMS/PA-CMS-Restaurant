@@ -25,6 +25,8 @@ switch($step) {
     <input type="text" name="port" id="db_port" value="3306">
     <label for="db_prefixe">Préfixe de la base de données</label>
     <input type="text" name="prefixe" id="db_prefixe" value="pacm_">
+    <label for="domain_name">Nom de domaine</label>
+    <input type="text" name="domain_name" value="localhost">
     <input type="submit" value="Envoyer">
 </form>
 <?php

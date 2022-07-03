@@ -74,6 +74,12 @@ class GlobalController
                     case 'DBPREFIXE':
                         $config_file[ $line_num ] = "define('" . $match[1] . "', '" . $_POST['prefixe'] . "');\r\n";
                         break;
+                    case 'REDIRECT_URI_GOOGLE':
+                        $config_file[ $line_num ] = "define('" . $match[1] . "', '" . $_POST['domain_name'] . "/googleConnect');\r\n";
+                        break;
+                    case 'REDIRECT_URI_FACEBOOK':
+                        $config_file[ $line_num ] = "define('" . $match[1] . "', '" . $_POST['domain_name'] . "/facebookConnect');\r\n";
+                        break;
                 }
             }
             $config_text = '';
