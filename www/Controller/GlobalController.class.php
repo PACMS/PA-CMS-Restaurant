@@ -28,6 +28,12 @@ class GlobalController
      */
     function setup()
     {
+        if (file_exists('conf.inc.php')) {
+            http_response_code(404);
+            new View('error404', 'back');
+            die();
+        }
+
         new View('setup-config','back');
 
         if(!empty($_POST)) {
@@ -118,6 +124,11 @@ class GlobalController
     {
         $view = new View('setup-admin', 'back');
         $user = new UserModel;
+        if (!empty($user->getAll())) {
+            http_response_code(404);
+            new View('error404', 'back');
+            die();
+        }
         $view->assign('user', $user);
     }
 

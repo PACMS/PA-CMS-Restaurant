@@ -4,12 +4,15 @@ switch($step) {
     case 0:
 ?>
 <h1>Bienvenue sur l'assistant</h1>
-<button><a href="/setup?step=1">Next</a></button>
+<h2></h2>
+<button><a href="/setup?step=1">Suivant</a></button>
 <?php
     break;
     case 1:
     echo $_GET['error'] ?? (!empty($_GET['error']));
 ?>
+<h1>Informations liées à la base de données</h1>
+<h2>Les informations pourront être modifiées dans le fichier conf.inc.php</h2>
 <form action="/setup" method="post" class="flex flex-column">
     <label for="db_driver">Nom du pilote de la base de données</label>
     <input type="text" name="driver" id="db_driver" value="mysql">
