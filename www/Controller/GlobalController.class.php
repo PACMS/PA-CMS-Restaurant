@@ -3,6 +3,8 @@
 namespace App\Controller;
 
 use App\Core\View;
+use App\Model\User as UserModel;
+use App\Core\Verificator;
 use SimpleXMLElement;
 
 /**
@@ -78,7 +80,7 @@ class GlobalController
             foreach ( $config_file as $line ) {
                 $config_text .= htmlentities( $line, ENT_COMPAT, 'UTF-8' );
             }
-            $file = fopen('conf.inc-test.php', 'w');
+            $file = fopen('conf.inc.php', 'w');
             foreach ( $config_file as $line ) {
                 fwrite( $file, $line );
             }
@@ -102,8 +104,15 @@ class GlobalController
                 }
             }
 
-            header('Location: /setup?step=3');
+            header('Location: /setupAdmin');
         }
+    }
+
+    function setupAdmin()
+    {
+        $view = new View('setup-admin', 'back');
+        $user = new UserModel;
+        $view->assign('user', $user);
     }
 
     /**
@@ -113,19 +122,17 @@ class GlobalController
      */
     function setupAction()
     {
-        dd($_POST);
-        try {
-            new \PDO(
-                $_POST['driver'] .
-                ":host=" . $_POST['address'] .
-                ";port=" . $_POST['port'] .
-                ";dbname=" . $_POST['name'],
-                $_POST['user'],
-                $_POST['password'],
-                [\PDO::ATTR_ERRMODE => \PDO::ERRMODE_WARNING]
-            );
-        } catch (\Exception $e) {
-            die("Erreur SQL : " . $e->getMessage());
+        $user = new UserModel;
+        $errors = null;
+
+        $errors = Verificator::checkForm($user->getAdminRegisterForm(), $_POST + $_FILES);
+        if(!$errors) {
+            $user->hydrate($_POST);
+            $user->setRole('admin');
+            $user->setStatus(1);
+            $user->save();
+            
+            header('Location: /login');
         }
     }
 

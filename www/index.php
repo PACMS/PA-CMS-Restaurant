@@ -23,8 +23,8 @@ spl_autoload_register("App\myAutoloader");
 
 use App\Core\Security;
 
-if (file_exists('/www/conf.inc-test.php')) {
-    require "conf.inc-test.php";
+if (file_exists('conf.inc.php')) {
+    require "conf.inc.php";
 } else {
     $_SERVER["REQUEST_URI"] = "/setup";
 }
@@ -61,7 +61,6 @@ if (isset($routes[$uri]["security"]) && !Security::checkRoute($routes[$uri])) {
 
 $controller = ucfirst(strtolower($routes[$uri]["controller"]));
 $action = strtolower($routes[$uri]["action"]);
-
 
 
 
