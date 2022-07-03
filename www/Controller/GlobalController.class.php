@@ -95,7 +95,7 @@ class GlobalController
             // Créer les tables de la base de données
             $requetes="";
  
-            $sqlFile = file('Dump/mvcdocker22.sql'); // on charge le fichier SQL
+            $sqlFile = file('Dump/pacms_restaurant_setup.sql'); // on charge le fichier SQL
             foreach($sqlFile as $l){ // on le lit
                 if (substr(trim($l),0,2)!="--") { // suppression des commentaires
                     $requetes .= $l;
