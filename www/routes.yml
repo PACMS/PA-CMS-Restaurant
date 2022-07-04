@@ -125,51 +125,51 @@
   action: updateProfile
   security: "employee"
 
-/cartes:
+/restaurant/cartes:
   controller: carte
   action: carte
 
-/carte/create:
+/restaurant/carte/create:
   controller: carte
   action: createCarte
 
-/updateCarte:
+/restaurant/updateCarte:
   controller: carte
   action: updateCarte
 
-/carte/delete:
+/restaurant/carte/delete:
   controller: carte
   action: deleteCarte
 
-/carte/meals:
+/restaurant/carte/meals:
   controller: meal
   action: meal
 
-/carte/meals/sendId:
+/restaurant/carte/meals/sendId:
   controller: meal
   action: setIdCard
 
-/carte/meals/addCategorie:
+/restaurant/carte/meals/addCategorie:
   controller: categorie
   action: createcategorie
 
-/carte/meals/updateCategorie:
+/restaurant/carte/meals/updateCategorie:
   controller: categorie
   action: updateCategorie
 
-/carte/meals/deleteCategorie:
+/restaurant/carte/meals/deleteCategorie:
   controller: categorie
   action: deleteCategorie
 
-/carte/meals/addMeal:
+/restaurant/carte/meals/addMeal:
   controller: meal
   action: createMeal
 
-/carte/meals/updateMeal:
+/restaurant/carte/meals/updateMeal:
   controller: meal
   action: updateMeal
 
-/carte/meals/deleteMeal:
+/restaurant/carte/meals/deleteMeal:
   controller: meal
   action: deleteMeal
 

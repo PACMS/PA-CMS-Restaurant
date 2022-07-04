@@ -116,6 +116,10 @@ class Meal extends Sql
         $this->id_categories = $id_categories;
     }
 
+   
+
+     
+
     public function save(): void
     {
         parent::save();
@@ -129,7 +133,7 @@ class Meal extends Sql
 
     public function deleteMeal(int $id)
     {
-        $meal = parent::databaseDeleteOne("DELETE FROM " . DBPREFIXE . "meal", ['id' => $id]);
+        $meal = parent::databaseDeleteOne("DELETE FROM " . DBPREFIXE . "meal WHERE id = :id", ['id' => $id]);
         return $meal;
     }
 
@@ -139,7 +143,7 @@ class Meal extends Sql
         return $meal;
     }
 
-    public function getAddMeal(array $categories): array
+    public function getAddMeal(array $categories = [], array $food = []): array
     {
         $options = [];
         foreach ($categories as $key => $value) {
@@ -150,7 +154,7 @@ class Meal extends Sql
         return [
             "config" => [
                 "method" => "POST",
-                "action" => "/carte/meals/addMeal",
+                "action" => "/restaurant/carte/meals/addMeal",
                 "class" => "flex",
                 "id" => "addMeal",
                 "submit" => "Ajouter",
@@ -160,13 +164,15 @@ class Meal extends Sql
                 "name" => [
                     "type" => "text",
                     "label" => "Nom du menu",
-                    "required" => true
+                    "required" => true,
+                    "value" => "test",
                 ],
                 "price" => [
                     "type" => "text",
                     "label" => "Prix",
                     "required" => true,
-                    "error" => "Votre prix ne peut pas contenir de caractères"
+                    "error" => "Votre prix ne peut pas contenir de caractères",
+                    "value" => "12"
                 ],
                 "description" => [
                     "type" => "textarea",
@@ -174,20 +180,30 @@ class Meal extends Sql
                     "id" => "mealDescription",
                     "label" => "Description",
                     ],
-                "IdCarte" => [
+                "id_carte" => [
                     "type" => "hidden",
-                    "value" => $_SESSION["id_card"],
+                    "value" => intval($_SESSION["id_card"]),
                     "label" => "Description",
                     "required" => true
                 ],
-                "IdCategorie" => [
+                "id_categories" => [
                     "type" => "select",
                     "label" => "Catégorie",
                     "placeholder" => "Choisissez une catégorie",
                     "default" => null,
+                    "multiple" => false,
                     "options" => $options,
                     "required" => true
-
+                ],
+                "ingredients" => [
+                    "type" => "select",
+                    "label" => "Ingrédients",
+                    "id" => "ingredients",
+                    "placeholder" => "Choisissez un/plusieurs ingrédient(s)",
+                    "default" => null,
+                    "multiple" => true,
+                    "options" => $food,
+                    "required" => false
                 ],
             ]
         ];

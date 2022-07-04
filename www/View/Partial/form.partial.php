@@ -29,12 +29,12 @@
             <?php if (!empty($input["label"])) : ?>
                 <p><?= $input["label"] ?></p>
             <?php endif ?>
-            <select name="<?= $name ?>" class="<?= $input["class"] ?? "" ?>" id="<?= $name ?? "" ?>" type="<?= $input["type"] ?? "text" ?>" <?= !empty($input["required"]) ? 'required="required"' : ""  ?>>
+            <select name="<?= $name ?><?= $input["multiple"] ? '[]' : ""  ?>"  class="<?= $input["class"] ?? "" ?>" id="<?= $name ?? "" ?>" type="<?= $input["type"] ?? "text" ?>" <?= !empty($input["required"]) ? 'required="required"' : ""  ?>  <?= $input["multiple"] ? 'multiple="multiple"' : ""  ?> >
                 <option disabled="disabled"><?= $input["placeholder"] ?></option>
                 <?php foreach ($input['options'] as $value => $label) : ?>
                     <option value="<?= $value ?>" <?php if ($input["default"] === $value) : ?> selected="selected" <?php endif ?>><?= $label ?></option>
-                <?php endforeach ?>
-            </select>
+                        <?php endforeach ?>
+                    </select>
         <?php elseif ($input["type"] === "textarea") : ?>
             <label for="<?= $name ?>"><?= $input["label"] ?></label>
             <textarea name="<?= $name ?>" placeholder="<?= $input["placeholder"] ?? "" ?>" id="<?= $input["id"] ?>" <?= !empty($input["class"]) ? 'class="'. $input["class"] .'"' : ""  ?> <?= !empty($input["maxlength"]) ? 'maxlength="'. $input["maxlength"] .'"' : ""  ?> <?= !empty($input["required"]) ? 'required="required"' : ""  ?>></textarea>

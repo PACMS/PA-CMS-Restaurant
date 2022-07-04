@@ -18,7 +18,7 @@ class Categorie
         $categorie->hydrate($_POST);
         $categorie->save();
 
-        header('Location: /carte/meals');
+        header('Location: /restaurant/carte/meals');
     }
 
     public function updateCategorie()
@@ -27,15 +27,13 @@ class Categorie
         $categorie->hydrate($_POST);
         $categorie->save();
 
-        header('Location: /carte/meals');
+        header('Location: /restaurant/carte/meals');
     }
 
     public function deleteCategorie()
     {
         $categorie = new CategorieModel();
         $categorie->deleteCategorie($_POST["id"]);
-        $meal = new MealModel();
-        $meal->deleteMeals($_POST["id"]);
 
     }
 

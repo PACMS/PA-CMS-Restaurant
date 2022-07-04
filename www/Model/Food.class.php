@@ -108,7 +108,7 @@ class Food extends Sql
      */
     public function setStockId(int $stockId): void
     {
-        $this->stockId = $stockId;
+        $this->stockId = intval($stockId);
     }
 
 
