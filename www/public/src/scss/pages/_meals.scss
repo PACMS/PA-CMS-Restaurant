@@ -1,0 +1,323 @@
+$header-height: 80px;
+
+
+header#meals {
+    display: flex;
+    padding: 20px 30px;
+    height: $header-height;
+    justify-content: space-between;
+    align-items: center;
+
+    & article {
+        width: fit-content;
+
+        &#Add {
+
+            & button {
+                background-color: $blue;
+                border-radius: 11px;
+                color: white;
+                border: none;
+                padding: 10px 7px;
+                cursor: pointer;
+            }
+
+        }
+    }
+
+    & h1 {
+        font-size: rem(36);
+        font-weight: 600;
+        margin: 0;
+        color: black;
+        & a {
+            text-decoration: none;
+            color: black;
+        }
+
+    }
+
+    
+    & h3 {
+        font-size: rem(24);
+        font-weight: 500;
+        margin: 0;
+        color: $blue;
+        & a {
+            text-decoration: none;
+            color: $blue;
+        }
+    }
+}
+
+main#meals {
+    display: flex;
+    flex-direction: column;
+    padding: 20px 30px;
+
+    height: calc(100% - #{$header-height} - 80px);
+
+    &>article#Add {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+    }
+
+    & section#meals-menus {
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+        //align-content: flex-start;
+        justify-content: flex-start;
+        align-items: flex-start;
+        flex-grow: inherit;
+        flex-shrink: initial;
+        height: calc(100% - 31px);
+
+        & article {
+            width: 30%;
+
+
+            & div {
+                &:hover {
+                    & span {
+                        display: inline-block;
+                        font-style: italic;
+                        font-weight: 400;
+                        font-size: rem(14);
+                        color: #c4c4c4;
+                        margin-left: 13px;
+                        cursor: pointer;
+
+                        &:hover {
+                            color: #000;
+                        }
+                    }
+                }
+            }
+
+            & h1 {
+                margin: 0;
+                font-weight: 600;
+                font-size: rem(32);
+                color: black;
+            }
+
+            & div h1+figure {
+                margin: 0;
+                width: 21px;
+                height: 20px;
+                cursor: pointer;
+
+                & svg {
+                    pointer-events: none;
+                }
+            }
+
+
+
+            & div {
+                &>form {
+                    width: 100%;
+
+                    & button[type="submit"] {
+                        border-radius: 11px;
+                        border: none;
+                        background-color: transparent;
+                        font-weight: 500px;
+                        cursor: pointer;
+                    }
+                }
+            }
+
+            & div+ul {
+                margin: 28px 0 0 0;
+                padding: 0;
+
+
+
+                & li {
+                    list-style: none;
+                    border-bottom: 1px solid $blue;
+                    margin-bottom: 28px;
+
+
+                    & article {
+                        width: 100%;
+
+                        & main {
+
+                            & h1 {
+                                margin: 0;
+                                font-weight: 500;
+                                font-size: rem(16);
+                                color: #000;
+                            }
+
+                            & h3 {
+                                margin: 0;
+                                font-weight: 700;
+                                font-size: rem(16);
+                            }
+
+                        }
+
+                        & main+footer {
+                            margin-top: 12px;
+                            margin-bottom: 24px;
+
+                            & p {
+                                margin: 0;
+                                font-style: italic;
+                                font-weight: 400;
+                                font-size: rem(16);
+                            }
+
+                        }
+
+                        &:hover {
+                            & main>h1 {
+                                & span {
+                                    display: inline-block;
+                                    font-style: italic;
+                                    font-weight: 400;
+                                    font-size: rem(14);
+                                    color: #c4c4c4;
+                                    margin-left: 13px;
+                                    cursor: pointer;
+
+                                    & a {
+                                        text-decoration: none;
+                                        font-style: italic;
+                                        font-weight: 400;
+                                        font-size: rem(14);
+                                        color: #c4c4c4;
+                                        margin-left: 13px;
+                                        cursor: pointer;
+                                    }
+
+                                    &:hover {
+                                        color: black;
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    & form {
+                        // border-bottom: 1px solid $blue;
+                        // margin-bottom: 28px;
+                        display: flex;
+                        flex-direction: column;
+
+                        & label {
+                            font-size: rem(14);
+                            color: #888888;
+                            font-weight: bold;
+                        }
+
+                        & input:not([type="submit"]),
+                        textarea {
+                            border: none;
+                            border-radius: 11px;
+                            height: 40px;
+                            outline: none;
+                            background-color: #f2f5fa;
+                            margin: 8px 0;
+                            padding-left: 15px;
+                        }
+
+                        & textarea {
+                            padding-top: 10px;
+                        }
+
+                        & button[type="submit"] {
+                            border-radius: 11px;
+                            height: 50px;
+                            outline: none;
+                            margin-bottom: 28px;
+                            background-color: $blue;
+                            color: white;
+                            border: none;
+                            cursor: pointer;
+                            margin-top: 8px;
+                        }
+
+                    }
+                }
+            }
+        }
+    }
+
+    & div.modal {
+        position: fixed;
+        background-color: rgba(255, 255, 255, 0.82);
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        z-index: 999;
+        transition: all 0.3s;
+
+        & form {
+            width: 400px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding: 2em;
+            background-color: white;
+            flex-direction: column;
+            border-radius: 20px;
+            -webkit-box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
+            -moz-box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
+
+            & label {
+                font-size: rem(14);
+                color: #888888;
+                font-weight: bold;
+            }
+
+            & input:not([type="submit"]),
+            textarea {
+                border: none;
+                border-radius: 11px;
+                height: 40px;
+                outline: none;
+                background-color: #f2f5fa;
+                margin: 8px 0;
+                padding-left: 15px;
+            }
+
+            & textarea {
+                padding-top: 10px;
+            }
+
+            & input[type="submit"] {
+                border-radius: 11px;
+                height: 50px;
+                outline: none;
+            }
+
+            p.close {
+
+                color: #aaa;
+                line-height: 50px;
+                font-size: 80%;
+                position: absolute;
+                right: 2em;
+                text-align: center;
+                top: 0;
+                width: 70px;
+                text-decoration: none;
+                cursor: pointer;
+
+                &:hover {
+                    color: black;
+                }
+
+            }
+        }
+    }
+}

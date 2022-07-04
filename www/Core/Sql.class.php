@@ -30,9 +30,10 @@ abstract class Sql
         try {
             $this->_pdo = new \PDO(
                 DBDRIVER .
-                ":host=" . DBHOST .
-                ";port=" . DBPORT .
-                ";dbname=" . DBNAME,
+                    ":host=" . DBHOST .
+                    ";port=" . DBPORT .
+                    ";dbname=" . DBNAME .
+                    ";charset=utf8",
                 DBUSER,
                 DBPWD,
                 [\PDO::ATTR_ERRMODE => \PDO::ERRMODE_WARNING]
@@ -83,7 +84,6 @@ abstract class Sql
     protected function databaseFindAll(string $sql, array $params = [])
     {
         if($params !== []){
-
             foreach ($params as $key => $whereValue) {
                 $where[] = $key . " = :" . $key;
             }
@@ -146,7 +146,7 @@ abstract class Sql
         $columns = get_object_vars($this);
         $varToExclude = get_class_vars(get_class());
         $columns = array_diff_key($columns, $varToExclude);
-        if (empty($_POST['id']) || is_null($_POST['id'])) {
+        if ((empty($_POST['id']) || is_null($_POST['id'])) && is_null($columns['id'])) {
             $sql = "INSERT INTO " . $this->_table . " (" . implode(",", array_keys($columns)) . ") VALUES (:" . implode(",:", array_keys($columns)) . ")";
         } else {
             $update = [];
@@ -245,6 +245,14 @@ abstract class Sql
         return $queryPrepared->fetchAll(\PDO::FETCH_OBJ);
     }
 
+    public function last()
+    {
+        $sql = "SELECT * FROM " . $this->_table . " ORDER BY id DESC LIMIT 1";
+        $queryPrepared = $this->_pdo->prepare($sql);
+        $queryPrepared->execute();
+        return $queryPrepared->fetch(\PDO::FETCH_OBJ);
+    }
+
     /**
      * Verify if there is an user in the database with the same email and verify if the password is correct
      *
@@ -307,4 +315,36 @@ abstract class Sql
         }
         return null;
     }
+
+    function selectQuery(string $sql, int $type)
+    {
+        $queryPrepared = $this->_pdo->prepare($sql);
+        $queryPrepared->execute();
+        return $queryPrepared->fetchAll($type);
+    }
+
+    function selectFetchAll(string $sql, int $type)
+    {
+        $queryPrepared = $this->_pdo->prepare($sql);
+        $queryPrepared->execute();
+        if ($type == 5) {
+            return (object) $queryPrepared->fetchAll($type);
+        } else {
+            return $queryPrepared->fetchAll($type);
+        }
+    }
+
+    function selectFetch(string $sql, int $type)
+    {
+        $queryPrepared = $this->_pdo->prepare($sql);
+        $queryPrepared->execute();
+        return $queryPrepared->fetch($type);
+    }
+
+    function upsertQuery(string $sql, array $data)
+    {
+        $queryPrepared= $this->_pdo->prepare($sql);
+        $queryPrepared->execute($data);
+    }
+
 }
