@@ -62,7 +62,14 @@
                                        <td> <?php echo $page['status'] ?> </td>
                                        <td> <?php echo $page['created_at'] ?> </td>
                                        <td> <?php echo $page['updated_at'] ?> </td>
-                                       <td></td>
+                                       <td>
+                                           <a href='/page/show?id=<?php echo $page['id'] ?>'>
+                                               <i class='fas fa-pen'></i>
+                                           </a>
+                                           <a href='/page/delete?id=<?php echo $page['id'] ?>'>
+                                               <i class='fas fa-times-circle'></i>
+                                           </a>
+                                       </td>
                                    </tr>
                                 <?php
                                     endforeach;

@@ -98,24 +98,6 @@
         padding-left: 5px;
     }
 
-    & .cta-button{
-        font-family: $font1;
-        background-color: $main-color;
-        color: $white ;
-        min-width: 100px;
-        width: 175px;
-        padding: 12px 14px;
-        border: none;
-        border-radius: 11px ;
-        cursor: pointer;
-        font-size: rem(18) --important;
-        font-weight: 400 --important;
-        margin: auto 0 auto auto;
-        
-        
-
-    }
-    
     & label{
         font-family: $font1;
         font-size: rem(18);
@@ -129,24 +111,41 @@
         gap: 30px;
         align-items: center;
 
-        & .--cta-button-delete{
-            background-color: $red;
-            margin: auto 0 auto 0;
-            padding: 10px 25px;
-            width: auto;
-            color: $white;
-            font-weight: 400 ;
-            border-radius: 11px;
-        }
-    
-        & .--cta-button-save{
-            margin: auto 0 auto 0;
-            width: auto;
-            padding: 10px 25px;
-            font-weight: 400 ;
-            border-radius: 11px ;
-        }
+        
     }
 
     
+}
+
+.cta-button{
+    font-family: $font1;
+    background-color: $main-color;
+    color: $white ;
+    min-width: 100px;
+    width: 175px;
+    padding: 12px 14px;
+    border: none;
+    border-radius: 11px ;
+    cursor: pointer;
+    font-size: rem(18) --important;
+    font-weight: 400 --important;
+    margin: auto 0 auto auto;  
+}
+
+.--cta-button-delete{
+    background-color: $red;
+    margin: auto 0 auto 0;
+    padding: 10px 25px;
+    width: auto;
+    color: $white;
+    font-weight: 400 ;
+    border-radius: 11px;
+}
+
+.--cta-button-save{
+    margin: auto 0 auto 0;
+    width: auto;
+    padding: 10px 25px;
+    font-weight: 400 ;
+    border-radius: 11px ;
 }

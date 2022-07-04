@@ -7,6 +7,7 @@ use App\Core\Sql;
 class Page extends Sql
 {
     protected $id = null;
+    protected $title;
     protected $url ;
     protected $status ;
     protected $id_theme ;
@@ -26,6 +27,22 @@ class Page extends Sql
     public function setId($id): void
     {
         $this->id = $id;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getTitle()
+    {
+        return $this->title;
+    }
+
+    /**
+     * @param mixed $title
+     */
+    public function setTitle($title): void
+    {
+        $this->title = $title;
     }
 
 
@@ -98,5 +115,15 @@ class Page extends Sql
         $pages = parent::databaseFindAll("SELECT * FROM " . DBPREFIXE . "page" , ['id_restaurant' => $id]);
         return $pages;
     }
+    public function getPageId(string $table, int $id)
+    {
+        $page = parent::databaseFindOne(['id' => $id], $table);
+        return $page;
+    }
 
+    public function databaseDeleteOnePage(array $params)
+    {
+        $page = parent::databaseDeleteOne("DELETE FROM " . DBPREFIXE . "page" . " WHERE id = :id", $params);
+        return $page;
+    }
 }

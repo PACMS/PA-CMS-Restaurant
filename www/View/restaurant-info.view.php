@@ -12,7 +12,7 @@ endif;
         <nav class="sidebar-nav">
             <a href="dashboard">
                 <img class="sidebar-image" src="https://images.unsplash.com/photo-1554469384-e58fac16e23a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxMTgwOTN8MHwxfHNlYXJjaHwzfHxidWlsZGluZ3xlbnwwfHx8fDE2NDUzODA4MTQ&ixlib=rb-1.2.1&q=80&w=1080" alt="Avatar">
-                <h2 class="sidebar-title">Nom Entreprise</h2>
+                <h2 class="sidebar-title"><?= $oneRestaurant["name"] ?></h2>
             </a>
             <ul class="sidebar-list">
                 <li><a href="profile" class="sidebar-button"><i class="far fa-user-circle sidebar-button-picto"></i><span>Profil</span></a></li>
@@ -43,15 +43,10 @@ endif;
                 </button>
             </article>
         </section>
-        <!-- <form class="" method="POST" action="/restaurant">
-                                <input type="hidden" name="id" value="<?=  $value["id"]?>"></input>
-                                <button type="submit">Retour</button>
-                        </form> -->
-        <!-- <form id="restaurant-delete" action="/restaurant/delete" method="POST">
-            <input type="hidden" name="id" value="<?= $_SESSION["id_restaurant"] ?>">
-            <button type="submit" class="cta-button">Supprimer</button>
-        </form> -->
-        <?php $this->includePartial("form", $restaurant->deleteRestaurant()); ?>
+        
+        <div id="restaurant-delete">
+            <a href="/restaurant/delete" id="delete">Supprimer</a>
+        </div>
         <?php $this->includePartial("form", $restaurant->getCompleteUpdateRestaurantForm()); ?>
     </section>
 </main>
@@ -62,17 +57,14 @@ endif;
 
     const submit = submitForm.querySelector("input[type='submit']");
     submit.setAttribute("class", "cta-button --cta-button-save");
-    const buttonsDiv = document.createElement("div" );
+    const buttonsDiv = document.createElement("div");
     buttonsDiv.setAttribute("id", "buttonsDiv");
     const form = document.getElementById("restaurant-form");
     form.appendChild(buttonsDiv);
     // move sumbit to buttonsDiv
     const deleteForm = document.getElementById("restaurant-delete");
-    const deleteButton = deleteForm.querySelector("input[type='submit']");
+    const deleteButton = deleteForm.querySelector("#delete");
     deleteButton.setAttribute("class", "cta-button --cta-button-delete");
     buttonsDiv.appendChild(deleteForm);
     buttonsDiv.appendChild(submit);
-
-        
-
 </script>

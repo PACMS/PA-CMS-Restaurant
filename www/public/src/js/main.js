@@ -205,12 +205,12 @@ $(document).ready(function () {
     );
     $("div#sectionButton").append(cancelButton);
 
-    // $("#btncancel").on("click", function (event) {
-    //   event.target.disabled = true;
-    // });
+    $("#btncancel").on("click", function (event) {
+      event.target.disabled = true;
+    });
 
     var submitButton = $(
-      "<button class='btn btn-submit' type='submit' id='btncancel'>Confirmer </button>"
+      "<button class='btn btn-submit' type='submit' id='btnConfirm'>Confirmer </button>"
     );
     $("button#btncancel").after(submitButton);
 
@@ -260,7 +260,7 @@ $(document).ready(function () {
     },
     columnDefs: [
       { className: "dt-center", targets: "_all" },
-      { targets: -1, data: null, defaultContent: "<a href='#'><i class='fas fa-pen'></i></a><a href='#'><i class='fas fa-times-circle'></i></a>" },
+
     ],
     order: [1, 'desc'],
     columns: [null, null, null, { type: "date-eu" }, { type: "date-eu" },  null],
