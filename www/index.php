@@ -2,7 +2,6 @@
 
 namespace App;
 
-require "conf.inc.php";
 require "Core/Helpers.php";
 
 function myAutoloader($class)
@@ -23,6 +22,12 @@ function myAutoloader($class)
 spl_autoload_register("App\myAutoloader");
 
 use App\Core\Security;
+
+if (file_exists('conf.inc.php')) {
+    require "conf.inc.php";
+} else {
+    $_SERVER["REQUEST_URI"] = "/setup";
+}
 
 $fileRoutes = "routes.yml";
 
@@ -59,7 +64,6 @@ $action = strtolower($routes[$uri]["action"]);
 
 
 
-
 // $uri = /login
 // $Controller = User
 // $action = login
@@ -77,7 +81,6 @@ if (!class_exists($controller)) {
 }
 
 $objectController = new $controller();
-
 
 if (!method_exists($objectController, $action)) {
     die("La methode n'existe pas");

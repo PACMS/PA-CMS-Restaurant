@@ -463,6 +463,85 @@ class User extends Sql
     }
 
     /**
+     * Form for register an user
+     *
+     * @return array
+     */
+    public function getAdminRegisterForm(): array
+    {
+        return [
+            "config" => [
+                "method" => "POST",
+                "action" => "/setupAction",
+                "class" => "formAdminRegister",
+                "id" => "formAdminRegister",
+                "submit" => "Créer",
+                'captcha' => false,
+            ],
+            "inputs" => [
+                "lastname" => [
+                    "label" => "Nom",
+                    "type" => "text",
+                    "id" => "lastnameRegister",
+                    "class" => "formRegister",
+                    "min" => 2,
+                    "max" => 100,
+                    "error" => "Votre nom doit faire entre 2 et 100 caractères"
+                ],
+                "firstname" => [
+                    "label" => "Prénom",
+                    "type" => "text",
+                    "id" => "firstnameRegister",
+                    "class" => "formRegister",
+                    "min" => 2,
+                    "max" => 25,
+                    "error" => "Votre prénom doit faire entre 2 et 25 caractères"
+                ],
+                "email" => [
+                    "label" => "Adresse mail",
+                    "type" => "email",
+                    "id" => "emailRegister",
+                    "class" => "formRegister",
+                    "required" => true,
+                    "error" => "Votre email n'est pas correct",
+                    "unicity" => 'user',
+                    "errorUnicity" => "Un comte existe déjà avec cet email"
+                ],
+                "password" => [
+                    "label" => "Mot de passe  <i id=\"info-password-register\" class=\"fal fa-info-circle\"></i>",
+                    "type" => "password",
+                    "id" => "pwdRegister",
+                    "class" => "formRegister",
+                    "required" => true,
+                    "error" => "Votre mot de passe doit faire au minimum 8 caractères avec une majuscule et un chiffre"
+                ],
+                "passwordConfirm" => [
+                    "label" => "Confirmer mot de passe",
+                    "type" => "password",
+                    "id" => "pwdConfirmRegister",
+                    "class" => "formRegister",
+                    "required" => true,
+                    "error" => "Votre confirmation doit ne correspond pas",
+                    "confirm" => "password"
+                ],
+                "acceptConditions" => [
+                    "title" => "",
+                    "additionnalDiv" => true,
+                    "type" => "checkbox",
+                    "id" => "accept_conditions_register",
+                    "class" => "formRegister",
+                    "required" => true,
+                    "checked" => false,
+                    "error" => "Vous devez accepter les conditions d'utilisation",
+                    "values" => [
+                        "acceptConditions" => "En cliquant ici, vous acceptez <span>les CGU</span> du site",
+                    ]
+                ]
+            ]
+        ];
+    }
+
+    /**
      * Form for login an user
      *
      * @return array

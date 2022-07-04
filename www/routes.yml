@@ -232,4 +232,23 @@
 /notFound:
   controller: user
   action: errorNotFound
-  security: "employee"
+  security: 'employee'
+
+/sitemap.xml:
+  controller: globalController
+  action: sitemap
+
+# Setup
+
+/setup:
+  controller: globalController
+  action: setup
+
+/setupAdmin:
+  controller: globalController
+  action: setupAdmin
+
+/setupAction:
+  controller: globalController
+  action: setupAction
+
