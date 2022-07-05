@@ -43,6 +43,7 @@
                                     <th>Table</th>
                                     <th>Téléphone</th>
                                     <th>Actions</th>
+                                    <th>Envoyer un mail</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -58,6 +59,7 @@
                                        <td> <?php echo $reservation->numTable ?> </td>
                                        <td> <?php echo $reservation->phoneReserv ?> </td>
                                        <td></td>
+                                       <td> SEND MAIL </td>
                                    </tr>
                                 <?php
                                     endforeach;
