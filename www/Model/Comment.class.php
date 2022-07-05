@@ -177,4 +177,25 @@ class Comment extends Sql
             ]
         ];
     }
+
+    public function deleteComment(int $id): array
+    {
+        return [
+            "config" => [
+                "method" => "POST",
+                "action" => "/restaurant/deleteComment",
+                "class" => "flex flex-column",
+                "id" => "",
+                "submit" => "Supprimer",
+                'captcha' => false
+            ],
+            "inputs" => [
+                "id" => [
+                    "type" => "hidden",
+                    "id" => "id",
+                    "value" => $id
+                ]
+            ]
+        ];
+    }
 }

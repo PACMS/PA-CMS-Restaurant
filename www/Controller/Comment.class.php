@@ -27,13 +27,21 @@ class Comment
 
     public function stockComment()
     {
-        session_start();
+        @session_start();
+        $mail = new Mail();
         $_POST["id_restaurant"] = intval($_POST["id_restaurant"]);
         $_POST["id_user"] = intval($_SESSION["user"]["id"]);
         $request = new MysqlBuilder();
         $result = $request->insert("comments", $_POST)
                 ->fetchClass("comment")
                 ->execute();
+        $users = $request->select("user", ["*"])
+                ->where("role", "admin")
+                ->fetchClass("user")
+                ->fetchAll();
+        foreach ($users as $value) {
+            $mail->askValidationComment($value);
+        }
         header("Location: /"); 
     }
 
@@ -58,6 +66,16 @@ class Comment
             ->where("id", $_POST["id"])
             ->fetchClass("comment")
             ->execute();
+        header("Location: /restaurant/comments");
+    }
+
+    public function deleteComment()
+    {
+        $request = new MysqlBuilder();
+        $request
+            ->delete("comments", ["id" => $_POST["id"]])
+            ->fetchClass("comment")
+            ->fetch();
         header("Location: /restaurant/comments");
     }
 }

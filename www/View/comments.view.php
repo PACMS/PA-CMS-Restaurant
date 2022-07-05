@@ -33,7 +33,7 @@
                             <div style="gap: 10px" class="flex align-items-center">
                                 <p>User :<?= $value->getIdUser() ?></p>
                                 <p><?= $value->getContent() ?></p>
-                                <p>status :<?= $value->getStatus() ?></p> <?php $this->includePartial("form", $comment->validateComment($value->getId())); ?><button>Delete</button>
+                                <p>status :<?= $value->getStatus() ?></p> <?php $this->includePartial("form", $comment->validateComment($value->getId())); ?><?php $this->includePartial("form", $comment->deleteComment($value->getId())); ?>
                             </div>
                         <?php endif; ?>
                     <?php endforeach; ?>
@@ -44,7 +44,7 @@
                                 <div style="gap: 10px" class="flex align-items-center">
                                     <p>User :<?= $value->getIdUser() ?></p>
                                     <p><?= $value->getContent() ?></p>
-                                    <p>status :<?= $value->getStatus() ?></p> <?php $this->includePartial("form", $comment->validateComment($value->getId())); ?><button>Delete</button>
+                                    <p>status :<?= $value->getStatus() ?></p> <?php $this->includePartial("form", $comment->validateComment($value->getId())); ?><?php $this->includePartial("form", $comment->deleteComment($value->getId())); ?>
                                 </div>
                         <?php endif; ?>
                     <?php endforeach; ?>

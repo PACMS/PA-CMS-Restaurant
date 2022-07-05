@@ -219,6 +219,11 @@
   action: validateComment
   security: "admin"
 
+/restaurant/deleteComment:
+  controller: comment
+  action: deleteComment
+  security: "admin"
+
 # Route pour la gestion des utilisateurs
 
 /users:
