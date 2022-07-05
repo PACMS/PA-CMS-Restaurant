@@ -83,11 +83,11 @@ endif;
                             <button><a href="/restaurant/stock">Modifier</a></button>
                         </div>
                     </div>
-                    <div class="restaurant-card">
+                    <form class="restaurant-card" method="POST" action="restaurant/reservation">
                         <img src="../public/assets/img/restauOptions/reservations.jpg" alt="reservations" />
                         <div class="bandeau">
                             <p>Réservations</p>
-                            <input type="hidden" name="id" value="<?= $_SESSION["restaurant"]["id"] ?>"></input>
+                            <input type="hidden" name="id" value="<?= $oneRestaurant["id"] ?>">
                             <button type="submit">Modifier</button>
                         </div>
                     </form>

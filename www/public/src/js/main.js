@@ -243,7 +243,6 @@ $(document).ready(function () {
     },
     columnDefs: [
       { className: "dt-center", targets: "_all" },
-      { targets: -1, data: null, defaultContent: "<a href=''><i class='fas fa-pen'></i></a><a href=''><i class='fas fa-times-circle'></i></a>" },
     ],
     order: [3, 'desc'],
     columns: [null, null, null, { type: "date-eu" }, null, null, null, null],

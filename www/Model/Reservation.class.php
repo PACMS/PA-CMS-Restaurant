@@ -15,6 +15,7 @@ class Reservation extends Sql
     protected $numPerson;
     protected $numTable;
     protected $phoneReserv;
+    protected $id_restaurant;
 
     public function __construct()
     {
@@ -24,6 +25,22 @@ class Reservation extends Sql
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getIdRestaurant()
+    {
+        return $this->id_restaurant;
+    }
+
+    /**
+     * @param mixed $id_restaurant
+     */
+    public function setIdRestaurant($id_restaurant): void
+    {
+        $this->id_restaurant = $id_restaurant;
     }
 
     /**
@@ -130,6 +147,16 @@ class Reservation extends Sql
     public function getAll(): array
     {
        return parent::getAll();
+    }
+    public function getAllReservationsFromRestaurant(int $id)
+    {
+        $reservations = parent::databaseFindAll("SELECT * FROM " . DBPREFIXE . "reservation" , ['id_restaurant' => $id]);
+        return $reservations;
+    }
+    public function databaseDeleteOneReservation(array $params)
+    {
+        $reservations = parent::databaseDeleteOne("DELETE FROM " . DBPREFIXE . "reservation" . " WHERE id = :id", $params);
+        return $reservations;
     }
     /**
      * @return mixed
