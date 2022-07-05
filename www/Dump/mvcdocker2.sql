@@ -147,6 +147,7 @@ INSERT INTO `pacm_mealsFoods` (`id`, `meal_id`, `food_id`) VALUES
 CREATE TABLE `pacm_reservation` (
   `id` int(11) NOT NULL,
   `name` varchar(50) NOT NULL,
+  `email` varchar(320) NOT NULL,
   `date` date NOT NULL,
   `hour` time NOT NULL,
   `numTable` int(11) NOT NULL,
@@ -368,6 +369,12 @@ ALTER TABLE `pacm_stock`
 --
 ALTER TABLE `pacm_user`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT pour la table `pacm_reservation`
+--
+ALTER TABLE `pacm_reservation`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
 
 --
 -- Contraintes pour les tables déchargées

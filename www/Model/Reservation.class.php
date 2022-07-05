@@ -10,6 +10,7 @@ class Reservation extends Sql
 
     protected $id = null;
     protected $name;
+    protected $email;
     protected $date;
     protected $hour;
     protected $numPerson;
@@ -40,6 +41,22 @@ class Reservation extends Sql
     public function setName($name): void
     {
         $this->name = $name;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getEmail()
+    {
+        return $this->email;
+    }
+
+    /**
+     * @param mixed $email
+     */
+    public function setEmail($email): void
+    {
+        $this->email = $email;
     }
 
     /**
@@ -140,7 +157,7 @@ class Reservation extends Sql
             "config"=>[
                 "method"=>"POST",
                 "action"=>"addReservation",
-                "class"=>"containerForm",
+                "class"=>"containerForm flex flex-column",
                 "id"=>"formReservation",
                 "submit"=>"Ajouter",
                 'captcha' => false,
@@ -150,6 +167,15 @@ class Reservation extends Sql
                     "label"=>"Nom et prénom",
                     "type"=>"text",
                     "class"=>"formReservation",
+                ],
+                "email" => [
+                    "label"=>"Adresse mail",
+                    "placeholder" => "Votre email ...",
+                    "type" => "email",
+                    "id" => "emailReservation",
+                    "class" => "formReservation",
+                    "required" => true,
+                    "error" => "Votre email n'est pas correct",
                 ],
                 "numPerson"=>[
                     "label"=>"Nombre de personne",
@@ -193,7 +219,7 @@ class Reservation extends Sql
             "config"=>[
                 "method"=>"POST",
                 "action"=>"addReservationClient",
-                "class"=>"containerForm",
+                "class"=>"containerForm flex flex-column",
                 "id"=>"formReservation",
                 "submit"=>"Ajouter",
                 'captcha' => false,
@@ -203,6 +229,15 @@ class Reservation extends Sql
                     "label"=>"Nom et prénom",
                     "type"=>"text",
                     "class"=>"formReservation",
+                ],
+                "email" => [
+                    "label"=>"Adresse mail",
+                    "placeholder" => "Votre email ...",
+                    "type" => "email",
+                    "id" => "emailReservation",
+                    "class" => "formReservation",
+                    "required" => true,
+                    "error" => "Votre email n'est pas correct",
                 ],
                 "numPerson"=>[
                     "label"=>"Nombre de personne",
