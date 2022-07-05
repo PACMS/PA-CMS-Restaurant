@@ -425,6 +425,42 @@ ALTER TABLE `pacm_stock`
   ADD CONSTRAINT `restauDeleteStock` FOREIGN KEY (`restaurantId`) REFERENCES `pacm_restaurant` (`id`) ON DELETE CASCADE;
 COMMIT;
 
+--
+-- Table structure for table `pacm_comments`
+--
+
+CREATE TABLE `pacm_comments` (
+  `id` bigint(20) NOT NULL,
+  `content` varchar(400) NOT NULL,
+  `id_parent` int(11) DEFAULT NULL,
+  `id_user` int(11) NOT NULL,
+  `id_restaurant` int(11) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `pacm_comments`
+--
+ALTER TABLE `pacm_comments`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `pacm_comments`
+--
+ALTER TABLE `pacm_comments`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+COMMIT;
+
+
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
