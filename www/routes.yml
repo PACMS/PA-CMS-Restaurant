@@ -204,6 +204,9 @@
   action: addCommentView
   security: "user"
 
+/restaurant/addComment:
+  controller: comment
+  action: stockComment
 
 # Route pour la gestion des utilisateurs
 

@@ -87,12 +87,12 @@ class Mail
         }
     }
 
-    public function askCommentMail(string $email, string $name)
+    public function askCommentMail(string $email, string $name, int $id_restaurant)
     {
         try {
             $actualDateTime = new \DateTime();
             $actualDateTime = $actualDateTime->format('YmdHis');
-            $message = "http://localhost/addComment";
+            $message = "http://localhost/addComment?restaurant={$id_restaurant}";
             $phpmailer = new PHPMailer();
             //Server settings
             $phpmailer->isSMTP();

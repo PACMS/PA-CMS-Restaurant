@@ -271,7 +271,11 @@ abstract class Sql
                 $_SESSION['user']['role'] = $userVerify['role'];
 
                 if ($userVerify['role'] == 'user') {
-                    header('Location: /');
+                    if (!is_null($_SESSION['previous_location'])) {
+                        header('Location: ' . $_SESSION['previous_location']);
+                    } else  {
+                        header('Location: /');
+                    }
                 } else {
                     header('Location: dashboard');
                 }

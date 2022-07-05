@@ -106,22 +106,30 @@ class Comment extends Sql
 
 
     
-    public function getAddComment(): array
+    public function getAddComment(int $id_restaurant): array
     {
         return [
             "config" => [
                 "method" => "POST",
                 "action" => "/restaurant/addComment",
-                "class" => "flex",
+                "class" => "flex flex-column",
                 "id" => "",
                 "submit" => "Publier",
                 'captcha' => false
             ],
             "inputs" => [
-                "name" => [
+                "content" => [
                     "type" => "textarea",
                     "label" => "Commentaire :",
-                    "required" => true
+                    "id" => "content",
+                    "required" => true,
+                    "minlength" => 20,
+                    "maxlength" => 400
+                ],
+                "id_restaurant" => [
+                    "type" => "hidden",
+                    "id" => "id_restaurant",
+                    "value" => $id_restaurant
                 ]
             ]
         ];

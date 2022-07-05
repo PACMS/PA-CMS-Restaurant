@@ -37,7 +37,7 @@
                     </select>
         <?php elseif ($input["type"] === "textarea") : ?>
             <label for="<?= $name ?>"><?= $input["label"] ?></label>
-            <textarea name="<?= $name ?>" placeholder="<?= $input["placeholder"] ?? "" ?>" id="<?= $input["id"] ?>" <?= !empty($input["class"]) ? 'class="'. $input["class"] .'"' : ""  ?> <?= !empty($input["maxlength"]) ? 'maxlength="'. $input["maxlength"] .'"' : ""  ?> <?= !empty($input["required"]) ? 'required="required"' : ""  ?>></textarea>
+            <textarea name="<?= $name ?>" placeholder="<?= $input["placeholder"] ?? "" ?>" id="<?= $input["id"] ?>" <?= !empty($input["class"]) ? 'class="'. $input["class"] .'"' : ""  ?> <?= !empty($input["maxlength"]) ? 'maxlength="'. $input["maxlength"] .'"' : ""  ?> <?= !empty($input["minlength"]) ? 'minlength="'. $input["minlength"] .'"' : ""  ?> <?= !empty($input["required"]) ? 'required="required"' : ""  ?> ></textarea>
         <?php elseif ($input["type"] === "file") : ?>
             <label for="<?= $name ?>"><?= $input["label"] ?></label>
             <?php $concatAccept = "" ?>

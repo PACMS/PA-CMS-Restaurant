@@ -76,6 +76,6 @@ class Reservation
             ->fetchClass("reservation")
             ->fetch();
         $test = new Comment();
-        $test->mailAskForComment($currentReservation->getEmail(), $currentReservation->getName());
+        $test->mailAskForComment($currentReservation->getEmail(), $currentReservation->getName(), $_SESSION["restaurant"]["id"]);
     }
 }

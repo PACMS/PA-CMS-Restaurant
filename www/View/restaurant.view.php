@@ -79,7 +79,7 @@ endif;
                         <img src="../public/assets/img/restauOptions/reservations.jpg" alt="reservations" />
                         <div class="bandeau">
                             <p>Réservation</p>
-                            <button><a href="/restaurants">Modifier</a></button>
+                            <button><a href="/reservation">Modifier</a></button>
                         </div>
                     </div>
                     <div class="restaurant-card">
