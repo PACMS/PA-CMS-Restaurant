@@ -48,18 +48,18 @@
                                 </thead>
                                 <tbody>
                                 <?php
-                                    foreach ($data as $reservation) :
+                                    foreach ($data as $reservationInfo) :
                                 ?>
                                    <tr>
-                                       <td> <?php echo $reservation->id ?> </td>
-                                       <td> <?php echo $reservation->name ?> </td>
-                                       <td> <?php echo $reservation->numPerson ?> </td>
-                                       <td> <?php echo $reservation->date ?> </td>
-                                       <td> <?php echo $reservation->hour ?> </td>
-                                       <td> <?php echo $reservation->numTable ?> </td>
-                                       <td> <?php echo $reservation->phoneReserv ?> </td>
+                                       <td> <?php echo $reservationInfo->id ?> </td>
+                                       <td> <?php echo $reservationInfo->name ?> </td>
+                                       <td> <?php echo $reservationInfo->numPerson ?> </td>
+                                       <td> <?php echo $reservationInfo->date ?> </td>
+                                       <td> <?php echo $reservationInfo->hour ?> </td>
+                                       <td> <?php echo $reservationInfo->numTable ?> </td>
+                                       <td> <?php echo $reservationInfo->phoneReserv ?> </td>
                                        <td></td>
-                                       <td> SEND MAIL </td>
+                                       <td> <?php $this->includePartial("form", $reservation->EndForMailReservation(intval($reservationInfo->id))); ?> </td>
                                    </tr>
                                 <?php
                                     endforeach;
