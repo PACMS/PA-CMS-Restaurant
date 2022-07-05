@@ -197,6 +197,14 @@
   action: completeReservation
   security: "employee"
 
+# Route pour les commentaires
+
+/addComment:
+  controller: comment
+  action: addCommentView
+  security: "user"
+
+
 # Route pour la gestion des utilisateurs
 
 /users:

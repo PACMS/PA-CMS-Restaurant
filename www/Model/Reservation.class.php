@@ -245,6 +245,7 @@ class Reservation extends Sql
                     "max"=>10,
 
                 ],
+                
             ]
         ];
     }
@@ -307,6 +308,7 @@ class Reservation extends Sql
                     "max"=>10,
 
                 ],
+                
             ]
         ];
     }

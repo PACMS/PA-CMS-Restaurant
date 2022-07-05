@@ -86,9 +86,38 @@ class Mail
             echo "Message could not be sent. Mailer Error: {$phpmailer->ErrorInfo}";
         }
     }
-    /* public function templateConfirmMail{
+
+    public function askCommentMail(string $email, string $name)
+    {
+        try {
+            $actualDateTime = new \DateTime();
+            $actualDateTime = $actualDateTime->format('YmdHis');
+            $message = "http://localhost/addComment";
+            $phpmailer = new PHPMailer();
+            //Server settings
+            $phpmailer->isSMTP();
+            $phpmailer->SMTPDebug = SMTP::DEBUG_CONNECTION;
+            $phpmailer->Host = MHOST;
+            $phpmailer->SMTPAuth = true;
+            $phpmailer->Username = MUSERNAME;
+            $phpmailer->Password = MPASSWORD;
+            $phpmailer->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
+            $phpmailer->Port = MPORT;
+
+            //Recipients
+            $phpmailer->setFrom('pa.cms.test@gmail.com', 'PCR Contact');
+            $phpmailer->addAddress($email);     //Add a recipient
+            // $phpmailer->addAddress('vivin.fr@free.fr');     //Add a recipient
 
 
-        return
-    }*/
+            //Content
+            $phpmailer->isHTML(true);                                  //Set email format to HTML
+            $phpmailer->Subject = "Laissez un commentaire sur le site";
+            $phpmailer->Body    = "Salut {$name}, {$message}";
+            $phpmailer->send();
+            echo 'Message has been sent';
+        } catch (Exception $e) {
+            echo "Message could not be sent. Mailer Error: {$phpmailer->ErrorInfo}";
+        }
+    }
 }

@@ -20,7 +20,7 @@
             <div id="open-modal" class="modal-window">
                 <div class="flex flex-column">
                     <a href="#" title="Close" class="modal-close ">x</a>
-                    <?php $this->includePartial("formReserv", $reservation->getModalForm()); ?>
+                    <?php $this->includePartial("form", $reservation->getModalForm()); ?>
                 </div>
             </div>
             <a class='btn btn-submit pr-20 pl-20 w-48' href="#open-modal" id='btncancel'>Ajout de reservation</a>
