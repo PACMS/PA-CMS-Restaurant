@@ -36,4 +36,28 @@ class Comment
                 ->execute();
         header("Location: /"); 
     }
+
+    public function getComments()
+    {
+        $request = new MysqlBuilder();
+        $comment = new CommentModel();
+        $view = new View("comments", "front");
+        $result = $request->select("comments", ["*"])
+                ->where("id_restaurant", $_SESSION["restaurant"]["id"])
+                ->fetchClass("comment")
+                ->fetchAll();
+        $view->assign('comments', $result);
+        $view->assign('comment', $comment);
+    }
+
+    public function validateComment()
+    {
+        $request = new MysqlBuilder();
+        $request
+            ->update("comments", ["status" => 1])
+            ->where("id", $_POST["id"])
+            ->fetchClass("comment")
+            ->execute();
+        header("Location: /restaurant/comments");
+    }
 }

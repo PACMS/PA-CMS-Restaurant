@@ -35,7 +35,6 @@
             </article>
         </section>
         <section style="padding-right: 4%;">
-            <!-- Mettre le js de Thibaut pour avoir le popup d'ajout -->
             <div id="Add" style="display: flex; width: 100%; justify-content: right">
                 <button id="addProduct" style="padding: 10px 0; width:200px; background-color : #0051EF; color: white; border: none; border-radius: 11px; font-size: 16px; margin-right: 100px; text-align: center; text-decoration: none;">Ajouter un produit</button>
             </div>

@@ -51,35 +51,42 @@ endif;
                         <img src="../public/assets/img/restauOptions/informations.png" alt="information" />
                         <div class="bandeau">
                             <p>Informations</p>
-                            <button><a href="/restaurant/information">Modifier</a></button>
+                            <button><a href="/restaurant/information">Accéder</a></button>
                         </div>
                     </div>
                     <div class="restaurant-card" >
                         <img src="../public/assets/img/restauOptions/cartes.jpg" alt="cartes" />
                         <div class="bandeau">
                             <p>Cartes</p>
-                            <button><a href="/restaurant/cartes">Modifier</a></button>
+                            <button><a href="/restaurant/cartes">Accéder</a></button>
                         </div>
                     </div>
                     <div class="restaurant-card">
                         <img src="../public/assets/img/restauOptions/salle.jpg" alt="salle" />
                         <div class="bandeau">
                             <p>Salle</p>
-                            <button><a href="/restaurants">Modifier</a></button>
+                            <button><a href="/restaurants">Accéder</a></button>
                         </div>
                     </div>
                     <div class="restaurant-card">
                         <img src="../public/assets/img/restauOptions/stock.jpg" alt="stock" />
                         <div class="bandeau">
                             <p>Stock</p>
-                            <button><a href="/restaurant/stock">Modifier</a></button>
+                            <button><a href="/restaurant/stock">Accéder</a></button>
                         </div>
                     </div>
                     <div class="restaurant-card">
                         <img src="../public/assets/img/restauOptions/reservations.jpg" alt="reservations" />
                         <div class="bandeau">
                             <p>Réservation</p>
-                            <button><a href="/reservation">Modifier</a></button>
+                            <button><a href="/reservation">Accéder</a></button>
+                        </div>
+                    </div>
+                    <div class="restaurant-card">
+                        <img src="../public/assets/img/restauOptions/comments.png" alt="commentaires" />
+                        <div class="bandeau">
+                            <p>Commentaires</p>
+                            <button><a href="/restaurant/comments">Accéder</a></button>
                         </div>
                     </div>
                     <div class="restaurant-card">
@@ -87,7 +94,7 @@ endif;
                         <div class="bandeau">
                             <p>Mentions légales</p>
                             <button>
-                                <a href="/restaurants">Modifier</a>
+                                <a href="/restaurants">Accéder</a>
                             </button>
                         </div>
                     </div>

@@ -207,6 +207,17 @@
 /restaurant/addComment:
   controller: comment
   action: stockComment
+  security: "user"
+
+/restaurant/comments:
+  controller: comment
+  action: getComments
+  security: "admin"
+
+/restaurant/validateComment:
+  controller: comment
+  action: validateComment
+  security: "admin"
 
 # Route pour la gestion des utilisateurs
 

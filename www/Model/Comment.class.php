@@ -9,6 +9,7 @@ class Comment extends Sql
 {
     protected $id;
     protected $content;
+    protected $status;
     protected $id_parent;
     protected $id_user;
     protected $id_restaurant;
@@ -49,6 +50,22 @@ class Comment extends Sql
     public function setContent(string $content): void
     {
         $this->content = $content;
+    }
+
+     /**
+     * @return null
+     */
+    public function getStatus(): ?string
+    {
+        return $this->status;
+    }
+
+    /**
+     * @param string $status
+     */
+    public function setStatus(string $status): void
+    {
+        $this->status = $status;
     }
 
     /**
@@ -135,4 +152,29 @@ class Comment extends Sql
         ];
     }
    
+    public function validateComment(int $id): array
+    {
+        return [
+            "config" => [
+                "method" => "POST",
+                "action" => "/restaurant/validateComment",
+                "class" => "flex flex-column",
+                "id" => "",
+                "submit" => "Valider",
+                'captcha' => false
+            ],
+            "inputs" => [
+                "id" => [
+                    "type" => "hidden",
+                    "id" => "id",
+                    "value" => $id
+                ],
+                "status" => [
+                    "type" => "hidden",
+                    "id" => "status",
+                    "value" => 1
+                ]
+            ]
+        ];
+    }
 }
