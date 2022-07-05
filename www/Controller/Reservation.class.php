@@ -5,17 +5,16 @@ namespace App\Controller;
 use App\Core\Verificator;
 use App\Core\View;
 use App\Model\Reservation as ReservationModel;
+use App\Core\MysqlBuilder;
 
 
 class Reservation
 {
     public function index()
     {
-
         $view = new View("reservationClient");
         $reservation = new ReservationModel();
         $view->assign('reservation', $reservation);
-
     }
 
     public function reservation()
@@ -34,13 +33,10 @@ class Reservation
     public function addReservation()
     {
         $reservation = new ReservationModel();
-
-
         $reservation->hydrate($_POST);
         $clientName = $reservation->getName();
         $reservation->save();
         $data =  $reservation->getAll();
-
         $view = new View("reservation", "back", 'success', 'Reservation', 'Création avec succès de la reservation de ' . $clientName . ' !');
         $view->assign('reservation', $reservation);
         $view->assign('data', $data);
@@ -58,5 +54,15 @@ class Reservation
         $view = new View("reservationClient", "front", 'success', 'Reservation', 'Création avec succès de la reservation de ' . $clientName . ' !');
         $view->assign('reservation', $reservation);
 
+    }
+
+    public function completeReservation()
+    {
+        $request = new MysqlBuilder();
+        $request
+            ->update('reservation', ["status" => 1])
+            ->where("id", $_POST["id"])
+            ->fetchClass("reservation")
+            ->execute();
     }
 }

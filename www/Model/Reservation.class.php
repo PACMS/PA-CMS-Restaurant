@@ -16,6 +16,7 @@ class Reservation extends Sql
     protected $numPerson;
     protected $numTable;
     protected $phoneReserv;
+    protected $status;
 
     public function __construct()
     {
@@ -138,6 +139,23 @@ class Reservation extends Sql
     {
         $this->phoneReserv = (new Cleaner($phoneReserv))->value;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getStatus()
+    {
+        return $this->status;
+    }
+
+    /**
+     * @param mixed $status
+     */
+    public function setStatus($status): void
+    {
+        $this->status = $status;
+    }
+
     public function save(): void
     {
         //Pré traitement par exemple
@@ -148,9 +166,25 @@ class Reservation extends Sql
     {
        return parent::getAll();
     }
-    /**
-     * @return mixed
-     */
+
+
+    public function EndForMailReservation(int $id = null) {
+        return [
+            "config"=>[
+                "method"=>"POST",
+                "action"=>"/restaurant/completeReservation",
+                "id"=>"formReservation",
+                "submit"=>"Valider",
+                'captcha' => false,
+            ],
+            "inputs"=>[
+                "id"=>[
+                    "type"=>"hidden",
+                    "value"=>$id,
+                ],
+            ]
+        ];
+    }
 
     public function getModalForm() {
         return [
@@ -276,4 +310,6 @@ class Reservation extends Sql
             ]
         ];
     }
+
+    
 }

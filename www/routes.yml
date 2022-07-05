@@ -192,6 +192,11 @@
   action: addReservation
   security: "employee"
 
+/restaurant/completeReservation:
+  controller: reservation
+  action: completeReservation
+  security: "employee"
+
 # Route pour la gestion des utilisateurs
 
 /users:

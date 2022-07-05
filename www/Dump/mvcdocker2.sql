@@ -153,6 +153,7 @@ CREATE TABLE `pacm_reservation` (
   `numTable` int(11) NOT NULL,
   `numPerson` int(11) NOT NULL,
   `phoneReserv` char(10) NOT NULL,
+  `status` tinyint(1) NOT NULL DEFAULT 0,
   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
