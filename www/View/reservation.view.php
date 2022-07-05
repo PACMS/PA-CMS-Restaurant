@@ -43,7 +43,7 @@
                                     <th>Table</th>
                                     <th>Téléphone</th>
                                     <th>Actions</th>
-                                    <th>Mail</th>
+                                    <th>Envoyer un mail</th>
                                 </tr>
                                 </thead>
                                 <tbody>

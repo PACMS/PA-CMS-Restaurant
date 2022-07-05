@@ -167,7 +167,7 @@ $(document).ready(function () {
 
   $("#alert-close").on("click", function (event) {
     $(".alert-window").css("visibility", "hidden");
-    console.log('ok')
+    console.log("ok");
   });
 
   $("#editProfile").on("click", function (event) {
@@ -238,43 +238,68 @@ $(document).ready(function () {
     table.draw();
   });
 
-  $('#bookingTable2').dataTable( {
+  $("#bookingTable2").dataTable({
     language: {
-      "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/French.json"
+      url: "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/French.json",
     },
     columnDefs: [
       { className: "dt-center", targets: "_all" },
-      { targets: -1, data: null, defaultContent: "<a href=''><i class='fas fa-pen'></i></a><a href=''><i class='fas fa-times-circle'></i></a>" },
-    ],
-    order: [3, 'desc'],
-    columns: [null, null, null, { type: "date-eu" }, null, null, null, null],
-
-    searching: true,
-    //paging: false,
-    lengthMenu: [10, 20, 30, 40, 50],
-    pageLength: 10,
-    info: true,
-  });
-  // Refilter the table
-  $("#min, #max").on("change", function () {
-    table.draw();
-
-  });
-
-  $('#usersTable').dataTable( {
-    language: {
-      "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/French.json"
-    },
-    columnDefs: [
-      { className: "dt-center", targets: "_all" },
-      { 
-        targets: -1,
+      {
+        targets: 7,
         data: null,
-        defaultContent: "<button id='updateUser'><i class='fas fa-pen'></i></button><button id='deleteUser'><i class='fas fa-times-circle'></i></button>"
+        defaultContent:
+          "<a href=''><i class='fas fa-pen'></i></a><a href=''><i class='fas fa-times-circle'></i></a>",
       },
     ],
-    order: [3, 'desc'],
-    columns: [null, null, null, null, null, null, { type: "date-eu" }, { type: "date-eu" }, null],
+    order: [3, "desc"],
+    columns: [
+      null,
+      null,
+      null,
+      { type: "date-eu" },
+      null,
+      null,
+      null,
+      null,
+      null,
+    ],
+
+    searching: true,
+    //paging: false,
+    lengthMenu: [10, 20, 30, 40, 50],
+    pageLength: 10,
+    info: true,
+  });
+  // Refilter the table
+  $("#min, #max").on("change", function () {
+    table.draw();
+  });
+
+  $("#usersTable").dataTable({
+    language: {
+      url: "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/French.json",
+    },
+    columnDefs: [
+      { className: "dt-center", targets: "_all" },
+      {
+        targets: -1,
+        data: null,
+        defaultContent:
+          "<button id='updateUser'><i class='fas fa-pen'></i></button><button id='deleteUser'><i class='fas fa-times-circle'></i></button>",
+      },
+    ],
+    order: [3, "desc"],
+    columns: [
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      { type: "date-eu" },
+      { type: "date-eu" },
+      null,
+    ],
 
     searching: true,
     //paging: false,
@@ -283,19 +308,18 @@ $(document).ready(function () {
     info: true,
   });
 
-  $('#usersTable tbody').on('click','#updateUser',function(){
-    var data = $('#usersTable').DataTable().row($(this).parents('tr')).data();
-    window.location.href = "/user/update?id="+data[0];
+  $("#usersTable tbody").on("click", "#updateUser", function () {
+    var data = $("#usersTable").DataTable().row($(this).parents("tr")).data();
+    window.location.href = "/user/update?id=" + data[0];
   });
 
-  $('#usersTable tbody').on('click','#deleteUser',function(){
-    var data = $('#usersTable').DataTable().row($(this).parents('tr')).data();
-    window.location.href = "/user/delete?id="+data[0];
+  $("#usersTable tbody").on("click", "#deleteUser", function () {
+    var data = $("#usersTable").DataTable().row($(this).parents("tr")).data();
+    window.location.href = "/user/delete?id=" + data[0];
   });
 
   // Refilter the table
   $("#min, #max").on("change", function () {
     table.draw();
-
   });
 });
