@@ -28,7 +28,7 @@ endif;
         <section class="navbar">
             <div class="flex align-items-center">
                 <!-- <img src="https://images.unsplash.com/photo-1527980965255-d3b416303d12?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxMTgwOTN8MHwxfHNlYXJjaHw2fHxhdmF0YXJ8ZW58MHx8fHwxNjQ1NDQ1MjIx&ixlib=rb-1.2.1&q=80&w=1080" alt="Avatar"> -->
-                <h1>Restaurants</h1>
+                <h1>Ajout d'un restaurant</h1>
             </div>
             <article class="flex align-items-center gap-20">
                 <a href="profile">
@@ -42,8 +42,11 @@ endif;
                 </button>
             </article>
         </section>
-        <h1>Ajout d'un restaurant</h1>
-
         <?php $this->includePartial("form", $restaurant->getCompleteRestaurantForm()); ?>
     </section>
 </main>
+
+<script>
+    const submit = document.querySelector("input[type='submit']");
+    submit.setAttribute("class", "cta-button");
+</script>

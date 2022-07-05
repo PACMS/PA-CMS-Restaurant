@@ -74,7 +74,7 @@ class View
      * 
      * @return void
      */
-    public function setAlert(string $alert, string $alert_title, string $alert_message): void
+    public function setAlert(?string $alert, ?string $alert_title, ?string $alert_message): void
     {
         $this->_alert = $alert;
         $this->_alert_title = $alert_title;

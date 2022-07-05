@@ -1,12 +1,12 @@
 <?php
 
 define('DBDRIVER', 'mysql');
-define('DBUSER', 'root');
-define('DBPWD', 'password');
-define('DBHOST', 'database');
-define('DBNAME', 'mvcdocker2');
-define('DBPORT', '3306');
-define('DBPREFIXE', 'pacm_');
+define('DBUSER', 'utilisateur_de_la_bdd');
+define('DBPWD', 'mot_de_passe_de_la_bdd');
+define('DBHOST', 'localhost');
+define('DBPORT', 'port_de_la_bdd');
+define('DBNAME', 'nom_de_la_bdd');
+define('DBPREFIXE', 'prefixe_de_la_bdd');
 
 define('MHOST', 'smtp.gmail.com');
 define('MUSERNAME', 'pa.cms.test@gmail.com');

@@ -11,20 +11,16 @@ class Stock
 {
     public function stock()
     {
-        // $id = $_SESSION["id_restaurant"];
         session_start();
-        $_SESSION["id_restaurant"] = $_POST["id"];
-        $stock = new StockModel();
-        $theStock = $stock->getOneStock('stock', ['restaurantId' => $_POST['id']]);
-        if (!$theStock) {
-            $stock->hydrate(['restaurantId' => $_POST['id']]);
-            $_POST['id'] = null;
-            $stock->save();   
+        if (!$_SESSION["restaurant"] || !$_SESSION["restaurant"]["id"]) {
+            return header("Location: /restaurants");
         }
+        $stock = new StockModel();
+        $theStock = $stock->getOneStock('stock', ['restaurantId' => $_SESSION["restaurant"]["id"]]);
         $food = new FoodModel();
         $stockId = $theStock["id"];
+        $_SESSION["stock"]["id"] = intval($stockId);
         $allFoods = $food->getAllFoods(['stockId' => $stockId]);
-        
         $view = new View("stock");
         $view->assign('stock', $stock);
         $view->assign('food', $food);

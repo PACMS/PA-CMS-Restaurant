@@ -206,12 +206,12 @@ $(document).ready(function () {
     );
     $("div#sectionButton").append(cancelButton);
 
-    // $("#btncancel").on("click", function (event) {
-    //   event.target.disabled = true;
-    // });
+    $("#btncancel").on("click", function (event) {
+      event.target.disabled = true;
+    });
 
     var submitButton = $(
-      "<button class='btn btn-submit' type='submit' id='btncancel'>Confirmer </button>"
+      "<button class='btn btn-submit' type='submit' id='btnConfirm'>Confirmer </button>"
     );
     $("button#btncancel").after(submitButton);
 

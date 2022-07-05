@@ -19,7 +19,7 @@
                     <p><?= $input["title"] ?></p>
                 <?php endif ?>
                 <?php foreach ($input['values'] as $value => $label) : ?>
-                    <input name="<?= $name ?>[]" class="<?= $input["class"] ?? "" ?>" id="<?= $value ?? "" ?>" type="<?= $input["type"] ?? "text" ?>" value="<?= $value ?>" <?= !empty($input["required"]) ? 'required="required"' : ""  ?> <?php if ($input["checked"] === $value) : ?> checked="checked" <?php endif ?>>
+                    <input name="<?= $name ?>[]" class="<?= $input["class"] ?? "" ?>" id="<?= $value ?? "" ?>" type="<?= $input["type"] ?? "text" ?>" value="<?= $value ?>" <?= !empty($input["required"]) ? 'required="required"' : ""  ?> <?= !empty($input["checked"]) ? 'checked="checked"' : "" ?>>
                     <label for="<?= $value ?>"><?= $label ?></label>
                 <?php endforeach ?>
                 <?php if ($input["additionnalDiv"]) : ?>
@@ -35,12 +35,9 @@
                     <option value="<?= $value ?>" <?php if ($input["default"] === $value) : ?> selected="selected" <?php endif ?>><?= $label ?></option>
                 <?php endforeach ?>
             </select>
-            <br>
         <?php elseif ($input["type"] === "textarea") : ?>
             <label for="<?= $name ?>"><?= $input["label"] ?></label>
-            <textarea name="<?= $name ?>" placeholder="<?= $input["placeholder"] ?? "" ?>" id="<?= $input["id"] ?>" class="<?= $input["class"] ?>" maxlength="<?= $input["maxlength"] ?>" <?= !empty($input["required"]) ? 'required="required"' : ""  ?>>
-            </textarea>
-            <br>
+            <textarea name="<?= $name ?>" placeholder="<?= $input["placeholder"] ?? "" ?>" id="<?= $input["id"] ?>" <?= !empty($input["class"]) ? 'class="'. $input["class"] .'"' : ""  ?> <?= !empty($input["maxlength"]) ? 'maxlength="'. $input["maxlength"] .'"' : ""  ?> <?= !empty($input["required"]) ? 'required="required"' : ""  ?>></textarea>
         <?php elseif ($input["type"] === "file") : ?>
             <label for="<?= $name ?>"><?= $input["label"] ?></label>
             <?php $concatAccept = "" ?>
@@ -75,7 +72,7 @@
                 placeholder="<?= $input["placeholder"] ?? "" ?>" 
                 type="<?= $input["type"] ?? "text" ?>" 
                 
-                <?= !empty($input["value"]) ? 'value='.$input["value"] : ""  ?>
+                <?= !empty($input["value"]) ? 'value="'.$input["value"].'"' : "" ?>
                 <?= !empty($input["required"]) ? 'required="required"' : ""  ?>
             />
                 

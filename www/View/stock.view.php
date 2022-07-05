@@ -3,7 +3,7 @@
         <nav class="sidebar-nav">
             <a href="dashboard">
                 <img class="sidebar-image" src="https://images.unsplash.com/photo-1554469384-e58fac16e23a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxMTgwOTN8MHwxfHNlYXJjaHwzfHxidWlsZGluZ3xlbnwwfHx8fDE2NDUzODA4MTQ&ixlib=rb-1.2.1&q=80&w=1080" alt="Avatar">
-                <h2 class="sidebar-title">Nom Entreprise</h2>
+                <h2 class="sidebar-title"><?= $_SESSION["restaurant"]["name"] ?></h2>
             </a>
             <ul class="sidebar-list">
                 <li><a href="profile" class="sidebar-button"><i class="far fa-user-circle sidebar-button-picto"></i><span>Profil</span></a></li>
@@ -35,20 +35,52 @@
             </article>
         </section>
         <section style="padding-right: 4%;">
-    <!-- Mettre le js de Thibaut pour avoir le popup d'ajout -->
-            <div style="display: flex; width: 100%; justify-content: right">
-                <a href="/restaurant/create" style="padding: 10px 0; width:200px; background-color : #0051EF; color: white; border: none; border-radius: 11px; font-size: 16px; margin-right: 100px; text-align: center; text-decoration: none;">Ajouter un produit</a>
-
+            <!-- Mettre le js de Thibaut pour avoir le popup d'ajout -->
+            <div id="Add" style="display: flex; width: 100%; justify-content: right">
+                <button id="addProduct" style="padding: 10px 0; width:200px; background-color : #0051EF; color: white; border: none; border-radius: 11px; font-size: 16px; margin-right: 100px; text-align: center; text-decoration: none;">Ajouter un produit</button>
             </div>
+
+            <div class="modal hidden addProduct">
+                <?php $this->includePartial("form", $food->getAddProduct()); ?>
+            </div>
+            
+            
+
             <div style=" height: 100%; width: 100%; margin:auto; padding-right: 4%; margin-top: 100px ">
-                <!-- <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); grid-gap: 0 50px;"> -->
-                <?php foreach ($allFoods as $key => $value) : ?>
-                        
-                    <p><?= $value["quantity"]. " " .$value["name"]?></p>
-                    <?php endforeach; ?>
-                <!-- </div> -->
+                <?php foreach ($allFoods as $value) : ?>
+                    <div class="flex align-item-center"  style="gap: 10px">
+                        <div class="flex align-items-center " style="gap: 10px">
+                            <p id="foodQuantity" data-value="<?= $value["quantity"] ?>"><?= $value["quantity"] ?> </p> <p id="foodName" data-value="<?= $value["name"] ?>" ><?= $value["name"] ?></p>
+                            <form method="POST" action="/restaurant/food">
+                                <input type="hidden" name="id" value="<?=  $value["id"]?>"></input>
+                                <button type="submit" style="padding: 10px 0; width:100px; background-color : #0051EF; color: white; border: none; border-radius: 11px; font-size: 16px; margin-right: 100px; text-align: center; text-decoration: none;">Modifier</button>
+                        </form>
+                        </div>
+                    </div>
+                <?php endforeach; ?>
             </div>
         </section>
-        
+
     </section>
 </main>
+
+<script defer>
+   $('button#deleteFood').click(function(e) {
+        $.post( "/restaurant/food/delete", { id: e.currentTarget.getAttribute("food-id") } 
+        ).done(function( data ) {
+            location.reload();
+        });
+    });
+
+    $("div.modal > form").append("<p class='close'>close</p>");
+
+    $("div.modal > form > p.close").click(function(e) {
+        $("div.modal").hide();
+    })
+
+    $("button#addProduct").click(function(e) {
+        $("div.modal.addProduct").toggle();
+    });
+    
+    
+</script>

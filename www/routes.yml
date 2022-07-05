@@ -45,7 +45,7 @@
 /dashboard:
   controller: admin
   action: home
-  security: 'employee'
+  security: "employee"
 
 /sendmail:
   controller: mail
@@ -75,17 +75,37 @@
   controller: restaurant
   action: deleteRestaurant
 
-/stock:
+/restaurant/stock:
   controller: stock
   action: stock
+
+/restaurant/food/create:
+  controller: food
+  action: createFood
+
+/restaurant/food/delete:
+  controller: food
+  action: deleteFood
+
+/restaurant/food:
+  controller: food
+  action: getOneFood
+
+/restaurant/food/update:
+  controller: food
+  action: updateFood
 
 /restaurant/creation:
   controller: restaurant
   action: createOneRestaurant
 
-/restaurant/create:
+/restaurant/update:
   controller: restaurant
   action: updateRestaurant
+
+/restaurant/create:
+  controller: restaurant
+  action: createRestaurantForm
 
 /restaurant/information:
   controller: restaurant
@@ -98,12 +118,60 @@
 /profile:
   controller: admin
   action: profile
-  security: 'employee'
+  security: "employee"
 
 /profile/update:
   controller: admin
   action: updateProfile
-  security: 'employee'
+  security: "employee"
+
+/cartes:
+  controller: carte
+  action: carte
+
+/carte/create:
+  controller: carte
+  action: createCarte
+
+/updateCarte:
+  controller: carte
+  action: updateCarte
+
+/carte/delete:
+  controller: carte
+  action: deleteCarte
+
+/carte/meals:
+  controller: meal
+  action: meal
+
+/carte/meals/sendId:
+  controller: meal
+  action: setIdCard
+
+/carte/meals/addCategorie:
+  controller: categorie
+  action: createcategorie
+
+/carte/meals/updateCategorie:
+  controller: categorie
+  action: updateCategorie
+
+/carte/meals/deleteCategorie:
+  controller: categorie
+  action: deleteCategorie
+
+/carte/meals/addMeal:
+  controller: meal
+  action: createMeal
+
+/carte/meals/updateMeal:
+  controller: meal
+  action: updateMeal
+
+/carte/meals/deleteMeal:
+  controller: meal
+  action: deleteMeal
 
 # Route pour les thèmes
 
@@ -121,30 +189,57 @@
 /reservation:
   controller: reservation
   action: reservation
-  security: 'employee'
+  security: "employee"
 
 /reservationClient:
   controller: reservation
   action: index
 
-
 /addReservationClient:
   controller: reservation
   action: addReservationClient
-  security: 'employee'
-
+  security: "employee"
 
 /addReservation:
   controller: reservation
   action: addReservation
-  security: 'employee'
+  security: "employee"
+
+# Route pour la gestion des utilisateurs
+
+/users:
+  controller: admin
+  action: users
+  security: "admin"
+
+/user/update:
+  controller: admin
+  action: updateUser
+  security: "admin"
+
+/user/create:
+  controller: admin
+  action: createUser
+  security: "admin"
+
+/user/save:
+  controller: admin
+  action: saveUser
+  security: "admin"
+
+/user/delete:
+  controller: admin
+  action: deleteUser
+  security: "admin"
+
+############################
 
 # Global
 
 /logout:
   controller: user
   action: logout
-  security: 'user'
+  security: "user"
 
 /theme:
   controller: theme
@@ -174,4 +269,22 @@
   controller: user
   action: errorNotFound
   security: 'employee'
+
+/sitemap.xml:
+  controller: globalController
+  action: sitemap
+
+# Setup
+
+/setup:
+  controller: globalController
+  action: setup
+
+/setupAdmin:
+  controller: globalController
+  action: setupAdmin
+
+/setupAction:
+  controller: globalController
+  action: setupAction
 

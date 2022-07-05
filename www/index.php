@@ -2,7 +2,6 @@
 
 namespace App;
 
-require "conf.inc.php";
 require "Core/Helpers.php";
 
 function myAutoloader($class)
@@ -25,13 +24,28 @@ spl_autoload_register("App\myAutoloader");
 use App\Core\Security;
 use App\Model\Option as OptionModel;
 use App\Model\Theme as ThemeModel;
+use App\Core\View;
+
+if (!isset($_SESSION)) {
+    session_start(
+        [
+            'cookie_lifetime' => 86400,
+            'read_and_close' => true
+        ]
+    );
+}
+
+if (file_exists('conf.inc.php')) {
+    require "conf.inc.php";
+} else {
+    $_SERVER["REQUEST_URI"] = "/setup";
+}
 
 $option = new OptionModel();
 $idTheme = $option->getOptionByName('theme')['value'];
 $theme = new ThemeModel();
 $currentTheme = $theme->getThemeById($idTheme);
 
-session_start();
 $_SESSION['theme'] = $currentTheme;
 
 $fileRoutes = "routes.yml";
@@ -42,8 +56,11 @@ if (file_exists($fileRoutes)) {
     die("Le fichier de routing n'existe pas");
 }
 
-if (strpos($_SERVER["REQUEST_URI"], '?')) $uri = substr($_SERVER["REQUEST_URI"], 0, strpos($_SERVER["REQUEST_URI"], '?'));
-else $uri = $_SERVER["REQUEST_URI"];
+if (strpos($_SERVER["REQUEST_URI"], '?')) {
+    $uri = substr($_SERVER["REQUEST_URI"], 0, strpos($_SERVER["REQUEST_URI"], '?'));
+} else {
+    $uri = $_SERVER["REQUEST_URI"];
+}
 
 foreach ($routes as $key => $route) {
     if (strpos($key, ':')) {
@@ -55,11 +72,13 @@ foreach ($routes as $key => $route) {
 }
 
 if (empty($routes[$uri]) || empty($routes[$uri]["controller"]) || empty($routes[$uri]["action"])) {
-    header('Location: /notFound');
+    http_response_code(404);
+    new View('error404');
 }
 
-if (!Security::checkRoute($routes[$uri])) {
-    die("NotAuthorized");
+if (isset($routes[$uri]["security"]) && !Security::checkRoute($routes[$uri])) {
+    http_response_code(401);
+    die("401 : Unauthorized");
 }
 
 

@@ -11,11 +11,15 @@ use App\Core\OAuth;
 use App\Model\User as UserModel;
 
 /**
- * Class User
+ * User Controller
  * 
  * @category Controller
  * 
  * @package App\Controller
+ * 
+ * @access public
+ * 
+ * @author PACMS <pa.cms.test@gmail.com>
  */
 class User
 {
@@ -27,6 +31,11 @@ class User
     public function login(): void
     {
         $user = new UserModel();
+
+        // if (!empty($_POST)) {
+        //     Verificator::checkForm($user->getLoginForm(), $_POST + $_FILES);
+        // }
+
 
         // $user->setEmail("vivian.fr@free.fr");
         // $user->setPassword("Test1234");
@@ -150,7 +159,7 @@ class User
                 $_POST + $_FILES
             );
         }
-        
+ 
         $user->setEmail($_POST['email']);
         $user->setPassword($_POST['password']);
 
