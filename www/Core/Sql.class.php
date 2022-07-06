@@ -168,7 +168,7 @@ abstract class Sql
         }
         $queryPrepared = $this->_pdo->prepare($sql);
         if (is_null($columns['id'])) {
-            $queryPrepared->execute($columns);
+             $queryPrepared->execute($columns);
         } else {
             $queryPrepared->execute($updateValues);
         }
@@ -202,6 +202,7 @@ abstract class Sql
         }
     }
 
+
     /**
      * Find a line in the database with where clause
      * 
@@ -209,7 +210,7 @@ abstract class Sql
      * 
      * @return array|null Returns an associative array or null if no result
      */
-    public function findOneBy(array $whereClause): ?array
+    public function findOneBy(array $whereClause): mixed
     {
         $columns = get_object_vars($this);
         $varToExclude = get_class_vars(get_class());

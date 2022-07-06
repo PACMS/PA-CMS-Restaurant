@@ -111,6 +111,30 @@
   controller: restaurant
   action: getOneRestaurant
 
+/restaurant/page:
+  controller: page
+  action: index
+
+/page/delete:
+  controller: page
+  action: delete
+
+/page/show:
+  controller: page
+  action: showPage
+
+/restaurant/pagecreate:
+  controller: page
+  action: createPage
+
+/restaurant/page/edit:
+  controller: page
+  action: edit
+
+/restaurant/pagesave:
+  controller: page
+  action: savePage
+
 /restaurant:
   controller: restaurant
   action: restaurantOptions
@@ -174,7 +198,7 @@
   action: deleteMeal
 
 # Route pour la reservation
-/reservation:
+/restaurant/reservation:
   controller: reservation
   action: reservation
   security: "employee"
@@ -188,9 +212,19 @@
   action: addReservationClient
   security: "employee"
 
-/addReservation:
+/restaurant/addReservation:
   controller: reservation
   action: addReservation
+  security: "employee"
+
+/restaurant/editReservation:
+  controller: reservation
+  action: edit
+  security: "employee"
+
+/restaurant/deleteReservation:
+  controller: reservation
+  action: delete
   security: "employee"
 
 # Route pour la gestion des utilisateurs

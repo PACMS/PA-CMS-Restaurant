@@ -22,6 +22,8 @@ function myAutoloader($class)
 spl_autoload_register("App\myAutoloader");
 
 use App\Core\Security;
+use App\Core\View;
+use App\Model\Page;
 
 if (file_exists('conf.inc.php')) {
     require "conf.inc.php";
@@ -45,45 +47,47 @@ if (strpos($_SERVER["REQUEST_URI"], '?')) {
 } else {
     $uri = $_SERVER["REQUEST_URI"];
 }
+$uribdd = substr($uri ,1);
+$uriPage = new Page();
+$uriPage = $uriPage->findOneBy(['url' => $uribdd]);
 
-if (empty($routes[$uri]) || empty($routes[$uri]["controller"]) || empty($routes[$uri]["action"])) {
-    http_response_code(404);
-    die("404 : Not Found");
+//dd($uriPage->findOneBy(['url' => $uribdd]));
+if (!$uriPage){
+
+    if (empty($routes[$uri]) || empty($routes[$uri]["controller"]) || empty($routes[$uri]["action"])) {
+        http_response_code(404);
+        die("404 : Not Found");
+    }
+
+
+    if (isset($routes[$uri]["security"]) && !Security::checkRoute($routes[$uri])) {
+        http_response_code(401);
+        die("401 : Unauthorized");
+    }
+
+    $controller = ucfirst(strtolower($routes[$uri]["controller"]));
+    $action = strtolower($routes[$uri]["action"]);
+
+    $controllerFile = "Controller/" . $controller . ".class.php";
+    if (!file_exists($controllerFile)) {
+        die("Le fichier Controller n'existe pas");
+    }
+
+    require $controllerFile;
+
+    $controller = "App\\Controller\\" . $controller;
+    if (!class_exists($controller)) {
+        die("La classe n'existe pas");
+    }
+
+    $objectController = new $controller();
+
+
+    if (!method_exists($objectController, $action)) {
+        die("La methode n'existe pas");
+    }
+
+    $objectController->$action();
+}else{
+    $view = new View($uribdd);
 }
-
-
-if (isset($routes[$uri]["security"]) && !Security::checkRoute($routes[$uri])) {
-    http_response_code(401);
-    die("401 : Unauthorized");
-}
-
-
-
-$controller = ucfirst(strtolower($routes[$uri]["controller"]));
-$action = strtolower($routes[$uri]["action"]);
-
-
-
-// $uri = /login
-// $Controller = User
-// $action = login
-
-$controllerFile = "Controller/" . $controller . ".class.php";
-if (!file_exists($controllerFile)) {
-    die("Le fichier Controller n'existe pas");
-}
-
-require $controllerFile;
-
-$controller = "App\\Controller\\" . $controller;
-if (!class_exists($controller)) {
-    die("La classe n'existe pas");
-}
-
-$objectController = new $controller();
-
-if (!method_exists($objectController, $action)) {
-    die("La methode n'existe pas");
-}
-
-$objectController->$action();
