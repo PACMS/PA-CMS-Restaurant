@@ -154,7 +154,7 @@ class Reservation extends Sql
     }
     public function getAll(): array
     {
-       return parent::getAll();
+        return parent::getAll();
     }
     public function getAllReservationsFromRestaurant(int $id)
     {
@@ -170,7 +170,8 @@ class Reservation extends Sql
      * @return mixed
      */
 
-    public function getModalForm() {
+    public function getModalForm()
+    {
         return [
             "config"=>[
                 "method"=>"POST",
@@ -223,7 +224,8 @@ class Reservation extends Sql
             ]
         ];
     }
-    public function getClientModalForm() {
+    public function getClientModalForm()
+    {
         return [
             "config"=>[
                 "method"=>"POST",

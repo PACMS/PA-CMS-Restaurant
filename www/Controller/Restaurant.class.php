@@ -27,7 +27,7 @@ class Restaurant
             array_push($restaurantsIds, $restau["id"]);
         }
         $_SESSION["restaurantsIds"] = $restaurantsIds;
-        $view = new View("restaurants");
+        $view = new View("restaurants", 'back');
         $view->assign('restaurant', $allRestaurants);
     }
 
@@ -54,7 +54,7 @@ class Restaurant
         $table = "restaurant";
         $oneRestaurant = $restaurant->getOneRestaurant($table, $_SESSION["restaurant"]["id"]);
         $restaurant->hydrate($oneRestaurant);
-        $view = new View("restaurant-info");
+        $view = new View("restaurant-info", 'back');
         $view->assign('restaurant', $restaurant);
         $view->assign('oneRestaurant', $oneRestaurant);
     }
@@ -77,7 +77,7 @@ class Restaurant
                 $url ='pages/' . $restaurant->getName() . '/index';
                 if (!is_dir($dirname))
                 {
-                    mkdir($dirname, 0755, true) ;
+                    mkdir($dirname, 0755, true);
                     $fp = fopen('View/' . $url . '.view.php', 'w+');
                     $inputs['title'] = 'index';
                     $array_body[] = "Hello World" ;
@@ -131,7 +131,7 @@ class Restaurant
 
         $restaurant = new RestaurantModel();
         $errors = null;
-        $view = new View("create-restaurant");
+        $view = new View("create-restaurant", 'back');
         $view->assign('restaurant', $restaurant);
         $view->assign("errors", $errors);
     }
@@ -150,7 +150,7 @@ class Restaurant
         $oneRestaurant = $restaurant->getOneRestaurant($table, $id);
         $_SESSION["restaurant"]["name"] = $oneRestaurant["name"];
         $restaurant->hydrate($oneRestaurant);
-        $view = new View("restaurant");
+        $view = new View("restaurant", 'back');
 
         $view->assign('restaurant', $restaurant);
         $view->assign('oneRestaurant', $oneRestaurant);

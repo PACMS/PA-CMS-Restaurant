@@ -197,6 +197,18 @@
   controller: meal
   action: deleteMeal
 
+# Route pour les thèmes
+
+/themes:
+  controller: admin
+  action: themes
+  security: 'admin'
+
+/themes/switchTheme:
+  controller: theme
+  action: switchTheme
+  security: 'admin'
+
 # Route pour la reservation
 /restaurant/reservation:
   controller: reservation
@@ -262,6 +274,30 @@
   controller: user
   action: logout
   security: "user"
+
+/theme:
+  controller: theme
+  action: render
+
+/theme/:id:
+  controller: theme
+  action: home
+
+/theme/story/:id:
+  controller: theme
+  action: story
+
+/theme/menu/:id:
+  controller: theme
+  action: menu
+
+/theme/reservation/:id:
+  controller: theme
+  action: reservation
+
+/theme/contact/:id:
+  controller: theme
+  action: contact
 
 /notFound:
   controller: user

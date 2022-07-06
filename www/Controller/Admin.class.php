@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Core\Verificator;
 use App\Model\User as UserModel;
+use App\Model\Theme as ThemeModel;
 use App\Core\View;
 
 /**
@@ -89,6 +90,22 @@ class Admin
         $_SESSION['user']['lastname'] = $user->getLastname();
 
         header("Location: /profile");
+    }
+
+    /**
+     * Show all the themes
+     *
+     * @link /themes
+     * 
+     * @return void
+     */
+    public function themes()
+    {
+        $theme = new ThemeModel();
+        $themes = $theme->getAllThemes();
+        
+        $view = new View("themes", "back");
+        $view->assign("themes", $themes);
     }
 
     /**

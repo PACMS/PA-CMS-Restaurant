@@ -81,9 +81,17 @@ abstract class Sql
         return null;
     }
 
-    protected function databaseFindAll(string $sql, array $params = [])
+    /**
+     * Find all rows in the database with a SQL query and parameters
+     * 
+     * @param string     $sql    SQL query
+     * @param null|array $params Parameters for the SQL query [key => value] (default: [])
+     * 
+     * @return array|null
+     */
+    protected function databaseFindAll(string $sql, ?array $params = []): ?array
     {
-        if($params !== []){
+        if ($params !== []) {
             foreach ($params as $key => $whereValue) {
                 $where[] = $key . " = :" . $key;
             }
@@ -117,7 +125,6 @@ abstract class Sql
             }
         }
     }
-
 
     /**
      * Update the status of a line in the database
@@ -168,7 +175,7 @@ abstract class Sql
         }
         $queryPrepared = $this->_pdo->prepare($sql);
         if (is_null($columns['id'])) {
-             $queryPrepared->execute($columns);
+            $queryPrepared->execute($columns);
         } else {
             $queryPrepared->execute($updateValues);
         }
@@ -191,7 +198,7 @@ abstract class Sql
         if (is_null($email)) {
             die("L'email ne correspond pas !");
         } else {
-            if (is_null($this->databaseFindOne(["email" => $email,"token" => $tokenToVerify]))) {
+            if (is_null($this->databaseFindOne(["email" => $email, "token" => $tokenToVerify]))) {
                 echo "Le token est invalide";
             } else {
                 // echo "l'authentification token à réussi";
@@ -202,7 +209,6 @@ abstract class Sql
         }
     }
 
-
     /**
      * Find a line in the database with where clause
      * 
@@ -210,7 +216,7 @@ abstract class Sql
      * 
      * @return array|null Returns an associative array or null if no result
      */
-    public function findOneBy(array $whereClause): mixed
+    public function findOneBy(array $whereClause): ?array
     {
         $columns = get_object_vars($this);
         $varToExclude = get_class_vars(get_class());
