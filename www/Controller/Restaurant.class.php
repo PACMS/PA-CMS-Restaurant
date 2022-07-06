@@ -3,12 +3,16 @@
 namespace App\Controller;
 
 use App\Core\Verificator;
+use App\Core\CreatePage;
 use App\Core\View;
+use App\Model\Content;
+use App\Model\Page;
 use App\Model\Restaurant as RestaurantModel;
 use App\Model\Stock as StockModel;
 
 class Restaurant
 {
+
 
     // Récuperer tout les restaurants sur la page /restaurants
     public function restaurant()
@@ -59,15 +63,40 @@ class Restaurant
     public function createOneRestaurant()
     {
         $restaurant = new RestaurantModel();
-        $errors = null;
+        $page = new Page();
 
         session_start();
+        //dd($_POST, $_POST["user_id"], $_SESSION);
         if (!empty($_POST) && $_POST["user_id"] == $_SESSION["user"]["id"]) {
+
             $errors = Verificator::checkForm($restaurant->getCompleteRestaurantForm(), $_POST + $_FILES);
             if (!$errors) {
                 $restaurant->hydrate($_POST);
-                // $restaurant->setId(null);
+
+                $dirname = $_SERVER["DOCUMENT_ROOT"] . '/View/pages/' . $restaurant->getName() . '/';
+                $url ='pages/' . $restaurant->getName() . '/index';
+                if (!is_dir($dirname))
+                {
+                    mkdir($dirname, 0755, true);
+                    $fp = fopen('View/' . $url . '.view.php', 'w+');
+                    $inputs['title'] = 'index';
+                    $array_body[] = "Hello World" ;
+                    (new \App\Core\CreatePage)->createBasicPageIndex($fp, $inputs, $array_body);
+                    fclose($fp);
+                }
                 $restaurant->save();
+                $pageRestaurant = $restaurant->findOneBy(['name' => $restaurant->getName()]);
+                $page->setTitle($inputs['title']);
+                $page->setUrl($url);
+                $page->setStatus(0);
+                $page->setIdRestaurant($pageRestaurant['id']);
+                $page->save();
+                $page = $page->findOneBy(['url' => $page->getUrl()]);
+                $content = new Content();
+                $content->setIdPage($page['id']);
+                $content->setBody($array_body[0]);
+                $content->save();
+
                 $restaurantId =  $restaurant->last()->id;
                 $stock = new StockModel;
                 $stock->hydrate(['restaurantId' => $restaurantId]);
@@ -99,6 +128,7 @@ class Restaurant
     // Formulaire de creation de restaurant /restaurant/create
     public function createRestaurantForm()
     {
+
         $restaurant = new RestaurantModel();
         $errors = null;
         $view = new View("create-restaurant", 'back');
@@ -121,6 +151,7 @@ class Restaurant
         $_SESSION["restaurant"]["name"] = $oneRestaurant["name"];
         $restaurant->hydrate($oneRestaurant);
         $view = new View("restaurant", 'back');
+
         $view->assign('restaurant', $restaurant);
         $view->assign('oneRestaurant', $oneRestaurant);
     }

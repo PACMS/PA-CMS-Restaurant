@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : mysql
--- Généré le : mer. 06 juil. 2022 à 21:22
+-- Généré le : mer. 06 juil. 2022 à 21:54
 -- Version du serveur : 5.7.36
 -- Version de PHP : 7.4.20
 
@@ -45,6 +45,22 @@ CREATE TABLE IF NOT EXISTS `pacm_categorie` (
   `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `pacm_content`
+--
+
+CREATE TABLE IF NOT EXISTS `pacm_content` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id_page` int(11) NOT NULL,
+  `body` text NOT NULL,
+  `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `page` (`id_page`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -100,7 +116,27 @@ CREATE TABLE IF NOT EXISTS `pacm_option` (
 --
 
 INSERT INTO `pacm_option` (`id`, `name`, `value`) VALUES
-(1, 'Theme', '1');
+(1, 'Theme', '2');
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `pacm_page`
+--
+
+CREATE TABLE IF NOT EXISTS `pacm_page` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `title` varchar(50) NOT NULL,
+  `url` varchar(100) NOT NULL,
+  `status` tinyint(4) NOT NULL DEFAULT '0',
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `id_theme` int(11) DEFAULT NULL,
+  `id_restaurant` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `rest` (`id_restaurant`),
+  KEY `theme` (`id_theme`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -118,6 +154,7 @@ CREATE TABLE IF NOT EXISTS `pacm_reservation` (
   `phoneReserv` char(10) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `id_restaurant` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -201,10 +238,23 @@ CREATE TABLE IF NOT EXISTS `pacm_user` (
 --
 
 --
+-- Contraintes pour la table `pacm_content`
+--
+ALTER TABLE `pacm_content`
+  ADD CONSTRAINT `page` FOREIGN KEY (`id_page`) REFERENCES `pacm_page` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
 -- Contraintes pour la table `pacm_food`
 --
 ALTER TABLE `pacm_food`
   ADD CONSTRAINT `stockDeleteFood` FOREIGN KEY (`stockId`) REFERENCES `pacm_stock` (`id`) ON DELETE CASCADE;
+
+--
+-- Contraintes pour la table `pacm_page`
+--
+ALTER TABLE `pacm_page`
+  ADD CONSTRAINT `rest` FOREIGN KEY (`id_restaurant`) REFERENCES `pacm_restaurant` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `theme` FOREIGN KEY (`id_theme`) REFERENCES `pacm_theme` (`id`) ON DELETE SET NULL ON UPDATE SET NULL;
 
 --
 -- Contraintes pour la table `pacm_stock`

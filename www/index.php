@@ -25,6 +25,7 @@ use App\Core\Security;
 use App\Model\Option as OptionModel;
 use App\Model\Theme as ThemeModel;
 use App\Core\View;
+use App\Model\Page;
 
 if (file_exists('conf.inc.php')) {
     require "conf.inc.php";
@@ -61,53 +62,54 @@ if (strpos($_SERVER["REQUEST_URI"], '?')) {
     $uri = $_SERVER["REQUEST_URI"];
 }
 
-foreach ($routes as $key => $route) {
-    if (strpos($key, ':')) {
-        if (substr($key, 0, strpos($key, ':')) == substr($_SERVER["REQUEST_URI"], 0, strpos($key, ':'))) {
-            $param = substr($_SERVER["REQUEST_URI"], strpos($key, ':'));
-            $uri = $key;
+$uribdd = substr($uri ,1);
+$uriPage = new Page();
+$uriPage = $uriPage->findOneBy(['url' => $uribdd]);
+
+if (!$uriPage){
+    
+    foreach ($routes as $key => $route) {
+        if (strpos($key, ':')) {
+            if (substr($key, 0, strpos($key, ':')) == substr($_SERVER["REQUEST_URI"], 0, strpos($key, ':'))) {
+                $param = substr($_SERVER["REQUEST_URI"], strpos($key, ':'));
+                $uri = $key;
+            }
         }
     }
+
+    if (empty($routes[$uri]) || empty($routes[$uri]["controller"]) || empty($routes[$uri]["action"])) {
+        http_response_code(404);
+        new View('error404');
+    }
+    
+    if (isset($routes[$uri]["security"]) && !Security::checkRoute($routes[$uri])) {
+        http_response_code(401);
+        die("401 : Unauthorized");
+    }
+
+    $controller = ucfirst(strtolower($routes[$uri]["controller"]));
+    $action = strtolower($routes[$uri]["action"]);
+
+    $controllerFile = "Controller/" . $controller . ".class.php";
+    if (!file_exists($controllerFile)) {
+        die("Le fichier Controller n'existe pas");
+    }
+    
+    require $controllerFile;
+    
+    $controller = "App\\Controller\\" . $controller;
+    if (!class_exists($controller)) {
+        die("La classe n'existe pas");
+    }
+    
+    $objectController = new $controller();
+    
+    if (!method_exists($objectController, $action)) {
+        die("La methode n'existe pas");
+    }
+
+    isset($param) ? $objectController->$action($param) : $objectController->$action();
+}else{
+    $view = new View($uribdd);
+    $view->assign('title', $uriPage['title']);
 }
-
-if (empty($routes[$uri]) || empty($routes[$uri]["controller"]) || empty($routes[$uri]["action"])) {
-    http_response_code(404);
-    new View('error404');
-}
-
-if (isset($routes[$uri]["security"]) && !Security::checkRoute($routes[$uri])) {
-    http_response_code(401);
-    die("401 : Unauthorized");
-}
-
-
-
-$controller = ucfirst(strtolower($routes[$uri]["controller"]));
-$action = strtolower($routes[$uri]["action"]);
-
-
-
-
-// $uri = /login
-// $Controller = User
-// $action = login
-
-$controllerFile = "Controller/" . $controller . ".class.php";
-if (!file_exists($controllerFile)) {
-    die("Le fichier Controller n'existe pas");
-}
-
-require $controllerFile;
-
-$controller = "App\\Controller\\" . $controller;
-if (!class_exists($controller)) {
-    die("La classe n'existe pas");
-}
-
-$objectController = new $controller();
-
-if (!method_exists($objectController, $action)) {
-    die("La methode n'existe pas");
-}
-
-isset($param) ? $objectController->$action($param) : $objectController->$action();
