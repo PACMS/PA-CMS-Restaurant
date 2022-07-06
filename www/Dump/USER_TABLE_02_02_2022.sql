@@ -110,22 +110,19 @@ ALTER TABLE `pacm_restaurant`
 ALTER TABLE `pacm_restaurant`
     MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=107;
 
-CREATE TABLE `pacm_page` (
-                             `id` int(11) NOT NULL,
-                             `url` varchar(100) NOT NULL,
-                             `status` tinyint(4) NOT NULL DEFAULT '0',
-                             `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-                             `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-                             `id_theme` int(11) DEFAULT NULL,
-                             `id_restaurant` int(11) DEFAULT NULL
+REATE TABLE `pacm_page` (
+  `id` int(11) NOT NULL,
+  `title` varchar(50) NOT NULL,
+  `url` varchar(100) NOT NULL,
+  `status` tinyint(4) NOT NULL DEFAULT '0',
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `id_theme` int(11) DEFAULT NULL,
+  `id_restaurant` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Déchargement des données de la table `pacm_page`
---
 
-INSERT INTO `pacm_page` (`id`, `url`, `status`, `created_at`, `updated_at`, `id_theme`, `id_restaurant`) VALUES
-    (12, '/test/index.php', 0, '2022-06-21 21:14:54', '2022-06-21 21:14:54', NULL, 106);
+
 
 --
 -- Index pour les tables déchargées
@@ -136,9 +133,8 @@ INSERT INTO `pacm_page` (`id`, `url`, `status`, `created_at`, `updated_at`, `id_
 --
 ALTER TABLE `pacm_page`
     ADD PRIMARY KEY (`id`),
-  ADD KEY `theme` (`id_theme`),
-  ADD KEY `rest` (`id_restaurant`);
-
+  ADD KEY `rest` (`id_restaurant`),
+  ADD KEY `theme` (`id_theme`);
 --
 -- AUTO_INCREMENT pour les tables déchargées
 --
@@ -147,7 +143,7 @@ ALTER TABLE `pacm_page`
 -- AUTO_INCREMENT pour la table `pacm_page`
 --
 ALTER TABLE `pacm_page`
-    MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+    MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT;
 
 --
 -- Contraintes pour les tables déchargées
@@ -157,17 +153,17 @@ ALTER TABLE `pacm_page`
 -- Contraintes pour la table `pacm_page`
 --
 ALTER TABLE `pacm_page`
-    ADD CONSTRAINT `rest` FOREIGN KEY (`id_restaurant`) REFERENCES `pacm_restaurant` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `theme` FOREIGN KEY (`id_theme`) REFERENCES `pacm_theme` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+    ADD CONSTRAINT `rest` FOREIGN KEY (`id_restaurant`) REFERENCES `pacm_restaurant` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `theme` FOREIGN KEY (`id_theme`) REFERENCES `pacm_theme` (`id`) ON DELETE SET NULL ON UPDATE SET NULL;
 
-
-CREATE TABLE `pacm_page_content` (
-                                     `id` int(11) NOT NULL,
-                                     `id_page` int(11) NOT NULL,
-                                     `body` int(11) NOT NULL,
-                                     `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-                                     `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
+CREATE TABLE `pacm_content` (
+                                `id` int(11) NOT NULL,
+                                `id_page` int(11) NOT NULL,
+                                `body` text NOT NULL,
+                                `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+                                `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
 
 
 
@@ -176,9 +172,9 @@ CREATE TABLE `pacm_page_content` (
 --
 
 --
--- Index pour la table `pacm_page_content`
+-- Index pour la table `pacm_content`
 --
-ALTER TABLE `pacm_page_content`
+ALTER TABLE `pacm_content`
     ADD PRIMARY KEY (`id`),
   ADD KEY `page` (`id_page`);
 
@@ -189,7 +185,7 @@ ALTER TABLE `pacm_page_content`
 --
 -- AUTO_INCREMENT pour la table `pacm_page_content`
 --
-ALTER TABLE `pacm_page_content`
+ALTER TABLE `pacm_content`
     MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
@@ -199,8 +195,10 @@ ALTER TABLE `pacm_page_content`
 --
 -- Contraintes pour la table `pacm_page_content`
 --
-ALTER TABLE `pacm_page_content`
-    ADD CONSTRAINT `page` FOREIGN KEY (`id_page`) REFERENCES `pacm_page` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE `pacm_content`
+    ADD CONSTRAINT `page` FOREIGN KEY (`id_page`) REFERENCES `pacm_page` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+
 
 CREATE TABLE `pacm_reservation` (
     `id` int(11) NOT NULL,
@@ -211,32 +209,13 @@ CREATE TABLE `pacm_reservation` (
     `numPerson` int(11) NOT NULL,
     `phoneReserv` char(10) NOT NULL,
     `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
-    `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+    `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+    `id_restaurant` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
 --
 -- Déchargement des données de la table `pacm_reservation`
 --
 
-INSERT INTO `pacm_reservation` (`id`, `name`, `date`, `hour`, `numTable`, `numPerson`, `phoneReserv`, `created_at`, `updated_at`) VALUES
-  (1, 'test', '1999-02-10', '10:10:00', 45, 5, '0780808080', '2022-04-18 18:06:11', '2022-04-18 18:06:11'),
-  (2, 'test2', '2022-01-10', '10:10:00', 100, 2, '0780808080', '2022-04-18 21:50:06', '2022-04-18 21:50:06'),
-  (6, 'testlength', '2022-04-20', '10:45:00', 10, 10, '0780808080', '2022-04-21 20:35:20', '2022-04-21 20:35:20'),
-  (7, 'testlength', '2022-04-20', '10:45:00', 10, 10, '0780808080', '2022-04-21 20:35:25', '2022-04-21 20:35:25'),
-  (8, 'testlength', '2022-04-20', '10:45:00', 10, 10, '0780808080', '2022-04-21 20:35:26', '2022-04-21 20:35:26'),
-  (9, 'testlength', '2022-04-20', '10:45:00', 10, 10, '0780808080', '2022-04-21 20:35:28', '2022-04-21 20:35:28'),
-  (10, 'testlength', '2022-04-20', '10:45:00', 10, 10, '0780808080', '2022-04-21 20:35:29', '2022-04-21 20:35:29'),
-  (11, 'testlength', '2022-04-20', '10:45:00', 10, 10, '0780808080', '2022-04-21 20:35:31', '2022-04-21 20:35:31'),
-  (12, 'testlength', '2022-04-20', '10:45:00', 10, 10, '0780808080', '2022-04-21 20:35:32', '2022-04-21 20:35:32'),
-  (13, 'testlength', '2022-04-20', '10:45:00', 10, 10, '0780808080', '2022-04-21 20:35:35', '2022-04-21 20:35:35'),
-  (14, 'testlength', '2022-04-20', '10:45:00', 10, 10, '0780808080', '2022-04-21 20:35:37', '2022-04-21 20:35:37'),
-  (15, 'testlength', '2022-04-20', '10:45:00', 10, 10, '0780808080', '2022-04-21 20:35:38', '2022-04-21 20:35:38'),
-  (16, 'testlength', '2022-04-20', '10:45:00', 10, 10, '0780808080', '2022-04-21 20:35:39', '2022-04-21 20:35:39'),
-  (17, 'testlength', '2022-04-20', '10:45:00', 10, 10, '0780808080', '2022-04-21 20:35:40', '2022-04-21 20:35:40'),
-  (18, 'testlength', '2022-04-20', '10:45:00', 10, 10, '0780808080', '2022-04-21 20:35:41', '2022-04-21 20:35:41'),
-  (19, 'testlength', '2022-04-20', '10:45:00', 10, 10, '0780808080', '2022-04-21 20:35:42', '2022-04-21 20:35:42'),
-  (20, 'testlength', '2022-04-20', '10:45:00', 10, 10, '0780808080', '2022-04-21 20:35:43', '2022-04-21 20:35:43'),
-  (21, 'testlength', '2022-04-20', '10:45:00', 10, 10, '0780808080', '2022-04-21 20:35:48', '2022-04-21 20:35:48');
 
 --
 -- Index pour les tables déchargées
@@ -256,7 +235,7 @@ ALTER TABLE `pacm_reservation`
 -- AUTO_INCREMENT pour la table `pacm_reservation`
 --
 ALTER TABLE `pacm_reservation`
-    MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+    MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -2,7 +2,6 @@
 
 namespace App;
 
-require "conf.inc.php";
 require "Core/Helpers.php";
 
 function myAutoloader($class)
@@ -25,6 +24,12 @@ spl_autoload_register("App\myAutoloader");
 use App\Core\Security;
 use App\Core\View;
 use App\Model\Page;
+
+if (file_exists('conf.inc.php')) {
+    require "conf.inc.php";
+} else {
+    $_SERVER["REQUEST_URI"] = "/setup";
+}
 
 $fileRoutes = "routes.yml";
 
@@ -86,4 +91,3 @@ if (!$uriPage){
 }else{
     $view = new View($uribdd);
 }
-
