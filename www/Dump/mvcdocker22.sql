@@ -22,12 +22,13 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `pacm_carte` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
   `status` tinyint(1) NOT NULL,
   `create_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `id_restaurant` int(11) NOT NULL
+  `id_restaurant` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -47,11 +48,12 @@ INSERT INTO `pacm_carte` (`id`, `name`, `status`, `create_at`, `updated_at`, `id
 --
 
 CREATE TABLE `pacm_categorie` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(250) COLLATE utf8mb4_unicode_ci NOT NULL,
   `id_carte` int(11) NOT NULL,
   `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+  `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -74,14 +76,15 @@ INSERT INTO `pacm_categorie` (`id`, `name`, `id_carte`, `created_at`, `updated_a
 --
 
 CREATE TABLE `pacm_meal` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(250) NOT NULL,
   `price` float NOT NULL,
   `description` varchar(250) NOT NULL,
   `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `update_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `id_carte` int(11) NOT NULL,
-  `id_categories` int(11) NOT NULL
+  `id_categories` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -102,20 +105,129 @@ INSERT INTO `pacm_meal` (`id`, `name`, `price`, `description`, `created_at`, `up
 -- --------------------------------------------------------
 
 --
+-- Structure de la table `pacm_food`
+--
+
+CREATE TABLE `pacm_food` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(50) NOT NULL,
+  `nature` varchar(50) DEFAULT NULL,
+  `quantity` int(10) DEFAULT NULL,
+  `stockId` int(10) NOT NULL,
+  `createdAt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `updatedAt` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Déchargement des données de la table `pacm_food`
+--
+
+INSERT INTO `pacm_food` (`id`, `name`, `nature`, `quantity`, `stockId`, `createdAt`, `updatedAt`) VALUES
+(49, 'Tomates', 'LÃ©gumes', 123, 41, '2022-06-26 23:14:44', NULL),
+(51, 'Tomates', 'LÃ©gumes', 123456, 41, '2022-06-26 23:15:46', NULL),
+(56, 'test', 'test2', 222, 40, '2022-06-26 23:01:15', NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `pacm_restaurant`
+--
+
+CREATE TABLE `pacm_restaurant` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(50) NOT NULL,
+  `address` varchar(50) NOT NULL,
+  `additional_address` varchar(100) DEFAULT NULL,
+  `city` varchar(50) NOT NULL,
+  `zipcode` int(50) DEFAULT NULL,
+  `user_id` varchar(50) NOT NULL,
+  `phone` int(50) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Déchargement des données de la table `pacm_restaurant`
+--
+
+INSERT INTO `pacm_restaurant` (`id`, `name`, `address`, `additional_address`, `city`, `zipcode`, `user_id`, `phone`) VALUES
+(56, 'test33', 'Test2', 'Tt', 'PARISSSS', 111111, '13', 1111111),
+(57, 'test', 'Test', 'Test', 'TEST', 1234, '13', 1234123);
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `pacm_stock`
+--
+
+CREATE TABLE `pacm_stock` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `restaurantId` int(11) NOT NULL,
+  `createdAt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `updatedAt` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Déchargement des données de la table `pacm_stock`
+--
+
+INSERT INTO `pacm_stock` (`id`, `restaurantId`, `createdAt`, `updatedAt`) VALUES
+(40, 56, '2022-06-24 19:52:59', NULL),
+(41, 57, '2022-06-25 09:48:35', NULL);
+
+-- --------------------------------------------------------
+
+
+
+--
+-- Index pour la table `pacm_food`
+--
+ALTER TABLE `pacm_food`
+  ADD KEY `stockId` (`stockId`);
+
+--
+-- Index pour la table `pacm_stock`
+--
+ALTER TABLE `pacm_stock`
+  ADD UNIQUE KEY `restaurantId` (`restaurantId`);
+
+--
+-- Contraintes pour les tables déchargées
+--
+
+--
+-- Contraintes pour la table `pacm_food`
+--
+ALTER TABLE `pacm_food`
+  ADD CONSTRAINT `stockDeleteFood` FOREIGN KEY (`stockId`) REFERENCES `pacm_stock` (`id`) ON DELETE CASCADE;
+
+--
+-- Contraintes pour la table `pacm_stock`
+--
+ALTER TABLE `pacm_stock`
+  ADD CONSTRAINT `restauDeleteStock` FOREIGN KEY (`restaurantId`) REFERENCES `pacm_restaurant` (`id`) ON DELETE CASCADE;
+COMMIT;
+
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `pacm_reservation`
 --
 
-CREATE TABLE `pacm_reservation` (
-  `id` int(11) NOT NULL,
-  `name` varchar(50) NOT NULL,
+CREATE TABLE IF NOT EXISTS `pacm_reservation` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
   `date` date NOT NULL,
   `hour` time NOT NULL,
   `numTable` int(11) NOT NULL,
   `numPerson` int(11) NOT NULL,
-  `phoneReserv` char(10) NOT NULL,
+  `phoneReserv` char(10) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `pacm_reservation`
@@ -144,171 +256,8 @@ INSERT INTO `pacm_reservation` (`id`, `name`, `date`, `hour`, `numTable`, `numPe
 -- --------------------------------------------------------
 
 --
--- Structure de la table `pacm_food`
---
-
-CREATE TABLE `pacm_food` (
-  `id` int(11) NOT NULL,
-  `name` varchar(50) NOT NULL,
-  `nature` varchar(50) DEFAULT NULL,
-  `quantity` int(10) DEFAULT NULL,
-  `stockId` int(10) NOT NULL,
-  `createdAt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `updatedAt` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Déchargement des données de la table `pacm_food`
---
-
-INSERT INTO `pacm_food` (`id`, `name`, `nature`, `quantity`, `stockId`, `createdAt`, `updatedAt`) VALUES
-(49, 'Tomates', 'LÃ©gumes', 123, 41, '2022-06-26 23:14:44', NULL),
-(51, 'Tomates', 'LÃ©gumes', 123456, 41, '2022-06-26 23:15:46', NULL),
-(56, 'test', 'test2', 222, 40, '2022-06-26 23:01:15', NULL);
-
--- --------------------------------------------------------
-
---
--- Structure de la table `pacm_restaurant`
---
-
-CREATE TABLE `pacm_restaurant` (
-  `id` int(11) NOT NULL,
-  `name` varchar(50) NOT NULL,
-  `address` varchar(50) NOT NULL,
-  `additional_address` varchar(100) DEFAULT NULL,
-  `city` varchar(50) NOT NULL,
-  `zipcode` int(50) DEFAULT NULL,
-  `user_id` varchar(50) NOT NULL,
-  `phone` int(50) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Déchargement des données de la table `pacm_restaurant`
---
-
-INSERT INTO `pacm_restaurant` (`id`, `name`, `address`, `additional_address`, `city`, `zipcode`, `user_id`, `phone`) VALUES
-(56, 'test33', 'Test2', 'Tt', 'PARISSSS', 111111, '13', 1111111),
-(57, 'test', 'Test', 'Test', 'TEST', 1234, '13', 1234123);
-
--- --------------------------------------------------------
-
---
--- Structure de la table `pacm_stock`
---
-
-CREATE TABLE `pacm_stock` (
-  `id` int(11) NOT NULL,
-  `restaurantId` int(11) NOT NULL,
-  `createdAt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `updatedAt` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Déchargement des données de la table `pacm_stock`
---
-
-INSERT INTO `pacm_stock` (`id`, `restaurantId`, `createdAt`, `updatedAt`) VALUES
-(40, 56, '2022-06-24 19:52:59', NULL),
-(41, 57, '2022-06-25 09:48:35', NULL);
-
--- --------------------------------------------------------
-
-
-
---
--- Index pour la table `pacm_food`
---
-ALTER TABLE `pacm_food`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `stockId` (`stockId`);
-
---
--- Index pour la table `pacm_restaurant`
---
-ALTER TABLE `pacm_restaurant`
-  ADD PRIMARY KEY (`id`);
-
---
--- Index pour la table `pacm_stock`
---
-ALTER TABLE `pacm_stock`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `restaurantId` (`restaurantId`);
-
-
---
--- AUTO_INCREMENT pour les tables déchargées
---
-
---
--- AUTO_INCREMENT pour la table `pacm_food`
---
-ALTER TABLE `pacm_food`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=57;
-
---
--- AUTO_INCREMENT pour la table `pacm_restaurant`
---
-ALTER TABLE `pacm_restaurant`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=58;
-
---
--- AUTO_INCREMENT pour la table `pacm_stock`
---
-ALTER TABLE `pacm_stock`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
-
-  --
--- Contraintes pour les tables déchargées
---
-
---
--- Contraintes pour la table `pacm_food`
---
-ALTER TABLE `pacm_food`
-  ADD CONSTRAINT `stockDeleteFood` FOREIGN KEY (`stockId`) REFERENCES `pacm_stock` (`id`) ON DELETE CASCADE;
-
---
--- Contraintes pour la table `pacm_stock`
---
-ALTER TABLE `pacm_stock`
-  ADD CONSTRAINT `restauDeleteStock` FOREIGN KEY (`restaurantId`) REFERENCES `pacm_restaurant` (`id`) ON DELETE CASCADE;
-COMMIT;
-
-
--- --------------------------------------------------------
-
---
--- Table structure for table `pacm_user`
---
-
-CREATE TABLE IF NOT EXISTS `pacm_reservation` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `date` date NOT NULL,
-  `hour` time NOT NULL,
-  `numTable` int(11) NOT NULL,
-  `numPerson` int(11) NOT NULL,
-  `phoneReserv` char(10) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
--- --------------------------------------------------------
-
---
 -- Structure de la table `pacm_user`
 --
-ALTER TABLE `pacm_categorie`
-  ADD PRIMARY KEY (`id`);
-
-ALTER TABLE `pacm_carte`
-  ADD PRIMARY KEY (`id`);
-
-ALTER TABLE `pacm_meal`
-  ADD PRIMARY KEY (`id`);
 
 CREATE TABLE IF NOT EXISTS `pacm_user` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -354,20 +303,15 @@ ALTER TABLE `pacm_option`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `pacm_reservation`
---
-ALTER TABLE `pacm_reservation`
-  ADD PRIMARY KEY (`id`);
-
---
 -- Structure de la table `pacm_theme`
 --
 
 CREATE TABLE `pacm_theme` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `slug` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `path` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL
+  `path` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -377,13 +321,3 @@ CREATE TABLE `pacm_theme` (
 INSERT INTO `pacm_theme` (`id`, `name`, `slug`, `path`) VALUES
 (1, 'Theme 1', 'theme1', '/public/src/themes/theme1/'),
 (2, 'Theme 2', 'theme2', '/public/src/themes/theme2/');
-
---
--- Index pour les tables déchargées
---
-
---
--- Index pour la table `pacm_theme`
---
-ALTER TABLE `pacm_theme`
-  ADD PRIMARY KEY (`id`);

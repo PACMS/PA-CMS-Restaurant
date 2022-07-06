@@ -70,6 +70,7 @@ class User
 
             if (!$errors) {
                 $user->hydrate($_POST);
+                $user->setRole('user');
                 $user->save();
                 /////////// redirection vers le dashboard à faire
             }

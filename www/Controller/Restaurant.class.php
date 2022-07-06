@@ -23,7 +23,7 @@ class Restaurant
             array_push($restaurantsIds, $restau["id"]);
         }
         $_SESSION["restaurantsIds"] = $restaurantsIds;
-        $view = new View("restaurants");
+        $view = new View("restaurants", 'back');
         $view->assign('restaurant', $allRestaurants);
     }
 
@@ -50,7 +50,7 @@ class Restaurant
         $table = "restaurant";
         $oneRestaurant = $restaurant->getOneRestaurant($table, $_SESSION["restaurant"]["id"]);
         $restaurant->hydrate($oneRestaurant);
-        $view = new View("restaurant-info");
+        $view = new View("restaurant-info", 'back');
         $view->assign('restaurant', $restaurant);
         $view->assign('oneRestaurant', $oneRestaurant);
     }
@@ -62,7 +62,7 @@ class Restaurant
         $errors = null;
 
         session_start();
-        if (!empty($_POST) && $_POST["user_id"] === $_SESSION["user"]["id"]) {
+        if (!empty($_POST) && $_POST["user_id"] == $_SESSION["user"]["id"]) {
             $errors = Verificator::checkForm($restaurant->getCompleteRestaurantForm(), $_POST + $_FILES);
             if (!$errors) {
                 $restaurant->hydrate($_POST);
@@ -101,7 +101,7 @@ class Restaurant
     {
         $restaurant = new RestaurantModel();
         $errors = null;
-        $view = new View("create-restaurant");
+        $view = new View("create-restaurant", 'back');
         $view->assign('restaurant', $restaurant);
         $view->assign("errors", $errors);
     }
@@ -120,7 +120,7 @@ class Restaurant
         $oneRestaurant = $restaurant->getOneRestaurant($table, $id);
         $_SESSION["restaurant"]["name"] = $oneRestaurant["name"];
         $restaurant->hydrate($oneRestaurant);
-        $view = new View("restaurant");
+        $view = new View("restaurant", 'back');
         $view->assign('restaurant', $restaurant);
         $view->assign('oneRestaurant', $oneRestaurant);
     }

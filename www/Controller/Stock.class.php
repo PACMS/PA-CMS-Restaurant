@@ -21,7 +21,7 @@ class Stock
         $stockId = $theStock["id"];
         $_SESSION["stock"]["id"] = intval($stockId);
         $allFoods = $food->getAllFoods(['stockId' => $stockId]);
-        $view = new View("stock");
+        $view = new View("stock", 'back');
         $view->assign('stock', $stock);
         $view->assign('food', $food);
         $view->assign('allFoods', $allFoods);

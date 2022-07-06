@@ -26,15 +26,6 @@ use App\Model\Option as OptionModel;
 use App\Model\Theme as ThemeModel;
 use App\Core\View;
 
-if (!isset($_SESSION)) {
-    session_start(
-        [
-            'cookie_lifetime' => 86400,
-            'read_and_close' => true
-        ]
-    );
-}
-
 if (file_exists('conf.inc.php')) {
     require "conf.inc.php";
 } else {
@@ -46,7 +37,15 @@ $idTheme = $option->getOptionByName('theme')['value'];
 $theme = new ThemeModel();
 $currentTheme = $theme->getThemeById($idTheme);
 
-$_SESSION['theme'] = $currentTheme;
+if (!isset($_SESSION)) {
+    session_start(
+        [
+            'cookie_lifetime' => 86400,
+            'read_and_close' => true
+        ]
+    );
+    $_SESSION['theme'] = $currentTheme;
+}
 
 $fileRoutes = "routes.yml";
 

@@ -1,3 +1,3 @@
 <main>
-    <h1>Patate</h1>
+    <h1>Bienvenue</h1>
 </main>
