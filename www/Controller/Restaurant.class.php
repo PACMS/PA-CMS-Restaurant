@@ -6,6 +6,8 @@ use App\Core\Verificator;
 use App\Core\View;
 use App\Model\Restaurant as RestaurantModel;
 use App\Model\Stock as StockModel;
+use App\Core\MysqlBuilder;
+
 
 class Restaurant
 {
@@ -115,6 +117,12 @@ class Restaurant
         $restaurant = new RestaurantModel();
         $oneRestaurant = $restaurant->getOneRestaurant($id);
         $_SESSION["restaurant"]["name"] = $oneRestaurant["name"];
+        $builder = new MysqlBuilder();
+        $stock = $builder->select("stock", ["id"])
+                        ->where("restaurantId", $_SESSION["restaurant"]["id"])
+                        ->fetchClass("stock")
+                        ->fetch();
+        $_SESSION["stock"]["id"] = $stock->getId();
         $restaurant->hydrate($oneRestaurant);
         $view = new View("restaurant");
         $view->assign('restaurant', $restaurant);

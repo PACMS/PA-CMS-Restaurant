@@ -91,7 +91,6 @@ class Food
     public function getFoodStats()
     {
         $builder = new MysqlBuilder();
-
         $foods = $builder->select('food', ["quantity", "name"])
             ->where('stockId', $_SESSION["stock"]["id"])
             ->order('quantity', 'asc')
