@@ -154,4 +154,44 @@ class Mail
             echo "Message could not be sent. Mailer Error: {$phpmailer->ErrorInfo}";
         }
     }
+
+    public function tempMailReservation(string $name, string $date, string $hour, string $nbPerson, string $email)
+    {
+        try {
+            $actualDateTime = new \DateTime();
+            $actualDateTime = $actualDateTime->format('YmdHis');
+            $message = "Votre réservation est en attente de confirmation par le restaurant. Dès que cela sera validé, vous recevrez une validation par mail, pensez à regarder vos spams ! <br>";
+            $message .= "Récapitulatif de votre réservation : Au nom de : {$name}";
+            $message .= "Pour le : {$date}";
+            $message .= "A : {$hour}";
+            $message .= "Pour : {$nbPerson} personne(s)";
+            $phpmailer = new PHPMailer();
+            //Server settings
+            $phpmailer->isSMTP();
+            $phpmailer->SMTPDebug = SMTP::DEBUG_CONNECTION;
+            $phpmailer->Host = MHOST;
+            $phpmailer->SMTPAuth = true;
+            $phpmailer->Username = MUSERNAME;
+            $phpmailer->Password = MPASSWORD;
+            $phpmailer->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
+            $phpmailer->Port = MPORT;
+
+            //Recipients
+            $phpmailer->setFrom('pa.cms.test@gmail.com', 'PCR Contact');
+            $phpmailer->addAddress($email);     //Add a recipient
+            // $phpmailer->addAddress('vivin.fr@free.fr');     //Add a recipient
+
+
+            //Content
+            $phpmailer->isHTML(true);                                  //Set email format to HTML
+            $phpmailer->Subject = "Réservation en attente";
+            $phpmailer->Body    = "Salut {$name}, {$message}";
+            $phpmailer->send();
+            echo 'Message has been sent';
+
+
+        } catch (Exception $e) {
+            echo "Message could not be sent. Mailer Error: {$phpmailer->ErrorInfo}";
+        }
+    }
 }

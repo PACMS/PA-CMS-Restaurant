@@ -197,6 +197,14 @@
   action: completeReservation
   security: "employee"
 
+/reserver-une-table:
+  controller: reservation
+  action: reservationTable
+
+/reserver-une-table/add:
+  controller: reservation
+  action: addReservationTable
+
 # Route pour les commentaires
 
 /addComment:

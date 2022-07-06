@@ -9,8 +9,8 @@ define("DBPORT", "3306");
 define("DBPREFIXE", "pacm_");
 
 define("MHOST", "smtp.gmail.com");
-define("MUSERNAME", "pa.cms.test@gmail.com");
-define("MPASSWORD", "!3qJHP?yz6C!DxDH");
+define("MUSERNAME", "sembenithibaut@gmail.com");
+define("MPASSWORD", "ghtcimlunrwdpxnf");
 define("MPORT", "465");
 
 
