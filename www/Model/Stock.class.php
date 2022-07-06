@@ -36,7 +36,7 @@ class Stock extends Sql
         $this->id = $id; 
     }
 
-    // getter and setter for name	
+    // getter and setter for name    
     /**
      * @return mixed
      */
