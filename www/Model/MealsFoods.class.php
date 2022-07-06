@@ -41,7 +41,7 @@ class MealsFoods extends Sql
     }
 
     /**
-     * @param mixed $getFoodId
+     * @param mixed $meal_id
      */
     public function setMealId(string $meal_id): void
     {

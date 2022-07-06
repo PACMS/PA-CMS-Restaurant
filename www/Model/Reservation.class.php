@@ -167,6 +167,10 @@ class Reservation extends Sql
        return parent::getAll();
     }
 
+    public function getAllReservation(): array
+    {
+        return parent::databaseFindAll("SELECT * FROM " . DBPREFIXE .  "reservation WHERE date BETWEEN NOW() AND DATE_ADD(NOW(), INTERVAL 15 DAY)");  
+    }
 
     public function EndForMailReservation(int $id = null) {
         return [

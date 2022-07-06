@@ -78,4 +78,11 @@ class Reservation
         $test = new Comment();
         $test->mailAskForComment($currentReservation->getEmail(), $currentReservation->getName(), $_SESSION["restaurant"]["id"]);
     }
+
+    public function getReservationsStats()
+    {
+        $reservation = new ReservationModel();
+        $data =  $reservation->getAllReservation();
+        return $data;
+    }
 }

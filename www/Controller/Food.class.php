@@ -6,6 +6,7 @@ use App\Core\Verificator;
 use App\Core\View;
 use App\Model\Stock as StockModel;
 use App\Model\Food as FoodModel;
+use App\Core\MysqlBuilder;
 
 class Food
 {
@@ -88,5 +89,27 @@ class Food
         }
         $food->deleteFood($_POST['id']);
         return header('Location: /restaurant/stock');
+    }
+
+    public function getFoodStats()
+    {
+        $builder = new MysqlBuilder();
+
+        $foods = $builder->select('food', ["quantity", "name"])
+            ->where('stockId', $_SESSION["stock"]["id"])
+            ->order('quantity', 'asc')
+            ->limit(10)
+            ->fetchClass("food")
+            ->fetchAll();
+        return $foods;
+    }
+
+    public function getFoodStatsByMeal()
+    {
+        $builder = new MysqlBuilder();
+        $foods = $builder->select('mealsFoods', ["*"])
+            ->fetchClass("mealsFoods")
+            ->fetchAll();
+        return $foods;
     }
 }

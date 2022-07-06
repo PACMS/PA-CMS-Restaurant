@@ -226,6 +226,12 @@
 
 # Route pour la gestion des utilisateurs
 
+/restaurant/statistiques:
+  controller: stats
+  action: stats
+
+# Route pour la gestion des utilisateurs
+
 /users:
   controller: admin
   action: users

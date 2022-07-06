@@ -83,7 +83,8 @@ class Meal
                             ->order("id", "DESC")
                             ->fetchClass("mealsFoods")
                             ->fetch();
-                            if($lastInserted->getFoodId() != $value || $lastInserted->getMealId() != $mealId ){
+                            
+                            if($lastInserted == false || $lastInserted->getFoodId() != $value  || $lastInserted->getMealId() != $mealId ){
 
                                 $builder->insert("mealsFoods", ["meal_id" => $mealId, "food_id" => $value])
                                 ->fetchClass("mealsFoods")
@@ -93,7 +94,6 @@ class Meal
                     }
             }
         }
-
         header('Location: /restaurant/carte/meals');
     }
 
@@ -102,7 +102,6 @@ class Meal
         $meal = new MealModel();
         $meal->hydrate($_POST) .
             $meal->save();
-
         header('Location: /restaurant/carte/meals');
     }
 
