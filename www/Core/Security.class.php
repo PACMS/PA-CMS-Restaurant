@@ -6,7 +6,9 @@ class Security
 {
     public static function checkRoute($route): bool
     {
-        session_start();
+        if (!isset($_SESSION)) {
+            session_start();
+        }
         if (empty($_SESSION["user"])) {
             header("Location: /login");
         } elseif ($_SESSION["user"]['role'] == "admin") {

@@ -1,5 +1,8 @@
 <?php
 
+/**
+ * PHP version 8.1
+ */
 namespace App\Controller;
 
 use App\Core\Verificator;
@@ -7,9 +10,25 @@ use App\Core\View;
 use App\Core\OAuth;
 use App\Model\User as UserModel;
 
+/**
+ * User Controller
+ * 
+ * @category Controller
+ * 
+ * @package App\Controller
+ * 
+ * @access public
+ * 
+ * @author PACMS <pa.cms.test@gmail.com>
+ */
 class User
 {
-    public function login()
+    /**
+     * Login page
+     *
+     * @return void
+     */
+    public function login(): void
     {
         $user = new UserModel();
 
@@ -36,7 +55,12 @@ class User
         $view->assign("user", $user);
     }
 
-    public function register()
+    /**
+     * Register page
+     *
+     * @return void
+     */
+    public function register():void
     {
         $user = new UserModel();
         $errors = null;
@@ -44,8 +68,9 @@ class User
         if (!empty($_POST)) {
             $errors = Verificator::checkForm($user->getCompleteRegisterForm(), $_POST + $_FILES);
 
-            if(!$errors) {
+            if (!$errors) {
                 $user->hydrate($_POST);
+                $user->setRole('user');
                 $user->save();
                 /////////// redirection vers le dashboard à faire
             }
@@ -56,7 +81,12 @@ class User
         $view->assign("errors", $errors);
     }
 
-    public function verifyToken()
+    /**
+     * Verify user token
+     * 
+     * @return void
+     */
+    public function verifyToken(): void
     {
         $user = new UserModel();
 
@@ -77,14 +107,26 @@ class User
         }
     }
 
-    public function createToken()
+    /**
+     * Send token to user
+     * 
+     * @deprecated
+     *
+     * @return void
+     */
+    public function createToken(): void
     {
 
         $view = new View("token");
         //$view->assign("user", $user);
     }
 
-    public function getToken()
+    /**
+     * Retrieve user token
+     * 
+     * @return void
+     */
+    public function getToken(): void
     {
         $user = new UserModel();
         //$user->setId(1);
@@ -102,7 +144,12 @@ class User
         //click sur http://localhost/verifyToken?token=<token>?email=<email>
     }
 
-    public function loginVerify()
+    /**
+     * Verify if user exists
+     * 
+     * @return void
+     */
+    public function loginVerify(): void
     {
         $user = new UserModel();
         
@@ -113,7 +160,7 @@ class User
                 $_POST + $_FILES
             );
         }
-        
+ 
         $user->setEmail($_POST['email']);
         $user->setPassword($_POST['password']);
 
@@ -127,7 +174,12 @@ class User
         $view->assign("user", $user);
     }
 
-    public function googleConnect ()
+    /**
+     * Google login
+     * 
+     * @return void
+     */
+    public function googleConnect(): void
     {
         $token = new OAuth($_GET['code']);
         $info = $token->google();
@@ -144,7 +196,12 @@ class User
         new View('dashboard');
     }
 
-    public function facebookConnect ()
+    /**
+     * Facebook login
+     * 
+     * @return void
+     */
+    public function facebookConnect(): void
     {
         $token = new OAuth($_GET['code']);
         $info = $token->facebook();
@@ -161,7 +218,12 @@ class User
         new View('dashboard');
     }
 
-    public function lostPassword() 
+    /**
+     * Lost password page
+     * 
+     * @return void
+     */
+    public function lostPassword(): void
     {
         $user = new UserModel();
 
@@ -170,7 +232,14 @@ class User
         $view->assign("user", $user);
     }
 
-    public function lostPasswordAction() 
+    /**
+     * Lost password action page
+     * 
+     * @deprecated
+     * 
+     * @return void
+     */
+    public function lostPasswordAction(): void
     {
         $user = new UserModel();
 
@@ -188,7 +257,12 @@ class User
         // $email = $_POST['email'];
     }
 
-    public function resetPassword()
+    /**
+     * Reset password page
+     * 
+     * @return void
+     */
+    public function resetPassword(): void
     {
         $user = new UserModel();
 
@@ -212,7 +286,12 @@ class User
         $view->assign("user", $user);
     }
 
-    public function resetPasswordAction()
+    /**
+     * Reset password action
+     * 
+     * @return void
+     */
+    public function resetPasswordAction(): void
     {
 
         $user = new UserModel();
@@ -236,6 +315,11 @@ class User
         new View('login');
     }
 
+    /**
+     * Logout action
+     * 
+     * @return void
+     */
     public function logout()
     {
         session_destroy();

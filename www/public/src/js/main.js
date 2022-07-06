@@ -167,7 +167,6 @@ $(document).ready(function () {
 
   $("#alert-close").on("click", function (event) {
     $(".alert-window").css("visibility", "hidden");
-    console.log('ok')
   });
 
   $("#editProfile").on("click", function (event) {
@@ -206,12 +205,12 @@ $(document).ready(function () {
     );
     $("div#sectionButton").append(cancelButton);
 
-    // $("#btncancel").on("click", function (event) {
-    //   event.target.disabled = true;
-    // });
+    $("#btncancel").on("click", function (event) {
+      event.target.disabled = true;
+    });
 
     var submitButton = $(
-      "<button class='btn btn-submit' type='submit' id='btncancel'>Confirmer </button>"
+      "<button class='btn btn-submit' type='submit' id='btnConfirm'>Confirmer </button>"
     );
     $("button#btncancel").after(submitButton);
 
@@ -244,7 +243,6 @@ $(document).ready(function () {
     },
     columnDefs: [
       { className: "dt-center", targets: "_all" },
-      { targets: -1, data: null, defaultContent: "<a href=''><i class='fas fa-pen'></i></a><a href=''><i class='fas fa-times-circle'></i></a>" },
     ],
     order: [3, 'desc'],
     columns: [null, null, null, { type: "date-eu" }, null, null, null, null],
@@ -255,10 +253,19 @@ $(document).ready(function () {
     pageLength: 10,
     info: true,
   });
-  // Refilter the table
-  $("#min, #max").on("change", function () {
-    table.draw();
+  $('#pageTable').dataTable( {
+    language: {
+      "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/French.json"
+    },
+    columnDefs: [
+      { className: "dt-center", targets: "_all" },
 
+    ],
+    order: [1, 'desc'],
+    columns: [null, null, null, { type: "date-eu" }, { type: "date-eu" },  null],
+
+    searching: true,
+    info: true,
   });
 
   $('#usersTable').dataTable( {
