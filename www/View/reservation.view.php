@@ -53,24 +53,24 @@
                                     <div id="open-modalEdit<?php echo $reservation['id'] ?>" class="modal-window">
                                         <div class="flex flex-column">
                                             <a href="#" title="Close" class="modal-close ">x</a>
-                                            <form method="POST" action="/restaurant/deleteReservation?id=<?php echo $reservation['id']?>">
+                                            <form method="POST" action="/restaurant/editReservation?id=<?php echo $reservation['id']?>">
                                                 <label class="greytext" for="name">Nom et prénom</label>
-                                                <input class="mb-7" id="name" name="name" value=" <?php echo $reservation['name'] ?> " type="text">
+                                                <input class="mb-7" id="name" name="name" value="<?php echo $reservation['name'] ?>" type="text">
 
                                                 <label class="greytext" for="numPerson">Nombre de personne</label>
-                                                <input class="mb-7" id="numPerson" name="numPerson" value=" <?php echo $reservation['numPerson'] ?> " type="text">
+                                                <input class="mb-7" id="numPerson" name="numPerson" value="<?php echo intval($reservation['numPerson']) ?>" type="number" >
 
                                                 <label class="greytext" for="numTable">Numero de table</label>
-                                                <input class="mb-7" id="numTable" name="numTable" value=" <?php echo $reservation['numTable'] ?> " type="text">
+                                                <input class="mb-7" id="numTable" name="numTable" value="<?php echo $reservation['numTable'] ?>" type="number" >
 
                                                 <label class="greytext" for="date">Date de reservation</label>
-                                                <input class="mb-7" id="date" name="date" value=" <?php echo $reservation['date'] ?> " type="text">
+                                                <input class="mb-7" id="date" name="date" value="<?php echo $reservation['date']?>" type="date">
 
                                                 <label class="greytext" for="hour"">Heure de reservation</label>
-                                                <input class="mb-7" id="hour" name="hour"  value=" <?php echo $reservation['hour'] ?> " type="text">
+                                                <input class="mb-7" id="hour" name="hour"  value="<?php echo $reservation['hour']?>" type="time">
 
                                                 <label class="greytext" for="phoneReserv">Numéro de téléphone</label>
-                                                <input class="mb-7" id="phoneReserv" name="phoneReserv"  value=" <?php echo $reservation['phoneReserv'] ?> " type="text">
+                                                <input class="mb-7" id="phoneReserv" name="phoneReserv"  value="<?php echo $reservation['phoneReserv'] ?>" type="number">
 
                                                 <input type="submit" value="Modifier">
                                             </form>

@@ -217,9 +217,9 @@
   action: addReservation
   security: "employee"
 
-/restaurant/edit:
+/restaurant/editReservation:
   controller: reservation
-  action: show
+  action: edit
   security: "employee"
 
 /restaurant/deleteReservation:
