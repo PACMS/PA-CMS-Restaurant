@@ -224,6 +224,10 @@
   action: deleteComment
   security: "admin"
 
+/showComments:
+  controller: comment
+  action: showComments
+
 # Route pour la gestion des utilisateurs
 
 /restaurant/statistiques:
