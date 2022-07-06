@@ -4,6 +4,7 @@ namespace App\Model;
 
 use App\Core\Cleaner;
 use App\Core\Sql;
+use App\Core\MysqlBuilder;
 
 class Comment extends Sql
 {
@@ -13,6 +14,8 @@ class Comment extends Sql
     protected $id_parent;
     protected $id_user;
     protected $id_restaurant;
+    protected $created_at;
+    protected $updated_at;
 
     public function __construct()
     {
@@ -69,9 +72,9 @@ class Comment extends Sql
     }
 
     /**
-     * @return int
+     * @return int | null
      */
-    public function getIdParent(): int
+    public function getIdParent(): int | null
     {
         return $this->id_parent;
     }
@@ -116,9 +119,36 @@ class Comment extends Sql
         $this->id_restaurant = $id_restaurant;
     }
 
+    /**
+     * @return string
+     */
+    public function getCreatedAt(): string
+    {
+        return $this->created_at;
+    }
+
+    /**
+     * @return string
+     */
+    public function getUpdatedAt(): string
+    {
+        return $this->updated_at;
+    }
+
+
     public function save(): void
     {
         parent::save();
+    }
+
+    public function getChildrenComment(int $parent_id)
+    {
+        $request = new MysqlBuilder();
+        $result = $request->select("comments", ["*"])
+                ->where("id_parent", $parent_id)
+                ->fetchClass("comment")
+                ->fetchAll();
+        return $result;
     }
 
 

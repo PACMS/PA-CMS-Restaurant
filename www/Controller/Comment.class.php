@@ -78,4 +78,15 @@ class Comment
             ->fetch();
         header("Location: /restaurant/comments");
     }
+
+    public function showComments()
+    {
+        $request = new MysqlBuilder();
+        $result = $request->select("comments", ["*"])
+                ->where("id_restaurant", 74)
+                ->fetchClass("comment")
+                ->fetchAll();
+        $view = new View("comments-front", "front");
+        $view->assign('comments', $result);
+    }
 }
