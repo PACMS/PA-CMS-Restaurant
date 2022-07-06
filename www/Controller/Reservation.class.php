@@ -82,6 +82,7 @@ class Reservation
     public function getReservationsStats()
     {
         $reservation = new ReservationModel();
+        // à mettre en param en dessous ["id_restaurant" => $_SESSION["restaurant"]["id"]]
         $data =  $reservation->getAllReservation();
         return $data;
     }

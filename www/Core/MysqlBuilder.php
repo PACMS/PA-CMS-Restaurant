@@ -65,7 +65,7 @@
 
         public function rightJoin(string $table, string $fk, string $pk): QueryBuilder 
         {
-            $this->query->join[] = " RIGHT JOIN " . $table . " ON " . $pk . " = " . $fk;
+            $this->query->join[] = " RIGHT JOIN "  . DBPREFIXE . $table . " ON " . $pk . " = " . $fk;
             return $this;
         }
 
@@ -132,6 +132,10 @@
             $data = $this->data;
 
             $sql = $query->base;
+
+            if (!empty($query->join)) {
+                $sql .= implode(' ', $query->join);
+            }
 
             if (!empty($query->where)) {
                 $sql .= " WHERE "  . implode(' AND ', $query->where);

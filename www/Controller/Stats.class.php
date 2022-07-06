@@ -15,19 +15,14 @@ class Stats
         $view = new View("statistiques", "back");
         $food = new Food();
         $foods = $food->getFoodStats();
-        // $mealFoods = $food->getFoodStatsByMeal();
-        // dd($mealFoods);
-
+        $foodMeal = $food->getFoodStatsByMeal();
 
         $foodObj = [];
         for($i = 0; $i < count($foods); $i++) {
             $foodObj[$i] = new \stdClass();
-            $foodObj[$i]->network = $foods[$i]->getName();
-            $foodObj[$i]->value = intval($foods[$i]->getQuantity());
+            $foodObj[$i]->name = $foods[$i]->getName();
+            $foodObj[$i]->quantity = intval($foods[$i]->getQuantity());
         }
-
-        // sql request double join pacm_meal pacm_carte
-        
 
         $reservation = new Reservation();
         $data = $reservation->getReservationsStats();
@@ -46,6 +41,7 @@ class Stats
         }
         $view->assign('stats', $nbReservations);
         $view->assign('foodQuantity', $foodObj);
+        $view->assign('foodMeal', $foodMeal);
     }    
     
 

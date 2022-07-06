@@ -166,7 +166,7 @@ class Reservation extends Sql
     {
        return parent::getAll();
     }
-
+    // $param à mettre en param et à la fin de la fonction
     public function getAllReservation(): array
     {
         return parent::databaseFindAll("SELECT * FROM " . DBPREFIXE .  "reservation WHERE date BETWEEN NOW() AND DATE_ADD(NOW(), INTERVAL 15 DAY)");  

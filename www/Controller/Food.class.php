@@ -30,25 +30,22 @@ class Food
         if (empty($_POST)) {
             return header('Location: /restaurant/stock');
         }
-        
+
         $errors = Verificator::checkForm($food->editFoodInfo(), $_POST + $_FILES);
         if (!$errors) {
-        foreach ($allFoods as $value) {
-            array_push($foodArray, $value["id"]);
-        }
-        
-        if (!in_array($_POST["id"], $foodArray)) {
-            return header("Location: /restaurant/stock");
-        }
-        $oneFood = $food->getOneFood('food', $_POST["id"]);
-        $food->hydrate($oneFood);
-        $view = new View("food");
-        $view->assign('food', $food);
-        $view->assign('oneFood', $oneFood);
+            foreach ($allFoods as $value) {
+                array_push($foodArray, $value["id"]);
+            }
 
+            if (!in_array($_POST["id"], $foodArray)) {
+                return header("Location: /restaurant/stock");
+            }
+            $oneFood = $food->getOneFood('food', $_POST["id"]);
+            $food->hydrate($oneFood);
+            $view = new View("food");
+            $view->assign('food', $food);
+            $view->assign('oneFood', $oneFood);
         }
-        
-        
     }
 
     public function updateFood()
@@ -67,7 +64,7 @@ class Food
             if (!$errors) {
                 $food->hydrate($_POST);
                 $food->save();
-                
+
                 return header('Location: /restaurant/stock');
             }
         }
@@ -107,9 +104,34 @@ class Food
     public function getFoodStatsByMeal()
     {
         $builder = new MysqlBuilder();
-        $foods = $builder->select('mealsFoods', ["*"])
+        $foods = $builder->select('mealsFoods mf', ["*"])
+            ->rightJoin('meal m', 'm.id', 'mf.meal_id')
+            ->rightJoin('carte c', 'c.id', 'm.id_carte')
+            ->where("id_restaurant", $_SESSION["restaurant"]["id"])
+            ->where("status", 1)
             ->fetchClass("mealsFoods")
             ->fetchAll();
-        return $foods;
+
+        $myFoods = [];
+        foreach ($foods as $food) {
+            array_push($myFoods, $food->getFoodId());
+        }
+
+        $vals = array_count_values($myFoods);
+        $foodMealObj = [];
+        $keys = array_keys($vals);
+
+        for ($i = 0; $i < count($keys); $i++) {
+            $name = $builder->select('food', ["name"])
+                ->where('id', $keys[$i])
+                ->fetchClass("food")
+                ->fetch();
+
+            $foodMealObj[$i] = new \stdClass();
+            $foodMealObj[$i]->name = $name->getName();
+            $foodMealObj[$i]->repeat = intval($vals[$keys[$i]]);
+        }
+
+        return $foodMealObj;
     }
 }
