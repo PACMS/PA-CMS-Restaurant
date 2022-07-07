@@ -103,10 +103,15 @@ class Meal
 
     public function updateMeal()
     {
+
+        $errors = null;
         $_POST = array_map('htmlspecialchars', $_POST);
         $meal = new MealModel();
-        $meal->hydrate($_POST) .
+        $errors = Verificator::checkForm($meal->getUpdateMeal([]), $_POST + $_FILES);
+        if (!$errors) {
+            $meal->hydrate($_POST) .
             $meal->save();
+        } 
         header('Location: /restaurant/carte/meals');
     }
 

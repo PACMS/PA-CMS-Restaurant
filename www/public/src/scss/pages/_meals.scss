@@ -219,8 +219,8 @@ main#meals {
                     & form {
                         // border-bottom: 1px solid $blue;
                         // margin-bottom: 28px;
-                        display: flex;
-                        flex-direction: column;
+                        // display: flex;
+                        // flex-direction: column;
 
                         & label {
                             font-size: rem(14);
@@ -243,7 +243,7 @@ main#meals {
                             padding-top: 10px;
                         }
 
-                        & button[type="submit"] {
+                        & input[type="submit"] {
                             border-radius: 11px;
                             height: 50px;
                             outline: none;
