@@ -29,6 +29,7 @@ class Comment
     {
         @session_start();
         $mail = new Mail();
+        $_POST = array_map('htmlspecialchars', $_POST);
         $_POST["id_restaurant"] = intval($_POST["id_restaurant"]);
         $_POST["id_user"] = intval($_SESSION["user"]["id"]);
         $request = new MysqlBuilder();
@@ -61,6 +62,7 @@ class Comment
     public function validateComment()
     {
         $request = new MysqlBuilder();
+        $_POST = array_map('htmlspecialchars', $_POST);
         $request
             ->update("comments", ["status" => 1])
             ->where("id", $_POST["id"])
@@ -72,6 +74,7 @@ class Comment
     public function deleteComment()
     {
         $request = new MysqlBuilder();
+        $_POST = array_map('htmlspecialchars', $_POST);
         $request
             ->delete("comments", ["id" => $_POST["id"]])
             ->fetchClass("comment")

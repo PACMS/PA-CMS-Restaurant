@@ -34,6 +34,7 @@ class Reservation
     public function addReservation()
     {
         $reservation = new ReservationModel();
+        $_POST = array_map('htmlspecialchars', $_POST);
         $_POST["status"] = 0;
         if ($_POST["status"] != 0) {
             dd("gerer l'erreur du status");
@@ -52,6 +53,7 @@ class Reservation
     public function addReservationClient()
     {
         $reservation = new ReservationModel();
+        $_POST = array_map('htmlspecialchars', $_POST);
         $_POST["status"] = 0;
         if ($_POST["status"] != 0) {
             dd("gerer l'erreur du status");
@@ -66,6 +68,7 @@ class Reservation
 
     public function completeReservation()
     {
+        $_POST = array_map('htmlspecialchars', $_POST);
         $request = new MysqlBuilder();
         $request
             ->update('reservation', ["status" => 1])
