@@ -27,15 +27,15 @@
             </div>
             <div style=" height: 100%; width: 100%; margin:auto; padding-right: 4%; margin-top: 100px ">
                 <div class="restaurants-list">
-                    <?php foreach ($restaurant as $key => $value) : ?>
-                        <form class="restaurant-card" method="POST" action="restaurant">
+                    <?php foreach ($restaurants as $key => $value) : ?>
+                        <div class="restaurant-card">
+
                             <img src="../public/assets/img/pizza.jpg" alt="graph" />
                             <div class="bandeau">
                                 <p><?= $value["name"] ?></p>
-                                <input type="hidden" name="id" value="<?=  $value["id"]?>"></input>
-                                <button type="submit">Modifier</button>
+                                <?php $this->includePartial("form", $restaurant->selectRestaurant($value["id"])); ?>
                             </div>
-                        </form>
+                        </div>
                     <?php endforeach; ?>
                 </div>
             </div>

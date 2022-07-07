@@ -15,9 +15,16 @@ class Food
         session_start();
         $_POST = array_map('htmlspecialchars', $_POST);
         $food = new FoodModel();
-        $food->hydrate($_POST);
-
-        $food->save();
+        $errors = null;
+        if(!empty($_POST)) {
+            $errors = Verificator::checkForm($food->getAddProduct(), $_POST);
+            if(empty($errors)) {
+                $food->hydrate($_POST);
+                $food->save();
+                header('Location: /food');
+            }
+            header('Location: /restaurant/stock');
+        }
         header('Location: /restaurant/stock');
     }
 
@@ -38,7 +45,6 @@ class Food
             foreach ($allFoods as $value) {
                 array_push($foodArray, $value["id"]);
             }
-
             if (!in_array($_POST["id"], $foodArray)) {
                 return header("Location: /restaurant/stock");
             }
@@ -78,16 +84,25 @@ class Food
     {
         session_start();
         $food = new FoodModel();
-        $stockId = $_SESSION["stock"]["id"];
-        $allFoods = $food->getAllFoods(['stockId' => $stockId]);
-        $foodArray = [];
-        foreach ($allFoods as $value) {
-            array_push($foodArray, $value["id"]);
+        $errors = null;
+        if(!empty($_POST)){
+            $_POST = array_map('htmlspecialchars', $_POST);
+            $stockId = $_SESSION["stock"]["id"];
+            $errors = Verificator::checkForm($food->deleteFoodForm($_POST["id"]), $_POST + $_FILES);
+            if(!$errors){
+
+                $allFoods = $food->getAllFoods(['stockId' => $stockId]);
+                $foodArray = [];
+                foreach ($allFoods as $value) {
+                    array_push($foodArray, $value["id"]);
+                }
+                if (!in_array($_POST["id"], $foodArray)) {
+                    return header("Location: /restaurant/stock");
+                }
+                $food->deleteFood($_POST['id']);
+                return header('Location: /restaurant/stock');
+            }
         }
-        if (!in_array($_POST["id"], $foodArray)) {
-            return header("Location: /restaurant/stock");
-        }
-        $food->deleteFood($_POST['id']);
         return header('Location: /restaurant/stock');
     }
 
@@ -133,7 +148,6 @@ class Food
             $foodMealObj[$i]->name = $name->getName();
             $foodMealObj[$i]->repeat = intval($vals[$keys[$i]]);
         }
-
         return $foodMealObj;
     }
 }
