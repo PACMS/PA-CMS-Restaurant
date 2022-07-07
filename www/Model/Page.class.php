@@ -110,6 +110,16 @@ class Page extends Sql
         $this->id_restaurant = $id_restaurant;
     }
 
+    /**
+     * Retrieve all pages
+     *
+     * @return void
+     */
+    public function getAllPages()
+    {
+        return parent::getAll();
+    }
+
     public function getAllPagesFromRestaurant(int $id)
     {
         $pages = parent::databaseFindAll("SELECT * FROM " . DBPREFIXE . "page" , ['id_restaurant' => $id]);

@@ -304,9 +304,13 @@
   action: errorNotFound
   security: 'employee'
 
-/sitemap.xml:
+/sitemap:
   controller: globalController
   action: sitemap
+
+/sitemap.xml:
+  controller: globalController
+  action: sitemapXML
 
 # Setup
 
