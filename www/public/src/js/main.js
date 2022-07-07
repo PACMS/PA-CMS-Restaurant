@@ -152,6 +152,47 @@ $(document).ready(function () {
     e.target.classList.add("active");
   });
 
+  //Carte Part
+  $("main#meals div.modal > form").append("<p class='close'>close</p>");
+
+  $("main#meals div.modal > form > p.close").click(function (e) {
+    $("div.modal").hide();
+  });
+
+  $("header#meals article#Add button#addCategorie").click(function (e) {
+    console.log("click");
+    $("main#meals div.modal.addCategorie").toggle();
+  });
+
+  $("button#addMeal").click(function (e) {
+    $("div.modal.addMeal").toggle();
+  });
+
+  $("figure#editCategorie").click(function (e) {
+    $(e.target.parentElement.children[1]).hide();
+    $(e.target.parentElement.children[2]).hide();
+    $(e.target.parentElement.children[0]).removeClass("hidden");
+  });
+
+  $("span#editMeal").click(function (e) {
+    $(e.target.parentElement.parentElement.parentElement).hide();
+    $("form#updateMeal").removeClass("hidden");
+  });
+
+  $("span#deleteMeal").click(function (e) {
+    $.post("/restaurant/carte/meals/deleteMeal", {
+      id: e.target.getAttribute("data-id-meal"),
+    });
+    location.reload();
+  });
+
+  $("span#deleteCategorie").click(function (e) {
+    $.post("/restaurant/carte/meals/deleteCategorie", {
+      id: e.target.getAttribute("data-id-categorie"),
+    });
+    location.reload();
+  });
+
   $("#navbarButton").click(function () {
     $(this).children(".far").toggleClass("rotated");
     $(".sidebar").toggleClass("small");
