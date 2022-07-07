@@ -108,5 +108,30 @@ class Categorie extends Sql
             ]
         ];
     }
+
+    public function getUpdateCategorie($valueToChange = "", $idCategorie = ""): array
+    {
+        return [
+            "config" => [
+                "method" => "POST",
+                "action" => "/restaurant/carte/meals/updateCategorie",
+                "class" => "flex justify-content-between hidden",
+                "id" => "",
+                "submit" => "Modifier",
+                'captcha' => false
+            ],
+            "inputs" => [
+                "name" => [
+                    "type" => "text",
+                    "value" => $valueToChange,
+                    "required" => true
+                ],
+                "id" => [
+                    "type" => "hidden",
+                    "value" => $idCategorie,
+                ],
+            ]
+        ];
+    }
    
 }

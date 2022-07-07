@@ -127,6 +127,18 @@ main#meals {
                         font-weight: 500px;
                         cursor: pointer;
                     }
+                    & input[type="submit"] {
+                        border-radius: 11px;
+                        border: none;
+                        background-color: transparent;
+                        cursor: pointer;
+                        font-size: 1rem !important;
+                        font-weight: 400;
+                        color: black;
+                        padding: 0;
+                    }
+
+                    
                 }
             }
 

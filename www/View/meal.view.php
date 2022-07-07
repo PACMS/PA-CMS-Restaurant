@@ -18,14 +18,15 @@
         <?php $this->includePartial("form",  $meal->getAddMeal($categories, $food)); ?>
     </div>
     <section id="meals-menus" class="">
-        <?php foreach($categories as $categorieKey => $categorie) : ?>
-            <?php if ($categorie["id_carte"] == $_SESSION["id_card"]) : ?>
+        <?php foreach($categories as $categorieKey => $value) : ?>
+            <?php if ($value["id_carte"] == $_SESSION["id_card"]) : ?>
                 <article>
                     <div class="flex justify-content-between align-items-center">
-                        <h1 data-value="<?= ($categorie["name"]) ?>">
-                            <?= ($categorie["name"]) ?> <span id="deleteCategorie" class="hidden" data-id-categorie="<?= $categorie["id"] ?>">Supprimer</span>
+                        <?php $this->includePartial("form", $categorie->getUpdateCategorie($value["name"], $value["id"])); ?>
+                        <h1 data-value="<?= ($value["name"]) ?>">
+                            <?= ($value["name"]) ?> <span id="deleteCategorie" class="hidden" data-id-categorie="<?= $value["id"] ?>">Supprimer</span>
                         </h1>
-                        <figure id="editCategorie" data-id-categorie="<?= $categorie["id"] ?>">
+                        <figure id="editCategorie" data-id-categorie="<?= $value["id"] ?>">
                             <svg width="21" height="20" viewBox="0 0 21 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M16.6931 0C16.416 0 16.1386 0.102599 15.9274 0.308388L14.0787 2.10526L18.4106 6.31579L20.2593 4.51891C20.6828 4.10734 20.6828 3.44095 20.2593 3.03043L17.4588 0.308388C17.2471 0.102599 16.9702 0 16.6931 0ZM12.4543 3.68421L0 15.7895V20H4.33192L16.7862 7.89474L12.4543 3.68421Z" fill="black"/>
                             </svg>
@@ -80,17 +81,9 @@
 
     $('figure#editCategorie').click(function(e) {
        
-        let IdCategorie = e.target.getAttribute("data-id-categorie");
-        let valueToChange = $.trim($(e.target.parentElement.children[0]).attr("data-value"));
         $(e.target.parentElement.children[1]).hide();
-
-         $(e.target.parentElement.children[0]).replaceWith(function() {
-            return $(`<form method="POST" action="/restaurant/carte/meals/updateCategorie" class="flex justify-content-between">
-            <input type="text" name="name" value="${valueToChange}" />
-            <input type="hidden" name="id" value="${IdCategorie}" />
-            <button type="submit">Modifier</button>
-            </form>`)
-        });
+        $(e.target.parentElement.children[2]).hide();
+        $(e.target.parentElement.children[0]).removeClass("hidden")
 
     });
 
