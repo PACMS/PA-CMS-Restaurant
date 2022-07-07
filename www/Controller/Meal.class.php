@@ -60,6 +60,7 @@ class Meal
     {
         session_start();
         if (!empty($_POST)) {
+            $_POST = array_map('htmlspecialchars', $_POST);
             $errors = null;
             $meal = new MealModel();
             $_POST["price"] = floatval($_POST["price"]);
@@ -99,6 +100,7 @@ class Meal
 
     public function updateMeal()
     {
+        $_POST = array_map('htmlspecialchars', $_POST);
         $meal = new MealModel();
         $meal->hydrate($_POST) .
             $meal->save();

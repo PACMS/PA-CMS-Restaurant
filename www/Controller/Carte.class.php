@@ -15,6 +15,7 @@ class Carte
     {
 
         if (empty($_GET)) {
+            $_POST = array_map('htmlspecialchars', $_POST);
             session_start();
             if (empty($_SESSION["restaurant"]["id"])) {
                 header('Location: /restaurants');
@@ -70,6 +71,7 @@ class Carte
 
     public function updateCarte()
     {
+        $_POST = array_map('htmlspecialchars', $_POST);
         $carte = new CarteModel();
         if (empty($_POST["status"])) {
             $_POST["status"] = 0;
