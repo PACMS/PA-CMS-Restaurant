@@ -165,14 +165,12 @@ class Meal extends Sql
                     "type" => "text",
                     "label" => "Nom du menu",
                     "required" => true,
-                    "value" => "test",
                 ],
                 "price" => [
                     "type" => "text",
                     "label" => "Prix",
                     "required" => true,
                     "error" => "Votre prix ne peut pas contenir de caractères",
-                    "value" => "12"
                 ],
                 "description" => [
                     "type" => "textarea",

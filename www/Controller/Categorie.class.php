@@ -13,6 +13,7 @@ class Categorie
 
     public function createcategorie()
     {
+        $_POST = array_map('htmlspecialchars', $_POST);
         $queryBuilder = new MysqlBuilder();
         $categorie = new CategorieModel();
         $categorie->hydrate($_POST);
@@ -23,6 +24,7 @@ class Categorie
 
     public function updateCategorie()
     {
+        $_POST = array_map('htmlspecialchars', $_POST);
         $categorie = new CategorieModel();
         $categorie->hydrate($_POST);
         $categorie->save();
