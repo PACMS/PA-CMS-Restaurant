@@ -99,6 +99,7 @@ class Meal
 
     public function updateMeal()
     {
+        
         $meal = new MealModel();
         $meal->hydrate($_POST) .
             $meal->save();

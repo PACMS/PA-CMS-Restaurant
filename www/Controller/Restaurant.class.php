@@ -59,11 +59,13 @@ class Restaurant
     {
         $restaurant = new RestaurantModel();
         $errors = null;
-
         session_start();
         if (!empty($_POST) && $_POST["user_id"] == $_SESSION["user"]["id"]) {
+            $_POST = array_map('htmlspecialchars', $_POST);
             $errors = Verificator::checkForm($restaurant->getCompleteRestaurantForm(), $_POST + $_FILES);
+            
             if (!$errors) {
+                
                 $restaurant->hydrate($_POST);
                 // $restaurant->setId(null);
                 $restaurant->save();
@@ -71,8 +73,10 @@ class Restaurant
                 $stock = new StockModel;
                 $stock->hydrate(['restaurantId' => $restaurantId]);
                 $stock->save();
+
                 return header('Location: /restaurants');
             }
+            dd($errors);
         }
 
         return header('Location: /restaurant/create');
@@ -85,6 +89,7 @@ class Restaurant
         $restaurant = new RestaurantModel();
         $errors = null;
         if (!empty($_POST) && $_POST["id"] == $_SESSION["restaurant"]["id"]) {
+            $_POST = array_map('htmlspecialchars', $_POST);
             $errors = Verificator::checkForm($restaurant->getCompleteUpdateRestaurantForm(), $_POST + $_FILES);
             if (!$errors) {
                 $restaurant->hydrate($_POST);
@@ -109,6 +114,7 @@ class Restaurant
     public function restaurantOptions()
     {
         session_start();
+        $_POST = array_map('htmlspecialchars', $_POST);
         if (!in_array($_POST["id"], $_SESSION["restaurantsIds"])) {
             return header('Location: /restaurants');
         }

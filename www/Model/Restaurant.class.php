@@ -194,6 +194,7 @@ class Restaurant extends Sql
 
     public function getCompleteRestaurantForm()
     {
+
         return [
 
             "config" => [
@@ -218,7 +219,7 @@ class Restaurant extends Sql
                     "required" => true,
                     "min" => 2,
                     "max" => 100,
-                    "value" => $this->name,
+                    "value" =>$this->name,
                     "error" => "Le nom de votre restaurant n'est pas correct",
                 ],
                 "address" => [
@@ -230,7 +231,7 @@ class Restaurant extends Sql
                     "required" => true,
                     "min" => 2,
                     "max" => 255,
-                    "value" => $this->address,
+                    "value" =>$this->address,
                     "error" => "Le champs adresse contient une erreur",
                 ],
                 "additional_address" => [
@@ -240,7 +241,7 @@ class Restaurant extends Sql
                     "label" => "Complément d'adresse",
                     "class" => "restaurant-inputs",
                     "max" => 255,
-                    "value" => $this->additional_address,
+                    "value" =>$this->additional_address,
                     "error" => "Le champs complément d'adresse contient une erreur"
                 ],
                 "city" => [

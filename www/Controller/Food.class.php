@@ -13,6 +13,7 @@ class Food
     public function createFood()
     {
         session_start();
+        $_POST = array_map('htmlspecialchars', $_POST);
         $food = new FoodModel();
         $food->hydrate($_POST);
 
@@ -25,6 +26,7 @@ class Food
         session_start();
         $food = new FoodModel();
         $errors = null;
+        $_POST = array_map('htmlspecialchars', $_POST);
         $allFoods = $food->getAllFoods(['stockId' => $_SESSION["stock"]["id"]]);
         $foodArray = [];
         if (empty($_POST)) {
@@ -60,6 +62,7 @@ class Food
         }
 
         if (!empty($_POST) && !empty($_POST["id"]) && is_numeric($_POST["quantity"]) && in_array($_POST["id"], $foodArray) && $_POST["stockId"] == $_SESSION["stock"]["id"]) {
+            $_POST = array_map('htmlspecialchars', $_POST);
             $errors = Verificator::checkForm($food->updateFoodForm(), $_POST + $_FILES);
             if (!$errors) {
                 $food->hydrate($_POST);

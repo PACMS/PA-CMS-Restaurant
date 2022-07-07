@@ -51,6 +51,7 @@ class User
     {
         $user = new UserModel();
         $errors = null;
+        $_POST = array_map('htmlspecialchars', $_POST);
         if (!empty($_POST)) {
             $errors = Verificator::checkForm($user->getCompleteRegisterForm(), $_POST + $_FILES);
             
@@ -69,7 +70,6 @@ class User
     public function verifyToken()
     {
         $user = new UserModel();
-
         $actualDateTime = new \DateTime();
         $date = new \DateTime($_GET["date"]);
         $interval = $actualDateTime->diff($date);
@@ -115,7 +115,8 @@ class User
     public function loginVerify()
     {
         $user = new UserModel();
-        
+        $_POST = array_map('htmlspecialchars', $_POST);
+
 
         if (!empty($_POST)) {
             Verificator::checkForm(
@@ -226,7 +227,7 @@ class User
     {
 
         $user = new UserModel();
-
+        $_POST = array_map('htmlspecialchars', $_POST);
         if (!empty($_POST)) {
             Verificator::checkForm(
                 $user->getResetPasswordForm(),
