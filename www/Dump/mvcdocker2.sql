@@ -191,7 +191,7 @@ INSERT INTO `pacm_reservation` (`id`, `name`, `date`, `hour`, `numTable`, `numPe
 CREATE TABLE `pacm_restaurant` (
   `id` int(11) NOT NULL,
   `name` varchar(50) NOT NULL,
-  `address` varchar(50) NOT NULL,
+  `address` varchar(255) NOT NULL,
   `additional_address` varchar(100) DEFAULT NULL,
   `city` varchar(50) NOT NULL,
   `zipcode` int(50) DEFAULT NULL,
@@ -204,7 +204,7 @@ CREATE TABLE `pacm_restaurant` (
 --
 
 INSERT INTO `pacm_restaurant` (`id`, `name`, `address`, `additional_address`, `city`, `zipcode`, `user_id`, `phone`) VALUES
-(73, 'Barrière', '12 Rue Berthier', '12 Rue Berthier', 'YERRES', 91330, 3, 651588687);
+(73, 'PizzaGogo', '12 Rue de Paris', 'Completement dadresse', 'Paris', 75001, 3, 0123456789);
 
 -- --------------------------------------------------------
 

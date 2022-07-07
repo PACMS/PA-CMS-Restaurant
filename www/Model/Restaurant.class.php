@@ -416,4 +416,25 @@ class Restaurant extends Sql
             ]
         ];
     }
+
+    public function selectRestaurant(int $id)
+    {
+        return [
+            "config" => [
+                "method" => "POST",
+                "action" => "/restaurant",
+                "submit" => "Accéder",
+                'captcha' => false,
+            ],
+            "inputs" => [
+                "id" => [
+                    "type" => "hidden",
+                    "id" => "id",
+                    "name" => "id",
+                    "value" => $id,
+                ],
+            ]
+        ];
+    }
+
 }

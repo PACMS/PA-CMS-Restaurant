@@ -26,7 +26,8 @@ class Restaurant
         }
         $_SESSION["restaurantsIds"] = $restaurantsIds;
         $view = new View("restaurants");
-        $view->assign('restaurant', $allRestaurants);
+        $view->assign('restaurants', $allRestaurants);
+        $view->assign('restaurant', $restaurant);
     }
 
     // Supprimer un restaurant depuis la page /restaurant/information

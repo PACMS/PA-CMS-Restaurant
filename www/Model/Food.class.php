@@ -279,5 +279,27 @@ class Food extends Sql
             ]
         ];
     }
+
+    public function deleteFoodForm(int $id)
+    {
+        return [
+            "config" => [
+                "method" => "POST",
+                "action" => "/restaurant/food/delete",
+                "id" => "food-delete",
+                "submit" => "Supprimer",
+                'captcha' => false,
+            ],
+            "inputs" => [
+                "id" => [
+                    "type" => "hidden",
+                    "id" => "id",
+                    "name" => "id",
+                    "class" => "restaurant-inputs",
+                    "value" => $id,
+                ],
+            ]
+        ];
+    }
     
 }

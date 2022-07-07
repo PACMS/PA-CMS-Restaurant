@@ -32,6 +32,22 @@
         font-family: $font1;
         background-color: $restaurant-card-bandeau;
         border-radius: 0 0px 20px 20px;
+
+        & input[type="submit"] {
+            margin-right: 20px;
+            background-color: $main-color;
+            color: $white;
+            width: 120px;
+            padding: 10px 25px;
+            border: none;
+            border-radius: 11px;
+            cursor: pointer;
+    
+            & a {
+                color: $white;
+                text-decoration: none;
+            }
+        }
     }
 
     & p {
