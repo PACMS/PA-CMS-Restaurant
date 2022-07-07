@@ -131,11 +131,15 @@
 
 /restaurant/carte/create:
   controller: carte
-  action: createCarte
+  action: createCarteView
 
 /restaurant/updateCarte:
   controller: carte
   action: updateCarte
+
+/restaurant/createCarte:
+  controller: carte
+  action: createCarte
 
 /restaurant/carte/delete:
   controller: carte

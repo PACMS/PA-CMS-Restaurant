@@ -71,7 +71,8 @@
                 id="<?= $input["id"] ?? "" ?>" 
                 placeholder="<?= $input["placeholder"] ?? "" ?>" 
                 type="<?= $input["type"] ?? "text" ?>" 
-                
+                <?= !empty($input["maxlength"]) ? 'maxlength="'. $input["maxlength"] .'"' : ""  ?> 
+                <?= !empty($input["minlength"]) ? 'minlength="'. $input["minlength"] .'"' : ""  ?>
                 <?= !empty($input["value"]) ? 'value="'.$input["value"].'"' : "" ?>
                 <?= !empty($input["required"]) ? 'required="required"' : ""  ?>
             />

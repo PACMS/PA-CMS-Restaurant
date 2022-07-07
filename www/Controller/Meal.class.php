@@ -60,8 +60,11 @@ class Meal
     {
         session_start();
         if (!empty($_POST)) {
+            $ingredients = $_POST["ingredients"];
+            unset($_POST["ingredients"]);
             $_POST = array_map('htmlspecialchars', $_POST);
-            $errors = null;
+            $ingredients = array_map('htmlspecialchars', $ingredients);
+            $_POST["ingredients"] =  $ingredients;
             $meal = new MealModel();
             $_POST["price"] = floatval($_POST["price"]);
             $builder = new MysqlBuilder();
