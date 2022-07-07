@@ -216,7 +216,7 @@ abstract class Sql
      * 
      * @return array|null Returns an associative array or null if no result
      */
-    public function findOneBy(array $whereClause): ?array
+    public function findOneBy(array $whereClause): mixed
     {
         $columns = get_object_vars($this);
         $varToExclude = get_class_vars(get_class());
