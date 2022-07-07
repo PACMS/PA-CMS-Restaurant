@@ -44,11 +44,33 @@ class Carte
         }
     }
 
-    public function createCarte()
+    public function createCarteView()
     {
         $carte = new CarteModel();
         $view = new View("createCarte", "back");
         $view->assign("carte", $carte);
+    }
+
+    public function createCarte()
+    {
+        $errors = null;
+        
+        $_POST = array_map('htmlspecialchars', $_POST);
+        $carte = new CarteModel();
+        if (empty($_POST["status"])) {
+            $_POST["status"] = 0;
+        } else {
+            $_POST["status"] = 1;
+        }
+        $errors = Verificator::checkForm($carte->getCreateForm(), $_POST + $_FILES);
+        if (!$errors) {
+            $carte->hydrate($_POST);
+            if ($_POST["status"] === 1) {
+                $this->unselectAllCarte();
+            }
+            $carte->save();
+        }
+        header('Location: /restaurant/cartes');
     }
 
     public function showCarte(string $id)
@@ -57,6 +79,7 @@ class Carte
         if (!in_array($id, $_SESSION["restaurant"]["cartesIds"])) {
             header('Location: /restaurant/cartes');
         }
+        $_SESSION["id_card"] = $id;
         $carteCtrl = new CarteModel();
         $view = new View("carteDetails", "back");
         $builder = new MysqlBuilder();
@@ -71,18 +94,30 @@ class Carte
 
     public function updateCarte()
     {
-        $_POST = array_map('htmlspecialchars', $_POST);
+        @session_start();
+        $id = $_SESSION["id_card"];
+        $builder = new MysqlBuilder();
+        $currentCarte = $builder
+            ->select('carte', ["*"])
+            ->where("id", $id)
+            ->fetchClass("carte")
+            ->fetch();
+        $errors = null;
         $carte = new CarteModel();
         if (empty($_POST["status"])) {
             $_POST["status"] = 0;
         } else {
             $_POST["status"] = 1;
         }
-        $carte->hydrate($_POST);
-        if ($_POST["status"] === 1) {
-            $this->unselectAllCarte();
+        $_POST = array_map('htmlspecialchars', $_POST);
+        $errors = Verificator::checkForm($carte->getUpdateForm($currentCarte), $_POST + $_FILES);
+        if (!$errors) {
+            $carte->hydrate($_POST);
+            if ($_POST["status"] === 1) {
+                $this->unselectAllCarte();
+            }
+            $carte->save();
         }
-        $carte->save();
         header('Location: /restaurant/cartes');
     }
 

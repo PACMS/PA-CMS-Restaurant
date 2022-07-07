@@ -106,7 +106,7 @@ class Carte extends Sql
         return $carte;
     }
 
-    public function getUpdateForm(Carte $carte): array
+    public function getUpdateForm($carte): array
     {
         return [
             "config" => [
@@ -126,6 +126,11 @@ class Carte extends Sql
                 "name" => [
                     "label" => "Nom",
                     "type" => "text",
+                    "required" => true,
+                    "minlength" => 4,
+                    "min" => 4,
+                    "maxlength" => 250,
+                    "max" => 250,
                     "value" => $carte->getName(),                   
                     "error" => "Le nom de la carte n'est pas correct !"
                 ],
@@ -153,7 +158,7 @@ class Carte extends Sql
         return [
             "config" => [
                 "method" => "POST",
-                "action" => "/restaurant/updateCarte",
+                "action" => "/restaurant/createCarte",
                 "class" => "createCarte",
                 "id" => "createCarte",
                 "submit" => "Créer",
@@ -163,6 +168,11 @@ class Carte extends Sql
                 "name" => [
                     "label" => "Nom",
                     "type" => "text",
+                    "minlength" => 4,
+                    "min" => 4,
+                    "maxlength" => 250,
+                    "max" => 250,
+                    "required" => true,
                     "error" => "Le nom de la carte n'est pas correct !"
                 ],
                 "status" => [

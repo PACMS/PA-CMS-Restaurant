@@ -76,7 +76,6 @@ class Restaurant
 
                 return header('Location: /restaurants');
             }
-            dd($errors);
         }
 
         return header('Location: /restaurant/create');
