@@ -219,7 +219,10 @@ class Reservation extends Sql
                     "label"=>"Nombre de personne",
                     "type"=>"number",
                     "class"=>"formReservation",
-                    "max"=>20,
+                    "min" => 1,
+                    "minlength" => 1,
+                    "max"=>10,
+                    "maxlength"=>10,
                 ],
 
                 "numTable"=>[
@@ -227,6 +230,7 @@ class Reservation extends Sql
                     "type"=>"number",
                     "class"=>"formReservation",
                     "max"=>20,
+                    "maxlength"=>20,
                 ],
                 "date"=>[
                     "label"=>"Date de reservation",
@@ -246,7 +250,9 @@ class Reservation extends Sql
                     "type"=>"tel",
                     "class"=>"formRestaurant",
                     "min"=>10,
+                    "minlength"=>10,
                     "max"=>10,
+                    "maxlength"=>10,
 
                 ],
                 
@@ -282,7 +288,10 @@ class Reservation extends Sql
                     "label"=>"Nombre de personne",
                     "type"=>"number",
                     "class"=>"formReservation",
-                    "max"=>20,
+                    "min"=>1,
+                    "minlength"=>1,
+                    "max"=>10,
+                    "maxlength"=>10,
                 ],
 
                 "numTable"=>[
@@ -290,6 +299,7 @@ class Reservation extends Sql
                     "type"=>"number",
                     "class"=>"formReservation",
                     "max"=>20,
+                    "maxlength"=>20,
                 ],
                 "date"=>[
                     "label"=>"Date de reservation",
@@ -308,8 +318,10 @@ class Reservation extends Sql
                     "label"=>"Numéro de téléphone",
                     "type"=>"tel",
                     "class"=>"formRestaurant",
-                    "min"=>10,
-                    "max"=>10,
+                    "min"=>4,
+                    "minlength"=>4,
+                    "max"=>15,
+                    "maxlength"=>15,
 
                 ],
                 
