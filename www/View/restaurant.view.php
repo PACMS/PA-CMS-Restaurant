@@ -15,10 +15,10 @@ endif;
                 <h2 class="sidebar-title"><?= $oneRestaurant["name"] ?></h2>
             </a>
             <ul class="sidebar-list">
-                <li><a href="profile" class="sidebar-button"><i class="far fa-user-circle sidebar-button-picto"></i><span>Profil</span></a></li>
-                <li><a href="#" class="sidebar-button"><i class="far fa-edit sidebar-button-picto"></i><span>Thèmes</span></a></li>
+                <li><a href="/profile" class="sidebar-button"><i class="far fa-user-circle sidebar-button-picto"></i><span>Profil</span></a></li>
+                <li><a href="/themes" class="sidebar-button"><i class="far fa-edit sidebar-button-picto"></i><span>Thèmes</span></a></li>
                 <li><a href="/restaurants" class="sidebar-button--active"><i class="far fa-lemon sidebar-button-picto"></i><span>Restaurants</span></a></li>
-                <li> <a href="#" class="sidebar-button"><i class="far fa-list-alt sidebar-button-picto"></i><span>Utilisateurs</span></a></li>
+                <li> <a href="/users" class="sidebar-button"><i class="far fa-list-alt sidebar-button-picto"></i><span>Utilisateurs</span></a></li>
             </ul>
         </nav>
         <button id="navbarButton" class="sidebar-resizer"><i class="far fa-arrow-alt-circle-left"></i></button>
@@ -31,7 +31,7 @@ endif;
                 <h1><?= $oneRestaurant["name"] ?></h1>
             </div>
             <article class="flex align-items-center gap-20">
-                <a href="profile">
+                <a href="/profile">
                     <p class="m-0"><i class="fas fa-user"></i></p>
                 </a>
                 <button style="background: none; border: none">
@@ -45,14 +45,13 @@ endif;
         <section style="padding-right: 4%;">
             <div style=" height: 100%; width: 100%; margin:auto; padding-right: 4%; margin-top: 100px ">
                 <div class="restaurants-container">
-                    <form class="restaurant-card" method="POST" action="restaurant/page">
-                        <img src="../public/assets/img/restauOptions/mentions-legales.jpg" alt="mentions-legales" />
+                <div class="restaurant-card">
+                        <img src="../public/assets/img/restauOptions/informations.png" alt="information" />
                         <div class="bandeau">
-                            <p>Pages</p>
-                            <input type="hidden" name="id" value="<?= $oneRestaurant["id"] ?>">
-                            <button type="submit">Modifier</button>
+                            <p>Informations</p>
+                            <button><a href="/restaurant/page">Accéder</a></button>
                         </div>
-                    </form>
+                    </div>
                     <div class="restaurant-card">
                         <img src="../public/assets/img/restauOptions/informations.png" alt="information" />
                         <div class="bandeau">
@@ -60,7 +59,7 @@ endif;
                             <button><a href="/restaurant/information">Accéder</a></button>
                         </div>
                     </div>
-                    <div class="restaurant-card" >
+                    <div class="restaurant-card">
                         <img src="../public/assets/img/restauOptions/cartes.jpg" alt="cartes" />
                         <div class="bandeau">
                             <p>Cartes</p>
@@ -87,13 +86,13 @@ endif;
                             <p>Réservation</p>
                             <button><a href="/reservation">Accéder</a></button>
                         </div>
+                </div>
+                <div class="restaurant-card">
+                    <img src="../public/assets/img/restauOptions/comments.png" alt="commentaires" />
+                    <div class="bandeau">
+                        <p>Commentaires</p>
+                        <button><a href="/restaurant/comments">Accéder</a></button>
                     </div>
-                    <div class="restaurant-card">
-                        <img src="../public/assets/img/restauOptions/comments.png" alt="commentaires" />
-                        <div class="bandeau">
-                            <p>Commentaires</p>
-                            <button><a href="/restaurant/comments">Accéder</a></button>
-                        </div>
                     </form>
 
                     <div class="restaurant-card">

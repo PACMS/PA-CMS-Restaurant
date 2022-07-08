@@ -74,7 +74,7 @@ class Comment extends Sql
     /**
      * @return int | null
      */
-    public function getIdParent(): int | null
+    public function getIdParent()
     {
         return $this->id_parent;
     }

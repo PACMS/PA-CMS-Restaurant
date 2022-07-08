@@ -1,5 +1,5 @@
 <main class="flex pageDashboard">
-<?php $this->includePartial("sidebar"); ?>
+    <?php $this->includePartial("sidebar"); ?>
     <div id="pseudo-element"></div>
     <section class="flex flex-column secondPart">
         <section class="navbar">
@@ -8,7 +8,7 @@
                 <h1>Restaurants</h1>
             </div>
             <article class="flex align-items-center gap-20">
-                <a href="profile">
+                <a href="/profile">
                     <p class="m-0"><i class="fas fa-user"></i></p>
                 </a>
                 <button style="background: none; border: none">
@@ -27,17 +27,17 @@
             </div>
             <div style=" height: 100%; width: 100%; margin:auto; padding-right: 4%; margin-top: 100px ">
                 <div class="restaurants-list">
-                <?php if(!empty($restaurants)) : ?>
-                <?php  foreach ($restaurants as $value) : ?>
-                        <div class="restaurant-card">
+                    <?php if (!empty($restaurants)) : ?>
+                        <?php foreach ($restaurants as $value) : ?>
+                            <div class="restaurant-card">
 
-                            <img src="../public/assets/img/pizza.jpg" alt="graph" />
-                            <div class="bandeau">
-                                <p><?= $value["name"] ?></p>
-                                <?php $this->includePartial("form", $restaurant->selectRestaurant($value["id"])); ?>
+                                <img src="../public/assets/img/pizza.jpg" alt="graph" />
+                                <div class="bandeau">
+                                    <p><?= $value["name"] ?></p>
+                                    <?php $this->includePartial("form", $restaurant->selectRestaurant($value["id"])); ?>
+                                </div>
                             </div>
-                        </div>
-                    <?php endforeach; ?>
+                        <?php endforeach; ?>
                     <?php endif; ?>
                 </div>
             </div>

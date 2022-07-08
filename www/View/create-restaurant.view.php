@@ -14,11 +14,10 @@ endif;
                 <h2 class="sidebar-title">Nom Entreprise</h2>
             </a>
             <ul class="sidebar-list">
-                <li><a href="profile" class="sidebar-button"><i class="far fa-user-circle sidebar-button-picto"></i><span>Profil</span></a></li>
-                <li><a href="/theme" class="sidebar-button"><i class="far fa-edit sidebar-button-picto"></i><span>Thèmes</span></a></li>
-                <li><a href="#" class="sidebar-button"><i class="far fa-chart-bar sidebar-button-picto"></i><span>Statistiques</span></a></li>
+                <li><a href="/profile" class="sidebar-button"><i class="far fa-user-circle sidebar-button-picto"></i><span>Profil</span></a></li>
+                <li><a href="/themes" class="sidebar-button"><i class="far fa-edit sidebar-button-picto"></i><span>Thèmes</span></a></li>
                 <li><a href="/restaurants" class="sidebar-button--active"><i class="far fa-lemon sidebar-button-picto"></i><span>Restaurants</span></a></li>
-                <li> <a href="#" class="sidebar-button"><i class="far fa-list-alt sidebar-button-picto"></i><span>Utilisateurs</span></a></li>
+                <li> <a href="/users" class="sidebar-button"><i class="far fa-list-alt sidebar-button-picto"></i><span>Utilisateurs</span></a></li>
             </ul>
         </nav>
         <button id="navbarButton" class="sidebar-resizer"><i class="far fa-arrow-alt-circle-left"></i></button>
@@ -31,7 +30,7 @@ endif;
                 <h1>Ajout d'un restaurant</h1>
             </div>
             <article class="flex align-items-center gap-20">
-                <a href="profile">
+                <a href="/profile">
                     <p class="m-0"><i class="fas fa-user"></i></p>
                 </a>
                 <button style="background: none; border: none">

@@ -10,7 +10,7 @@
                 <h1>Commentaires</h1>
             </div>
             <article class="flex align-items-center gap-20">
-                <a href="profile">
+                <a href="/profile">
                     <p class="m-0"><i class="fas fa-user"></i></p>
                 </a>
                 <button style="background: none; border: none">
@@ -41,11 +41,11 @@
                 <div class="validated">
                     <?php foreach ($comments as $value) : ?>
                         <?php if ($value->getStatus() == 1) : ?>
-                                <div style="gap: 10px" class="flex align-items-center">
-                                    <p>User :<?= $value->getIdUser() ?></p>
-                                    <p><?= $value->getContent() ?></p>
-                                    <p>status :<?= $value->getStatus() ?></p> <?php $this->includePartial("form", $comment->validateComment($value->getId())); ?><?php $this->includePartial("form", $comment->deleteComment($value->getId())); ?>
-                                </div>
+                            <div style="gap: 10px" class="flex align-items-center">
+                                <p>User :<?= $value->getIdUser() ?></p>
+                                <p><?= $value->getContent() ?></p>
+                                <p>status :<?= $value->getStatus() ?></p> <?php $this->includePartial("form", $comment->validateComment($value->getId())); ?><?php $this->includePartial("form", $comment->deleteComment($value->getId())); ?>
+                            </div>
                         <?php endif; ?>
                     <?php endforeach; ?>
                 </div>

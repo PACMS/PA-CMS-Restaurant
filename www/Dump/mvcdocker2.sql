@@ -108,8 +108,7 @@ CREATE TABLE `pacm_food` (
 -- Déchargement des données de la table `pacm_food`
 --
 
-INSERT INTO `pacm_food` (`id`, `name`, `nature`, `quantity`, `stockId`, `createdAt`, `updatedAt`) VALUES
-(2, 'test', 'test', 55, 53, '2022-07-08 11:31:49', NULL);
+
 
 -- --------------------------------------------------------
 
@@ -180,8 +179,6 @@ CREATE TABLE `pacm_page` (
 -- Déchargement des données de la table `pacm_page`
 --
 
-INSERT INTO `pacm_page` (`id`, `title`, `url`, `status`, `created_at`, `updated_at`, `id_theme`, `id_restaurant`) VALUES
-(1, 'index', 'pages/Barrière/index', 0, '2022-07-08 11:23:35', '2022-07-08 11:23:35', NULL, 75);
 
 -- --------------------------------------------------------
 
@@ -223,8 +220,7 @@ CREATE TABLE `pacm_restaurant` (
 -- Déchargement des données de la table `pacm_restaurant`
 --
 
-INSERT INTO `pacm_restaurant` (`id`, `name`, `address`, `additional_address`, `city`, `zipcode`, `user_id`, `phone`) VALUES
-(76, '&lt;script&gt;alert(&quot;k&quot;)&lt;/script&gt;', '12 Rue Berthier', '12 Rue Berthier', 'YERRES', 91330, '3', 651588687);
+
 
 -- --------------------------------------------------------
 
@@ -243,8 +239,6 @@ CREATE TABLE `pacm_stock` (
 -- Déchargement des données de la table `pacm_stock`
 --
 
-INSERT INTO `pacm_stock` (`id`, `restaurantId`, `createdAt`, `updatedAt`) VALUES
-(53, 76, '2022-07-08 11:26:44', NULL);
 
 -- --------------------------------------------------------
 

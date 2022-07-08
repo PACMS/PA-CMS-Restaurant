@@ -11,12 +11,12 @@ class Page
 {
 
     public function index(){
+        session_start();
         $pages = new PageModel();
-        $idrestaurant = $_POST["id"];
-        $pages = $pages->getAllPagesFromRestaurant($idrestaurant) ;
+        $pages = $pages->getAllPagesFromRestaurant($_SESSION["restaurant"]["id"]) ;
         $view = new View('page', 'back');
         $view->assign('pages', $pages);
-        $view->assign('idrestaurant', $idrestaurant);
+        $view->assign('idrestaurant', $_SESSION["restaurant"]["id"]);
     }
     public function createPage(){
         $arrayuri = explode( '=', $_SERVER['REQUEST_URI']) ;
