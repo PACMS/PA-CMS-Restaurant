@@ -57,6 +57,7 @@ class Admin
 
     public function updateProfile()
     {
+        session_start();
         $user = new UserModel();
         
         $user->setId($_SESSION['user']['id']);
@@ -75,20 +76,18 @@ class Admin
                     $user->setPassword($_POST['passwordNew']);
                 } else {
                     $errors = ["Les mots de passe ne correspondent pas"];
-                    die("Les mots de passe ne correspondent pas");
+                    // die("Les mots de passe ne correspondent pas");
                 }
             } else {
                 $errors = ["Le mot de passe actuel est incorrect"];
-                die("Le mot de passe actuel est incorrect");
+                // die("Le mot de passe actuel est incorrect");
             }
         }
         
         $user->save();
-        
         $_SESSION['user']['email'] = $user->getEmail();
         $_SESSION['user']['firstname'] = $user->getFirstname();
         $_SESSION['user']['lastname'] = $user->getLastname();
-
         header("Location: /profile");
     }
 
