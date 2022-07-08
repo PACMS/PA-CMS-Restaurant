@@ -54,7 +54,6 @@ class Carte
     public function createCarte()
     {
         $errors = null;
-        
         $_POST = array_map('htmlspecialchars', $_POST);
         $carte = new CarteModel();
         if (empty($_POST["status"])) {

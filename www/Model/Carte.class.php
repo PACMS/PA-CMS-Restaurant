@@ -127,8 +127,6 @@ class Carte extends Sql
                     "label" => "Nom",
                     "type" => "text",
                     "required" => true,
-                    "minlength" => 4,
-                    "min" => 4,
                     "maxlength" => 250,
                     "max" => 250,
                     "value" => $carte->getName(),                   
@@ -168,8 +166,6 @@ class Carte extends Sql
                 "name" => [
                     "label" => "Nom",
                     "type" => "text",
-                    "minlength" => 4,
-                    "min" => 4,
                     "maxlength" => 250,
                     "max" => 250,
                     "required" => true,
