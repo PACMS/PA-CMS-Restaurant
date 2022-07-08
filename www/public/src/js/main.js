@@ -176,7 +176,10 @@ $(document).ready(function () {
 
   $("span#editMeal").click(function (e) {
     $(e.target.parentElement.parentElement.parentElement).hide();
-    $("form#updateMeal").removeClass("hidden");
+    $(
+      e.target.parentElement.parentElement.parentElement.parentElement
+        .children[0]
+    ).removeClass("hidden");
   });
 
   $("span#deleteMeal").click(function (e) {

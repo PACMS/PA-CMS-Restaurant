@@ -34,18 +34,30 @@
                     </div>
                     <ul>
                         <?php foreach($allMeals as $key => $mealValue) : ?>
-
+                            
                             <?php if ($mealValue["id_categories"] === $value["id"]) : ?>
-
                                 <li>
-                                    <?php $this->includePartial("form",  $meal->getUpdateMeal($mealValue)); ?>
+                                    <?php $this->includePartial("form",  $meal->getUpdateMeal($mealValue, $categories, $food)); ?>
                                     <article class="flex flex-column" data-id-categorie="<?= $mealValue["id_categories"] ?>">
                                         <main class="flex justify-content-between align-items-center">
-                                            <h1 data-value="<?= $mealValue["name"] ?>"><?= $mealValue["name"] ?> <span class="hidden" id="editMeal" data-id-meal="<?= $mealValue["id"] ?>">Editer</span><span id="deleteMeal" class="hidden" data-id-meal="<?= $mealValue["id"] ?>">Supprimer</span></h1>
-                                            <h3 data-value="<?= $mealValue["price"] ?>"><?= $mealValue["price"] ?> &euro;</h3>
+                                            <h1><?= $mealValue["name"] ?> <span class="hidden" id="editMeal">Editer</span><span id="deleteMeal" class="hidden">Supprimer</span></h1>
+                                            <h3><?= $mealValue["price"] ?> &euro;</h3>
                                         </main>
                                         <footer>
-                                            <p><?= ($mealValue["description"]) ?></p>
+                                            <p> Ingrédients: </p>
+                                            <ul>
+                                                <?php foreach($mealsFoods as $mealFood) : ?>
+                                                    <?php if ($mealValue["id"] == $mealFood->getMealId()) : ?>
+                                                        <?php foreach($food as $foodKey => $foodValue) : ?>
+                                                            <?php if($foodKey == $mealFood->getFoodId()) : ?>
+                                                                <li><?= $foodValue ?></li>
+                                                            <?php endif; ?>
+                                                        <?php endforeach; ?>
+                                                    <?php endif; ?>
+                                                <?php endforeach; ?>
+                                            </ul>
+                                            <p> Description: </p>
+                                            <p id="description"><?= ($mealValue["description"]) ?></p>
                                         </footer>
                                     </article>
                                 </li>

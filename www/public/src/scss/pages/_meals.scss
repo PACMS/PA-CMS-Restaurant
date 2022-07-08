@@ -178,11 +178,32 @@ main#meals {
                             margin-top: 12px;
                             margin-bottom: 24px;
 
-                            & p {
+                            & p#description {
                                 margin: 0;
                                 font-style: italic;
                                 font-weight: 400;
                                 font-size: rem(16);
+                            }
+
+                            & ul {
+                                padding: 0;
+                                display: flex;
+                                gap: 10px;
+
+                                & li {
+                                    border: none;
+                                    margin: 0;
+
+                                    &::after {
+                                        content: ", ";
+                                    }
+
+                                    &:last-child {
+                                        &::after {
+                                            content: "";
+                                        }
+                                    }
+                                }
                             }
 
                         }

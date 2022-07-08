@@ -116,6 +116,7 @@ class Meal extends Sql
         $this->id_categories = $id_categories;
     }
 
+
    
 
      
@@ -207,8 +208,14 @@ class Meal extends Sql
         ];
     }
 
-    public function getUpdateMeal(?array $meal): array
+    public function getUpdateMeal(?array $meal, ?array $categories = [], ?array $food = []): array
     {
+        $options = [];
+        foreach ($categories as $key => $value) {
+            if ($value["id_carte"] == $_SESSION["id_card"]) {
+                $options[$value["id"]] = ($value["name"]);
+            }
+        }
         return [
             "config" => [
                 "method" => "POST",
@@ -254,16 +261,16 @@ class Meal extends Sql
                     "required" => true,
                     "value" => $meal["id_categories"]
                 ],
-                // "ingredients" => [
-                //     "type" => "select",
-                //     "label" => "Ingrédients",
-                //     "id" => "ingredients",
-                //     "placeholder" => "Choisissez un/plusieurs ingrédient(s)",
-                //     "default" => null,
-                //     "multiple" => true,
-                //     "options" => $food,
-                //     "required" => false
-                // ],
+                "ingredients" => [
+                    "type" => "select",
+                    "label" => "Ingrédients",
+                    "id" => "ingredients",
+                    "placeholder" => "Choisissez un/plusieurs ingrédient(s)",
+                    "default" => null,
+                    "multiple" => true,
+                    "options" => $food,
+                    "required" => false
+                ],
             ]
         ];
     }
