@@ -167,10 +167,6 @@ $(document).ready(function () {
 
   $("#alert-close").on("click", function (event) {
     $(".alert-window").css("visibility", "hidden");
-<<<<<<< HEAD
-    console.log("ok");
-=======
->>>>>>> 80fdbf2c061196b127958f37ae385a00336ee6b9
   });
 
   $("#editProfile").on("click", function (event) {
@@ -245,30 +241,7 @@ $(document).ready(function () {
     language: {
       url: "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/French.json",
     },
-    columnDefs: [
-      { className: "dt-center", targets: "_all" },
-<<<<<<< HEAD
-      {
-        targets: 7,
-        data: null,
-        defaultContent:
-          "<a href=''><i class='fas fa-pen'></i></a><a href=''><i class='fas fa-times-circle'></i></a>",
-      },
-    ],
-    order: [3, "desc"],
-    columns: [
-      null,
-      null,
-      null,
-      { type: "date-eu" },
-      null,
-      null,
-      null,
-      null,
-      null,
-=======
->>>>>>> 80fdbf2c061196b127958f37ae385a00336ee6b9
-    ],
+    columnDefs: [{ className: "dt-center", targets: "_all" }],
 
     searching: true,
     //paging: false,
@@ -276,25 +249,16 @@ $(document).ready(function () {
     pageLength: 10,
     info: true,
   });
-<<<<<<< HEAD
-  // Refilter the table
-  $("#min, #max").on("change", function () {
-    table.draw();
-=======
-  $('#pageTable').dataTable( {
+  $("#pageTable").dataTable({
     language: {
-      "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/French.json"
+      url: "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/French.json",
     },
-    columnDefs: [
-      { className: "dt-center", targets: "_all" },
-
-    ],
-    order: [1, 'desc'],
-    columns: [null, null, null, { type: "date-eu" }, { type: "date-eu" },  null],
+    columnDefs: [{ className: "dt-center", targets: "_all" }],
+    order: [1, "desc"],
+    columns: [null, null, null, { type: "date-eu" }, { type: "date-eu" }, null],
 
     searching: true,
     info: true,
->>>>>>> 80fdbf2c061196b127958f37ae385a00336ee6b9
   });
 
   $("#usersTable").dataTable({
