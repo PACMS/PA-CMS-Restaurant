@@ -208,7 +208,10 @@ $(document).ready(function () {
 
   $("#alert-close").on("click", function (event) {
     $(".alert-window").css("visibility", "hidden");
+<<<<<<< HEAD
     console.log("ok");
+=======
+>>>>>>> 80fdbf2c061196b127958f37ae385a00336ee6b9
   });
 
   $("#editProfile").on("click", function (event) {
@@ -247,12 +250,12 @@ $(document).ready(function () {
     );
     $("div#sectionButton").append(cancelButton);
 
-    // $("#btncancel").on("click", function (event) {
-    //   event.target.disabled = true;
-    // });
+    $("#btncancel").on("click", function (event) {
+      event.target.disabled = true;
+    });
 
     var submitButton = $(
-      "<button class='btn btn-submit' type='submit' id='btncancel'>Confirmer </button>"
+      "<button class='btn btn-submit' type='submit' id='btnConfirm'>Confirmer </button>"
     );
     $("button#btncancel").after(submitButton);
 
@@ -285,6 +288,7 @@ $(document).ready(function () {
     },
     columnDefs: [
       { className: "dt-center", targets: "_all" },
+<<<<<<< HEAD
       {
         targets: 7,
         data: null,
@@ -303,6 +307,8 @@ $(document).ready(function () {
       null,
       null,
       null,
+=======
+>>>>>>> 80fdbf2c061196b127958f37ae385a00336ee6b9
     ],
 
     searching: true,
@@ -311,9 +317,25 @@ $(document).ready(function () {
     pageLength: 10,
     info: true,
   });
+<<<<<<< HEAD
   // Refilter the table
   $("#min, #max").on("change", function () {
     table.draw();
+=======
+  $('#pageTable').dataTable( {
+    language: {
+      "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/French.json"
+    },
+    columnDefs: [
+      { className: "dt-center", targets: "_all" },
+
+    ],
+    order: [1, 'desc'],
+    columns: [null, null, null, { type: "date-eu" }, { type: "date-eu" },  null],
+
+    searching: true,
+    info: true,
+>>>>>>> 80fdbf2c061196b127958f37ae385a00336ee6b9
   });
 
   $("#usersTable").dataTable({

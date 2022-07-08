@@ -16,7 +16,7 @@ class Reservation extends Sql
     protected $numPerson;
     protected $numTable;
     protected $phoneReserv;
-    protected $status;
+    protected $id_restaurant;
 
     public function __construct()
     {
@@ -27,6 +27,16 @@ class Reservation extends Sql
     {
         return $this->id;
     }
+
+    /**
+     * @param null $id
+     */
+    public function setId($id): void
+    {
+        $this->id = $id;
+    }
+
+   
 
     /**
      * @return mixed
@@ -156,6 +166,25 @@ class Reservation extends Sql
         $this->status = $status;
     }
 
+
+     /**
+     * @return mixed
+     */
+    public function getIdRestaurant()
+    {
+        return $this->id_restaurant;
+    }
+
+    /**
+     * @param mixed $id_restaurant
+     */
+    public function setIdRestaurant($id_restaurant): void
+    {
+        $this->id_restaurant = $id_restaurant;
+    }
+
+
+
     public function save(): void
     {
         //Pré traitement par exemple
@@ -164,7 +193,17 @@ class Reservation extends Sql
     }
     public function getAll(): array
     {
-       return parent::getAll();
+        return parent::getAll();
+    }
+    public function getAllReservationsFromRestaurant(int $id)
+    {
+        $reservations = parent::databaseFindAll("SELECT * FROM " . DBPREFIXE . "reservation" , ['id_restaurant' => $id]);
+        return $reservations;
+    }
+    public function databaseDeleteOneReservation(array $params)
+    {
+        $reservations = parent::databaseDeleteOne("DELETE FROM " . DBPREFIXE . "reservation" . " WHERE id = :id", $params);
+        return $reservations;
     }
     // $param à mettre en param et à la fin de la fonction
     public function getAllReservation(): array
@@ -190,7 +229,8 @@ class Reservation extends Sql
         ];
     }
 
-    public function getModalForm() {
+    public function getModalForm()
+    {
         return [
             "config"=>[
                 "method"=>"POST",
@@ -259,7 +299,8 @@ class Reservation extends Sql
             ]
         ];
     }
-    public function getClientModalForm() {
+    public function getClientModalForm()
+    {
         return [
             "config"=>[
                 "method"=>"POST",
@@ -328,6 +369,4 @@ class Reservation extends Sql
             ]
         ];
     }
-
-    
 }

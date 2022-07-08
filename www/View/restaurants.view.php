@@ -27,7 +27,8 @@
             </div>
             <div style=" height: 100%; width: 100%; margin:auto; padding-right: 4%; margin-top: 100px ">
                 <div class="restaurants-list">
-                    <?php foreach ($restaurants as $key => $value) : ?>
+                <?php if(!empty($restaurants)) : ?>
+                <?php  foreach ($restaurants as $value) : ?>
                         <div class="restaurant-card">
 
                             <img src="../public/assets/img/pizza.jpg" alt="graph" />
@@ -37,6 +38,7 @@
                             </div>
                         </div>
                     <?php endforeach; ?>
+                    <?php endif; ?>
                 </div>
             </div>
         </section>

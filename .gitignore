@@ -8,3 +8,4 @@ www/vendor/
 .vscode/
 npmignore
 dist/
+www/View/pages/

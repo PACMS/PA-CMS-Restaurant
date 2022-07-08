@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Core\Verificator;
 use App\Model\User as UserModel;
+use App\Model\Theme as ThemeModel;
 use App\Core\View;
 
 /**
@@ -57,14 +58,13 @@ class Admin
     public function updateProfile()
     {
         $user = new UserModel();
-
+        
         $user->setId($_SESSION['user']['id']);
         $user->setFirstname($_POST['firstname']);
         $user->setLastname($_POST['lastname']);
-
+        
         Verificator::checkEmail($_POST['email']) ?: die("Email non valide");
         $user->setEmail($_POST['email']);
-
         
         if (!empty($_POST['passwordOld']) && !empty($_POST['passwordNew']) && !empty($_POST['confirmNewPassowrd'])) {
             Verificator::checkPwd($_POST['passwordNew']) ?: die("Mot de passe non valide");
@@ -84,8 +84,28 @@ class Admin
         }
         
         $user->save();
+        
+        $_SESSION['user']['email'] = $user->getEmail();
+        $_SESSION['user']['firstname'] = $user->getFirstname();
+        $_SESSION['user']['lastname'] = $user->getLastname();
 
         header("Location: /profile");
+    }
+
+    /**
+     * Show all the themes
+     *
+     * @link /themes
+     * 
+     * @return void
+     */
+    public function themes()
+    {
+        $theme = new ThemeModel();
+        $themes = $theme->getAllThemes();
+        
+        $view = new View("themes", "back");
+        $view->assign("themes", $themes);
     }
 
     /**
