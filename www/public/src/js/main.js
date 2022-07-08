@@ -278,11 +278,15 @@ $(document).ready(function () {
     table.draw();
   });
 
-  $("#bookingTable2").dataTable({
+  $('#bookingTable2').dataTable( {
     language: {
-      url: "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/French.json",
+      "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/French.json"
     },
-    columnDefs: [{ className: "dt-center", targets: "_all" }],
+    columnDefs: [
+      { className: "dt-center", targets: "_all" },
+    ],
+    order: [3, 'desc'],
+    columns: [null, null, null, { type: "date-eu" }, null, null, null, null, null],
 
     searching: true,
     //paging: false,

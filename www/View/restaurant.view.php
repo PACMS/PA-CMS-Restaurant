@@ -32,17 +32,17 @@ endif;
             <div style=" height: 100%; width: 100%; margin:auto; padding-right: 4%; margin-top: 100px ">
                 <div class="restaurants-container">
                     <div class="restaurant-card">
-                        <img src="../public/assets/img/restauOptions/mentions-legales.jpg" alt="information" />
-                        <div class="bandeau">
-                            <p>Pages</p>
-                            <button><a href="/restaurant/page">Accéder</a></button>
-                        </div>
-                    </div>
-                    <div class="restaurant-card">
                         <img src="../public/assets/img/restauOptions/informations.png" alt="information" />
                         <div class="bandeau">
                             <p>Informations</p>
                             <button><a href="/restaurant/information">Accéder</a></button>
+                        </div>
+                    </div>
+                    <div class="restaurant-card">
+                        <img src="../public/assets/img/restauOptions/mentions-legales.jpg" alt="information" />
+                        <div class="bandeau">
+                            <p>Pages</p>
+                            <button><a href="/restaurant/page">Accéder</a></button>
                         </div>
                     </div>
                     <div class="restaurant-card">
@@ -66,28 +66,18 @@ endif;
                             <button><a href="/restaurant/stock">Accéder</a></button>
                         </div>
                     </div>
-                    <form class="restaurant-card" method="POST" action="restaurant/reservation">
+                    <div class="restaurant-card" method="POST" action="restaurant/reservation">
                         <img src="../public/assets/img/restauOptions/reservations.jpg" alt="reservations" />
                         <div class="bandeau">
                             <p>Réservation</p>
-                            <button><a href="/reservation">Accéder</a></button>
+                            <button><a href="/restaurant/reservation">Accéder</a></button>
                         </div>
-                </div>
-                <div class="restaurant-card">
-                    <img src="../public/assets/img/restauOptions/comments.png" alt="commentaires" />
-                    <div class="bandeau">
-                        <p>Commentaires</p>
-                        <button><a href="/restaurant/comments">Accéder</a></button>
                     </div>
-                    </form>
-
                     <div class="restaurant-card">
-                        <img src="../public/assets/img/restauOptions/mentions-legales.jpg" alt="mentions-legales" />
+                        <img src="../public/assets/img/restauOptions/comments.png" alt="commentaires" />
                         <div class="bandeau">
-                            <p>Mentions légales</p>
-                            <button>
-                                <a href="/restaurants">Accéder</a>
-                            </button>
+                            <p>Commentaires</p>
+                            <button><a href="/restaurant/comments">Accéder</a></button>
                         </div>
                     </div>
                     <div class="restaurant-card">
@@ -96,6 +86,16 @@ endif;
                             <p>Statistiques</p>
                             <button>
                                 <a href="/restaurant/statistiques">Accéder</a>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="restaurant-card">
+                        <img src="../public/assets/img/restauOptions/mentions-legales.jpg" alt="mentions-legales" />
+                        <div class="bandeau">
+                            <p>Mentions légales</p>
+                            <button>
+                                <a href="/restaurants">Accéder</a>
                             </button>
                         </div>
                     </div>
