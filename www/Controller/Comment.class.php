@@ -50,7 +50,7 @@ class Comment
     {
         $request = new MysqlBuilder();
         $comment = new CommentModel();
-        $view = new View("comments", "front");
+        $view = new View("comments", "back");
         $result = $request->select("comments", ["*"])
                 ->where("id_restaurant", $_SESSION["restaurant"]["id"])
                 ->fetchClass("comment")
