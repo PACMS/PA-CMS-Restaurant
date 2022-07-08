@@ -1,5 +1,5 @@
 <main class="flex pageDashboard">
-    <?php $this->includePartial("users-sidebar"); ?>
+    <?php $this->includePartial("sidebar"); ?>
     <div id="pseudo-element"></div>
     <section class="flex flex-column secondPart">
         <div class="flex justify-content-between navbar align-items-center">

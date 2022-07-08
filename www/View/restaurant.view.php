@@ -8,7 +8,7 @@ endif;
 ?>
 
 <main class="flex pageDashboard">
-<?php $this->includePartial("restaurants-sidebar"); ?>
+    <?php $this->includePartial("sidebar"); ?>
     <div id="pseudo-element"></div>
     <section class="flex flex-column secondPart">
         <section class="navbar">
@@ -31,7 +31,7 @@ endif;
         <section style="padding-right: 4%;">
             <div style=" height: 100%; width: 100%; margin:auto; padding-right: 4%; margin-top: 100px ">
                 <div class="restaurants-container">
-                <div class="restaurant-card">
+                    <div class="restaurant-card">
                         <img src="../public/assets/img/restauOptions/mentions-legales.jpg" alt="information" />
                         <div class="bandeau">
                             <p>Pages</p>

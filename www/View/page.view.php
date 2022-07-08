@@ -1,7 +1,7 @@
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.6/Chart.bundle.min.js"></script>
 
 <main class="flex pageDashboard">
-<?php $this->includePartial("restaurants-sidebar"); ?>
+    <?php $this->includePartial("sidebar"); ?>
     <div id="pseudo-element"></div>
     <section class="flex flex-column secondPart">
         <div class="flex justify-content-between navbar align-items-center">

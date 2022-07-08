@@ -7,7 +7,7 @@ if (isset($errors)) :
 endif;
 ?>
 <main class="flex pageDashboard">
-<?php $this->includePartial("restaurants-sidebar"); ?>
+    <?php $this->includePartial("sidebar"); ?>
     <div id="pseudo-element"></div>
     <section class="flex flex-column secondPart">
         <section class="navbar">

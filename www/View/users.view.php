@@ -1,5 +1,5 @@
 <main class="flex pageDashboard">
-    <?php $this->includePartial("users-sidebar"); ?>
+    <?php $this->includePartial("sidebar"); ?>
     <div id="pseudo-element"></div>
     <section class="flex flex-column secondPart">
         <div class="flex justify-content-between navbar align-items-center">
@@ -32,7 +32,7 @@
                 <tbody>
                     <?php
                     foreach ($users as $user) :
-                        ?>
+                    ?>
                         <tr>
                             <td> <?php echo $user->id ?> </td>
                             <td> <?php echo $user->email ?> </td>
@@ -44,7 +44,7 @@
                             <td> <?php echo $user->updatedAt ?> </td>
                             <td></td>
                         </tr>
-                        <?php
+                    <?php
                     endforeach;
                     ?>
                 </tbody>
