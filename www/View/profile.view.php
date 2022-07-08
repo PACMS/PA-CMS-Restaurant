@@ -1,5 +1,5 @@
 <main class="flex pageDashboard">
-<?php $this->includePartial("sidebar"); ?>
+<?php $this->includePartial("profil-sidebar"); ?>
     <div id="pseudo-element"></div>
     <section class="flex flex-column secondPart">
         <?php $this->includePartial("topBar", ["title" => "Profil"]); ?>
