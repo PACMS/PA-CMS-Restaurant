@@ -4,23 +4,7 @@
     <?php $this->includePartial("sidebar"); ?>
     <div id="pseudo-element"></div>
     <section class="flex flex-column secondPart">
-        <section class="navbar">
-            <div class="flex align-items-center">
-                <!-- <img src="https://images.unsplash.com/photo-1527980965255-d3b416303d12?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxMTgwOTN8MHwxfHNlYXJjaHw2fHxhdmF0YXJ8ZW58MHx8fHwxNjQ1NDQ1MjIx&ixlib=rb-1.2.1&q=80&w=1080" alt="Avatar"> -->
-                <h1>Commentaires</h1>
-            </div>
-            <article class="flex align-items-center gap-20">
-                <a href="profile">
-                    <p class="m-0"><i class="fas fa-user"></i></p>
-                </a>
-                <button style="background: none; border: none">
-                    <i class="far fa-moon"></i>
-                </button>
-                <button style="background: none; border: none">
-                    <i class="fas fa-toggle-off"></i>
-                </button>
-            </article>
-        </section>
+    <?php $this->includePartial("topBar", ["title" => "Commentaires"]); ?>
         <section style="padding-right: 4%;">
 
 
@@ -41,11 +25,11 @@
                 <div class="validated">
                     <?php foreach ($comments as $value) : ?>
                         <?php if ($value->getStatus() == 1) : ?>
-                                <div style="gap: 10px" class="flex align-items-center">
-                                    <p>User :<?= $value->getIdUser() ?></p>
-                                    <p><?= $value->getContent() ?></p>
-                                    <p>status :<?= $value->getStatus() ?></p> <?php $this->includePartial("form", $comment->validateComment($value->getId())); ?><?php $this->includePartial("form", $comment->deleteComment($value->getId())); ?>
-                                </div>
+                            <div style="gap: 10px" class="flex align-items-center">
+                                <p>User :<?= $value->getIdUser() ?></p>
+                                <p><?= $value->getContent() ?></p>
+                                <p>status :<?= $value->getStatus() ?></p> <?php $this->includePartial("form", $comment->validateComment($value->getId())); ?><?php $this->includePartial("form", $comment->deleteComment($value->getId())); ?>
+                            </div>
                         <?php endif; ?>
                     <?php endforeach; ?>
                 </div>

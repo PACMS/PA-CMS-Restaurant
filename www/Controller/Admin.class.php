@@ -153,8 +153,9 @@ class Admin
      */
     public function updateUser()
     {
+        
+        session_start();
         $user = new UserModel();
-
         $userId = htmlspecialchars($_GET['id']);
 
         $userInfos = $user->getUserById($userId);
@@ -172,9 +173,16 @@ class Admin
      */
     public function saveUser()
     {
+        session_start();
         $user = new UserModel();
         $user->hydrate($_POST);
         $user->save();
+        if(!is_null($_POST["id"]) && $_POST["id"] == $_SESSION["user"]["id"]) {
+            $_SESSION["user"]["firstname"] = $user->getFirstname();
+            $_SESSION["user"]["lastname"] = $user->getLastname();
+            $_SESSION["user"]["email"] = $user->getEmail();
+            $_SESSION["user"]["role"] = $user->getRole();
+        }
         header("Location: /users");
     }
 
