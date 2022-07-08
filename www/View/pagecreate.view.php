@@ -2,19 +2,7 @@
     <?php $this->includePartial("sidebar"); ?>
     <div id="pseudo-element"></div>
     <section class="flex flex-column secondPart">
-        <div class="flex justify-content-between navbar align-items-center">
-
-            <h1>Créer une page</h1>
-            <div id="profileDiv">
-                <a href="#">
-                    <p>Jean Pierre<i class="fas fa-user"></i></p>
-                </a>
-                <button>
-                    <i class="far fa-moon"></i>
-                    <i class="fas fa-toggle-off"></i>
-                </button>
-            </div>
-        </div>
+    <?php $this->includePartial("topBar", ["title" => "Créer une page"]); ?>
         <section class="formProfile flex flex-column">
             <div class="container justify-center items-center">
                 <form method="POST" action="/restaurant/pagesave?id=<?php echo $id_restaurant ?>">

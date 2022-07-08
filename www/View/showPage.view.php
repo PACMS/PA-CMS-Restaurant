@@ -2,19 +2,7 @@
     <?php $this->includePartial("sidebar"); ?>
     <div id="pseudo-element"></div>
     <section class="flex flex-column secondPart">
-        <div class="flex justify-content-between navbar align-items-center">
-
-            <h1>Modification de pages</h1>
-            <div id="profileDiv">
-                <a href="#">
-                    <p>Jean Pierre<i class="fas fa-user"></i></p>
-                </a>
-                <button>
-                    <i class="far fa-moon"></i>
-                    <i class="fas fa-toggle-off"></i>
-                </button>
-            </div>
-        </div>
+    <?php $this->includePartial("topBar", ["title" => "Modification de pages"]); ?>
         <section class="formProfile flex flex-column">
             <section class="grid" style="margin-top: 35px;">
                 <div class="row">

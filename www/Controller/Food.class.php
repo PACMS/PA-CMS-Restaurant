@@ -148,7 +148,6 @@ class Food
             $foodMealObj[$i]->name = $name->getName();
             $foodMealObj[$i]->repeat = intval($vals[$keys[$i]]);
         }
-        dd($foods);
         return $foodMealObj;
     }
 }

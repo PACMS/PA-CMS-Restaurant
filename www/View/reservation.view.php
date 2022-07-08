@@ -4,18 +4,7 @@
 <?php $this->includePartial("sidebar"); ?>
     <div id="pseudo-element"></div>
     <section class="flex flex-column secondPart">
-        <div class="flex justify-content-between navbar align-items-center">
-            <h1>Reservation</h1>
-            <div id="profileDiv">
-                <a href="#">
-                    <p><?php echo $_SESSION['user']['firstname'] ?><i class="fas fa-user"></i></p>
-                </a>
-                <button>
-                    <i class="far fa-moon"></i>
-                    <i class="fas fa-toggle-off"></i>
-                </button>
-            </div>
-        </div>
+    <?php $this->includePartial("topBar", ["title" => "Reservation"]); ?>
         <section class="formProfile flex flex-column">
             <div id="open-modal" class="modal-window">
                 <div class="flex flex-column">

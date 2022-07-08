@@ -4,19 +4,7 @@
     <?php $this->includePartial("sidebar"); ?>
     <div id="pseudo-element"></div>
     <section class="flex flex-column secondPart">
-        <div class="flex justify-content-between navbar align-items-center">
-
-            <h1>Pages</h1>
-            <div id="profileDiv">
-                <a href="#">
-                    <p>Jean Pierre<i class="fas fa-user"></i></p>
-                </a>
-                <button>
-                    <i class="far fa-moon"></i>
-                    <i class="fas fa-toggle-off"></i>
-                </button>
-            </div>
-        </div>
+    <?php $this->includePartial("topBar", ["title" => "Pages"]); ?>
         <section class="formProfile flex flex-column">
             <a class='btn btn-submit pr-20 pl-20 w-48' href="/restaurant/pagecreate?id=<?php echo $idrestaurant ?>" id=''>Ajout d'une page</a>
             <section class="grid" style="margin-top: 35px;">
@@ -43,7 +31,7 @@
                                     ?>
                                         <tr>
                                             <td> <?php echo $page['id'] ?> </td>
-                                            <td> <?php echo $page['url'] ?> </td>
+                                            <td> <?php echo strtolower($page['url']) ?> </td>
                                             <td> <?php echo $page['status'] ?> </td>
                                             <td> <?php echo $page['created_at'] ?> </td>
                                             <td> <?php echo $page['updated_at'] ?> </td>
