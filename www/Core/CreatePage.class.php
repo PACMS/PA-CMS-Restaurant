@@ -8,10 +8,11 @@ class CreatePage
     public function createBasicPageIndex($fp, $inputs, $array_body){
 
         $page = '
-    <h1 class="flex justify-center">' . $inputs['title'] . '<h1>';
+        <div class="index-header">
+    <h1 >' . $inputs['title'] . '<h1></div>';
 
         foreach ($array_body as $body){
-            $page .= '<section>' . $body . '</section>';
+            $page .= '<section class="page-container">' . $body . '</section>';
         }
 
 
