@@ -34,6 +34,10 @@
   controller: user
   action: register
 
+/register/validate:
+  controller: user
+  action: notifyValidation
+
 /googleConnect:
   controller: user
   action: googleConnect
@@ -206,12 +210,12 @@
 /themes:
   controller: admin
   action: themes
-  security: 'admin'
+  security: "admin"
 
 /themes/switchTheme:
   controller: theme
   action: switchTheme
-  security: 'admin'
+  security: "admin"
 
 # Route pour la reservation
 /restaurant/reservation:
@@ -273,7 +277,7 @@
 /restaurant/statistiques:
   controller: stats
   action: stats
-  
+
 /restaurant/editReservation:
   controller: reservation
   action: edit
@@ -347,7 +351,7 @@
 /notFound:
   controller: user
   action: errorNotFound
-  security: 'employee'
+  security: "employee"
 
 /sitemap:
   controller: globalController
@@ -370,4 +374,3 @@
 /setupAction:
   controller: globalController
   action: setupAction
-
