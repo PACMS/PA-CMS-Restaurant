@@ -1,17 +1,17 @@
 <?php
 
-define("DBDRIVER", "mysql");
-define("DBUSER", "root");
-define("DBPWD", "password");
-define("DBHOST", "database");
-define("DBNAME", "mvcdocker2");
-define("DBPORT", "3306");
-define("DBPREFIXE", "pacm_");
+define('DBDRIVER', 'mysql');
+define('DBUSER', 'root');
+define('DBPWD', 'password');
+define('DBHOST', 'database');
+define('DBNAME', 'mvdocker22');
+define('DBPORT', '3306');
+define('DBPREFIXE', 'pacm_');
 
-define("MHOST", "smtp.gmail.com");
-define("MUSERNAME", "pa.cms.test@gmail.com");
-define("MPASSWORD", "!3qJHP?yz6C!DxDH");
-define("MPORT", "465");
+define('MHOST', 'smtp.gmail.com');
+define('MUSERNAME', 'pa.cms.test@gmail.com');
+define('MPASSWORD', '!3qJHP?yz6C!DxDH');
+define('MPORT', '465');
 
 
 

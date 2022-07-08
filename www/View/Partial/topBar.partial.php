@@ -4,7 +4,7 @@
         <h1><?php echo $config["title"] ?></h1>
     </div>
     <div id="profileDiv">
-        <a href="#">
+        <a href="profile">
             <p><?php echo $_SESSION['user']['firstname'] ?><i class="fas fa-user"></i></p>
         </a>
         <button>

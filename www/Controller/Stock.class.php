@@ -18,7 +18,7 @@ class Stock
         $stock = new StockModel();
         $food = new FoodModel();
         $allFoods = $food->getAllFoods(['stockId' => $_SESSION["stock"]["id"]]);
-        $view = new View("stock");
+        $view = new View("stock", "back");
         $view->assign('stock', $stock);
         $view->assign('food', $food);
         $view->assign('allFoods', $allFoods);

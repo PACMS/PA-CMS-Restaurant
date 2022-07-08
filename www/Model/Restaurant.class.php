@@ -10,37 +10,14 @@ use App\Core\Cleaner;
  */
 class Restaurant extends Sql
 {
-    /**
-     * @var null
-     */
+   
     protected $id = null;
-    /**
-     * @var
-     */
     protected $name;
-    /**
-     * @var
-     */
     protected $address;
-    /**
-     * @var
-     */
     protected $additional_address;
-    /**
-     * @var
-     */
     protected $city;
-    /**
-     * @var
-     */
     protected $zipcode;
-    /**
-     * @var
-     */
     protected $phone;
-    /**
-     * @var
-     */
     protected $user_id;
 
     /**

@@ -45,7 +45,14 @@ endif;
         <section style="padding-right: 4%;">
             <div style=" height: 100%; width: 100%; margin:auto; padding-right: 4%; margin-top: 100px ">
                 <div class="restaurants-container">
-
+                    <form class="restaurant-card" method="POST" action="restaurant/page">
+                        <img src="../public/assets/img/restauOptions/mentions-legales.jpg" alt="mentions-legales" />
+                        <div class="bandeau">
+                            <p>Pages</p>
+                            <input type="hidden" name="id" value="<?= $oneRestaurant["id"] ?>">
+                            <button type="submit">Modifier</button>
+                        </div>
+                    </form>
                     <div class="restaurant-card">
                         <img src="../public/assets/img/restauOptions/informations.png" alt="information" />
                         <div class="bandeau">
@@ -74,7 +81,7 @@ endif;
                             <button><a href="/restaurant/stock">Accéder</a></button>
                         </div>
                     </div>
-                    <div class="restaurant-card">
+                    <form class="restaurant-card" method="POST" action="restaurant/reservation">
                         <img src="../public/assets/img/restauOptions/reservations.jpg" alt="reservations" />
                         <div class="bandeau">
                             <p>Réservation</p>
@@ -87,7 +94,8 @@ endif;
                             <p>Commentaires</p>
                             <button><a href="/restaurant/comments">Accéder</a></button>
                         </div>
-                    </div>
+                    </form>
+
                     <div class="restaurant-card">
                         <img src="../public/assets/img/restauOptions/mentions-legales.jpg" alt="mentions-legales" />
                         <div class="bandeau">

@@ -21,6 +21,8 @@ if (!isset($_SESSION)) {
     <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.4/css/jquery.dataTables.css">
     <script src="/public/dist/main.js"></script>
+    <script src="https://cdn.tiny.cloud/1/x097ae8kmj8kmt3uq09nu1ackibcgjm2cep2a2d8t09uxz4c/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+
 </head>
 
 <body>
