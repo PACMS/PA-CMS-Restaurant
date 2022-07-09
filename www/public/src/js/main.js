@@ -151,6 +151,17 @@ $(document).ready(function () {
     $("section.container-forgetPassword p#with-pwd").addClass("active");
     e.target.classList.add("active");
   });
+  //select choice without password
+  $(
+    "section.container-forgetPassword div#passwordChoice h3#withoutPassword"
+  ).click(function (e) {
+    $(
+      "section.container-forgetPassword div#passwordChoice h3#withPassword"
+    ).removeClass("active");
+    $("section.container-forgetPassword p#with-pwd").removeClass("active");
+    $("section.container-forgetPassword p#without-pwd").addClass("active");
+    e.target.classList.add("active");
+  });
 
   //Carte Part
   $("main#meals div.modal > form").append("<p class='close'>close</p>");
