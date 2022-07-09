@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : database
--- Généré le : ven. 08 juil. 2022 à 13:14
+-- Généré le : sam. 09 juil. 2022 à 17:13
 -- Version du serveur : 5.7.35
 -- Version de PHP : 7.4.20
 
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de données : `mvdocker22`
+-- Base de données : `mvcdocker2`
 --
 
 -- --------------------------------------------------------
@@ -85,8 +85,7 @@ CREATE TABLE `pacm_content` (
 -- Déchargement des données de la table `pacm_content`
 --
 
-INSERT INTO `pacm_content` (`id`, `id_page`, `body`, `created_at`, `updated_at`) VALUES
-(1, 1, 'Hello World', '2022-07-08 11:23:35', '2022-07-08 11:23:35');
+
 
 -- --------------------------------------------------------
 
@@ -103,12 +102,6 @@ CREATE TABLE `pacm_food` (
   `createdAt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `updatedAt` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Déchargement des données de la table `pacm_food`
---
-
-
 
 -- --------------------------------------------------------
 
@@ -139,6 +132,12 @@ CREATE TABLE `pacm_mealsFoods` (
   `food_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Déchargement des données de la table `pacm_mealsFoods`
+--
+
+
+
 -- --------------------------------------------------------
 
 --
@@ -156,7 +155,7 @@ CREATE TABLE `pacm_option` (
 --
 
 INSERT INTO `pacm_option` (`id`, `name`, `value`) VALUES
-(1, 'Theme', '1');
+(1, 'Theme', '2');
 
 -- --------------------------------------------------------
 
@@ -180,6 +179,7 @@ CREATE TABLE `pacm_page` (
 --
 
 
+
 -- --------------------------------------------------------
 
 --
@@ -189,12 +189,14 @@ CREATE TABLE `pacm_page` (
 CREATE TABLE `pacm_reservation` (
   `id` int(11) NOT NULL,
   `name` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(320) COLLATE utf8mb4_unicode_ci NOT NULL,
   `date` date NOT NULL,
   `hour` time NOT NULL,
   `numTable` int(11) NOT NULL,
   `numPerson` int(11) NOT NULL,
   `phoneReserv` char(10) COLLATE utf8mb4_unicode_ci NOT NULL,
   `status` tinyint(1) NOT NULL DEFAULT '0',
+  `id_restaurant` int(11) NOT NULL,
   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -221,7 +223,6 @@ CREATE TABLE `pacm_restaurant` (
 --
 
 
-
 -- --------------------------------------------------------
 
 --
@@ -238,6 +239,7 @@ CREATE TABLE `pacm_stock` (
 --
 -- Déchargement des données de la table `pacm_stock`
 --
+
 
 
 -- --------------------------------------------------------
@@ -279,6 +281,11 @@ CREATE TABLE `pacm_user` (
   `createdAt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updatedAt` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Déchargement des données de la table `pacm_user`
+--
+
 
 --
 -- Index pour les tables déchargées
@@ -352,7 +359,8 @@ ALTER TABLE `pacm_page`
 -- Index pour la table `pacm_reservation`
 --
 ALTER TABLE `pacm_reservation`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id_restaurant` (`id_restaurant`);
 
 --
 -- Index pour la table `pacm_restaurant`
@@ -405,13 +413,13 @@ ALTER TABLE `pacm_comments`
 -- AUTO_INCREMENT pour la table `pacm_content`
 --
 ALTER TABLE `pacm_content`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
 -- AUTO_INCREMENT pour la table `pacm_food`
 --
 ALTER TABLE `pacm_food`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT pour la table `pacm_meal`
@@ -423,7 +431,7 @@ ALTER TABLE `pacm_meal`
 -- AUTO_INCREMENT pour la table `pacm_mealsFoods`
 --
 ALTER TABLE `pacm_mealsFoods`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT pour la table `pacm_option`
@@ -435,25 +443,25 @@ ALTER TABLE `pacm_option`
 -- AUTO_INCREMENT pour la table `pacm_page`
 --
 ALTER TABLE `pacm_page`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
 -- AUTO_INCREMENT pour la table `pacm_reservation`
 --
 ALTER TABLE `pacm_reservation`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT pour la table `pacm_restaurant`
 --
 ALTER TABLE `pacm_restaurant`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=77;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=122;
 
 --
 -- AUTO_INCREMENT pour la table `pacm_stock`
 --
 ALTER TABLE `pacm_stock`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=54;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=99;
 
 --
 -- AUTO_INCREMENT pour la table `pacm_theme`
@@ -465,7 +473,7 @@ ALTER TABLE `pacm_theme`
 -- AUTO_INCREMENT pour la table `pacm_user`
 --
 ALTER TABLE `pacm_user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- Contraintes pour les tables déchargées
@@ -495,6 +503,18 @@ ALTER TABLE `pacm_food`
 ALTER TABLE `pacm_meal`
   ADD CONSTRAINT `carteDeleteMeal` FOREIGN KEY (`id_carte`) REFERENCES `pacm_carte` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `categorieDeleteMeal` FOREIGN KEY (`id_categories`) REFERENCES `pacm_categorie` (`id`) ON DELETE CASCADE;
+
+--
+-- Contraintes pour la table `pacm_page`
+--
+ALTER TABLE `pacm_page`
+  ADD CONSTRAINT `restaurantDeletePages` FOREIGN KEY (`id_restaurant`) REFERENCES `pacm_restaurant` (`id`) ON DELETE CASCADE;
+
+--
+-- Contraintes pour la table `pacm_reservation`
+--
+ALTER TABLE `pacm_reservation`
+  ADD CONSTRAINT `restaurantDeleteReservations` FOREIGN KEY (`id_restaurant`) REFERENCES `pacm_restaurant` (`id`) ON DELETE CASCADE;
 
 --
 -- Contraintes pour la table `pacm_stock`
