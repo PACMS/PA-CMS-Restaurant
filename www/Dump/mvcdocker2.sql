@@ -169,6 +169,8 @@ CREATE TABLE `pacm_page` (
   `title` varchar(50) NOT NULL,
   `url` varchar(100) NOT NULL,
   `status` tinyint(4) NOT NULL DEFAULT '0',
+  `displayMenu` tinyint(1) NOT NULL DEFAULT '0',
+  `displayComments` tinyint(1) NOT NULL DEFAULT '0',
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `id_theme` int(11) DEFAULT NULL,

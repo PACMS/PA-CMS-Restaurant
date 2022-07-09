@@ -10,6 +10,8 @@ class Page extends Sql
     protected $title;
     protected $url ;
     protected $status ;
+    protected $display_menu;
+    protected $display_comments;
     protected $id_theme ;
     protected $id_restaurant ;
 
@@ -108,6 +110,39 @@ class Page extends Sql
     public function setIdRestaurant($id_restaurant): void
     {
         $this->id_restaurant = $id_restaurant;
+    }
+
+    /**
+     * @return null
+     */
+    public function getDisplayMenu()
+    {
+        return $this->display_menu;
+    }
+
+    /**
+     * @param null $display_menu
+     * 
+     */
+    public function setDisplayMenu($display_menu): void
+    {
+        $this->display_menu = $display_menu;
+    }
+
+    /**
+     * @return null
+     */
+    public function getDisplayComments()
+    {
+        return $this->display_comments;
+    }
+
+    /**
+     * @param null $display_comments
+     */
+    public function SetDisplayComments($display_comments): void
+    {
+        $this->display_comments = $display_comments;
     }
 
     /**
