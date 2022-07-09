@@ -205,7 +205,7 @@ abstract class Sql
      * 
      * @param array $whereClause An associative array of where clause
      * 
-     * @return array|null Returns an associative array or null if no result
+     * @return array|object|null Returns an associative array or null if no result
      */
     public function findOneBy(array $whereClause)
     {

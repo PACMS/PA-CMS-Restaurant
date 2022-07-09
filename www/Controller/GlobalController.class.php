@@ -161,7 +161,7 @@ class GlobalController
      */
     function sitemap()
     {
-        $protocol = strtolower(explode('/', $_SERVER['SERVER_PROTOCOL'])[0]);
+        $protocol = $_SERVER['SERVER_PORT'] == '443' ? 'https' : 'http';
         $domain = $_SERVER['HTTP_HOST'];
 
         $page = new PageModel();
@@ -180,7 +180,7 @@ class GlobalController
      */
     function sitemapXML()
     {
-        $protocol = strtolower(explode('/', $_SERVER['SERVER_PROTOCOL'])[0]);
+        $protocol = $_SERVER['SERVER_PORT'] == '443' ? 'https' : 'http';
         $domain = $_SERVER['HTTP_HOST'];
 
         $page = new PageModel();

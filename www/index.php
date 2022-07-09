@@ -87,7 +87,7 @@ if (!$uriPage){
         die("401 : Unauthorized");
     }
 
-    $controller = ucfirst(strtolower($routes[$uri]["controller"]));
+    $controller = ucfirst($routes[$uri]["controller"]);
     $action = strtolower($routes[$uri]["action"]);
 
     $controllerFile = "Controller/" . $controller . ".class.php";
