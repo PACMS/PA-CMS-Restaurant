@@ -41,7 +41,16 @@ class Restaurant
             header('Location: /restaurants');
         }
         $restaurant = new RestaurantModel();
+        $builder = new MysqlBuilder();
+        $page = new Page();
+        $name = $builder->select('restaurant', ["name"])
+                    -> where('id' ,$_SESSION["restaurant"]["id"])
+                    ->fetchClass("restaurant")
+                    ->fetch();
+                    $name = $restaurant->removeAccents(strtolower($name->getName()));
         $restaurant->databaseDeleteOneRestaurant(["id" => $_SESSION["restaurant"]["id"]]);
+        $dirname = $_SERVER["DOCUMENT_ROOT"] . '/View/pages/' .  $name . '/';
+        $result = $page->deleteDirectory($dirname);
         $_SESSION["restaurant"]["id"] = null;
         header('Location: /restaurants');
     }
