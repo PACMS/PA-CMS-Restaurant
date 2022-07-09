@@ -1,0 +1,1 @@
+<?php $this->includePartial("form", $comment->getAddComment($id_restaurant)); ?>

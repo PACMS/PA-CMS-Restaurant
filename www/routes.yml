@@ -34,6 +34,10 @@
   controller: user
   action: register
 
+/register/validate:
+  controller: user
+  action: notifyValidation
+
 /googleConnect:
   controller: user
   action: googleConnect
@@ -149,65 +153,73 @@
   action: updateProfile
   security: "employee"
 
-/cartes:
+/restaurant/cartes:
   controller: carte
   action: carte
 
-/carte/create:
+/restaurant/carte/create:
   controller: carte
-  action: createCarte
+  action: createCarteView
 
-/updateCarte:
+/restaurant/updateCarte:
   controller: carte
   action: updateCarte
 
-/carte/delete:
+/restaurant/createCarte:
+  controller: carte
+  action: createCarte
+
+/restaurant/carte/delete:
   controller: carte
   action: deleteCarte
 
-/carte/meals:
+/restaurant/carte/meals:
   controller: meal
   action: meal
 
-/carte/meals/sendId:
+/restaurant/carte/meals/sendId:
   controller: meal
   action: setIdCard
 
-/carte/meals/addCategorie:
+/restaurant/carte/meals/addCategorie:
   controller: categorie
   action: createcategorie
 
-/carte/meals/updateCategorie:
+/restaurant/carte/meals/updateCategorie:
   controller: categorie
   action: updateCategorie
 
-/carte/meals/deleteCategorie:
+/restaurant/carte/meals/deleteCategorie:
   controller: categorie
   action: deleteCategorie
 
-/carte/meals/addMeal:
+/restaurant/carte/meals/addMeal:
   controller: meal
   action: createMeal
 
-/carte/meals/updateMeal:
+/restaurant/carte/meals/updateMeal:
   controller: meal
   action: updateMeal
 
-/carte/meals/deleteMeal:
+/restaurant/carte/meals/deleteMeal:
   controller: meal
   action: deleteMeal
+
+/restaurant/carte/meals/deleteFoods:
+  controller: mealsFoods
+  action: deleteFoods
 
 # Route pour les thèmes
 
 /themes:
   controller: admin
   action: themes
-  security: 'admin'
+  security: "admin"
 
 /themes/switchTheme:
   controller: theme
   action: switchTheme
-  security: 'admin'
+  security: "admin"
 
 # Route pour la reservation
 /restaurant/reservation:
@@ -222,12 +234,53 @@
 /addReservationClient:
   controller: reservation
   action: addReservationClient
-  security: "employee"
 
 /restaurant/addReservation:
   controller: reservation
   action: addReservation
   security: "employee"
+
+/restaurant/completeReservation:
+  controller: reservation
+  action: completeReservation
+  security: "employee"
+
+# Route pour les commentaires
+
+/addComment:
+  controller: comment
+  action: addCommentView
+  security: "user"
+
+/restaurant/addComment:
+  controller: comment
+  action: stockComment
+  security: "user"
+
+/restaurant/comments:
+  controller: comment
+  action: getComments
+  security: "admin"
+
+/restaurant/validateComment:
+  controller: comment
+  action: validateComment
+  security: "admin"
+
+/restaurant/deleteComment:
+  controller: comment
+  action: deleteComment
+  security: "admin"
+
+/showComments:
+  controller: comment
+  action: showComments
+
+# Route pour la gestion des utilisateurs
+
+/restaurant/statistiques:
+  controller: stats
+  action: stats
 
 /restaurant/editReservation:
   controller: reservation
@@ -302,7 +355,7 @@
 /notFound:
   controller: user
   action: errorNotFound
-  security: 'employee'
+  security: "employee"
 
 /sitemap:
   controller: globalController
@@ -325,4 +378,3 @@
 /setupAction:
   controller: globalController
   action: setupAction
-

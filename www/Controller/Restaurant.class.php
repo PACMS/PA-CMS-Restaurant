@@ -9,10 +9,11 @@ use App\Model\Content;
 use App\Model\Page;
 use App\Model\Restaurant as RestaurantModel;
 use App\Model\Stock as StockModel;
+use App\Core\MysqlBuilder;
+
 
 class Restaurant
 {
-
 
     // Récuperer tout les restaurants sur la page /restaurants
     public function restaurant()
@@ -28,7 +29,8 @@ class Restaurant
         }
         $_SESSION["restaurantsIds"] = $restaurantsIds;
         $view = new View("restaurants", 'back');
-        $view->assign('restaurant', $allRestaurants);
+        $view->assign('restaurants', $allRestaurants);
+        $view->assign('restaurant', $restaurant);
     }
 
     // Supprimer un restaurant depuis la page /restaurant/information
@@ -49,12 +51,9 @@ class Restaurant
     {
         session_start();
         $restaurant = new RestaurantModel();
-
-
-        $table = "restaurant";
-        $oneRestaurant = $restaurant->getOneRestaurant($table, $_SESSION["restaurant"]["id"]);
+        $oneRestaurant = $restaurant->getOneRestaurant($_SESSION["restaurant"]["id"]);
         $restaurant->hydrate($oneRestaurant);
-        $view = new View("restaurant-info", 'back');
+        $view = new View("restaurant-info", "back");
         $view->assign('restaurant', $restaurant);
         $view->assign('oneRestaurant', $oneRestaurant);
     }
@@ -64,17 +63,20 @@ class Restaurant
     {
         $restaurant = new RestaurantModel();
         $page = new Page();
-
+        $errors = null;
         session_start();
-        //dd($_POST, $_POST["user_id"], $_SESSION);
         if (!empty($_POST) && $_POST["user_id"] == $_SESSION["user"]["id"]) {
 
+            $_POST = array_map('htmlspecialchars', $_POST);
             $errors = Verificator::checkForm($restaurant->getCompleteRestaurantForm(), $_POST + $_FILES);
-            if (!$errors) {
-                $restaurant->hydrate($_POST);
 
-                $dirname = $_SERVER["DOCUMENT_ROOT"] . '/View/pages/' . $restaurant->getName() . '/';
-                $url ='pages/' . $restaurant->getName() . '/index';
+           
+            if (!$errors) {
+                
+                $restaurant->hydrate($_POST);
+                $name = $restaurant->removeAccents(strtolower($restaurant->getName()));
+                $dirname = $_SERVER["DOCUMENT_ROOT"] . '/View/pages/' .  $name . '/';
+                $url ='pages/' .  $name . '/index';
                 if (!is_dir($dirname))
                 {
                     mkdir($dirname, 0755, true);
@@ -84,7 +86,9 @@ class Restaurant
                     (new \App\Core\CreatePage)->createBasicPageIndex($fp, $inputs, $array_body);
                     fclose($fp);
                 }
+                // $restaurant->setId(null);
                 $restaurant->save();
+
                 $pageRestaurant = $restaurant->findOneBy(['name' => $restaurant->getName()]);
                 $page->setTitle($inputs['title']);
                 $page->setUrl($url);
@@ -101,6 +105,7 @@ class Restaurant
                 $stock = new StockModel;
                 $stock->hydrate(['restaurantId' => $restaurantId]);
                 $stock->save();
+
                 return header('Location: /restaurants');
             }
         }
@@ -115,6 +120,7 @@ class Restaurant
         $restaurant = new RestaurantModel();
         $errors = null;
         if (!empty($_POST) && $_POST["id"] == $_SESSION["restaurant"]["id"]) {
+            $_POST = array_map('htmlspecialchars', $_POST);
             $errors = Verificator::checkForm($restaurant->getCompleteUpdateRestaurantForm(), $_POST + $_FILES);
             if (!$errors) {
                 $restaurant->hydrate($_POST);
@@ -128,10 +134,9 @@ class Restaurant
     // Formulaire de creation de restaurant /restaurant/create
     public function createRestaurantForm()
     {
-
         $restaurant = new RestaurantModel();
         $errors = null;
-        $view = new View("create-restaurant", 'back');
+        $view = new View("create-restaurant", "back");
         $view->assign('restaurant', $restaurant);
         $view->assign("errors", $errors);
     }
@@ -140,18 +145,23 @@ class Restaurant
     public function restaurantOptions()
     {
         session_start();
+        $_POST = array_map('htmlspecialchars', $_POST);
         if (!in_array($_POST["id"], $_SESSION["restaurantsIds"])) {
             return header('Location: /restaurants');
         }
         $id = $_POST["id"];
         $_SESSION["restaurant"]["id"] = intval($id);
         $restaurant = new RestaurantModel();
-        $table = "restaurant";
-        $oneRestaurant = $restaurant->getOneRestaurant($table, $id);
+        $oneRestaurant = $restaurant->getOneRestaurant($id);
         $_SESSION["restaurant"]["name"] = $oneRestaurant["name"];
+        $builder = new MysqlBuilder();
+        $stock = $builder->select("stock", ["id"])
+                        ->where("restaurantId", $_SESSION["restaurant"]["id"])
+                        ->fetchClass("stock")
+                        ->fetch();
+        $_SESSION["stock"]["id"] = $stock->getId();
         $restaurant->hydrate($oneRestaurant);
-        $view = new View("restaurant", 'back');
-
+        $view = new View("restaurant", "back");
         $view->assign('restaurant', $restaurant);
         $view->assign('oneRestaurant', $oneRestaurant);
     }

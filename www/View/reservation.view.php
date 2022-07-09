@@ -4,23 +4,12 @@
 <?php $this->includePartial("sidebar"); ?>
     <div id="pseudo-element"></div>
     <section class="flex flex-column secondPart">
-        <div class="flex justify-content-between navbar align-items-center">
-            <h1>Reservation</h1>
-            <div id="profileDiv">
-                <a href="#">
-                    <p><?php echo $_SESSION['user']['firstname'] ?><i class="fas fa-user"></i></p>
-                </a>
-                <button>
-                    <i class="far fa-moon"></i>
-                    <i class="fas fa-toggle-off"></i>
-                </button>
-            </div>
-        </div>
+    <?php $this->includePartial("topBar", ["title" => "Reservation"]); ?>
         <section class="formProfile flex flex-column">
             <div id="open-modal" class="modal-window">
                 <div class="flex flex-column">
                     <a href="#" title="Close" class="modal-close ">x</a>
-                    <?php $this->includePartial("formReserv", $reservation->getModalForm()); ?>
+                    <?php $this->includePartial("form", $reservation->getModalForm()); ?>
                 </div>
             </div>
 
@@ -44,54 +33,33 @@
                                     <th>Table</th>
                                     <th>Téléphone</th>
                                     <th>Actions</th>
+                                    <th>Envoyer un mail</th>
                                 </tr>
                                 </thead>
                                 <tbody>
                                 <?php
-                                    foreach ($data as $reservation) :
+                                    foreach ($data as $reservationInfo) :
                                 ?>
-                                    <div id="open-modalEdit<?php echo $reservation['id'] ?>" class="modal-window">
-                                        <div class="flex flex-column">
-                                            <a href="#" title="Close" class="modal-close ">x</a>
-                                            <form method="POST" action="/restaurant/editReservation?id=<?php echo $reservation['id']?>">
-                                                <label class="greytext" for="name">Nom et prénom</label>
-                                                <input class="mb-7" id="name" name="name" value="<?php echo $reservation['name'] ?>" type="text">
-
-                                                <label class="greytext" for="numPerson">Nombre de personne</label>
-                                                <input class="mb-7" id="numPerson" name="numPerson" value="<?php echo intval($reservation['numPerson']) ?>" type="number" >
-
-                                                <label class="greytext" for="numTable">Numero de table</label>
-                                                <input class="mb-7" id="numTable" name="numTable" value="<?php echo $reservation['numTable'] ?>" type="number" >
-
-                                                <label class="greytext" for="date">Date de reservation</label>
-                                                <input class="mb-7" id="date" name="date" value="<?php echo $reservation['date']?>" type="date">
-
-                                                <label class="greytext" for="hour"">Heure de reservation</label>
-                                                <input class="mb-7" id="hour" name="hour"  value="<?php echo $reservation['hour']?>" type="time">
-
-                                                <label class="greytext" for="phoneReserv">Numéro de téléphone</label>
-                                                <input class="mb-7" id="phoneReserv" name="phoneReserv"  value="<?php echo $reservation['phoneReserv'] ?>" type="number">
-
-                                                <input type="submit" value="Modifier">
-                                            </form>
-                                        </div>
-                                    </div>
+                                    
                                    <tr>
-                                       <td> <?php echo $reservation['id'] ?> </td>
-                                       <td> <?php echo $reservation['name'] ?> </td>
-                                       <td> <?php echo $reservation['numPerson'] ?> </td>
-                                       <td> <?php echo $reservation['date'] ?> </td>
-                                       <td> <?php echo $reservation['hour'] ?> </td>
-                                       <td> <?php echo $reservation['numTable'] ?> </td>
-                                       <td> <?php echo $reservation['phoneReserv'] ?> </td>
+                                       <td> <?= $reservationInfo["id"] ?> </td>
+                                       <td> <?= $reservationInfo["name"] ?> </td>
+                                       <td> <?= $reservationInfo["numPerson"] ?> </td>
+                                       <td> <?= $reservationInfo["date"] ?> </td>
+                                       <td> <?= $reservationInfo["hour"] ?> </td>
+                                       <td> <?= $reservationInfo["numTable"] ?> </td>
+                                       <td> <?= $reservationInfo["phoneReserv"] ?> </td>
                                        <td>
-                                           <a href="#open-modalEdit<?php echo $reservation['id'] ?>" id='btncancel'>
+                                           <a href="#open-modalEdit<?= $reservationInfo['id'] ?>" id='btncancel'>
                                                <i class='fas fa-pen'></i>
                                            </a>
-                                           <a href='/restaurant/deleteReservation?id=<?php echo $reservation['id']?>'>
+                                           <a href='/restaurant/deleteReservation?id=<?= $reservationInfo['id']?>'>
                                                <i class='fas fa-times-circle'></i>
                                            </a>
                                        </td>
+                                       <td> <?php $this->includePartial("form", $reservation->EndForMailReservation(intval($reservationInfo["id"]))); ?> </td>
+                                       
+                                      
                                    </tr>
                                 <?php
                                     endforeach;

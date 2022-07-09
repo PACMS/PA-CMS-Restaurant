@@ -9,7 +9,7 @@ use App\Core\Verificator;
 use App\Core\View;
 use App\Core\OAuth;
 use App\Model\User as UserModel;
-
+use App\Controller\Mail;
 /**
  * User Controller
  * 
@@ -64,15 +64,24 @@ class User
     {
         $user = new UserModel();
         $errors = null;
-
         if (!empty($_POST)) {
+            $conditions = $_POST['acceptConditions'];
+            unset($_POST['acceptConditions']);
+            $_POST = array_map('htmlspecialchars', $_POST);
+            $conditions[0] = htmlspecialchars($conditions[0]);
+            $_POST["acceptConditions"] = $conditions;
             $errors = Verificator::checkForm($user->getCompleteRegisterForm(), $_POST + $_FILES);
 
             if (!$errors) {
                 $user->hydrate($_POST);
                 $user->setRole('user');
+                $user->generateToken();
                 $user->save();
-                /////////// redirection vers le dashboard à faire
+
+                $mail = new Mail();
+                $mail->sendConfirmMail($user);
+
+                header('Location: /register/validate');
             }
         }
 
@@ -81,6 +90,10 @@ class User
         $view->assign("errors", $errors);
     }
 
+    public function notifyValidation()
+    {
+        $view = new View("notifyRegister", "front");
+    }
     /**
      * Verify user token
      * 
@@ -89,7 +102,6 @@ class User
     public function verifyToken(): void
     {
         $user = new UserModel();
-
         $actualDateTime = new \DateTime();
         $date = new \DateTime($_GET["date"]);
         $interval = $actualDateTime->diff($date);
@@ -122,29 +134,6 @@ class User
     }
 
     /**
-     * Retrieve user token
-     * 
-     * @return void
-     */
-    public function getToken(): void
-    {
-        $user = new UserModel();
-        //$user->setId(1);
-        $user->setEmail("thibautsembeni@gmail.com");
-        $user->setPassword("Test1234");
-        $user->setLastname("SembEnI   ");
-        $user->setFirstname("  THIBaut   ");
-        $user->generateToken();
-        Mail::sendConfirmMail($user->getToken(), $user->getEmail());
-        //$user->save();
-        echo "<pre>";
-        echo ("Token créé " . $user->getToken());
-
-        //envoie du mail
-        //click sur http://localhost/verifyToken?token=<token>?email=<email>
-    }
-
-    /**
      * Verify if user exists
      * 
      * @return void
@@ -152,7 +141,8 @@ class User
     public function loginVerify(): void
     {
         $user = new UserModel();
-        
+        $_POST = array_map('htmlspecialchars', $_POST);
+
 
         if (!empty($_POST)) {
             Verificator::checkForm(
@@ -295,7 +285,7 @@ class User
     {
 
         $user = new UserModel();
-
+        $_POST = array_map('htmlspecialchars', $_POST);
         if (!empty($_POST)) {
             Verificator::checkForm(
                 $user->getResetPasswordForm(),

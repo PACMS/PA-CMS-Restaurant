@@ -88,7 +88,7 @@ class Categorie extends Sql
         return [
             "config" => [
                 "method" => "POST",
-                "action" => "/carte/meals/addCategorie",
+                "action" => "/restaurant/carte/meals/addCategorie",
                 "class" => "flex",
                 "id" => "addCategorie",
                 "submit" => "Ajouter",
@@ -104,6 +104,31 @@ class Categorie extends Sql
                     "type" => "hidden",
                     "value" => $_SESSION["id_card"],
                     "label" => "Description"
+                ],
+            ]
+        ];
+    }
+
+    public function getUpdateCategorie($valueToChange = "", $idCategorie = ""): array
+    {
+        return [
+            "config" => [
+                "method" => "POST",
+                "action" => "/restaurant/carte/meals/updateCategorie",
+                "class" => "flex justify-content-between hidden",
+                "id" => "",
+                "submit" => "Modifier",
+                'captcha' => false
+            ],
+            "inputs" => [
+                "name" => [
+                    "type" => "text",
+                    "value" => $valueToChange,
+                    "required" => true
+                ],
+                "id" => [
+                    "type" => "hidden",
+                    "value" => $idCategorie,
                 ],
             ]
         ];

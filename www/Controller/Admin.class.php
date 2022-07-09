@@ -57,6 +57,7 @@ class Admin
 
     public function updateProfile()
     {
+        session_start();
         $user = new UserModel();
         
         $user->setId($_SESSION['user']['id']);
@@ -75,20 +76,18 @@ class Admin
                     $user->setPassword($_POST['passwordNew']);
                 } else {
                     $errors = ["Les mots de passe ne correspondent pas"];
-                    die("Les mots de passe ne correspondent pas");
+                    // die("Les mots de passe ne correspondent pas");
                 }
             } else {
                 $errors = ["Le mot de passe actuel est incorrect"];
-                die("Le mot de passe actuel est incorrect");
+                // die("Le mot de passe actuel est incorrect");
             }
         }
         
         $user->save();
-        
         $_SESSION['user']['email'] = $user->getEmail();
         $_SESSION['user']['firstname'] = $user->getFirstname();
         $_SESSION['user']['lastname'] = $user->getLastname();
-
         header("Location: /profile");
     }
 
@@ -154,8 +153,9 @@ class Admin
      */
     public function updateUser()
     {
+        
+        session_start();
         $user = new UserModel();
-
         $userId = htmlspecialchars($_GET['id']);
 
         $userInfos = $user->getUserById($userId);
@@ -173,9 +173,16 @@ class Admin
      */
     public function saveUser()
     {
+        session_start();
         $user = new UserModel();
         $user->hydrate($_POST);
         $user->save();
+        if(!is_null($_POST["id"]) && $_POST["id"] == $_SESSION["user"]["id"]) {
+            $_SESSION["user"]["firstname"] = $user->getFirstname();
+            $_SESSION["user"]["lastname"] = $user->getLastname();
+            $_SESSION["user"]["email"] = $user->getEmail();
+            $_SESSION["user"]["role"] = $user->getRole();
+        }
         header("Location: /users");
     }
 

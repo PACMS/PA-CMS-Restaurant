@@ -10,6 +10,7 @@ class Security
             session_start();
         }
         if (empty($_SESSION["user"])) {
+            $_SESSION["previous_location"] = $_SERVER["REQUEST_URI"];
             header("Location: /login");
         } elseif ($_SESSION["user"]['role'] == "admin") {
             return $route["security"] == "admin" || $route["security"] == "employee" || $route["security"] == "user";

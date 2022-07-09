@@ -89,7 +89,7 @@ class View
      * 
      * @return void
      */
-    public function assign(string $key, mixed $value): void
+    public function assign(string $key, $value): void
     {
         $this->_data[$key] = $value;
     }

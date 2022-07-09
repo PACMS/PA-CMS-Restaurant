@@ -2,6 +2,40 @@ h1 {
     font-size: 2.5rem;
     font-weight: 700;
     line-height: 1.2;
-    margin: 0 0 1.5rem;
+    margin: 1rem 100px 1rem 0;
     color: yellowgreen;
+}
+
+
+.index-header{
+    display:flex;
+    justify-content: flex-end;
+    
+    align-items: center;
+}
+
+.page-container{
+    display:flex;
+    justify-content: space-between;
+    width: 100vw;
+    height: 250px;
+    
+    & img{
+        height: 100%;
+    }
+    
+
+    & div{
+        width: 100%;
+        background-color: #ffd700;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        
+        & p {
+            font-size: 5rem;
+            font-weight: 700;
+        }
+    }
+
 }

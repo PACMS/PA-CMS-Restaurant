@@ -158,7 +158,7 @@ class Theme extends Sql
      * 
      * @return array
      */
-    public function getThemeById(int $id): null|array
+    public function getThemeById(int $id)
     {
         return parent::findOneBy(['id' => $id]);
     }

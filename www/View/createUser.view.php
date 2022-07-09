@@ -2,17 +2,7 @@
     <?php $this->includePartial("sidebar"); ?>
     <div id="pseudo-element"></div>
     <section class="flex flex-column secondPart">
-        <div class="flex justify-content-between navbar align-items-center">
-            <div id="profileDiv">
-                <a href="#">
-                    <p><?php echo $_SESSION['user']['firstname'] ?><i class="fas fa-user"></i></p>
-                </a>
-                <button>
-                    <i class="far fa-moon"></i>
-                    <i class="fas fa-toggle-off"></i>
-                </button>
-            </div>
-        </div>
+    <?php $this->includePartial("topBar", ["title" => "Créer un utilisateur"]); ?>
         <section class="usersTableHeader flex justify-content-between">
             <!-- <form action="/user/save" method="POST">
                 <div class="flex justify-content-between">

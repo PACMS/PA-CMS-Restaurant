@@ -2,43 +2,32 @@
     <?php $this->includePartial("sidebar"); ?>
     <div id="pseudo-element"></div>
     <section class="flex flex-column secondPart">
-        <div class="flex justify-content-between navbar align-items-center">
-            <h1><?php echo $userInfos['email'] ?></h1>
-            <div id="profileDiv">
-                <a href="#">
-                    <p><?php echo $_SESSION['user']['firstname'] ?><i class="fas fa-user"></i></p>
-                </a>
-                <button>
-                    <i class="far fa-moon"></i>
-                    <i class="fas fa-toggle-off"></i>
-                </button>
-            </div>
-        </div>
+    <?php $this->includePartial("topBar", ["title" => "Modifier un utilisateur"]); ?>
         <section class="usersTableHeader flex justify-content-between">
             <form action="/user/save" method="POST">
                 <div class="flex justify-content-between">
                     <div class="flex flex-column">
                         <label for="firstname">Prénom</label>
-                        <input type="text" name="firstname" id="firstname" value="<?php echo $userInfos['firstname']?>">
+                        <input type="text" name="firstname" id="firstname" value="<?php echo $userInfos['firstname'] ?>">
                     </div>
                     <div class="flex flex-column">
                         <label for="lastname">Nom</label>
-                        <input type="text" name="lastname" id="lastname" value="<?php echo $userInfos['lastname']?>">
+                        <input type="text" name="lastname" id="lastname" value="<?php echo $userInfos['lastname'] ?>">
                     </div>
                 </div>
                 <div class="flex justify-content-between">
                     <div class="flex flex-column">
                         <label for="email">Email</label>
-                        <input type="email" name="email" id="email" value="<?php echo $userInfos['email']?>">
+                        <input type="email" name="email" id="email" value="<?php echo $userInfos['email'] ?>">
                     </div>
                 </div>
                 <div class="flex justify-content-between">
                     <div>
                         <label for="role">Rôle</label>
                         <select name="role" id="role">
-                            <option value="admin" <?php echo $userInfos['role'] == 'admin' ? 'selected' : ''?>>Administrateur</option>
-                            <option value="user" <?php echo $userInfos['role'] == 'user' ? 'selected' : ''?>>Utilisateur</option>
-                            <option value="employee" <?php echo $userInfos['role'] == 'employee' ? 'selected' : ''?>>Employé</option>
+                            <option value="admin" <?php echo $userInfos['role'] == 'admin' ? 'selected' : '' ?>>Administrateur</option>
+                            <option value="user" <?php echo $userInfos['role'] == 'user' ? 'selected' : '' ?>>Utilisateur</option>
+                            <option value="employee" <?php echo $userInfos['role'] == 'employee' ? 'selected' : '' ?>>Employé</option>
                         </select>
                     </div>
                     <div>

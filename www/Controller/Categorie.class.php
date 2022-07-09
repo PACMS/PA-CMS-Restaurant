@@ -13,29 +13,38 @@ class Categorie
 
     public function createcategorie()
     {
+        $errors = null;
+        $_POST = array_map('htmlspecialchars', $_POST);
         $queryBuilder = new MysqlBuilder();
         $categorie = new CategorieModel();
-        $categorie->hydrate($_POST);
-        $categorie->save();
+        $errors = Verificator::checkForm($categorie->getAddCategorie(), $_POST + $_FILES);
+        if (!$errors) {
+            $categorie->hydrate($_POST);
+            $categorie->save();
+        }
 
-        header('Location: /carte/meals');
+        header('Location: /restaurant/carte/meals');
     }
 
     public function updateCategorie()
     {
+        session_start();
+        $errors = null;
+        $_POST = array_map('htmlspecialchars', $_POST);
         $categorie = new CategorieModel();
-        $categorie->hydrate($_POST);
-        $categorie->save();
+        $errors = Verificator::checkForm($categorie->getUpdateCategorie(), $_POST + $_FILES);
+        if (!$errors) {
+            $categorie->hydrate($_POST);    
+            $categorie->save();
+        }
 
-        header('Location: /carte/meals');
+        header('Location: /restaurant/carte/meals');
     }
 
     public function deleteCategorie()
     {
         $categorie = new CategorieModel();
         $categorie->deleteCategorie($_POST["id"]);
-        $meal = new MealModel();
-        $meal->deleteMeals($_POST["id"]);
 
     }
 
