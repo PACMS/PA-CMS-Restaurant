@@ -245,6 +245,7 @@ class Reservation extends Sql
                     "label"=>"Nom et prénom",
                     "type"=>"text",
                     "class"=>"formReservation",
+                    "required" => true
                 ],
                 "email" => [
                     "label"=>"Adresse mail",
@@ -263,6 +264,7 @@ class Reservation extends Sql
                     "minlength" => 1,
                     "max"=>10,
                     "maxlength"=>10,
+                    "required" => true
                 ],
 
                 "numTable"=>[
@@ -278,12 +280,13 @@ class Reservation extends Sql
                     "class"=>"formReservation",
                     "min"=>date('Y-m-d'),
                     "max"=>date('Y-m-d', strtotime('+1 year')),
+                    "required" => true
                 ],
                 "hour"=>[
                     "label"=>"Heure de reservation",
                     "type"=>"time",
                     "class"=>"formReservation",
-
+                    "required" => true
                 ],
                 "phoneReserv"=>[
                     "label"=>"Numéro de téléphone",
@@ -293,9 +296,8 @@ class Reservation extends Sql
                     "minlength"=>10,
                     "max"=>10,
                     "maxlength"=>10,
-
+                    "required" => true
                 ],
-                
             ]
         ];
     }
@@ -363,7 +365,6 @@ class Reservation extends Sql
                     "minlength"=>4,
                     "max"=>15,
                     "maxlength"=>15,
-
                 ],
                 
             ]
