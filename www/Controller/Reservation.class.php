@@ -22,8 +22,8 @@ class Reservation
     public function reservation()
     {
         $reservation = new ReservationModel();
-        $data =  $reservation->getAllReservationsFromRestaurant($_SESSION['restaurant']["id"] );
-        foreach ($data as $dateReserv ){
+        $data =  $reservation->getAllReservationsFromRestaurant($_SESSION['restaurant']["id"]);
+        foreach ($data as $dateReserv) {
             $dateReserv['date'] = date("d/m/Y", strtotime($dateReserv['date']));
         }
         $view = new View("reservation", "back");
@@ -43,7 +43,7 @@ class Reservation
         $clientName = $reservation->getName();
         $reservation->setIdRestaurant($_SESSION['restaurant']["id"]);
         $reservation->save();
-        $data =  $reservation->getAllReservationsFromRestaurant($_SESSION['restaurant']["id"] );
+        $data =  $reservation->getAllReservationsFromRestaurant($_SESSION['restaurant']["id"]);
         header("Location: /restaurant/reservation");
         // $view = new View("reservation", "back", 'success', 'Reservation', 'Création avec succès de la reservation de ' . $clientName . ' !');
         // $view->assign('reservation', $reservation);
@@ -52,7 +52,7 @@ class Reservation
     }
     public function edit()
     {
-        $arrayuri = explode( '=', $_SERVER['REQUEST_URI']) ;
+        $arrayuri = explode('=', $_SERVER['REQUEST_URI']);
         $idReservation = $arrayuri[1];
 
         $reservation = new ReservationModel();
@@ -78,21 +78,21 @@ class Reservation
 
     public function delete()
     {
-        $arrayuri = explode( '=', $_SERVER['REQUEST_URI']) ;
-        
+        $arrayuri = explode('=', $_SERVER['REQUEST_URI']);
+
         $idReservation = $arrayuri[1];
         $reservation = new ReservationModel();
         $builder = new MysqlBuilder();
 
         $allReservations = $builder->select('reservation', ["id"])
-                        ->where("id_restaurant", $_SESSION['restaurant']["id"])
-                        ->fetchClass("reservation")
-                        ->fetchAll();
+            ->where("id_restaurant", $_SESSION['restaurant']["id"])
+            ->fetchClass("reservation")
+            ->fetchAll();
         $reservationIds = [];
-        foreach($allReservations as $reservation){
-                array_push($reservationIds, $reservation->getId());
+        foreach ($allReservations as $reservation) {
+            array_push($reservationIds, $reservation->getId());
         }
-        if(!in_array($idReservation, $reservationIds)){
+        if (!in_array($idReservation, $reservationIds)) {
             header("Location: /restaurant/reservation");
         }
         $builder->delete('reservation', ['id' => $idReservation])
@@ -140,8 +140,12 @@ class Reservation
     public function getReservationsStats()
     {
         $reservation = new ReservationModel();
+        $builder = new MysqlBuilder();
         // à mettre en param en dessous ["id_restaurant" => $_SESSION["restaurant"]["id"]]
-        $data =  $reservation->getAllReservation();
+        $data =  $builder->select("reservation", ["*"])
+        ->where("id_restaurant", $_SESSION["restaurant"]["id"])
+        ->fetchClass("reservation")
+        ->fetchAll();
         return $data;
     }
 }

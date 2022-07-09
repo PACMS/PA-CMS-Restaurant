@@ -33,7 +33,7 @@ class Stats
             $formatedDate = $theDate->modify('+' . $i .  'day')->format('Y-m-d');
             foreach($data as $value) {
 
-                 if($value["date"] == $formatedDate) {
+                 if($value->getDate() == $formatedDate) {
                     $nb++;
                  }
             }

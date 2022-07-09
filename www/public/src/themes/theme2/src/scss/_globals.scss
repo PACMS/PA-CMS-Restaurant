@@ -5,3 +5,33 @@ h1 {
     margin: 0 0 1.5rem;
     color: #ffd700;
 }
+
+.index-header{
+    display:flex;
+    justify-content: center;
+    
+    align-items: center;
+}
+
+.page-container{
+    display:flex;
+    flex-flow: row-reverse;
+    justify-content: space-between;
+    width: 100vw;
+    min-height: 200px;
+    
+
+    & div{
+        width: 100%;
+        background-color: #1fa6cf;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        
+        & p {
+            font-size: 5rem;
+            font-weight: 700;
+        }
+    }
+
+}
