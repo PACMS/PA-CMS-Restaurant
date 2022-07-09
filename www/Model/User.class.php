@@ -283,11 +283,11 @@ class User extends Sql
         return parent::databaseFindOne($id);
     }
 
-    public function verifyUser(array $params): void
+    public function verifyUser(array $params)
     {
         //Pré traitement par exemple
         //echo "pre traitement";
-        parent::verifyUser($params);
+        return parent::verifyUser($params);
     }
 
     /**

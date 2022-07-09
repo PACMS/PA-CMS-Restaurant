@@ -21,6 +21,8 @@ class View
     private $_alert_title;
     private $_alert_message;
     private $_data = [];
+    private $_flashType;
+    private $_flashMessage;
 
 
     /**
@@ -34,11 +36,12 @@ class View
      * 
      * @return void
      */
-    public function __construct(string $view, ?string $template = "front", ?string $alert = null, ?string $alert_title = null, ?string $alert_message = null)
+    public function __construct(string $view, ?string $template = "front", ?string $alert = null, ?string $alert_title = null, ?string $alert_message = null, ?string $type = null, ?string $message = null)
     {
         $this->setView($view);
         $this->setTemplate($template);
         $this->setAlert($alert, $alert_title, $alert_message);
+        $this->setFlashMessage($type, $message);
     }
 
     /**
@@ -79,6 +82,12 @@ class View
         $this->_alert = $alert;
         $this->_alert_title = $alert_title;
         $this->_alert_message = $alert_message;
+    }
+
+    public function setFlashMessage(?string $type, ?string $message)
+    {
+        $this->_flashType = $type;
+        $this->_flashMessage = $message;
     }
 
     /**

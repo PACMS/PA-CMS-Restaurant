@@ -1,0 +1,30 @@
+.flash {
+    padding: 20px;
+    color: white;
+    z-index: 2;
+    position: fixed;
+    top: 3%;
+    left: 20%;
+    border-width: 1px;
+    border-radius: 6px;
+  }
+
+  .flash-error {
+    background-color: #ED6A5A;
+    border-color: rgba(255, 129, 130, 0.4);
+  }
+  
+  .closebtn {
+    margin-left: 15px;
+    color: white;
+    font-weight: bold;
+    float: right;
+    font-size: 22px;
+    line-height: 20px;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+  
+  .closebtn:hover {
+    color: black;
+  }

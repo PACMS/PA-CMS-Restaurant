@@ -53,6 +53,9 @@ class User
         $view = new View("login");
         $view->assign("title", "Connexion");
         $view->assign("user", $user);
+
+
+        empty($_GET['error']) ?: $view->setFlashMessage('error', 'Identifiant ou mot de passe invalide');
     }
 
     /**
@@ -166,12 +169,7 @@ class User
 
         $params = ["email" => $_POST['email']];
 
-        $user->verifyUser($params);
-        
-        
-        $view = new View("loginVerify");
-        $view->assign("title", "Vérification");
-        $view->assign("user", $user);
+        $user->verifyUser($params) ?: header('Location: /login?error=login');
     }
 
     /**
@@ -322,6 +320,7 @@ class User
      */
     public function logout()
     {
+        session_start();
         session_destroy();
         header('Location: /login');
     }
