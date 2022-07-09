@@ -38,6 +38,10 @@ class Verificator extends Sql
                 $errors[] = $input["errorUnicity"];
             }
 
+            if (!empty($input['unicityresto']) && !self::unicityRestaurant($data[$name])) {
+                $errors[] = $input["errorunicityresto"];
+            }
+
             if ($input['type'] == "email" && !self::checkEmail($data[$name])) {
                 $errors[] = $input["error"];
             }
@@ -81,6 +85,15 @@ class Verificator extends Sql
     public static function unicity($value, $table)
     {
         if ((new Verificator())->databaseFindOne(['email' => $value], $table)) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    public static function unicityRestaurant($value)
+    {
+        if ((new Verificator())->databaseFindOne(['name' => $value], "restaurant")) {
             return false;
         } else {
             return true;

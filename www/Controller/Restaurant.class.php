@@ -74,8 +74,9 @@ class Restaurant
             if (!$errors) {
                 
                 $restaurant->hydrate($_POST);
-                $dirname = $_SERVER["DOCUMENT_ROOT"] . '/View/pages/' . $restaurant->getName() . '/';
-                $url ='pages/' . $restaurant->getName() . '/index';
+                $name = $restaurant->removeAccents(strtolower($restaurant->getName()));
+                $dirname = $_SERVER["DOCUMENT_ROOT"] . '/View/pages/' .  $name . '/';
+                $url ='pages/' .  $name . '/index';
                 if (!is_dir($dirname))
                 {
                     mkdir($dirname, 0755, true);

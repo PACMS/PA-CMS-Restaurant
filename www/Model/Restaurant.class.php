@@ -10,7 +10,7 @@ use App\Core\Cleaner;
  */
 class Restaurant extends Sql
 {
-   
+
     protected $id = null;
     protected $name;
     protected $address;
@@ -169,6 +169,14 @@ class Restaurant extends Sql
         return $restaurant;
     }
 
+    public function removeAccents($value)
+    {
+        $search  = array('À', 'Á', 'Â', 'Ã', 'Ä', 'Å', 'Ç', 'È', 'É', 'Ê', 'Ë', 'Ì', 'Í', 'Î', 'Ï', 'Ò', 'Ó', 'Ô', 'Õ', 'Ö', 'Ù', 'Ú', 'Û', 'Ü', 'Ý', 'à', 'á', 'â', 'ã', 'ä', 'å', 'ç', 'è', 'é', 'ê', 'ë', 'ì', 'í', 'î', 'ï', 'ð', 'ò', 'ó', 'ô', 'õ', 'ö', 'ù', 'ú', 'û', 'ü', 'ý', 'ÿ', ' ');
+    $replace = array('A', 'A', 'A', 'A', 'A', 'A', 'C', 'E', 'E', 'E', 'E', 'I', 'I', 'I', 'I', 'O', 'O', 'O', 'O', 'O', 'U', 'U', 'U', 'U', 'Y', 'a', 'a', 'a', 'a', 'a', 'a', 'c', 'e', 'e', 'e', 'e', 'i', 'i', 'i', 'i', 'o', 'o', 'o', 'o', 'o', 'o', 'u', 'u', 'u', 'u', 'y', 'y', '');
+    $MaChaine = str_replace($search, $replace, $value);
+    return $MaChaine;
+    }
+
     public function getCompleteRestaurantForm()
     {
 
@@ -198,8 +206,10 @@ class Restaurant extends Sql
                     "minlength" => 2,
                     "max" => 100,
                     "maxlength" => 100,
-                    "value" =>$this->name,
+                    "value" => $this->name,
                     "error" => "Le nom de votre restaurant n'est pas correct",
+                    "unicityresto" => true,
+                    "errorunicityresto" => "Ce nom de restaurant est déjà utilisé",
                 ],
                 "address" => [
                     "placeholder" => "Votre adresse*",
@@ -212,7 +222,7 @@ class Restaurant extends Sql
                     "minlength" => 2,
                     "max" => 255,
                     "maxlength" => 255,
-                    "value" =>$this->address,
+                    "value" => $this->address,
                     "error" => "Le champs adresse contient une erreur",
                 ],
                 "additional_address" => [
@@ -223,7 +233,7 @@ class Restaurant extends Sql
                     "class" => "restaurant-inputs",
                     "max" => 255,
                     "maxlength" => 255,
-                    "value" =>$this->additional_address,
+                    "value" => $this->additional_address,
                     "error" => "Le champs complément d'adresse contient une erreur"
                 ],
                 "city" => [
@@ -267,7 +277,7 @@ class Restaurant extends Sql
                     "maxlength" => 15,
                     "value" => $this->phone,
                     "error" => "Votre numéro de téléphone est incorrect",
-                ],                
+                ],
                 // "captcha" => [
                 //     'type' => 'captcha',
                 //     'error' => 'Le captcha n\'a pas pu validé votre formulaire'
@@ -305,6 +315,8 @@ class Restaurant extends Sql
                     "maxlength" => 100,
                     "value" => $this->name,
                     "error" => "Le nom de votre restaurant n'est pas correct",
+                    "unicityresto" => true,
+                    "errorunicityresto" => "Ce nom de restaurant est déjà utilisé",
                 ],
                 "address" => [
                     "placeholder" => "Votre adresse*",
@@ -413,5 +425,4 @@ class Restaurant extends Sql
             ]
         ];
     }
-
 }

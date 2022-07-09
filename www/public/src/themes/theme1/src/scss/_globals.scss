@@ -18,7 +18,11 @@ h1 {
     display:flex;
     justify-content: space-between;
     width: 100vw;
-    min-height: 200px;
+    height: 250px;
+    
+    & img{
+        height: 100%;
+    }
     
 
     & div{
