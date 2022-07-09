@@ -43,11 +43,11 @@ class Page
             ->fetchClass("restaurant")
             ->fetch();
         $restaurant->getName();
-        $name = $restaurant->removeAccents($restaurant->getName());
+        $name = $restaurant->removeAccents(strtolower($restaurant->getName()));
+        $inputName = $restaurant->removeAccents(strtolower($inputs['name']));
 
-        $url = 'pages/' . $name . '/' . $inputs['name'];
-
-
+        $url = 'pages/' . $name . '/' . $inputName;
+        
         $fp = fopen('View/' . $url . '.view.php', 'w+');
         (new \App\Core\CreatePage)->createBasicPageIndex($fp, $inputs, $array_body);
         fclose($fp);
