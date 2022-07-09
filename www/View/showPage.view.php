@@ -14,7 +14,22 @@
 
                                         <label class="greytext">Titre</label>
                                         <input class="w-48" type="text" name="title" value="<?php echo $page['title'] ?>">
+                                        <div>
+                                            <h4>Afficher le menu dans votre page ?</h4>
+                                            <input type="radio" id="menuYes" name="displayMenu" value="1" required="required" <?= $page["display_menu"] == 1 ? 'checked="checked"' : "" ?>>
+                                            <label for="menuYes">Oui</label>
 
+                                            <input type="radio" id="menuNo" name="displayMenu" value="0" required="required" <?= $page["display_menu"] == 0 ? 'checked="checked"' : "" ?>>
+                                            <label for="menuNo">Non</label>
+                                        </div>
+                                        <div>
+                                            <h4>Afficher les commentaires dans votre page ?</h4>
+                                            <input type="radio" id="commentYes" name="displayComment" value="1" required="required" <?= $page["display_comments"] == 1 ? 'checked="checked"' : "" ?>>
+                                            <label for="commentYes">Oui</label>
+
+                                            <input type="radio" id="commentNo" name="displayComment" value="0" required="required" <?= $page["display_comments"] == 0 ? 'checked="checked"' : "" ?>>
+                                            <label for="commentNo">Non</label>
+                                        </div>
                                         <?php foreach ($contents as $content) { ?>
 
                                             <label class="greytext mt-7 "><?php echo 'Section' ?></label>

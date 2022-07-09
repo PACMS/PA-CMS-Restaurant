@@ -110,6 +110,8 @@ class Page
         $pageUpdate->setTitle($inputs['title']);
         $pageUpdate->setUrl($page['url']);
         $pageUpdate->setStatus(0);
+        $pageUpdate->setDisplayMenu($_POST["displayMenu"]);
+        $pageUpdate->setDisplayComments($_POST["displayComment"]);
         $pageUpdate->setIdRestaurant($page['id_restaurant']);
         $pageUpdate->save();
 
