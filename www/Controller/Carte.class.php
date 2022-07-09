@@ -54,13 +54,13 @@ class Carte
     public function createCarte()
     {
         $errors = null;
-        $_POST = array_map('htmlspecialchars', $_POST);
         $carte = new CarteModel();
         if (empty($_POST["status"])) {
             $_POST["status"] = 0;
         } else {
             $_POST["status"] = 1;
         }
+        $_POST = array_map('htmlspecialchars', $_POST);
         $errors = Verificator::checkForm($carte->getCreateForm(), $_POST + $_FILES);
         if (!$errors) {
             $carte->hydrate($_POST);

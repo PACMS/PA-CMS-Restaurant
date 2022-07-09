@@ -189,7 +189,6 @@ main#meals {
                                 padding: 0;
                                 display: flex;
                                 gap: 10px;
-
                                 & li {
                                     border: none;
                                     margin: 0;
@@ -201,6 +200,18 @@ main#meals {
                                     &:last-child {
                                         &::after {
                                             content: "";
+                                        }
+                                    }
+
+                                    &:hover {
+                                        & span {
+                                            display: inline-block;
+                                            font-style: italic;
+                                            font-weight: 400;
+                                            font-size: rem(14);
+                                            color: #c4c4c4;
+                                            margin-left: 13px;
+                                            cursor: pointer;
                                         }
                                     }
                                 }

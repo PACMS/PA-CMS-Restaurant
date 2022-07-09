@@ -190,11 +190,6 @@ class Meal
         }
         $_POST["price"] = floatval($_POST["price"]);
         $builder = new MysqlBuilder();
-        if (empty($_POST["ingredients"])) {
-            $builder->delete("mealsFoods", ["meal_id" => $_POST["id"]])
-            ->fetchClass("mealsFoods")
-            ->execute();
-        } 
         $builder->update("meal", ["name" => $_POST["name"], "price" => $_POST["price"], "description" => $_POST["description"]])
                         ->where("id", $_POST["id"])
                         ->fetchClass("meal")

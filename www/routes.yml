@@ -205,6 +205,10 @@
   controller: meal
   action: deleteMeal
 
+/restaurant/carte/meals/deleteFoods:
+  controller: mealsFoods
+  action: deleteFoods
+
 # Route pour les thèmes
 
 /themes:
