@@ -196,6 +196,14 @@ $(document).ready(function () {
     location.reload();
   });
 
+  $("span#deleteFood").click(function (e) {
+    $.post("/restaurant/carte/meals/deleteFoods", {
+      id: e.target.getAttribute("data-id-food"),
+      id_meal: e.target.getAttribute("data-id-meal"),
+    });
+    location.reload();
+  });
+
   $("#navbarButton").click(function () {
     $(this).children(".far").toggleClass("rotated");
     $(".sidebar").toggleClass("small");
@@ -281,15 +289,23 @@ $(document).ready(function () {
     table.draw();
   });
 
-  $('#bookingTable2').dataTable( {
+  $("#bookingTable2").dataTable({
     language: {
-      "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/French.json"
+      url: "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/French.json",
     },
-    columnDefs: [
-      { className: "dt-center", targets: "_all" },
+    columnDefs: [{ className: "dt-center", targets: "_all" }],
+    order: [3, "desc"],
+    columns: [
+      null,
+      null,
+      null,
+      { type: "date-eu" },
+      null,
+      null,
+      null,
+      null,
+      null,
     ],
-    order: [3, 'desc'],
-    columns: [null, null, null, { type: "date-eu" }, null, null, null, null, null],
 
     searching: true,
     //paging: false,

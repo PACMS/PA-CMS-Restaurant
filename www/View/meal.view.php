@@ -40,7 +40,7 @@
                                     <?php $this->includePartial("form",  $meal->getUpdateMeal($mealValue, $categories, $food)); ?>
                                     <article class="flex flex-column" data-id-categorie="<?= $mealValue["id_categories"] ?>">
                                         <main class="flex justify-content-between align-items-center">
-                                            <h1><?= $mealValue["name"] ?> <span class="hidden" id="editMeal">Editer</span><span id="deleteMeal" class="hidden">Supprimer</span></h1>
+                                            <h1><?= $mealValue["name"] ?> <span class="hidden" id="editMeal">Editer</span><span id="deleteMeal" class="hidden" data-id-meal="<?= $mealValue["id"] ?>">Supprimer</span></h1>
                                             <h3><?= $mealValue["price"] ?> &euro;</h3>
                                         </main>
                                         <footer>
@@ -50,7 +50,7 @@
                                                     <?php if ($mealValue["id"] == $mealFood->getMealId()) : ?>
                                                         <?php foreach($food as $foodKey => $foodValue) : ?>
                                                             <?php if($foodKey == $mealFood->getFoodId()) : ?>
-                                                                <li><?= $foodValue ?></li>
+                                                                <li ><?= $foodValue ?><span id="deleteFood" class="hidden" data-id-food="<?= $mealFood->getId() ?>" data-id-meal="<?= $mealFood->getMealId() ?>">Supprimer</span></li>
                                                             <?php endif; ?>
                                                         <?php endforeach; ?>
                                                     <?php endif; ?>
