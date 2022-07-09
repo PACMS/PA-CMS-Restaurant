@@ -55,6 +55,8 @@ class Page
         $page->setTitle($inputs['title']);
         $page->setUrl($url);
         $page->setStatus(0);
+        $page->setDisplayMenu($_POST["displayMenu"]);
+        $page->setDisplayComments($_POST["displayComment"]);
         $page->setIdRestaurant($id_restaurant);
         $page->save();
         $page = $page->findOneBy(['url' => $page->getUrl()]);

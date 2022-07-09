@@ -140,7 +140,7 @@ class Page extends Sql
     /**
      * @param null $display_comments
      */
-    public function SetDisplayComments($display_comments): void
+    public function setDisplayComments($display_comments): void
     {
         $this->display_comments = $display_comments;
     }

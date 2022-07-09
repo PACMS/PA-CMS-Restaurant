@@ -93,6 +93,8 @@ class Restaurant
                 $page->setTitle($inputs['title']);
                 $page->setUrl($url);
                 $page->setStatus(0);
+                $page->setDisplayMenu(0);
+                $page->setDisplayComments(0);
                 $page->setIdRestaurant($pageRestaurant['id']);
                 $page->save();
                 $page = $page->findOneBy(['url' => $page->getUrl()]);
