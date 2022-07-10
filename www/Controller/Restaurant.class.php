@@ -42,7 +42,7 @@ class Restaurant
         }
         $restaurant = new RestaurantModel();
         $restaurant->databaseDeleteOneRestaurant(["id" => $_SESSION["restaurant"]["id"]]);
-        $_SESSION["restaurant"]["id"] = null;
+        unset($_SESSION["restaurant"]["id"]) ;
         header('Location: /restaurants');
     }
 
@@ -142,7 +142,12 @@ class Restaurant
             if (!$errors) {
                 $restaurant->hydrate($_POST);
                 $restaurant->save();
-                $_SESSION["restaurant"]["favorite"] = $restaurant->getId();
+                if($restaurant->getFavorite() == 0){
+                    unset($_SESSION["restaurant"]["favorite"]) ;
+
+                }else{
+                    $_SESSION["restaurant"]["favorite"] = $restaurant->getId();
+                }
 
                 return header('Location: /restaurants');
             }

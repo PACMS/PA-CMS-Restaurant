@@ -32,6 +32,8 @@
                 <a class="voir-plus-button" href="">Voir plus</a>
             </div>
         </section>
+
+        <?php if(!empty($_SESSION["restaurant"]["favorite"])):?>
         <h3 style="text-align: center">Voir restaurant favori : <?= $restaurant->getName() ?></h3>
         <section class="grid">
                 <div class="row">
@@ -138,6 +140,9 @@
         </section>
 
     </section>
+    <?php else: ?>
+    <p>Vous n'avez aucun restaurant favori</p>
+    <?php endif; ?>
 </main>
 
 <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.4/js/jquery.dataTables.js"></script>
