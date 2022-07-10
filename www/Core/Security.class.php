@@ -6,7 +6,9 @@ class Security
 {
     public static function checkRoute($route): bool
     {
-        session_start();
+        if (!isset($_SESSION)) {
+            session_start();
+        }
         if (empty($_SESSION["user"])) {
             $_SESSION["previous_location"] = $_SERVER["REQUEST_URI"];
             header("Location: /login");

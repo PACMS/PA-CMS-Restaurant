@@ -16,12 +16,9 @@ class Stock
             return header("Location: /restaurants");
         }
         $stock = new StockModel();
-        $theStock = $stock->getOneStock('stock', ['restaurantId' => $_SESSION["restaurant"]["id"]]);
         $food = new FoodModel();
-        $stockId = $theStock["id"];
-        $_SESSION["stock"]["id"] = intval($stockId);
-        $allFoods = $food->getAllFoods(['stockId' => $stockId]);
-        $view = new View("stock");
+        $allFoods = $food->getAllFoods(['stockId' => $_SESSION["stock"]["id"]]);
+        $view = new View("stock", "back");
         $view->assign('stock', $stock);
         $view->assign('food', $food);
         $view->assign('allFoods', $allFoods);

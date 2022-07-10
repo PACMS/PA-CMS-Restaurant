@@ -1,12 +1,15 @@
 <?php
 
+/**
+ * PHP version 8.1
+ */
 namespace App\Controller;
 
 use App\Core\Verificator;
 use App\Core\View;
 use App\Core\OAuth;
 use App\Model\User as UserModel;
-
+use App\Controller\Mail;
 /**
  * User Controller
  * 
@@ -20,7 +23,12 @@ use App\Model\User as UserModel;
  */
 class User
 {
-    public function login()
+    /**
+     * Login page
+     *
+     * @return void
+     */
+    public function login(): void
     {
         $user = new UserModel();
 
@@ -47,17 +55,33 @@ class User
         $view->assign("user", $user);
     }
 
-    public function register()
+    /**
+     * Register page
+     *
+     * @return void
+     */
+    public function register():void
     {
         $user = new UserModel();
         $errors = null;
         if (!empty($_POST)) {
+            $conditions = $_POST['acceptConditions'];
+            unset($_POST['acceptConditions']);
+            $_POST = array_map('htmlspecialchars', $_POST);
+            $conditions[0] = htmlspecialchars($conditions[0]);
+            $_POST["acceptConditions"] = $conditions;
             $errors = Verificator::checkForm($user->getCompleteRegisterForm(), $_POST + $_FILES);
-            
-            if(!$errors) {
+
+            if (!$errors) {
                 $user->hydrate($_POST);
+                $user->setRole('user');
+                $user->generateToken();
                 $user->save();
-                /////////// redirection vers le dashboard à faire
+
+                $mail = new Mail();
+                $mail->sendConfirmMail($user);
+
+                header('Location: /register/validate');
             }
         }
 
@@ -66,10 +90,18 @@ class User
         $view->assign("errors", $errors);
     }
 
-    public function verifyToken()
+    public function notifyValidation()
+    {
+        $view = new View("notifyRegister", "front");
+    }
+    /**
+     * Verify user token
+     * 
+     * @return void
+     */
+    public function verifyToken(): void
     {
         $user = new UserModel();
-
         $actualDateTime = new \DateTime();
         $date = new \DateTime($_GET["date"]);
         $interval = $actualDateTime->diff($date);
@@ -87,35 +119,30 @@ class User
         }
     }
 
-    public function createToken()
+    /**
+     * Send token to user
+     * 
+     * @deprecated
+     *
+     * @return void
+     */
+    public function createToken(): void
     {
 
         $view = new View("token");
         //$view->assign("user", $user);
     }
 
-    public function getToken()
+    /**
+     * Verify if user exists
+     * 
+     * @return void
+     */
+    public function loginVerify(): void
     {
         $user = new UserModel();
-        //$user->setId(1);
-        $user->setEmail("thibautsembeni@gmail.com");
-        $user->setPassword("Test1234");
-        $user->setLastname("SembEnI   ");
-        $user->setFirstname("  THIBaut   ");
-        $user->generateToken();
-        Mail::sendConfirmMail($user->getToken(), $user->getEmail());
-        //$user->save();
-        echo "<pre>";
-        echo ("Token créé " . $user->getToken());
+        $_POST = array_map('htmlspecialchars', $_POST);
 
-        //envoie du mail
-        //click sur http://localhost/verifyToken?token=<token>?email=<email>
-    }
-
-    public function loginVerify()
-    {
-        $user = new UserModel();
-        
 
         if (!empty($_POST)) {
             Verificator::checkForm(
@@ -137,7 +164,12 @@ class User
         $view->assign("user", $user);
     }
 
-    public function googleConnect ()
+    /**
+     * Google login
+     * 
+     * @return void
+     */
+    public function googleConnect(): void
     {
         $token = new OAuth($_GET['code']);
         $info = $token->google();
@@ -154,7 +186,12 @@ class User
         new View('dashboard');
     }
 
-    public function facebookConnect ()
+    /**
+     * Facebook login
+     * 
+     * @return void
+     */
+    public function facebookConnect(): void
     {
         $token = new OAuth($_GET['code']);
         $info = $token->facebook();
@@ -171,7 +208,12 @@ class User
         new View('dashboard');
     }
 
-    public function lostPassword() 
+    /**
+     * Lost password page
+     * 
+     * @return void
+     */
+    public function lostPassword(): void
     {
         $user = new UserModel();
 
@@ -180,7 +222,14 @@ class User
         $view->assign("user", $user);
     }
 
-    public function lostPasswordAction() 
+    /**
+     * Lost password action page
+     * 
+     * @deprecated
+     * 
+     * @return void
+     */
+    public function lostPasswordAction(): void
     {
         $user = new UserModel();
 
@@ -198,7 +247,12 @@ class User
         // $email = $_POST['email'];
     }
 
-    public function resetPassword()
+    /**
+     * Reset password page
+     * 
+     * @return void
+     */
+    public function resetPassword(): void
     {
         $user = new UserModel();
 
@@ -222,11 +276,16 @@ class User
         $view->assign("user", $user);
     }
 
-    public function resetPasswordAction()
+    /**
+     * Reset password action
+     * 
+     * @return void
+     */
+    public function resetPasswordAction(): void
     {
 
         $user = new UserModel();
-
+        $_POST = array_map('htmlspecialchars', $_POST);
         if (!empty($_POST)) {
             Verificator::checkForm(
                 $user->getResetPasswordForm(),
@@ -246,6 +305,11 @@ class User
         new View('login');
     }
 
+    /**
+     * Logout action
+     * 
+     * @return void
+     */
     public function logout()
     {
         session_destroy();

@@ -8,6 +8,6 @@ class Error
 {
     public function home()
     {
-        $view = new View("404", "back");
+        $view = new View("error404", "back");
     }
 }

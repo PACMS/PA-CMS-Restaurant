@@ -151,6 +151,69 @@ $(document).ready(function () {
     $("section.container-forgetPassword p#with-pwd").addClass("active");
     e.target.classList.add("active");
   });
+  //select choice without password
+  $(
+    "section.container-forgetPassword div#passwordChoice h3#withoutPassword"
+  ).click(function (e) {
+    $(
+      "section.container-forgetPassword div#passwordChoice h3#withPassword"
+    ).removeClass("active");
+    $("section.container-forgetPassword p#with-pwd").removeClass("active");
+    $("section.container-forgetPassword p#without-pwd").addClass("active");
+    e.target.classList.add("active");
+  });
+
+  //Carte Part
+  $("main#meals div.modal > form").append("<p class='close'>close</p>");
+
+  $("main#meals div.modal > form > p.close").click(function (e) {
+    $("div.modal").hide();
+  });
+
+  $("header#meals article#Add button#addCategorie").click(function (e) {
+    console.log("click");
+    $("main#meals div.modal.addCategorie").toggle();
+  });
+
+  $("button#addMeal").click(function (e) {
+    $("div.modal.addMeal").toggle();
+  });
+
+  $("figure#editCategorie").click(function (e) {
+    $(e.target.parentElement.children[1]).hide();
+    $(e.target.parentElement.children[2]).hide();
+    $(e.target.parentElement.children[0]).removeClass("hidden");
+  });
+
+  $("span#editMeal").click(function (e) {
+    $(e.target.parentElement.parentElement.parentElement).hide();
+    $(
+      e.target.parentElement.parentElement.parentElement.parentElement
+        .children[0]
+    ).removeClass("hidden");
+  });
+
+  $("span#deleteMeal").click(function (e) {
+    $.post("/restaurant/carte/meals/deleteMeal", {
+      id: e.target.getAttribute("data-id-meal"),
+    });
+    location.reload();
+  });
+
+  $("span#deleteCategorie").click(function (e) {
+    $.post("/restaurant/carte/meals/deleteCategorie", {
+      id: e.target.getAttribute("data-id-categorie"),
+    });
+    location.reload();
+  });
+
+  $("span#deleteFood").click(function (e) {
+    $.post("/restaurant/carte/meals/deleteFoods", {
+      id: e.target.getAttribute("data-id-food"),
+      id_meal: e.target.getAttribute("data-id-meal"),
+    });
+    location.reload();
+  });
 
   $("#navbarButton").click(function () {
     $(this).children(".far").toggleClass("rotated");
@@ -167,7 +230,6 @@ $(document).ready(function () {
 
   $("#alert-close").on("click", function (event) {
     $(".alert-window").css("visibility", "hidden");
-    console.log("ok");
   });
 
   $("#editProfile").on("click", function (event) {
@@ -206,12 +268,12 @@ $(document).ready(function () {
     );
     $("div#sectionButton").append(cancelButton);
 
-    // $("#btncancel").on("click", function (event) {
-    //   event.target.disabled = true;
-    // });
+    $("#btncancel").on("click", function (event) {
+      event.target.disabled = true;
+    });
 
     var submitButton = $(
-      "<button class='btn btn-submit' type='submit' id='btncancel'>Confirmer </button>"
+      "<button class='btn btn-submit' type='submit' id='btnConfirm'>Confirmer </button>"
     );
     $("button#btncancel").after(submitButton);
 
@@ -242,15 +304,7 @@ $(document).ready(function () {
     language: {
       url: "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/French.json",
     },
-    columnDefs: [
-      { className: "dt-center", targets: "_all" },
-      {
-        targets: 7,
-        data: null,
-        defaultContent:
-          "<a href=''><i class='fas fa-pen'></i></a><a href=''><i class='fas fa-times-circle'></i></a>",
-      },
-    ],
+    columnDefs: [{ className: "dt-center", targets: "_all" }],
     order: [3, "desc"],
     columns: [
       null,
@@ -270,9 +324,16 @@ $(document).ready(function () {
     pageLength: 10,
     info: true,
   });
-  // Refilter the table
-  $("#min, #max").on("change", function () {
-    table.draw();
+  $("#pageTable").dataTable({
+    language: {
+      url: "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/French.json",
+    },
+    columnDefs: [{ className: "dt-center", targets: "_all" }],
+    order: [1, "desc"],
+    columns: [null, null, null, { type: "date-eu" }, { type: "date-eu" }, null],
+
+    searching: true,
+    info: true,
   });
 
   $("#usersTable").dataTable({

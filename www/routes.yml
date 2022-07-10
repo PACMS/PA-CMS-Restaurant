@@ -34,6 +34,10 @@
   controller: user
   action: register
 
+/register/validate:
+  controller: user
+  action: notifyValidation
+
 /googleConnect:
   controller: user
   action: googleConnect
@@ -111,6 +115,30 @@
   controller: restaurant
   action: getOneRestaurant
 
+/restaurant/page:
+  controller: page
+  action: index
+
+/page/delete:
+  controller: page
+  action: delete
+
+/page/show:
+  controller: page
+  action: showPage
+
+/restaurant/pagecreate:
+  controller: page
+  action: createPage
+
+/restaurant/page/edit:
+  controller: page
+  action: edit
+
+/restaurant/pagesave:
+  controller: page
+  action: savePage
+
 /restaurant:
   controller: restaurant
   action: restaurantOptions
@@ -131,11 +159,15 @@
 
 /restaurant/carte/create:
   controller: carte
-  action: createCarte
+  action: createCarteView
 
 /restaurant/updateCarte:
   controller: carte
   action: updateCarte
+
+/restaurant/createCarte:
+  controller: carte
+  action: createCarte
 
 /restaurant/carte/delete:
   controller: carte
@@ -173,8 +205,24 @@
   controller: meal
   action: deleteMeal
 
+/restaurant/carte/meals/deleteFoods:
+  controller: mealsFoods
+  action: deleteFoods
+
+# Route pour les thèmes
+
+/themes:
+  controller: admin
+  action: themes
+  security: "admin"
+
+/themes/switchTheme:
+  controller: theme
+  action: switchTheme
+  security: "admin"
+
 # Route pour la reservation
-/reservation:
+/restaurant/reservation:
   controller: reservation
   action: reservation
   security: "employee"
@@ -187,7 +235,7 @@
   controller: reservation
   action: addReservationClient
 
-/addReservation:
+/restaurant/addReservation:
   controller: reservation
   action: addReservation
   security: "employee"
@@ -232,6 +280,26 @@
   action: deleteComment
   security: "admin"
 
+/showComments:
+  controller: comment
+  action: showComments
+
+# Route pour la gestion des utilisateurs
+
+/restaurant/statistiques:
+  controller: stats
+  action: stats
+
+/restaurant/editReservation:
+  controller: reservation
+  action: edit
+  security: "employee"
+
+/restaurant/deleteReservation:
+  controller: reservation
+  action: delete
+  security: "employee"
+
 # Route pour la gestion des utilisateurs
 
 /users:
@@ -268,7 +336,57 @@
   action: logout
   security: "user"
 
+/theme:
+  controller: theme
+  action: render
+
+/theme/:id:
+  controller: theme
+  action: home
+
+/theme/story/:id:
+  controller: theme
+  action: story
+
+/theme/menu/:id:
+  controller: theme
+  action: menu
+
+/theme/reservation/:id:
+  controller: theme
+  action: reservation
+
+/theme/contact/:id:
+  controller: theme
+  action: contact
+
 /notFound:
   controller: user
   action: errorNotFound
   security: "employee"
+
+/sitemap:
+  controller: globalController
+  action: sitemap
+
+/sitemap.xml:
+  controller: globalController
+  action: sitemapXML
+
+# Setup
+
+/setup:
+  controller: globalController
+  action: setup
+
+/setupAdmin:
+  controller: globalController
+  action: setupAdmin
+
+/setupAction:
+  controller: globalController
+  action: setupAction
+
+/test:
+  controller: carte
+  action: asupprimer

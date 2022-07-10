@@ -116,6 +116,7 @@ class Meal extends Sql
         $this->id_categories = $id_categories;
     }
 
+
    
 
      
@@ -143,7 +144,7 @@ class Meal extends Sql
         return $meal;
     }
 
-    public function getAddMeal(array $categories = [], array $food = []): array
+    public function getAddMeal(?array $categories = [], ?array $food = []): array
     {
         $options = [];
         foreach ($categories as $key => $value) {
@@ -165,14 +166,12 @@ class Meal extends Sql
                     "type" => "text",
                     "label" => "Nom du menu",
                     "required" => true,
-                    "value" => "test",
                 ],
                 "price" => [
                     "type" => "text",
                     "label" => "Prix",
                     "required" => true,
                     "error" => "Votre prix ne peut pas contenir de caractères",
-                    "value" => "12"
                 ],
                 "description" => [
                     "type" => "textarea",
@@ -194,6 +193,73 @@ class Meal extends Sql
                     "multiple" => false,
                     "options" => $options,
                     "required" => true
+                ],
+                "ingredients" => [
+                    "type" => "select",
+                    "label" => "Ingrédients",
+                    "id" => "ingredients",
+                    "placeholder" => "Choisissez un/plusieurs ingrédient(s)",
+                    "default" => null,
+                    "multiple" => true,
+                    "options" => $food,
+                    "required" => false
+                ],
+            ]
+        ];
+    }
+
+    public function getUpdateMeal(?array $meal, ?array $categories = [], ?array $food = []): array
+    {
+        $options = [];
+        foreach ($categories as $key => $value) {
+            if ($value["id_carte"] == $_SESSION["id_card"]) {
+                $options[$value["id"]] = ($value["name"]);
+            }
+        }
+        return [
+            "config" => [
+                "method" => "POST",
+                "action" => "/restaurant/carte/meals/updateMeal",
+                "class" => "hidden flex flex-column",
+                "id" => "updateMeal",
+                "submit" => "Modifier",
+                'captcha' => false
+            ],
+            "inputs" => [
+                "name" => [
+                    "type" => "text",
+                    "label" => "Nom du menu",
+                    "required" => true,
+                    "value" => $meal["name"]
+                ],
+                "price" => [
+                    "type" => "text",
+                    "label" => "Prix",
+                    "required" => true,
+                    "value" => $meal["price"],
+                    "error" => "Votre prix ne peut pas contenir de caractères",
+                ],
+                "description" => [
+                    "type" => "textarea",
+                    "maxlength" => 200,
+                    "id" => "mealDescription",
+                    "label" => "Description",
+                    "value" => $meal["description"]
+                ],
+                "id" => [
+                    "type" => "hidden",
+                    "value" =>  $meal["id"],
+                    "required" => true
+                ],
+                "IdCarte" => [
+                    "type" => "hidden",
+                    "value" => intval($_SESSION["id_card"]),
+                    "required" => true
+                ],
+                "IdCategorie" => [
+                    "type" => "hidden",
+                    "required" => true,
+                    "value" => $meal["id_categories"]
                 ],
                 "ingredients" => [
                     "type" => "select",

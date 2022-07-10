@@ -8,6 +8,8 @@
         public function select(string $table, array $columns): QueryBuilder;
 
         public function where(string $column, string $value, string $operator = "="): QueryBuilder;
+
+        public function rightJoin(string $table, string $fk, string $pk): QueryBuilder;
         
         public function limit(int $from, int $offset = 1): QueryBuilder;
 
@@ -58,6 +60,12 @@
                 $this->data = array_merge([htmlentities($column) => htmlentities($value)], $this->data);
             }
             $this->query->where[] = $column . $operator . " :" . htmlentities($column);
+            return $this;
+        }
+
+        public function rightJoin(string $table, string $fk, string $pk): QueryBuilder 
+        {
+            $this->query->join[] = " RIGHT JOIN "  . DBPREFIXE . $table . " ON " . $pk . " = " . $fk;
             return $this;
         }
 
@@ -124,6 +132,10 @@
             $data = $this->data;
 
             $sql = $query->base;
+
+            if (!empty($query->join)) {
+                $sql .= implode(' ', $query->join);
+            }
 
             if (!empty($query->where)) {
                 $sql .= " WHERE "  . implode(' AND ', $query->where);

@@ -72,9 +72,17 @@ abstract class Sql
         return null;
     }
 
-    protected function databaseFindAll(string $sql, array $params = [])
+    /**
+     * Find all rows in the database with a SQL query and parameters
+     * 
+     * @param string     $sql    SQL query
+     * @param null|array $params Parameters for the SQL query [key => value] (default: [])
+     * 
+     * @return array|null
+     */
+    protected function databaseFindAll(string $sql, ?array $params = []): ?array
     {
-        if($params !== []){
+        if ($params !== []) {
             foreach ($params as $key => $whereValue) {
                 $where[] = $key . " = :" . $key;
             }
@@ -109,7 +117,6 @@ abstract class Sql
         }
     }
 
-
     /**
      * Update the status of a line in the database
      * 
@@ -137,8 +144,7 @@ abstract class Sql
         $columns = get_object_vars($this);
         $varToExclude = get_class_vars(get_class());
         $columns = array_diff_key($columns, $varToExclude);
-        
-        if (empty($_POST['id']) || is_null($_POST['id'])) {
+        if ((empty($_POST['id']) || is_null($_POST['id'])) && is_null($columns['id'])) {
             $sql = "INSERT INTO " . $this->_table . " (" . implode(",", array_keys($columns)) . ") VALUES (:" . implode(",:", array_keys($columns)) . ")";
         } else {
             $update = [];
@@ -183,7 +189,7 @@ abstract class Sql
         if (is_null($email)) {
             die("L'email ne correspond pas !");
         } else {
-            if (is_null($this->databaseFindOne(["email" => $email,"token" => $tokenToVerify]))) {
+            if (is_null($this->databaseFindOne(["email" => $email, "token" => $tokenToVerify]))) {
                 echo "Le token est invalide";
             } else {
                 // echo "l'authentification token à réussi";
@@ -199,9 +205,9 @@ abstract class Sql
      * 
      * @param array $whereClause An associative array of where clause
      * 
-     * @return array|null Returns an associative array or null if no result
+     * @return array|object|null Returns an associative array or null if no result
      */
-    public function findOneBy(array $whereClause): ?array
+    public function findOneBy(array $whereClause)
     {
         $columns = get_object_vars($this);
         $varToExclude = get_class_vars(get_class());
@@ -212,8 +218,8 @@ abstract class Sql
         }
 
         $sql = "SELECT * FROM " . $this->_table . " WHERE " . implode(",", $where);
-
         $queryPrepared = $this->_pdo->getPdo()->prepare($sql);
+
         if ($queryPrepared !== false) {
             $success = $queryPrepared->execute($whereClause);
             if ($success) {

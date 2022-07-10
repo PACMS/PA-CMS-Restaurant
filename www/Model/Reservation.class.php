@@ -16,7 +16,7 @@ class Reservation extends Sql
     protected $numPerson;
     protected $numTable;
     protected $phoneReserv;
-    protected $status;
+    protected $id_restaurant;
 
     public function __construct()
     {
@@ -27,6 +27,16 @@ class Reservation extends Sql
     {
         return $this->id;
     }
+
+    /**
+     * @param null $id
+     */
+    public function setId($id): void
+    {
+        $this->id = $id;
+    }
+
+   
 
     /**
      * @return mixed
@@ -156,6 +166,25 @@ class Reservation extends Sql
         $this->status = $status;
     }
 
+
+     /**
+     * @return mixed
+     */
+    public function getIdRestaurant()
+    {
+        return $this->id_restaurant;
+    }
+
+    /**
+     * @param mixed $id_restaurant
+     */
+    public function setIdRestaurant($id_restaurant): void
+    {
+        $this->id_restaurant = $id_restaurant;
+    }
+
+
+
     public function save(): void
     {
         //Pré traitement par exemple
@@ -164,9 +193,23 @@ class Reservation extends Sql
     }
     public function getAll(): array
     {
-       return parent::getAll();
+        return parent::getAll();
     }
-
+    public function getAllReservationsFromRestaurant(int $id)
+    {
+        $reservations = parent::databaseFindAll("SELECT * FROM " . DBPREFIXE . "reservation" , ['id_restaurant' => $id]);
+        return $reservations;
+    }
+    public function databaseDeleteOneReservation(array $params)
+    {
+        $reservations = parent::databaseDeleteOne("DELETE FROM " . DBPREFIXE . "reservation" . " WHERE id = :id", $params);
+        return $reservations;
+    }
+    // $param à mettre en param et à la fin de la fonction
+    public function getAllReservation(): array
+    {
+        return parent::databaseFindAll("SELECT * FROM " . DBPREFIXE .  "reservation WHERE date BETWEEN NOW() AND DATE_ADD(NOW(), INTERVAL 15 DAY)");  
+    }
 
     public function EndForMailReservation(int $id = null) {
         return [
@@ -186,7 +229,8 @@ class Reservation extends Sql
         ];
     }
 
-    public function getModalForm() {
+    public function getModalForm()
+    {
         return [
             "config"=>[
                 "method"=>"POST",
@@ -215,7 +259,10 @@ class Reservation extends Sql
                     "label"=>"Nombre de personne",
                     "type"=>"number",
                     "class"=>"formReservation",
-                    "max"=>20,
+                    "min" => 1,
+                    "minlength" => 1,
+                    "max"=>10,
+                    "maxlength"=>10,
                 ],
 
                 "numTable"=>[
@@ -223,6 +270,7 @@ class Reservation extends Sql
                     "type"=>"number",
                     "class"=>"formReservation",
                     "max"=>20,
+                    "maxlength"=>20,
                 ],
                 "date"=>[
                     "label"=>"Date de reservation",
@@ -242,14 +290,17 @@ class Reservation extends Sql
                     "type"=>"tel",
                     "class"=>"formRestaurant",
                     "min"=>10,
+                    "minlength"=>10,
                     "max"=>10,
+                    "maxlength"=>10,
 
                 ],
                 
             ]
         ];
     }
-    public function getClientModalForm() {
+    public function getClientModalForm()
+    {
         return [
             "config"=>[
                 "method"=>"POST",
@@ -278,7 +329,10 @@ class Reservation extends Sql
                     "label"=>"Nombre de personne",
                     "type"=>"number",
                     "class"=>"formReservation",
-                    "max"=>20,
+                    "min"=>1,
+                    "minlength"=>1,
+                    "max"=>10,
+                    "maxlength"=>10,
                 ],
 
                 "numTable"=>[
@@ -286,6 +340,7 @@ class Reservation extends Sql
                     "type"=>"number",
                     "class"=>"formReservation",
                     "max"=>20,
+                    "maxlength"=>20,
                 ],
                 "date"=>[
                     "label"=>"Date de reservation",
@@ -304,8 +359,10 @@ class Reservation extends Sql
                     "label"=>"Numéro de téléphone",
                     "type"=>"tel",
                     "class"=>"formRestaurant",
-                    "min"=>10,
-                    "max"=>10,
+                    "min"=>4,
+                    "minlength"=>4,
+                    "max"=>15,
+                    "maxlength"=>15,
 
                 ],
                 
@@ -329,6 +386,7 @@ class Reservation extends Sql
                     "label"=>"Nom et prénom",
                     "type"=>"text",
                     "class"=>"formReservation",
+                    "value" => $_SESSION['user']['firstname'] . ' ' . $_SESSION['user']['lastname'] ?? ''
                 ],
                 "email" => [
                     "label"=>"Adresse mail",
@@ -338,6 +396,7 @@ class Reservation extends Sql
                     "class" => "formReservation",
                     "required" => true,
                     "error" => "Votre email n'est pas correct",
+                    "value" => $_SESSION['user']['email'] ?? ''
                 ],
                 "numPerson"=>[
                     "label"=>"Nombre de personne",

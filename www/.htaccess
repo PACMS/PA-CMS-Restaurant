@@ -1,6 +1,16 @@
+Options All -Indexes
+
 RewriteEngine on
 
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{REQUEST_FILENAME} !-f
 
 RewriteRule . index.php [L]
+
+<FilesMatch "\.(php|crt|key|yml|sql|json|md)$">
+    Deny from all
+</FilesMatch>
+
+<Files index.php>
+  Allow from all
+</Files>

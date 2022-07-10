@@ -11,8 +11,8 @@
                 </div>
 
                 <div class="flex-column">
-                    <p class="title"><?php echo $_SESSION['user']['firstname'] ?></p>
-                    <p class="role top-32"><?php echo $_SESSION['user']['role'] == 'admin' ? "Patron" : "Employé"; ?></p>
+                    <p class="title"><?= $_SESSION['user']['firstname'] ?></p>
+                    <p class="role top-32"><?= $_SESSION['user']['role'] == 'admin' ? "Admin" : "Employé"; ?></p>
                 </div>
 
                 <button id="editProfile">

@@ -3,9 +3,14 @@
 namespace App\Controller;
 
 use App\Core\Verificator;
+use App\Core\CreatePage;
 use App\Core\View;
+use App\Model\Content;
+use App\Model\Page;
 use App\Model\Restaurant as RestaurantModel;
 use App\Model\Stock as StockModel;
+use App\Core\MysqlBuilder;
+
 
 class Restaurant
 {
@@ -23,8 +28,9 @@ class Restaurant
             array_push($restaurantsIds, $restau["id"]);
         }
         $_SESSION["restaurantsIds"] = $restaurantsIds;
-        $view = new View("restaurants");
-        $view->assign('restaurant', $allRestaurants);
+        $view = new View("restaurants", 'back');
+        $view->assign('restaurants', $allRestaurants);
+        $view->assign('restaurant', $restaurant);
     }
 
     // Supprimer un restaurant depuis la page /restaurant/information
@@ -35,7 +41,16 @@ class Restaurant
             header('Location: /restaurants');
         }
         $restaurant = new RestaurantModel();
+        $builder = new MysqlBuilder();
+        $page = new Page();
+        $name = $builder->select('restaurant', ["name"])
+                    -> where('id' ,$_SESSION["restaurant"]["id"])
+                    ->fetchClass("restaurant")
+                    ->fetch();
+                    $name = $restaurant->removeAccents(strtolower($name->getName()));
         $restaurant->databaseDeleteOneRestaurant(["id" => $_SESSION["restaurant"]["id"]]);
+        $dirname = $_SERVER["DOCUMENT_ROOT"] . '/View/pages/' .  $name . '/';
+        $result = $page->deleteDirectory($dirname);
         $_SESSION["restaurant"]["id"] = null;
         header('Location: /restaurants');
     }
@@ -47,7 +62,7 @@ class Restaurant
         $restaurant = new RestaurantModel();
         $oneRestaurant = $restaurant->getOneRestaurant($_SESSION["restaurant"]["id"]);
         $restaurant->hydrate($oneRestaurant);
-        $view = new View("restaurant-info");
+        $view = new View("restaurant-info", "back");
         $view->assign('restaurant', $restaurant);
         $view->assign('oneRestaurant', $oneRestaurant);
     }
@@ -56,19 +71,52 @@ class Restaurant
     public function createOneRestaurant()
     {
         $restaurant = new RestaurantModel();
+        $page = new Page();
         $errors = null;
-
         session_start();
         if (!empty($_POST) && $_POST["user_id"] == $_SESSION["user"]["id"]) {
+
+            $_POST = array_map('htmlspecialchars', $_POST);
             $errors = Verificator::checkForm($restaurant->getCompleteRestaurantForm(), $_POST + $_FILES);
+
+           
             if (!$errors) {
+                
                 $restaurant->hydrate($_POST);
+                $name = $restaurant->removeAccents(strtolower($restaurant->getName()));
+                $dirname = $_SERVER["DOCUMENT_ROOT"] . '/View/pages/' .  $name . '/';
+                $url ='pages/' .  $name . '/index';
+                if (!is_dir($dirname))
+                {
+                    mkdir($dirname, 0755, true);
+                    $fp = fopen('View/' . $url . '.view.php', 'w+');
+                    $inputs['title'] = 'index';
+                    $array_body[] = "Hello World" ;
+                    (new \App\Core\CreatePage)->createBasicPageIndex($fp, $inputs, $array_body);
+                    fclose($fp);
+                }
                 // $restaurant->setId(null);
                 $restaurant->save();
+
+                $pageRestaurant = $restaurant->findOneBy(['name' => $restaurant->getName()]);
+                $page->setTitle($inputs['title']);
+                $page->setUrl($url);
+                $page->setStatus(0);
+                $page->setDisplayMenu(0);
+                $page->setDisplayComments(0);
+                $page->setIdRestaurant($pageRestaurant['id']);
+                $page->save();
+                $page = $page->findOneBy(['url' => $page->getUrl()]);
+                $content = new Content();
+                $content->setIdPage($page['id']);
+                $content->setBody($array_body[0]);
+                $content->save();
+
                 $restaurantId =  $restaurant->last()->id;
                 $stock = new StockModel;
                 $stock->hydrate(['restaurantId' => $restaurantId]);
                 $stock->save();
+
                 return header('Location: /restaurants');
             }
         }
@@ -83,6 +131,7 @@ class Restaurant
         $restaurant = new RestaurantModel();
         $errors = null;
         if (!empty($_POST) && $_POST["id"] == $_SESSION["restaurant"]["id"]) {
+            $_POST = array_map('htmlspecialchars', $_POST);
             $errors = Verificator::checkForm($restaurant->getCompleteUpdateRestaurantForm(), $_POST + $_FILES);
             if (!$errors) {
                 $restaurant->hydrate($_POST);
@@ -98,7 +147,7 @@ class Restaurant
     {
         $restaurant = new RestaurantModel();
         $errors = null;
-        $view = new View("create-restaurant");
+        $view = new View("create-restaurant", "back");
         $view->assign('restaurant', $restaurant);
         $view->assign("errors", $errors);
     }
@@ -107,6 +156,7 @@ class Restaurant
     public function restaurantOptions()
     {
         session_start();
+        $_POST = array_map('htmlspecialchars', $_POST);
         if (!in_array($_POST["id"], $_SESSION["restaurantsIds"])) {
             return header('Location: /restaurants');
         }
@@ -115,8 +165,14 @@ class Restaurant
         $restaurant = new RestaurantModel();
         $oneRestaurant = $restaurant->getOneRestaurant($id);
         $_SESSION["restaurant"]["name"] = $oneRestaurant["name"];
+        $builder = new MysqlBuilder();
+        $stock = $builder->select("stock", ["id"])
+                        ->where("restaurantId", $_SESSION["restaurant"]["id"])
+                        ->fetchClass("stock")
+                        ->fetch();
+        $_SESSION["stock"]["id"] = $stock->getId();
         $restaurant->hydrate($oneRestaurant);
-        $view = new View("restaurant");
+        $view = new View("restaurant", "back");
         $view->assign('restaurant', $restaurant);
         $view->assign('oneRestaurant', $oneRestaurant);
     }

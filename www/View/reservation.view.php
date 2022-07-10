@@ -4,18 +4,7 @@
 <?php $this->includePartial("sidebar"); ?>
     <div id="pseudo-element"></div>
     <section class="flex flex-column secondPart">
-        <div class="flex justify-content-between navbar align-items-center">
-            <h1>Reservation</h1>
-            <div id="profileDiv">
-                <a href="#">
-                    <p><?php echo $_SESSION['user']['firstname'] ?><i class="fas fa-user"></i></p>
-                </a>
-                <button>
-                    <i class="far fa-moon"></i>
-                    <i class="fas fa-toggle-off"></i>
-                </button>
-            </div>
-        </div>
+    <?php $this->includePartial("topBar", ["title" => "Reservation"]); ?>
         <section class="formProfile flex flex-column">
             <div id="open-modal" class="modal-window">
                 <div class="flex flex-column">
@@ -23,6 +12,7 @@
                     <?php $this->includePartial("form", $reservation->getModalForm()); ?>
                 </div>
             </div>
+
             <a class='btn btn-submit pr-20 pl-20 w-48' href="#open-modal" id='btncancel'>Ajout de reservation</a>
             <section class="grid" style="margin-top: 35px;">
                 <div class="row">
@@ -50,16 +40,26 @@
                                 <?php
                                     foreach ($data as $reservationInfo) :
                                 ?>
+                                    
                                    <tr>
-                                       <td> <?php echo $reservationInfo->id ?> </td>
-                                       <td> <?php echo $reservationInfo->name ?> </td>
-                                       <td> <?php echo $reservationInfo->numPerson ?> </td>
-                                       <td> <?php echo $reservationInfo->date ?> </td>
-                                       <td> <?php echo $reservationInfo->hour ?> </td>
-                                       <td> <?php echo $reservationInfo->numTable ?> </td>
-                                       <td> <?php echo $reservationInfo->phoneReserv ?> </td>
-                                       <td></td>
-                                       <td> <?php $this->includePartial("form", $reservation->EndForMailReservation(intval($reservationInfo->id))); ?> </td>
+                                       <td> <?= $reservationInfo["id"] ?> </td>
+                                       <td> <?= $reservationInfo["name"] ?> </td>
+                                       <td> <?= $reservationInfo["numPerson"] ?> </td>
+                                       <td> <?= $reservationInfo["date"] ?> </td>
+                                       <td> <?= $reservationInfo["hour"] ?> </td>
+                                       <td> <?= $reservationInfo["numTable"] ?> </td>
+                                       <td> <?= $reservationInfo["phoneReserv"] ?> </td>
+                                       <td>
+                                           <a href="#open-modalEdit<?= $reservationInfo['id'] ?>" id='btncancel'>
+                                               <i class='fas fa-pen'></i>
+                                           </a>
+                                           <a href='/restaurant/deleteReservation?id=<?= $reservationInfo['id']?>'>
+                                               <i class='fas fa-times-circle'></i>
+                                           </a>
+                                       </td>
+                                       <td> <?php $this->includePartial("form", $reservation->EndForMailReservation(intval($reservationInfo["id"]))); ?> </td>
+                                       
+                                      
                                    </tr>
                                 <?php
                                     endforeach;

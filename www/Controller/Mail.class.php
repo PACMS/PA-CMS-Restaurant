@@ -14,13 +14,13 @@ class Mail
         $view = new View("testmail");
     }
 
-    public function sendConfirmMail(?string $token, ?string $email)
+    public function sendConfirmMail($user)
     {
 
         try {
             $actualDateTime = new \DateTime();
             $actualDateTime = $actualDateTime->format('YmdHis');
-            $message = "http://localhost/verifyToken?token=" . $token . '&email=' . $email . '&date=' . $actualDateTime;
+            $message = "http://localhost/verifyToken?token=" . $user->getToken() . '&email=' . $user->getEmail() . '&date=' . $actualDateTime;
             $phpmailer = new PHPMailer();
             //Server settings
             $phpmailer->isSMTP();
@@ -33,15 +33,20 @@ class Mail
 
             //Recipients
             $phpmailer->setFrom('pa.cms.test@gmail.com', 'PCR Contact');
-            $phpmailer->addAddress($email);     //Add a recipient
+            $phpmailer->addAddress($user->getEmail());     //Add a recipient
 
 
             //Content
             $phpmailer->isHTML(true);                                  //Set email format to HTML
-            $phpmailer->Subject = 'Salut Vivian ruhlmann';
-            $phpmailer->Body    = "This is the HTML message body <b>in bold!</b>
-                                   <a href={$message}>Lien de confirmation</a>
-                                   <b>Ce mail n'est valable que 10 minutes</b>";
+            $phpmailer->Subject = 'Valider votre inscription !';
+            // $phpmailer->Body    = "This is the HTML message body <b>in bold!</b>
+            //                        <a href={$message}>Lien de confirmation</a>
+            //                        <b>Ce mail n'est valable que 10 minutes</b>";
+            $phpmailer->Body    = "Bonjour {$user->getLastname()} {$user->getFirstname()}, <br>
+                                Pour valider votre inscription à notre site veuillez vous connectez avec ce lien:  <br> 
+                                <a href={$message}>Lien de confirmation</a><br>
+                                Merci pour votre inscription ! <br>
+                                L'équipe PACM";
 
             $phpmailer->send();
             echo 'Message has been sent';
@@ -126,7 +131,7 @@ class Mail
         try {
             $actualDateTime = new \DateTime();
             $actualDateTime = $actualDateTime->format('YmdHis');
-            $message = "http://localhost/addComment?restaurant={$id_restaurant}";
+            $message = "http://localhost/restaurant/comments";
             $phpmailer = new PHPMailer();
             //Server settings
             $phpmailer->isSMTP();
@@ -147,7 +152,7 @@ class Mail
             //Content
             $phpmailer->isHTML(true);                                  //Set email format to HTML
             $phpmailer->Subject = "Vous avez un nouveau commentaire en attente";
-            $phpmailer->Body    = "Bonjour {$user->getFirstName()} {$user->getLastName()}, Vous avez un nouveau commentaire à valider !!";
+            $phpmailer->Body    = "Bonjour {$user->getFirstName()} {$user->getLastName()}, Vous avez un nouveau commentaire à valider !! {$message}";
             $phpmailer->send();
             echo 'Message has been sent';
         } catch (Exception $e) {

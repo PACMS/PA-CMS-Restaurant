@@ -21,3 +21,58 @@
     align-items: center;
     flex-direction: column;
 }
+
+section#comments {
+    padding: 10px;
+
+    h1 {
+        margin: 0;
+        color: black;
+    }
+
+    section {
+        border: 1px solid black;
+        border-radius: 16px;
+        margin-bottom: 10px;
+
+        article {
+
+            & article {
+                margin-left: 50px;
+            }
+
+            header {
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                border-bottom: 1px solid black;
+                margin: 10px;
+
+                h3 {
+                    margin: 0;
+                }
+
+                time {
+                    font-weight: 600;
+                    color: #C4C4C4;
+                }
+            }
+
+            main {
+                margin: 10px;
+
+            } 
+
+            footer {
+                margin: 10px;
+                display: flex;
+                justify-content: flex-end;
+            }
+
+            &:not(article:first-child) {
+                border-top: 1px solid black;
+
+            }
+        }
+    }
+}

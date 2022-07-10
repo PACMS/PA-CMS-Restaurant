@@ -29,6 +29,7 @@ class Comment
     {
         @session_start();
         $mail = new Mail();
+        $_POST = array_map('htmlspecialchars', $_POST);
         $_POST["id_restaurant"] = intval($_POST["id_restaurant"]);
         $_POST["id_user"] = intval($_SESSION["user"]["id"]);
         $request = new MysqlBuilder();
@@ -47,9 +48,12 @@ class Comment
 
     public function getComments()
     {
+        if(is_null($_SESSION["restaurant"]["id"])) {
+            header("Location: /restaurants");
+        }
         $request = new MysqlBuilder();
         $comment = new CommentModel();
-        $view = new View("comments", "front");
+        $view = new View("comments", "back");
         $result = $request->select("comments", ["*"])
                 ->where("id_restaurant", $_SESSION["restaurant"]["id"])
                 ->fetchClass("comment")
@@ -61,6 +65,7 @@ class Comment
     public function validateComment()
     {
         $request = new MysqlBuilder();
+        $_POST = array_map('htmlspecialchars', $_POST);
         $request
             ->update("comments", ["status" => 1])
             ->where("id", $_POST["id"])
@@ -72,10 +77,22 @@ class Comment
     public function deleteComment()
     {
         $request = new MysqlBuilder();
+        $_POST = array_map('htmlspecialchars', $_POST);
         $request
             ->delete("comments", ["id" => $_POST["id"]])
             ->fetchClass("comment")
             ->fetch();
         header("Location: /restaurant/comments");
+    }
+
+    public function showComments()
+    {
+        $request = new MysqlBuilder();
+        $result = $request->select("comments", ["*"])
+                ->where("id_restaurant", 74)
+                ->fetchClass("comment")
+                ->fetchAll();
+        $view = new View("comments-front", "front");
+        $view->assign('comments', $result);
     }
 }
