@@ -48,6 +48,9 @@ class Comment
 
     public function getComments()
     {
+        if(is_null($_SESSION["restaurant"]["id"])) {
+            header("Location: /restaurants");
+        }
         $request = new MysqlBuilder();
         $comment = new CommentModel();
         $view = new View("comments", "back");

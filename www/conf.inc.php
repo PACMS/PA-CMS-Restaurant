@@ -8,6 +8,7 @@ define('DBNAME', 'mvcdocker2');
 define('DBPORT', '3306');
 define('DBPREFIXE', 'pacm_');
 
+
 define("MHOST", "smtp.gmail.com");
 define("MUSERNAME", "pa.cms.test@gmail.com");
 define("MPASSWORD", "nsxktiyegnnvmlie");

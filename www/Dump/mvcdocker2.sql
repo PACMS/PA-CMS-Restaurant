@@ -61,6 +61,8 @@ CREATE TABLE `pacm_comments` (
   `content` varchar(400) NOT NULL,
   `status` tinyint(1) NOT NULL,
   `id_parent` int(11) NOT NULL DEFAULT '0',
+  `status` tinyint(1)  NULL DEFAULT '0',
+  `id_parent` int(11) DEFAULT NULL,
   `id_user` int(11) NOT NULL,
   `id_restaurant` int(11) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
