@@ -125,16 +125,7 @@ class Restaurant
             if (!$errors) {
                 $restaurant->hydrate($_POST);
                 $restaurant->save();
-<<<<<<< HEAD
-                if($restaurant->getFavorite() == 0){
-                    unset($_SESSION["restaurant"]["favorite"]) ;
 
-                }else{
-                    $_SESSION["restaurant"]["favorite"] = $restaurant->getId();
-                }
-
-=======
->>>>>>> parent of 22e7da6 (add favorite resto & display stats on dashboard)
                 return header('Location: /restaurants');
             }
         }
