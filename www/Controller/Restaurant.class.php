@@ -49,6 +49,7 @@ class Restaurant
                     ->fetch();
                     $name = $restaurant->removeAccents(strtolower($name->getName()));
         $restaurant->databaseDeleteOneRestaurant(["id" => $_SESSION["restaurant"]["id"]]);
+
         $dirname = $_SERVER["DOCUMENT_ROOT"] . '/View/pages/' .  $name . '/';
         $result = $page->deleteDirectory($dirname);
         $_SESSION["restaurant"]["id"] = null;
@@ -136,6 +137,13 @@ class Restaurant
             if (!$errors) {
                 $restaurant->hydrate($_POST);
                 $restaurant->save();
+                if($restaurant->getFavorite() == 0){
+                    unset($_SESSION["restaurant"]["favorite"]) ;
+
+                }else{
+                    $_SESSION["restaurant"]["favorite"] = $restaurant->getId();
+                }
+
                 return header('Location: /restaurants');
             }
         }

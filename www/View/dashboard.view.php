@@ -32,10 +32,22 @@
                 <a class="voir-plus-button" href="">Voir plus</a>
             </div>
         </section>
+<<<<<<< HEAD
+
+        <?php if(!empty($_SESSION["restaurant"]["favorite"])):?>
+        <h3 style="text-align: center">Voir restaurant favori : <?= $restaurant->getName() ?></h3>
+        <section class="grid">
+                <div class="row">
+                    <div class="cols-lg-12 cols-md-12 cols-sm-12">
+                        <div class="flex flex-column">
+
+                            <section class="bookingTableHeader flex justify-content-between">
+=======
         <section class="grid" style="margin-top: 35px;">
             <div class="row">
                 <div class="cols-lg-12 cols-md-12 cols-sm-12">
                     <div class="flex flex-column">
+>>>>>>> parent of 22e7da6 (add favorite resto & display stats on dashboard)
 
                         <section class="bookingTableHeader flex justify-content-between">
                             <section class="flex">
@@ -197,6 +209,9 @@
         </section>
 
     </section>
+    <?php else: ?>
+    <p>Vous n'avez aucun restaurant favori</p>
+    <?php endif; ?>
 </main>
 
 <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.4/js/jquery.dataTables.js"></script>
