@@ -16,6 +16,7 @@ class Reservation extends Sql
     protected $numPerson;
     protected $numTable;
     protected $phoneReserv;
+    protected $status;
     protected $id_restaurant;
 
     public function __construct()

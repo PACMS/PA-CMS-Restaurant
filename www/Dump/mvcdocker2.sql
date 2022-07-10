@@ -60,7 +60,7 @@ CREATE TABLE `pacm_comments` (
   `id` bigint(20) NOT NULL,
   `content` varchar(400) NOT NULL,
   `status` tinyint(1) NOT NULL,
-  `id_parent` int(11) DEFAULT NULL,
+  `id_parent` int(11) NOT NULL DEFAULT '0',
   `id_user` int(11) NOT NULL,
   `id_restaurant` int(11) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -189,18 +189,18 @@ CREATE TABLE `pacm_page` (
 --
 
 CREATE TABLE `pacm_reservation` (
-  `id` int(11) NOT NULL,
-  `name` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `email` varchar(320) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `date` date NOT NULL,
-  `hour` time NOT NULL,
-  `numTable` int(11) NOT NULL,
-  `numPerson` int(11) NOT NULL,
-  `phoneReserv` char(10) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `status` tinyint(1) NOT NULL DEFAULT '0',
-  `id_restaurant` int(11) NOT NULL,
-  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+    `id` int(11) NOT NULL,
+    `name` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+    `email` varchar(320) COLLATE utf8mb4_unicode_ci NOT NULL,
+    `date` date NOT NULL,
+    `hour` time NOT NULL,
+    `numTable` int(11) NOT NULL,
+    `numPerson` int(11) NOT NULL,
+    `phoneReserv` char(10) COLLATE utf8mb4_unicode_ci NOT NULL,
+    `status` tinyint(1) NOT NULL DEFAULT '0',
+    `id_restaurant` int(11) NOT NULL,
+    `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+    `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------

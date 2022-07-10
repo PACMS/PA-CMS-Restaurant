@@ -3,9 +3,12 @@
 namespace App\Core;
 
 use App\Core\MysqlBuilder;
+use App\Model\Comment;
 
 class CreatePage
 {
+    protected $comment_content;
+    protected $page;
 
     public function createBasicPageIndex($fp, $inputs, $array_body)
     {
@@ -19,28 +22,39 @@ class CreatePage
             }
         }
 
+        // On vérifie que l'utilisateur veut afficher les cartes
         if ($array_body["displayMenu"] == 1) {
             $builder = new MysqlBuilder();
+            // On récupére toutes les cartes selon des paramétres
             $carte = $builder->select("carte", ["*"])
                             ->where("id_restaurant", $_SESSION["restaurant"]["id"])
                             ->where("status", "1")
                             ->fetchClass("carte")
                             ->fetch();
+            // On Vérifie qu'il existe bien des cartes
+            if (!empty($carte)) {
+                $categories = $builder->select("categorie", ["*"])
+                                    ->where("id_carte", $carte->getId())
+                                    ->fetchClass("categorie")
+                                    ->fetchAll();
+                $meals = $builder->select("meal", ["*"])
+                                    ->where("id_carte", $carte->getId())
+                                    ->fetchClass("meal")
+                                    ->fetchAll();
+            }
 
-            $categories = $builder->select("categorie", ["*"])
-                                ->where("id_carte", $carte->getId())
-                                ->fetchClass("categorie")
-                                ->fetchAll();
 
-            $meals = $builder->select("meal", ["*"])
-                                ->where("id_carte", $carte->getId())
-                                ->fetchClass("meal")
-                                ->fetchAll();
-
+            // on va créer toute l'architecture du code pour afficher les cartes
             $page .= 
             "<section id=\"carte\">
                 <h3>Notre Carte :</h3>
-                <h1>{$carte->getName()}</h1>
+                <h1>";
+                if (!empty($carte)) {
+                    $page .= $carte->getName();
+                } else {
+                   $page .= "Pas de carte active !";
+                } 
+                $page .= "</h1>
                 <section id=\"categories\">";
                     if (!empty($categories)) {
                         foreach ($categories as $categorie) {
@@ -69,9 +83,9 @@ class CreatePage
                                                             array_push($foodArray, $food->getName());
                                                         }
                                                     }
-                                                    $page .= "</p>" . implode(", ", $foodArray) ."</p>";
+                                                    $page .= "<p>" . implode(", ", $foodArray) ."</p>";
                                                 } else {
-                                                    $page .= "</p>Aucun ingrédients renseigné</p>";
+                                                    $page .= "<p>Aucun ingrédients renseigné</p>";
                                                 }
                                                 $page .= "<p>". empty($meal->getDescription()) != 0 ? $meal->getDescription() : "Pas de description renseigné" . "</p>";
                                             $page .= "</li>";
@@ -81,25 +95,83 @@ class CreatePage
                             } else {
                                 $page .= "<p>Aucun plats n'a été renseigné !</p>";
                             }
-                            $page .=
-                                "</article>
-                            ";
+                            $page .="</article>";
                         } 
                     } else {
                         $page .= "<p>Aucune catégorie n'a été renseigné !</p>";
-
-                $page .= 
-              "  </section>  
-            </section>";
-        }
-
+                    }
+                    $page .= "</section></section>";
+    }
         if ($array_body["displayComment"] == 1) {
-            $page .= '<section>comment</section>';
+            $builder = new MysqlBuilder();
+            $comments = $builder->select("comments", ["*"])
+                            ->where("id_restaurant", $_SESSION["restaurant"]["id"])
+                            ->where("status", "1")
+                            ->fetchClass("comment")
+                            ->fetchAll();
+            if (!empty($comments)) {
+                $page .= '<section id="comments">
+                    <h1>Avis</h1>';
+                $page .= $this->getCommentForParent();
+                $page .= "</section>";
+            } else {
+                $page .= '<section id="comments">
+                <h1>Commentaires :</h1>
+                <p>Aucun commentaires n\'a été publié !</p>
+                </section>';
+            }
         }
 
 
-        
+        $page .= "</section>";
         fwrite($fp, $page);
-        // fclose($fp);
-    }}
+    }
+
+    function getCommentForParent($parent=0) 
+    {
+        $builder = new MysqlBuilder();
+        $commentModel = new Comment();
+        $comments = $builder->select("comments", ["*"])
+                            ->where("id_restaurant", $_SESSION["restaurant"]["id"])
+                            ->where("id_parent", $parent)
+                            ->where("status", "1")
+                            ->fetchClass("comment")
+                            ->fetchAll();
+        
+        foreach($comments as $comment) {
+            $user = $builder->select("user", ["*"])
+                        ->where("id", $comment->getIdUser())
+                        ->fetchClass("user")
+                        ->fetch();
+                $this->comment_content .= "
+                <article>
+                    <header>
+                        <h3>{$user->getFirstname()} {$user->getLastname()}</h3>
+                        <time>Publié le {$comment->getCreatedAt()}</time>
+                    </header>
+                    <main>
+                        <p>{$comment->getContent()}</p>
+                    </main>
+                    <footer>
+                        <button id=\"answerComment\">Répondre</button>
+                        <form method=\"post\" action=\"/replyComment\" class=\"flex flex-column hidden\" id=\"replyComment\">
+                            <label for=\"content\">Commentaire :</label>
+                            <textarea id=\"content\" name=\"content\" minlength=\"20\" maxlength=\"400\" required=\"required\"";
+                            $this->comment_content .= "></textarea>
+                            <div>
+                            <button id=\"cancel\">Annuler</button>
+                            <input type=\"hidden\" name=\"id_restaurant\" value=\"" . $comment->getIdRestaurant();
+                    $this->comment_content .= "\"><input type=\"submit\" value=\"Répondre\">
+                    </div>
+                    </form>
+                    </footer>";
+                    $this->getCommentForParent($comment->getId());
+                    if (!empty($this->comment_content)) {
+                        $this->comment_content .= "</article>";
+                        $this->page .= "<section class=\"{$comment->getId()}\">{$this->comment_content}</section>";
+                        $this->comment_content = "";
+                    }
+        }   
+        return $this->page;
+     }
 }

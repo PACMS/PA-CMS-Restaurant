@@ -276,6 +276,10 @@
   controller: comment
   action: showComments
 
+/replyComment:
+  controller: comment
+  action: replyComment
+
 # Route pour la gestion des utilisateurs
 
 /restaurant/statistiques:
