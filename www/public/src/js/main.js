@@ -324,6 +324,30 @@ $(document).ready(function () {
     pageLength: 10,
     info: true,
   });
+
+  $("#bookingTable3").dataTable({
+    language: {
+      url: "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/French.json",
+    },
+    columnDefs: [{ className: "dt-center", targets: "_all" }],
+    order: [3, "desc"],
+    columns: [
+      null,
+      null,
+      null,
+      { type: "date-eu" },
+      null,
+      null,
+      null,
+      null,
+    ],
+
+    searching: true,
+    //paging: false,
+    lengthMenu: [10, 20, 30, 40, 50],
+    pageLength: 10,
+    info: true,
+  });
   $("#pageTable").dataTable({
     language: {
       url: "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/French.json",

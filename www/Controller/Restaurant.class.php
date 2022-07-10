@@ -66,11 +66,18 @@ class Restaurant
         $errors = null;
         session_start();
         if (!empty($_POST) && $_POST["user_id"] == $_SESSION["user"]["id"]) {
-
+            if(!empty($_POST["favorite"]) && !empty($_POST["favorite"][0]) == "favorite" ){
+                $restaurant->unfavoriteAllRestaurants();
+                $_POST["favorite"] = "1";
+                $favorite = htmlspecialchars($_POST["favorite"][0]);
+            } else {
+                $_POST["favorite"] = "0";
+                $favorite = htmlspecialchars($_POST["favorite"][0]);
+            }
+            unset($_POST["favorite"]);
             $_POST = array_map('htmlspecialchars', $_POST);
+            $_POST["favorite"] = $favorite;
             $errors = Verificator::checkForm($restaurant->getCompleteRestaurantForm(), $_POST + $_FILES);
-
-           
             if (!$errors) {
                 
                 $restaurant->hydrate($_POST);
@@ -88,7 +95,6 @@ class Restaurant
                 }
                 // $restaurant->setId(null);
                 $restaurant->save();
-
                 $pageRestaurant = $restaurant->findOneBy(['name' => $restaurant->getName()]);
                 $page->setTitle($inputs['title']);
                 $page->setUrl($url);
@@ -120,11 +126,24 @@ class Restaurant
         $restaurant = new RestaurantModel();
         $errors = null;
         if (!empty($_POST) && $_POST["id"] == $_SESSION["restaurant"]["id"]) {
+            if(!empty($_POST["favorite"]) && !empty($_POST["favorite"][0]) == "favorite" ){
+                $restaurant->unfavoriteAllRestaurants();
+                $_POST["favorite"] = "1";
+
+                $favorite = htmlspecialchars($_POST["favorite"][0]);
+            } else {
+                $_POST["favorite"] = "0";
+                $favorite = htmlspecialchars($_POST["favorite"][0]);
+            }
+            unset($_POST["favorite"]);
             $_POST = array_map('htmlspecialchars', $_POST);
+            $_POST["favorite"] = $favorite;
             $errors = Verificator::checkForm($restaurant->getCompleteUpdateRestaurantForm(), $_POST + $_FILES);
             if (!$errors) {
                 $restaurant->hydrate($_POST);
                 $restaurant->save();
+                $_SESSION["restaurant"]["favorite"] = $restaurant->getId();
+
                 return header('Location: /restaurants');
             }
         }

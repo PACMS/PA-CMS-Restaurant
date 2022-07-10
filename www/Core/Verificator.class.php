@@ -3,7 +3,7 @@
 namespace App\Core;
 
 use App\Model\User as UserModel;
-
+use App\Core\MysqlBuilder;
 class Verificator extends Sql
 {
     public static function checkForm($config, $data): array
@@ -38,7 +38,11 @@ class Verificator extends Sql
                 $errors[] = $input["errorUnicity"];
             }
 
-            if (!empty($input['unicityresto']) && !self::unicityRestaurant($data[$name])) {
+            if (!empty($input['unicitycreateresto']) && !self::unicityCreateRestaurant($data[$name])) {
+                $errors[] = $input["errorunicityresto"];
+            }
+
+            if (!empty($input['unicityresto']) && !self::unicityRestaurant($data[$name], $data["id"])) {
                 $errors[] = $input["errorunicityresto"];
             }
 
@@ -91,9 +95,29 @@ class Verificator extends Sql
         }
     }
 
-    public static function unicityRestaurant($value)
+    public static function unicityCreateRestaurant($name)
     {
-        if ((new Verificator())->databaseFindOne(['name' => $value], "restaurant")) {
+        $builder = new MysqlBuilder();
+        $restaurants = $builder->select('restaurant', ["name"])
+            ->where('name' , $name)
+            ->fetchClass("restaurant")
+            ->fetchAll();
+        if (!empty($restaurants)) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    public static function unicityRestaurant($name,$id)
+    {
+        $builder = new MysqlBuilder();
+        $restaurants = $builder->select('restaurant', ["name", "id"])
+            ->where('name' , $name)
+            ->where('id', $id, '!=')
+            ->fetchClass("restaurant")
+            ->fetchAll();
+        if (!empty($restaurants)) {
             return false;
         } else {
             return true;

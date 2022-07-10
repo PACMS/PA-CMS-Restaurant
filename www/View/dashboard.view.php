@@ -32,93 +32,55 @@
                 <a class="voir-plus-button" href="">Voir plus</a>
             </div>
         </section>
-        <section class="grid" style="margin-top: 35px;">
-            <div class="row">
-                <div class="cols-lg-12 cols-md-12 cols-sm-12">
-                    <div class="flex flex-column">
+        <h3 style="text-align: center">Voir restaurant favori : <?= $restaurant->getName() ?></h3>
+        <section class="grid">
+                <div class="row">
+                    <div class="cols-lg-12 cols-md-12 cols-sm-12">
+                        <div class="flex flex-column">
 
-                        <section class="bookingTableHeader flex justify-content-between">
-                            <section class="flex">
-                                <p class="align-self-end">Réservations</p>
-                                <input class="calendar" type="date">
+                            <section class="bookingTableHeader flex justify-content-between">
+
                             </section>
-                            <section class="align-self-end">
-                                <a href="#">Voir plus</a>
-                            </section>
-                        </section>
-                        <table id="bookingTable" class="display nowrap">
-                            <thead>
-                            <tr>
-                                <th>N° Réservation</th>
-                                <th>Nom Prénom</th>
-                                <th>Nombre de personnes</th>
-                                <th>Heure</th>
-                                <th>Table</th>
-                                <th>Téléphone</th>
-                                <th>Actions</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr>
-                                <td>8888888</td>
-                                <td>Jean Pierre Delasoul</td>
-                                <td>4 personnes</td>
-                                <td>21h45</td>
-                                <td>45</td>
-                                <td>07.69.69.69.45</td>
-                                <td>Test</td>
-                            </tr>
-                            <tr>
-                                <td>8888888</td>
-                                <td>Jean Pierre Delasoul</td>
-                                <td>4 personnes</td>
-                                <td>21h45</td>
-                                <td>45</td>
-                                <td>07.69.69.69.45</td>
-                                <td>Test</td>
-                            </tr>
-                            <tr>
-                                <td>8888888</td>
-                                <td>Jean Pierre Delasoul</td>
-                                <td>4 personnes</td>
-                                <td>21h45</td>
-                                <td>45</td>
-                                <td>07.69.69.69.45</td>
-                                <td>Test</td>
-                            </tr>
-                            <tr>
-                                <td>8888888</td>
-                                <td>Jean Pierre Delasoul</td>
-                                <td>4 personnes</td>
-                                <td>21h45</td>
-                                <td>45</td>
-                                <td>07.69.69.69.45</td>
-                                <td>Test</td>
-                            </tr>
-                            <tr>
-                                <td>8888888</td>
-                                <td>Jean Pierre Delasoul</td>
-                                <td>4 personnes</td>
-                                <td>21h45</td>
-                                <td>45</td>
-                                <td>07.69.69.69.45</td>
-                                <td>Test</td>
-                            </tr>
-                            <tr>
-                                <td>8888888</td>
-                                <td>Jean Pierre Delasoul</td>
-                                <td>4 personnes</td>
-                                <td>21h45</td>
-                                <td>45</td>
-                                <td>07.69.69.69.45</td>
-                                <td>Test</td>
-                            </tr>
-                            </tbody>
-                        </table>
+                            <table id="bookingTable3" class="display nowrap">
+                                <thead>
+                                <tr>
+                                    <th>N° Réservation</th>
+                                    <th>Nom Prénom</th>
+                                    <th>Nombre de personnes</th>
+                                    <th>Date de reservation</th>
+                                    <th>Heure</th>
+                                    <th>Table</th>
+                                    <th>Téléphone</th>
+                                    <th>Envoyer un mail</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <?php
+                                    foreach ($reservations as $reservation) :
+                                ?>
+                                    
+                                   <tr>
+                                       <td> <?= $reservation->getId() ?> </td>
+                                       <td> <?= $reservation->getName() ?> </td>
+                                       <td> <?= $reservation->getNumPerson() ?> </td>
+                                       <td> <?= $reservation->getDate() ?> </td>
+                                       <td> <?= $reservation->getHour() ?> </td>
+                                       <td> <?= $reservation->getNumTable() ?> </td>
+                                       <td> <?= $reservation->getPhoneReserv() ?> </td>
+                                       
+                                       <td> <?php $this->includePartial("form", $reservation->EndForMailReservation(intval($reservation->getId()))); ?> </td>
+                                       
+                                      
+                                   </tr>
+                                <?php
+                                    endforeach;
+                                ?>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
-                </div>
 
-            </div>
+                </div>
             <div class="row" style="justify-content: space-between">
 
                 <div class="cols-lg-6 cols-md-12 cols-sm-12 offset-sm-3" style="width: 47.5%">
@@ -129,46 +91,25 @@
 
                     </section>
                     <section class="container-preview-cards">
+                        <?php if(empty($cartes)) : ?>
+                            <p>Aucune carte</p>
+                        <?php else : ?>
+                                                
+                        <?php foreach($cartes as $carte): ?>
                         <article class="card">
                             <figure>
                                 <img src="https://marketplace.canva.com/EAEPN913uPs/1/0/1131w/canva-vert-et-or-case-bordure-g%C3%A9om%C3%A9trique-floral-mariage-menu-DI7xnk_h_VU.jpg" alt="Benefit 3">
                                 <footer>
+                                    <?php if($carte->getStatus() == 1): ?>
                                     <a class="cta-button--blue">Activé</a>
-                                    <h1>menu principal</h1>
-                                    <h2>pour Pizza Gogo</h2>
+                                    <?php endif; ?>
+                                    <h1><?= $carte->getName() ?></h1>
                                 </footer>
                             </figure>
                         </article>
-                        <article class="card">
-                            <figure>
-                                <img src="https://marketplace.canva.com/EAEPN913uPs/1/0/1131w/canva-vert-et-or-case-bordure-g%C3%A9om%C3%A9trique-floral-mariage-menu-DI7xnk_h_VU.jpg" alt="Benefit 3">
-                                <footer>
-                                    <a class="cta-button--blue">Activé</a>
-                                    <h1>menu principal</h1>
-                                    <h2>pour Pizza Gogo</h2>
-                                </footer>
-                            </figure>
-                        </article>
-                        <article class="card">
-                            <figure>
-                                <img src="https://marketplace.canva.com/EAEPN913uPs/1/0/1131w/canva-vert-et-or-case-bordure-g%C3%A9om%C3%A9trique-floral-mariage-menu-DI7xnk_h_VU.jpg" alt="Benefit 3">
-                                <footer>
-                                    <a class="cta-button--blue">Activé</a>
-                                    <h1>menu principal</h1>
-                                    <h2>pour Pizza Gogo</h2>
-                                </footer>
-                            </figure>
-                        </article>
-                        <article class="card">
-                            <figure>
-                                <img src="https://marketplace.canva.com/EAEPN913uPs/1/0/1131w/canva-vert-et-or-case-bordure-g%C3%A9om%C3%A9trique-floral-mariage-menu-DI7xnk_h_VU.jpg" alt="Benefit 3">
-                                <footer>
-                                    <a class="cta-button--blue">Activé</a>
-                                    <h1>menu principal</h1>
-                                    <h2>pour Pizza Gogo</h2>
-                                </footer>
-                            </figure>
-                        </article>
+                        <?php endforeach; ?>
+                        <?php endif; ?>
+                        
                     </section>
                 </div>
 
