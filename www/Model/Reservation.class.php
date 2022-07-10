@@ -196,9 +196,9 @@ class Reservation extends Sql
     {
         return parent::getAll();
     }
-    public function getAllReservationsFromRestaurant(int $id)
+    public function getAllReservationsFromRestaurant($params)
     {
-        $reservations = parent::databaseFindAll("SELECT * FROM " . DBPREFIXE . "reservation" , ['id_restaurant' => $id]);
+        $reservations = parent::databaseFindAll("SELECT * FROM " . DBPREFIXE . "reservation" , $params);
         return $reservations;
     }
     public function databaseDeleteOneReservation(array $params)
@@ -218,7 +218,7 @@ class Reservation extends Sql
                 "method"=>"POST",
                 "action"=>"/restaurant/completeReservation",
                 "id"=>"formReservation",
-                "submit"=>"Valider",
+                "submit"=>"Terminer",
                 'captcha' => false,
             ],
             "inputs"=>[

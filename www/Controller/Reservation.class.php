@@ -22,7 +22,7 @@ class Reservation
     public function reservation()
     {
         $reservation = new ReservationModel();
-        $data =  $reservation->getAllReservationsFromRestaurant($_SESSION['restaurant']["id"]);
+        $data =  $reservation->getAllReservationsFromRestaurant(["id_restaurant" => $_SESSION['restaurant']["id"], "status" => "0" ]);
         foreach ($data as $dateReserv) {
             $dateReserv['date'] = date("d/m/Y", strtotime($dateReserv['date']));
         }
@@ -43,7 +43,7 @@ class Reservation
         $clientName = $reservation->getName();
         $reservation->setIdRestaurant($_SESSION['restaurant']["id"]);
         $reservation->save();
-        $data =  $reservation->getAllReservationsFromRestaurant($_SESSION['restaurant']["id"]);
+        $data =  $reservation->getAllReservationsFromRestaurant(["id_restaurant" =>$_SESSION['restaurant']["id"]]);
         header("Location: /restaurant/reservation");
         // $view = new View("reservation", "back", 'success', 'Reservation', 'Création avec succès de la reservation de ' . $clientName . ' !');
         // $view->assign('reservation', $reservation);
