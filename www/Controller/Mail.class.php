@@ -131,7 +131,7 @@ class Mail
         try {
             $actualDateTime = new \DateTime();
             $actualDateTime = $actualDateTime->format('YmdHis');
-            $message = "http://localhost/addComment?restaurant={$id_restaurant}";
+            $message = "http://localhost/restaurant/comments";
             $phpmailer = new PHPMailer();
             //Server settings
             $phpmailer->isSMTP();
@@ -152,7 +152,7 @@ class Mail
             //Content
             $phpmailer->isHTML(true);                                  //Set email format to HTML
             $phpmailer->Subject = "Vous avez un nouveau commentaire en attente";
-            $phpmailer->Body    = "Bonjour {$user->getFirstName()} {$user->getLastName()}, Vous avez un nouveau commentaire à valider !!";
+            $phpmailer->Body    = "Bonjour {$user->getFirstName()} {$user->getLastName()}, Vous avez un nouveau commentaire à valider !! {$message}";
             $phpmailer->send();
             echo 'Message has been sent';
         } catch (Exception $e) {

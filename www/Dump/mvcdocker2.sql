@@ -59,7 +59,7 @@ CREATE TABLE `pacm_categorie` (
 CREATE TABLE `pacm_comments` (
   `id` bigint(20) NOT NULL,
   `content` varchar(400) NOT NULL,
-  `status` tinyint(1) NOT NULL,
+  `status` tinyint(1)  NULL DEFAULT '0',
   `id_parent` int(11) DEFAULT NULL,
   `id_user` int(11) NOT NULL,
   `id_restaurant` int(11) NOT NULL,
