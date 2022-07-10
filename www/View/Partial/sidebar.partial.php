@@ -3,7 +3,7 @@
 
     <section class="sidebar">
         <nav class="sidebar-nav">
-            <a href="/dashboard">
+            <a href="dashboard">
                 <img class="sidebar-image" src="https://images.unsplash.com/photo-1554469384-e58fac16e23a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxMTgwOTN8MHwxfHNlYXJjaHwzfHxidWlsZGluZ3xlbnwwfHx8fDE2NDUzODA4MTQ&ixlib=rb-1.2.1&q=80&w=1080" alt="Avatar">
                 <h2 class="sidebar-title">Nom Entreprise</h2>
             </a>
@@ -19,7 +19,7 @@
     <?php elseif(strpos($_SERVER['REQUEST_URI'], "/restaurants" ) === 0):  ?>
         <section class="sidebar">
         <nav class="sidebar-nav">
-            <a href="/dashboard">
+            <a href="dashboard">
                 <img class="sidebar-image" src="https://images.unsplash.com/photo-1554469384-e58fac16e23a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxMTgwOTN8MHwxfHNlYXJjaHwzfHxidWlsZGluZ3xlbnwwfHx8fDE2NDUzODA4MTQ&ixlib=rb-1.2.1&q=80&w=1080" alt="Avatar">
                 <h2 class="sidebar-title">Nom Entreprise</h2>
             </a>
@@ -36,7 +36,7 @@
     <?php elseif(strpos($_SERVER['REQUEST_URI'], "/restaurant" ) === 0):  ?>
         <section class="sidebar">
         <nav class="sidebar-nav">
-            <a href="/dashboard">
+            <a href="dashboard">
                 <img class="sidebar-image" src="https://images.unsplash.com/photo-1554469384-e58fac16e23a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxMTgwOTN8MHwxfHNlYXJjaHwzfHxidWlsZGluZ3xlbnwwfHx8fDE2NDUzODA4MTQ&ixlib=rb-1.2.1&q=80&w=1080" alt="Avatar">
                 <h2 class="sidebar-title">Nom Entreprise</h2>
             </a>
@@ -53,7 +53,7 @@
     <?php elseif(strpos($_SERVER['REQUEST_URI'], "/users" ) === 0):  ?>
         <section class="sidebar">
         <nav class="sidebar-nav">
-            <a href="/dashboard">
+            <a href="dashboard">
                 <img class="sidebar-image" src="https://images.unsplash.com/photo-1554469384-e58fac16e23a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxMTgwOTN8MHwxfHNlYXJjaHwzfHxidWlsZGluZ3xlbnwwfHx8fDE2NDUzODA4MTQ&ixlib=rb-1.2.1&q=80&w=1080" alt="Avatar">
                 <h2 class="sidebar-title">Nom Entreprise</h2>
             </a>
@@ -70,7 +70,7 @@
     <?php elseif(strpos($_SERVER['REQUEST_URI'], "/user" ) === 0):  ?>
         <section class="sidebar">
         <nav class="sidebar-nav">
-            <a href="/dashboard">
+            <a href="dashboard">
                 <img class="sidebar-image" src="https://images.unsplash.com/photo-1554469384-e58fac16e23a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxMTgwOTN8MHwxfHNlYXJjaHwzfHxidWlsZGluZ3xlbnwwfHx8fDE2NDUzODA4MTQ&ixlib=rb-1.2.1&q=80&w=1080" alt="Avatar">
                 <h2 class="sidebar-title">Nom Entreprise</h2>
             </a>
@@ -87,7 +87,7 @@
     <?php elseif(strpos($_SERVER['REQUEST_URI'], "/themes" ) === 0):  ?>
         <section class="sidebar">
         <nav class="sidebar-nav">
-            <a href="/dashboard">
+            <a href="dashboard">
                 <img class="sidebar-image" src="https://images.unsplash.com/photo-1554469384-e58fac16e23a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxMTgwOTN8MHwxfHNlYXJjaHwzfHxidWlsZGluZ3xlbnwwfHx8fDE2NDUzODA4MTQ&ixlib=rb-1.2.1&q=80&w=1080" alt="Avatar">
                 <h2 class="sidebar-title">Nom Entreprise</h2>
             </a>
@@ -104,7 +104,7 @@
     <?php elseif(strpos($_SERVER['REQUEST_URI'], "/profile" ) === 0):  ?>
         <section class="sidebar">
         <nav class="sidebar-nav">
-            <a href="/dashboard">
+            <a href="dashboard">
                 <img class="sidebar-image" src="https://images.unsplash.com/photo-1554469384-e58fac16e23a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxMTgwOTN8MHwxfHNlYXJjaHwzfHxidWlsZGluZ3xlbnwwfHx8fDE2NDUzODA4MTQ&ixlib=rb-1.2.1&q=80&w=1080" alt="Avatar">
                 <h2 class="sidebar-title">Nom Entreprise</h2>
             </a>

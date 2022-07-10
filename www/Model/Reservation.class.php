@@ -217,7 +217,7 @@ class Reservation extends Sql
                 "method"=>"POST",
                 "action"=>"/restaurant/completeReservation",
                 "id"=>"formReservation",
-                "submit"=>"Terminer",
+                "submit"=>"Valider",
                 'captcha' => false,
             ],
             "inputs"=>[
