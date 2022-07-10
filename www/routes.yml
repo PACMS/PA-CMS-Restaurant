@@ -245,6 +245,14 @@
   action: completeReservation
   security: "employee"
 
+/reserver-une-table:
+  controller: reservation
+  action: reservationTable
+
+/reserver-une-table/add:
+  controller: reservation
+  action: addReservationTable
+
 # Route pour les commentaires
 
 /addComment:
@@ -275,6 +283,10 @@
 /showComments:
   controller: comment
   action: showComments
+
+/replyComment:
+  controller: comment
+  action: replyComment
 
 # Route pour la gestion des utilisateurs
 
@@ -378,3 +390,7 @@
 /setupAction:
   controller: globalController
   action: setupAction
+
+/test:
+  controller: carte
+  action: asupprimer

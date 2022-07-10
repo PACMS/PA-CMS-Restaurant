@@ -175,6 +175,7 @@ class Admin
     {
         session_start();
         $user = new UserModel();
+        $_POST = array_map('htmlspecialchars', $_POST);
         $user->hydrate($_POST);
         $user->save();
         if(!is_null($_POST["id"]) && $_POST["id"] == $_SESSION["user"]["id"]) {

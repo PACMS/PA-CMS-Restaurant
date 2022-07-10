@@ -41,8 +41,18 @@ class Restaurant
             header('Location: /restaurants');
         }
         $restaurant = new RestaurantModel();
+        $builder = new MysqlBuilder();
+        $page = new Page();
+        $name = $builder->select('restaurant', ["name"])
+                    -> where('id' ,$_SESSION["restaurant"]["id"])
+                    ->fetchClass("restaurant")
+                    ->fetch();
+                    $name = $restaurant->removeAccents(strtolower($name->getName()));
         $restaurant->databaseDeleteOneRestaurant(["id" => $_SESSION["restaurant"]["id"]]);
-        unset($_SESSION["restaurant"]["id"]) ;
+
+        $dirname = $_SERVER["DOCUMENT_ROOT"] . '/View/pages/' .  $name . '/';
+        $result = $page->deleteDirectory($dirname);
+        $_SESSION["restaurant"]["id"] = null;
         header('Location: /restaurants');
     }
 
@@ -93,6 +103,8 @@ class Restaurant
                 $page->setTitle($inputs['title']);
                 $page->setUrl($url);
                 $page->setStatus(0);
+                $page->setDisplayMenu(0);
+                $page->setDisplayComments(0);
                 $page->setIdRestaurant($pageRestaurant['id']);
                 $page->save();
                 $page = $page->findOneBy(['url' => $page->getUrl()]);
@@ -125,7 +137,6 @@ class Restaurant
             if (!$errors) {
                 $restaurant->hydrate($_POST);
                 $restaurant->save();
-<<<<<<< HEAD
                 if($restaurant->getFavorite() == 0){
                     unset($_SESSION["restaurant"]["favorite"]) ;
 
@@ -133,8 +144,6 @@ class Restaurant
                     $_SESSION["restaurant"]["favorite"] = $restaurant->getId();
                 }
 
-=======
->>>>>>> parent of 22e7da6 (add favorite resto & display stats on dashboard)
                 return header('Location: /restaurants');
             }
         }

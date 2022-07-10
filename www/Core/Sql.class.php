@@ -283,7 +283,7 @@ abstract class Sql
                         header('Location: /');
                     }
                 } else {
-                    header('Location: dashboard');
+                    header('Location: /dashboard');
                 }
             } else {
                 echo "ça fonctionne pas non plus!";

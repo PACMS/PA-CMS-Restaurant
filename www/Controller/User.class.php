@@ -155,13 +155,8 @@ class User
         $user->setPassword($_POST['password']);
 
         $params = ["email" => $_POST['email']];
-
+        
         $user->verifyUser($params);
-        
-        
-        $view = new View("loginVerify");
-        $view->assign("title", "Vérification");
-        $view->assign("user", $user);
     }
 
     /**

@@ -137,6 +137,43 @@ class Reservation
         $test->mailAskForComment($currentReservation->getEmail(), $currentReservation->getName(), $_SESSION["restaurant"]["id"]);
     }
 
+    public function reservationTable()
+    {
+        $view = new View('table-reservation', 'front');
+        $view->assign('reservation', new ReservationModel());
+    }
+
+    public function addReservationTable()
+    {
+        $reservation = new ReservationModel();
+        $_POST['status'] = -1;
+        //////////////////////////////////////////
+        /// A modifier quand on récup le id du restaurant sur lequel on réserve
+        ///
+        ///
+        ///
+        /// 
+        $_POST['restaurant_id'] = 122;
+        $_POST = array_map('htmlspecialchars', $_POST);
+        $reservation->hydrate($_POST);
+        $clientName = $reservation->getName();
+        $nbPerson = $reservation->getNumPerson();
+        $date = $reservation->getDate();
+        $hour = $reservation->getHour();
+        $email = $reservation->getEmail();
+        $reservation->save();
+
+        $view = new View("table-reservation", "front", 'success', 'Reservation', 'Création avec succès de la reservation de ' . $clientName . ' ! Un mail de confirmation va vous êtes envoyé');
+        $view->assign('reservation', $reservation);
+        $this->tempMailReservation($clientName, $date, $hour, $nbPerson, $email);
+    }
+
+    public function tempMailReservation (string $name, string $date, string $hour, string $nbPerson, string $email)
+    {
+        $mail = new Mail();
+        $mail->tempMailReservation($name, $date, $hour, $nbPerson, $email);
+    }
+
     public function getReservationsStats()
     {
         $reservation = new ReservationModel();
