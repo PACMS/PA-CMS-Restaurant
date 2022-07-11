@@ -158,8 +158,10 @@ class User
         $user->setPassword($_POST['password']);
 
         $params = ["email" => $_POST['email']];
-
-        $user->verifyUser($params) ?: header('Location: /login?error=login');
+        
+        if ($user->verifyUser($params) == false) {
+            header('Location: /login?error=login');
+        }
     }
 
     /**
