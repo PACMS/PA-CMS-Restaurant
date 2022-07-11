@@ -19,7 +19,7 @@ class Restaurant
     public function restaurant()
     {
         session_start();
-        unset($_SESSION["restaurant"]["id"]);
+        unset($_SESSION["restaurant"]);
         $restaurant = new RestaurantModel();
         // utiliser la fonction getAllRestaurant() de RestaurantModel
         $allRestaurants = $restaurant->getAllRestaurants(['user_id' => $_SESSION["user"]["id"]]);
@@ -44,15 +44,15 @@ class Restaurant
         $builder = new MysqlBuilder();
         $page = new Page();
         $name = $builder->select('restaurant', ["name"])
-                    -> where('id' ,$_SESSION["restaurant"]["id"])
-                    ->fetchClass("restaurant")
-                    ->fetch();
-                    $name = $restaurant->removeAccents(strtolower($name->getName()));
+            ->where('id', $_SESSION["restaurant"]["id"])
+            ->fetchClass("restaurant")
+            ->fetch();
+        $name = $restaurant->removeAccents(strtolower($name->getName()));
         $restaurant->databaseDeleteOneRestaurant(["id" => $_SESSION["restaurant"]["id"]]);
 
         $dirname = $_SERVER["DOCUMENT_ROOT"] . '/View/pages/' .  $name . '/';
         $result = $page->deleteDirectory($dirname);
-        unset($_SESSION["restaurant"]["id"]) ;
+        unset($_SESSION["restaurant"]["id"]);
         header('Location: /restaurants');
     }
 
@@ -77,7 +77,7 @@ class Restaurant
         session_start();
         if (!empty($_POST) && $_POST["user_id"] == $_SESSION["user"]["id"]) {
 
-            if(!empty($_POST["favorite"]) && !empty($_POST["favorite"][0]) == "favorite" ){
+            if (!empty($_POST["favorite"]) && !empty($_POST["favorite"][0]) == "favorite") {
                 $restaurant->unfavoriteAllRestaurants();
                 $_POST["favorite"] = "1";
                 $favorite = htmlspecialchars($_POST["favorite"][0]);
@@ -90,19 +90,18 @@ class Restaurant
             $_POST["favorite"] = $favorite;
             $errors = Verificator::checkForm($restaurant->getCompleteRestaurantForm(), $_POST + $_FILES);
 
-           
+
             if (!$errors) {
-                
+
                 $restaurant->hydrate($_POST);
                 $name = $restaurant->removeAccents(strtolower($restaurant->getName()));
                 $dirname = $_SERVER["DOCUMENT_ROOT"] . '/View/pages/' .  $name . '/';
-                $url ='pages/' .  $name . '/index';
-                if (!is_dir($dirname))
-                {
+                $url = 'pages/' .  $name . '/index';
+                if (!is_dir($dirname)) {
                     mkdir($dirname, 0755, true);
                     $fp = fopen('View/' . $url . '.view.php', 'w+');
                     $inputs['title'] = 'index';
-                    $array_body[] = "Hello World" ;
+                    $array_body[] = "Hello World";
                     (new \App\Core\CreatePage)->createBasicPageIndex($fp, $inputs, $array_body);
                     fclose($fp);
                 }
@@ -142,7 +141,7 @@ class Restaurant
         $restaurant = new RestaurantModel();
         $errors = null;
         if (!empty($_POST) && $_POST["id"] == $_SESSION["restaurant"]["id"]) {
-            if(!empty($_POST["favorite"]) && !empty($_POST["favorite"][0]) == "favorite" ){
+            if (!empty($_POST["favorite"]) && !empty($_POST["favorite"][0]) == "favorite") {
                 $restaurant->unfavoriteAllRestaurants();
                 $_POST["favorite"] = "1";
 
@@ -158,11 +157,10 @@ class Restaurant
             if (!$errors) {
                 $restaurant->hydrate($_POST);
                 $restaurant->save();
-                if($restaurant->getFavorite() == 0){
-                    unset($_SESSION["restaurant"]["favorite"]) ;
-
-                }else{
-                    $_SESSION["restaurant"]["favorite"] = $restaurant->getId();
+                if ($restaurant->getFavorite() == 0) {
+                    unset($_SESSION["favoriteRestaurant"]);
+                } else {
+                    $_SESSION["favoriteRestaurant"] = $restaurant->getId();
                 }
 
                 return header('Location: /restaurants');
@@ -196,9 +194,9 @@ class Restaurant
         $_SESSION["restaurant"]["name"] = $oneRestaurant["name"];
         $builder = new MysqlBuilder();
         $stock = $builder->select("stock", ["id"])
-                        ->where("restaurantId", $_SESSION["restaurant"]["id"])
-                        ->fetchClass("stock")
-                        ->fetch();
+            ->where("restaurantId", $_SESSION["restaurant"]["id"])
+            ->fetchClass("stock")
+            ->fetch();
         $_SESSION["stock"]["id"] = $stock->getId();
         $restaurant->hydrate($oneRestaurant);
         $view = new View("restaurant", "back");
