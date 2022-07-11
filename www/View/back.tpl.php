@@ -28,7 +28,10 @@ if (!isset($_SESSION)) {
 <body>
 
 
-    <?php require $this->_view . ".view.php"; ?>
+    <?php 
+        empty($this->_flashType) ?: include "View/flash.tpl.php";
+        require $this->_view . ".view.php"; 
+    ?>
 
 
 </body>

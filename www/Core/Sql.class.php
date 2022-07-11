@@ -261,12 +261,12 @@ abstract class Sql
      * 
      * @return void
      */
-    public function verifyUser(array $params): void
+    public function verifyUser(array $params)
     {
         $userVerify = $this->findOneBy($params);
         echo '<pre>';
         if (empty($userVerify)) {
-            echo "ça fonctionne pas !";
+            return false;
         } else {
             if (password_verify($_POST['password'], $userVerify['password'])) {
                 session_start();
@@ -286,7 +286,7 @@ abstract class Sql
                     header('Location: dashboard');
                 }
             } else {
-                echo "ça fonctionne pas non plus!";
+                return false;
             }
         };
     }
