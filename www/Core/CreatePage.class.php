@@ -3,7 +3,6 @@
 namespace App\Core;
 
 use App\Core\MysqlBuilder;
-use App\Model\Comment;
 
 class CreatePage
 {
@@ -112,7 +111,7 @@ class CreatePage
             if (!empty($comments)) {
                 $page .= '<section id="comments">
                     <h1>Avis</h1>';
-                $page .= $this->getCommentForParent();
+                $page .= $this->getCommentsParent();
                 $page .= "</section>";
             } else {
                 $page .= '<section id="comments">
@@ -127,51 +126,89 @@ class CreatePage
         fwrite($fp, $page);
     }
 
-    function getCommentForParent($parent=0) 
-    {
+     function getCommentsParent()
+     {
         $builder = new MysqlBuilder();
-        $commentModel = new Comment();
         $comments = $builder->select("comments", ["*"])
                             ->where("id_restaurant", $_SESSION["restaurant"]["id"])
-                            ->where("id_parent", $parent)
+                            ->where("id_parent", "0")
                             ->where("status", "1")
                             ->fetchClass("comment")
                             ->fetchAll();
-        
-        foreach($comments as $comment) {
+        foreach ($comments as $comment) {
+            $this->page .= "<section class=\"{$comment->getId()}\">";
             $user = $builder->select("user", ["*"])
-                        ->where("id", $comment->getIdUser())
-                        ->fetchClass("user")
-                        ->fetch();
-                $this->comment_content .= "
-                <article>
-                    <header>
-                        <h3>{$user->getFirstname()} {$user->getLastname()}</h3>
-                        <time>Publié le {$comment->getCreatedAt()}</time>
-                    </header>
-                    <main>
-                        <p>{$comment->getContent()}</p>
-                    </main>
-                    <footer>
-                        <button id=\"answerComment\">Répondre</button>
-                        <form method=\"post\" action=\"/replyComment\" class=\"flex flex-column hidden\" id=\"replyComment\">
-                            <label for=\"content\">Commentaire :</label>
-                            <textarea id=\"content\" name=\"content\" minlength=\"20\" maxlength=\"400\" required=\"required\"";
-                            $this->comment_content .= "></textarea>
-                            <div>
-                            <button id=\"cancel\">Annuler</button>
-                            <input type=\"hidden\" name=\"id_restaurant\" value=\"" . $comment->getIdRestaurant();
-                    $this->comment_content .= "\"><input type=\"submit\" value=\"Répondre\">
-                    </div>
+                    ->where("id", $comment->getIdUser())
+                    ->fetchClass("user")
+                    ->fetch();
+            $this->comment_content .= "<section>
+            <article>
+                <header>
+                    <h3>{$user->getFirstname()} {$user->getLastname()}</h3>
+                    <time>Publié le {$comment->getCreatedAt()}</time>
+                </header>
+                <main>
+                    <p>{$comment->getContent()}</p>
+                </main>
+                <footer>
+                    <button id=\"answerComment\">Répondre</button>
+                    <form method=\"post\" action=\"/replyComment\" class=\"flex flex-column hidden\" id=\"replyComment\">
+                        <label for=\"content\">Commentaire :</label>
+                        <textarea id=\"content\" name=\"content\" minlength=\"20\" maxlength=\"400\" required=\"required\"";
+                        $this->comment_content .= "></textarea>
+                        <div>
+                        <button id=\"cancel\">Annuler</button>
+                        <input type=\"hidden\" name=\"id_parent\" value=\"{$comment->getId()}\">
+                        <input type=\"hidden\" name=\"id_restaurant\" value=\"" . $comment->getIdRestaurant();
+                $this->comment_content .= "\"><input type=\"submit\" value=\"Répondre\">
+                        </div>
                     </form>
-                    </footer>";
-                    $this->getCommentForParent($comment->getId());
-                    if (!empty($this->comment_content)) {
-                        $this->comment_content .= "</article>";
-                        $this->page .= "<section class=\"{$comment->getId()}\">{$this->comment_content}</section>";
-                        $this->comment_content = "";
-                    }
-        }   
-        return $this->page;
+                </footer>";
+            $this->getChildren($comment->getId());
+            $this->comment_content .= "</article></section>";
+        }
+        return $this->comment_content;
+     }
+
+     function getChildren($idParent)
+     {
+        $builder = new MysqlBuilder();
+        $childrens = $builder->select("comments", ["*"])
+                            ->where("id_restaurant", $_SESSION["restaurant"]["id"])
+                            ->where("id_parent", $idParent)
+                            ->where("status", "1")
+                            ->fetchClass("comment")
+                            ->fetchAll();
+        foreach ($childrens as $children) {
+            $user = $builder->select("user", ["*"])
+                    ->where("id", $children->getIdUser())
+                    ->fetchClass("user")
+                    ->fetch();
+            $this->comment_content .= "
+            <article>
+                <header>
+                    <h3>{$user->getFirstname()} {$user->getLastname()}</h3>
+                    <time>Publié le {$children->getCreatedAt()}</time>
+                </header>
+                <main>
+                    <p>{$children->getContent()}</p>
+                </main>
+                <footer>
+                    <button id=\"answerComment\">Répondre</button>
+                    <form method=\"post\" action=\"/replyComment\" class=\"flex flex-column hidden\" id=\"replyComment\">
+                        <label for=\"content\">Commentaire :</label>
+                        <textarea id=\"content\" name=\"content\" minlength=\"20\" maxlength=\"400\" required=\"required\"";
+                        $this->comment_content .= "></textarea>
+                        <div>
+                        <button id=\"cancel\">Annuler</button>
+                        <input type=\"hidden\" name=\"id_parent\" value=\"{$children->getId()}\">
+                        <input type=\"hidden\" name=\"id_restaurant\" value=\"" . $children->getIdRestaurant();
+                $this->comment_content .= "\"><input type=\"submit\" value=\"Répondre\">
+                        </div>
+                    </form>
+                </footer>";
+            $this->getChildren($children->getId());
+            $this->comment_content .= "</article>";
+        }
      }
 }
