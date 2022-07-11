@@ -18,17 +18,9 @@
   controller: user
   action: lostPassword
 
-/lostPasswordAction:
-  controller: user
-  action: lostPasswordAction
-
 /resetPassword:
   controller: user
   action: resetPassword
-
-/resetPasswordAction:
-  controller: user
-  action: resetPasswordAction
 
 /register:
   controller: user
@@ -245,6 +237,14 @@
   action: completeReservation
   security: "employee"
 
+/reserver-une-table:
+  controller: reservation
+  action: reservationTable
+
+/reserver-une-table/add:
+  controller: reservation
+  action: addReservationTable
+
 # Route pour les commentaires
 
 /addComment:
@@ -255,7 +255,7 @@
 /restaurant/addComment:
   controller: comment
   action: stockComment
-  security: "user"
+  # security: "user"
 
 /restaurant/comments:
   controller: comment
@@ -275,6 +275,10 @@
 /showComments:
   controller: comment
   action: showComments
+
+/replyComment:
+  controller: comment
+  action: replyComment
 
 # Route pour la gestion des utilisateurs
 
