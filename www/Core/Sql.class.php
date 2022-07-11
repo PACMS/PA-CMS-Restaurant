@@ -275,8 +275,10 @@ abstract class Sql
                 $_SESSION['user']['lastname'] = $userVerify['lastname'];
                 $_SESSION['user']['role'] = $userVerify['role'];
                 if ($userVerify['role'] == 'user') {
-                    if (!is_null($_SESSION['previous_location'])) {
-                        header('Location: ' . $_SESSION['previous_location']);
+                    $stockUrl = $_SESSION['previous_location'];
+                    unset($_SESSION['previous_location']);
+                    if (!is_null($stockUrl)) {
+                        header('Location: ' . $stockUrl);
                     } else  {
                         header('Location: /');
                     }

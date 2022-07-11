@@ -88,7 +88,7 @@ class Mail
         }
     }
 
-    public function askCommentMail(string $email = "thibautsembeni@gmail.com", string $name =" Sembeni Thibaut", int $id_restaurant = 129)
+    public function askCommentMail(string $email, string $name, int $id_restaurant)
     {
         try {
             $builder = new MysqlBuilder();
@@ -126,6 +126,8 @@ class Mail
             $phpmailer->Body    = "Salut {$name}, {$message}";
             $phpmailer->send();
             echo 'Message has been sent';
+
+            header("Location: /restaurant/reservation");
         } catch (Exception $e) {
             echo "Message could not be sent. Mailer Error: {$phpmailer->ErrorInfo}";
         }

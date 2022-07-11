@@ -32,9 +32,7 @@ class User
     public function login(): void
     {
         if (!empty($_SESSION["user"])) {
-            if ($_SESSION["user"]["role"] == "user") {
-                header("Location: /");
-            } else {
+            if ($_SESSION["user"]["role"] != "user") {
                 header("Location: /dashboard");
             }
         }
@@ -71,9 +69,7 @@ class User
     public function register():void
     {
         if (!empty($_SESSION["user"])) {
-            if ($_SESSION["user"]["role"] == "user") {
-                header("Location: /");
-            } else {
+            if ($_SESSION["user"]["role"] != "user") {
                 header("Location: /dashboard");
             }
         }

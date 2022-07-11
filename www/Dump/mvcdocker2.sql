@@ -59,10 +59,8 @@ CREATE TABLE `pacm_categorie` (
 CREATE TABLE `pacm_comments` (
   `id` bigint(20) NOT NULL,
   `content` varchar(400) NOT NULL,
-  `status` tinyint(1) NOT NULL,
   `id_parent` int(11) NOT NULL DEFAULT '0',
   `status` tinyint(1)  NULL DEFAULT '0',
-  `id_parent` int(11) DEFAULT NULL,
   `id_user` int(11) NOT NULL,
   `id_restaurant` int(11) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -219,8 +217,8 @@ CREATE TABLE `pacm_restaurant` (
   `city` varchar(50) NOT NULL,
   `zipcode` int(50) DEFAULT NULL,
   `user_id` varchar(50) NOT NULL,
-  `phone` int(50) DEFAULT NULL
-  `favorite` tinyint(1) NULL DEFAULT "0",
+  `phone` int(50) DEFAULT NULL,
+  `favorite` tinyint(1) NULL DEFAULT "0"
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -418,7 +416,7 @@ ALTER TABLE `pacm_comments`
 -- AUTO_INCREMENT pour la table `pacm_content`
 --
 ALTER TABLE `pacm_content`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
 
 --
 -- AUTO_INCREMENT pour la table `pacm_food`
@@ -436,49 +434,49 @@ ALTER TABLE `pacm_meal`
 -- AUTO_INCREMENT pour la table `pacm_mealsFoods`
 --
 ALTER TABLE `pacm_mealsFoods`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
 
 --
 -- AUTO_INCREMENT pour la table `pacm_option`
 --
 ALTER TABLE `pacm_option`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
 
 --
 -- AUTO_INCREMENT pour la table `pacm_page`
 --
 ALTER TABLE `pacm_page`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
 
 --
 -- AUTO_INCREMENT pour la table `pacm_reservation`
 --
 ALTER TABLE `pacm_reservation`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
 
 --
 -- AUTO_INCREMENT pour la table `pacm_restaurant`
 --
 ALTER TABLE `pacm_restaurant`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=122;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
 
 --
 -- AUTO_INCREMENT pour la table `pacm_stock`
 --
 ALTER TABLE `pacm_stock`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=99;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
 
 --
 -- AUTO_INCREMENT pour la table `pacm_theme`
 --
 ALTER TABLE `pacm_theme`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
 
 --
 -- AUTO_INCREMENT pour la table `pacm_user`
 --
 ALTER TABLE `pacm_user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
 
 --
 -- Contraintes pour les tables déchargées
@@ -531,6 +529,12 @@ COMMIT;
 ALTER TABLE `pacm_content`
   ADD CONSTRAINT `pageDeleteContent` FOREIGN KEY (`id_page`) REFERENCES `pacm_page` (`id`) ON DELETE CASCADE;
 COMMIT;
+
+ALTER TABLE `pacm_comments`
+  ADD CONSTRAINT `restaurantDeleteComment` FOREIGN KEY (`id_restaurant`) REFERENCES `pacm_restaurant` (`id`) ON DELETE CASCADE;
+  ADD CONSTRAINT `userDeleteComment` FOREIGN KEY (`id_user`) REFERENCES `pacm_user` (`id`) ON DELETE CASCADE;
+COMMIT;
+
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

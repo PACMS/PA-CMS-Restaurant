@@ -30,8 +30,8 @@ class Comment
 
     public function stockComment()
     {
-        if (empty($_SESSION) || empty($_SESSION["user"])) {
-            @session_start();
+        if (empty($_SESSION["user"])) {
+            // @session_start();
             $_SESSION['previous_location'] = str_replace($_SERVER["HTTP_ORIGIN"], "", $_SERVER["HTTP_REFERER"]);
             $_SESSION["tempoComment"] = $_POST["content"];
             header("Location: /login");
@@ -109,7 +109,7 @@ class Comment
 
     public function replyComment() 
     {
-        if (empty($_SESSION) | empty($_SESSION["user"])) {
+        if (empty($_SESSION["user"])) {
             @session_start();
             $_SESSION['previous_location'] = str_replace($_SERVER["HTTP_ORIGIN"], "", $_SERVER["HTTP_REFERER"]);
             $_SESSION["tempoComment"] = $_POST["content"];
