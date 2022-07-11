@@ -31,7 +31,12 @@
                             <td> <?php echo $user->role ?> </td>
                             <td> <?php echo $user->createdAt ?> </td>
                             <td> <?php echo $user->updatedAt ?> </td>
-                            <td></td>
+                            <td> 
+                            <?php if ($_SESSION["user"]["id"] != $user->id): ?>
+                                <button id='updateUser'><i class='fas fa-pen'></i></button>
+                                <button id='deleteUser'><i class='fas fa-times-circle'></i></button>
+                            <?php endif; ?> 
+                            </td>
                         </tr>
                     <?php
                     endforeach;

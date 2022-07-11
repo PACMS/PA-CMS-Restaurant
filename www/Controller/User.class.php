@@ -31,6 +31,13 @@ class User
      */
     public function login(): void
     {
+        if (!empty($_SESSION["user"])) {
+            if ($_SESSION["user"]["role"] == "user") {
+                header("Location: /");
+            } else {
+                header("Location: /dashboard");
+            }
+        }
         $user = new UserModel();
 
         // if (!empty($_POST)) {
@@ -63,6 +70,13 @@ class User
      */
     public function register():void
     {
+        if (!empty($_SESSION["user"])) {
+            if ($_SESSION["user"]["role"] == "user") {
+                header("Location: /");
+            } else {
+                header("Location: /dashboard");
+            }
+        }
         $user = new UserModel();
         $errors = null;
         if (!empty($_POST)) {
@@ -302,6 +316,8 @@ class User
      */
     public function logout()
     {
+        session_start();
+        unset($_SESSION);
         session_destroy();
         header('Location: /login');
     }
