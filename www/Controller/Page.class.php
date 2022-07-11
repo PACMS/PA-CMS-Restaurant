@@ -45,11 +45,11 @@ class Page
             ->fetchClass("restaurant")
             ->fetch();
         $restaurant->getName();
-        $name = $restaurant->removeAccents($restaurant->getName());
+        $name = $restaurant->removeAccents(strtolower($restaurant->getName()));
+        $inputName = $restaurant->removeAccents(strtolower($inputs['name']));
 
-        $url = 'pages/' . $name . '/' . $inputs['name'];
-
-
+        $url = 'pages/' . $name . '/' . $inputName;
+        
         $fp = fopen('View/' . $url . '.view.php', 'w+');
         (new \App\Core\CreatePage)->createBasicPageIndex($fp, $inputs, $array_body);
         fclose($fp);
@@ -57,6 +57,8 @@ class Page
         $page->setTitle($inputs['title']);
         $page->setUrl($url);
         $page->setStatus(0);
+        $page->setDisplayMenu($_POST["displayMenu"]);
+        $page->setDisplayComments($_POST["displayComment"]);
         $page->setIdRestaurant($id_restaurant);
         $page->save();
         $page = $page->findOneBy(['url' => $page->getUrl()]);
@@ -110,6 +112,8 @@ class Page
         $pageUpdate->setTitle($inputs['title']);
         $pageUpdate->setUrl($page['url']);
         $pageUpdate->setStatus(0);
+        $pageUpdate->setDisplayMenu($_POST["displayMenu"]);
+        $pageUpdate->setDisplayComments($_POST["displayComment"]);
         $pageUpdate->setIdRestaurant($page['id_restaurant']);
         $pageUpdate->save();
 

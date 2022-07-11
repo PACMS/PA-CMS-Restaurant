@@ -369,4 +369,73 @@ class Reservation extends Sql
             ]
         ];
     }
+
+    public function getTableReservationForm ()
+    {
+        return [
+            "config"=>[
+                "method"=>"POST",
+                "action"=>"reserver-une-table/add",
+                "class"=>"containerForm flex flex-column w-full",
+                "id"=>"formReservation",
+                "submit"=>"Ajouter",
+                'captcha' => true,
+            ],
+            "inputs"=>[
+                "name"=>[
+                    "label"=>"Nom et prénom",
+                    "type"=>"text",
+                    "class"=>"formReservation",
+                    "value" => $_SESSION['user']['firstname'] . ' ' . $_SESSION['user']['lastname'] ?? ''
+                ],
+                "email" => [
+                    "label"=>"Adresse mail",
+                    "placeholder" => "Votre email ...",
+                    "type" => "email",
+                    "id" => "emailReservation",
+                    "class" => "formReservation",
+                    "required" => true,
+                    "error" => "Votre email n'est pas correct",
+                    "value" => $_SESSION['user']['email'] ?? ''
+                ],
+                "numPerson"=>[
+                    "label"=>"Nombre de personne",
+                    "type"=>"number",
+                    "class"=>"formReservation",
+                    "max"=>20,
+                ],
+
+                "numTable"=>[
+                    "label"=>"Numero de table",
+                    "type"=>"number",
+                    "class"=>"formReservation",
+                    "max"=>20,
+                ],
+                "date"=>[
+                    "label"=>"Date de reservation",
+                    "type"=>"date",
+                    "class"=>"formReservation",
+                    "min"=>date('Y-m-d'),
+                    "max"=>date('Y-m-d', strtotime('+1 year')),
+                ],
+                "hour"=>[
+                    "label"=>"Heure de reservation",
+                    "type"=>"time",
+                    "class"=>"formReservation",
+
+                ],
+                "phoneReserv"=>[
+                    "label"=>"Numéro de téléphone",
+                    "type"=>"tel",
+                    "class"=>"formRestaurant",
+                    "min"=>10,
+                    "max"=>10,
+                ],
+            ],
+            "captcha" => [
+                'type' => 'captcha',
+                'error' => 'Le captcha n\'a pas pu validé votre formulaire'
+            ]
+        ];
+    }
 }

@@ -18,17 +18,9 @@
   controller: user
   action: lostPassword
 
-/lostPasswordAction:
-  controller: user
-  action: lostPasswordAction
-
 /resetPassword:
   controller: user
   action: resetPassword
-
-/resetPasswordAction:
-  controller: user
-  action: resetPasswordAction
 
 /register:
   controller: user
@@ -245,6 +237,14 @@
   action: completeReservation
   security: "employee"
 
+/reserver-une-table:
+  controller: reservation
+  action: reservationTable
+
+/reserver-une-table/add:
+  controller: reservation
+  action: addReservationTable
+
 # Route pour les commentaires
 
 /addComment:
@@ -378,3 +378,7 @@
 /setupAction:
   controller: globalController
   action: setupAction
+
+/test:
+  controller: carte
+  action: asupprimer

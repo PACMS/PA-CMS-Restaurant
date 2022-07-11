@@ -55,16 +55,14 @@ class Mail
         }
     }
 
-    public function lostPasswordMail(?string $token, ?string $email)
+    public function lostPasswordMail(User $user, string $token)
     {
         try {
-            $actualDateTime = new \DateTime();
-            $actualDateTime = $actualDateTime->format('YmdHis');
-            $message = "http://localhost/resetPassword?token=" . $token . '&email=' . $email . '&date=' . $actualDateTime;
+            $message = "http://localhost/resetPassword?token=" . $token;
             $phpmailer = new PHPMailer();
             //Server settings
             $phpmailer->isSMTP();
-            $phpmailer->SMTPDebug = SMTP::DEBUG_CONNECTION;
+            $phpmailer->SMTPDebug = SMTP::DEBUG_OFF;
             $phpmailer->Host = MHOST;
             $phpmailer->SMTPAuth = true;
             $phpmailer->Username = MUSERNAME;
@@ -74,19 +72,16 @@ class Mail
 
             //Recipients
             $phpmailer->setFrom('pa.cms.test@gmail.com', 'PCR Contact');
-            $phpmailer->addAddress($email);     //Add a recipient
-            // $phpmailer->addAddress('vivin.fr@free.fr');     //Add a recipient
-
+            $phpmailer->addAddress($user->getEmail());     //Add a recipient
 
             //Content
             $phpmailer->isHTML(true);                                  //Set email format to HTML
-            $phpmailer->Subject = 'Salut Vivian Ruhlmann';
-            $phpmailer->Body    = "This is the HTML message body <b>in bold!</b>
-                                   <a href={$message}>Réinitialiser votre mot de passe</a>
-                                   <b>Ce mail n'est valable que 10 minutes</b>";
+            $phpmailer->Subject = 'Mot de passe oublié';
+            $phpmailer->Body    = "Mot de passe oublié ? Cliquez sur ce lien : 
+                                   <a href={$message}>Réinitialiser votre mot de passe / connexion magique</a> <br>
+                                   <b>Ce mail n'est valable qu'une heure !</b>";
 
             $phpmailer->send();
-            echo 'Message has been sent';
         } catch (Exception $e) {
             echo "Message could not be sent. Mailer Error: {$phpmailer->ErrorInfo}";
         }
@@ -131,7 +126,7 @@ class Mail
         try {
             $actualDateTime = new \DateTime();
             $actualDateTime = $actualDateTime->format('YmdHis');
-            $message = "http://localhost/addComment?restaurant={$id_restaurant}";
+            $message = "http://localhost/restaurant/comments";
             $phpmailer = new PHPMailer();
             //Server settings
             $phpmailer->isSMTP();
@@ -152,9 +147,49 @@ class Mail
             //Content
             $phpmailer->isHTML(true);                                  //Set email format to HTML
             $phpmailer->Subject = "Vous avez un nouveau commentaire en attente";
-            $phpmailer->Body    = "Bonjour {$user->getFirstName()} {$user->getLastName()}, Vous avez un nouveau commentaire à valider !!";
+            $phpmailer->Body    = "Bonjour {$user->getFirstName()} {$user->getLastName()}, Vous avez un nouveau commentaire à valider !! {$message}";
             $phpmailer->send();
             echo 'Message has been sent';
+        } catch (Exception $e) {
+            echo "Message could not be sent. Mailer Error: {$phpmailer->ErrorInfo}";
+        }
+    }
+
+    public function tempMailReservation(string $name, string $date, string $hour, string $nbPerson, string $email)
+    {
+        try {
+            $actualDateTime = new \DateTime();
+            $actualDateTime = $actualDateTime->format('YmdHis');
+            $message = "Votre réservation est en attente de confirmation par le restaurant. Dès que cela sera validé, vous recevrez une validation par mail, pensez à regarder vos spams ! <br>";
+            $message .= "Récapitulatif de votre réservation : Au nom de : {$name}";
+            $message .= "Pour le : {$date}";
+            $message .= "A : {$hour}";
+            $message .= "Pour : {$nbPerson} personne(s)";
+            $phpmailer = new PHPMailer();
+            //Server settings
+            $phpmailer->isSMTP();
+            $phpmailer->SMTPDebug = SMTP::DEBUG_CONNECTION;
+            $phpmailer->Host = MHOST;
+            $phpmailer->SMTPAuth = true;
+            $phpmailer->Username = MUSERNAME;
+            $phpmailer->Password = MPASSWORD;
+            $phpmailer->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
+            $phpmailer->Port = MPORT;
+
+            //Recipients
+            $phpmailer->setFrom('pa.cms.test@gmail.com', 'PCR Contact');
+            $phpmailer->addAddress($email);     //Add a recipient
+            // $phpmailer->addAddress('vivin.fr@free.fr');     //Add a recipient
+
+
+            //Content
+            $phpmailer->isHTML(true);                                  //Set email format to HTML
+            $phpmailer->Subject = "Réservation en attente";
+            $phpmailer->Body    = "Salut {$name}, {$message}";
+            $phpmailer->send();
+            echo 'Message has been sent';
+
+
         } catch (Exception $e) {
             echo "Message could not be sent. Mailer Error: {$phpmailer->ErrorInfo}";
         }

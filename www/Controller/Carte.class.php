@@ -65,7 +65,7 @@ class Carte
         $errors = Verificator::checkForm($carte->getCreateForm(), $_POST + $_FILES);
         if (!$errors) {
             $carte->hydrate($_POST);
-            if ($_POST["status"] === 1) {
+            if ($_POST["status"] == 1) {
                 $this->unselectAllCarte();
             }
             $carte->save();
@@ -113,7 +113,7 @@ class Carte
         $errors = Verificator::checkForm($carte->getUpdateForm($currentCarte), $_POST + $_FILES);
         if (!$errors) {
             $carte->hydrate($_POST);
-            if ($_POST["status"] === 1) {
+            if ($_POST["status"] == 1) {
                 $this->unselectAllCarte();
             }
             $carte->save();
@@ -140,5 +140,10 @@ class Carte
             ->where("id_restaurant", $_SESSION["restaurant"]["id"])
             ->fetchClass("carte")
             ->fetchAll();
+    }
+
+    public function asupprimer()
+    {
+        $view = new View("asupprimer", "back");
     }
 }

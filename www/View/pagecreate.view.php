@@ -15,6 +15,22 @@
                             <label class="greytext mt-8 mb-8" for="title">Titre de la page</label>
                             <input class="" id="title" name="title" type="text">
 
+                            <div>
+                                <h4>Afficher le menu dans votre page ?</h4>
+                                <input type="radio" id="menuYes" name="displayMenu" value="1" required="required">
+                                <label for="menuYes">Oui</label>
+
+                                <input type="radio" id="menuNo" name="displayMenu" value="0" required="required" checked="checked">
+                                <label for="menuNo">Non</label>
+                            </div>
+                            <div>
+                                <h4>Afficher les commentaires dans votre page ?</h4>
+                                <input type="radio" id="commentYes" name="displayComment" value="1" required="required">
+                                <label for="commentYes">Oui</label>
+
+                                <input type="radio" id="commentNo" name="displayComment" value="0" required="required" checked="checked">
+                                <label for="commentNo">Non</label>
+                            </div>
                             <div class="mt-8" id="clone-row">
 
                             </div>
