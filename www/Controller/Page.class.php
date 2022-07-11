@@ -37,9 +37,9 @@ class Page
 
         $arrayuri = explode('=', $_SERVER['REQUEST_URI']);
         $id_restaurant = $arrayuri[1];
-
-        $restaurant = new Restaurant();
         $builder = new MysqlBuilder();
+        $restaurant = new Restaurant();
+
         $restaurant = $builder->select('restaurant', ["*"])
             ->where("id", $id_restaurant)
             ->fetchClass("restaurant")
@@ -49,7 +49,46 @@ class Page
         $inputName = $restaurant->removeAccents(strtolower($inputs['name']));
 
         $url = 'pages/' . $name . '/' . $inputName;
-        
+        if ($_POST["displayMenu"]) {
+            if (file_exists('public/assets/img/qrcode' . $id_restaurant . '.svg') == true){
+                $view = new View('pagecreate', 'back');
+                $view->assign('title', $_SESSION["restaurant"]["name"] . ' - Création d\'une page');
+                $view->assign('id_restaurant', $id_restaurant);
+                $view->setFlashMessage('error', 'Une page Carte existe déjà');
+                die();
+            }
+            $curl = curl_init();
+            $urlqrcode = APP_URL . '%2Fpages%2F' . $restaurant->getName() . '%2F' . $inputName;
+
+            curl_setopt_array($curl, [
+                CURLOPT_URL => "https://qrcode3.p.rapidapi.com/generateQR?text=" . $urlqrcode,
+                CURLOPT_RETURNTRANSFER => true,
+                CURLOPT_FOLLOWLOCATION => true,
+                CURLOPT_ENCODING => "",
+                CURLOPT_MAXREDIRS => 10,
+                CURLOPT_TIMEOUT => 30,
+                CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                CURLOPT_CUSTOMREQUEST => "GET",
+                CURLOPT_HTTPHEADER => [
+                    "X-RapidAPI-Host: qrcode3.p.rapidapi.com",
+                    "X-RapidAPI-Key: cabda91867mshb30fccb93e66b88p161593jsn9e28f5024f8a"
+                ],
+            ]);
+
+            $response = curl_exec($curl);
+            $err = curl_error($curl);
+
+            curl_close($curl);
+
+            if ($err) {
+                echo "cURL Error #:" . $err;
+            } else {
+                $fp = fopen('public/assets/img/qrcode' . $id_restaurant . '.svg', 'w+');
+                fwrite($fp,$response);
+                fclose($fp);
+            }
+        }
+
         $fp = fopen('View/' . $url . '.view.php', 'w+');
         (new \App\Core\CreatePage)->createBasicPageIndex($fp, $inputs, $array_body);
         fclose($fp);
@@ -69,14 +108,33 @@ class Page
             $content->save();
         }
 
+
+
         header('Location: /restaurant/page');
     }
     public function delete()
     {
+        session_start();
+
         $arrayuri = explode('=', $_SERVER['REQUEST_URI']);
         $idPage = $arrayuri[1];
+        $builder = new MysqlBuilder();
+
         $page = new PageModel();
-        $page->databaseDeleteOnePage(["id" => $idPage]);
+        $page = $builder->select("page", ["display_menu", "url"])
+            ->where("id",  $idPage)
+            ->fetchClass("page")
+            ->fetch();
+        if ($page->getDisplayMenu()){
+            unlink('public/assets/img/qrcode' . $_SESSION['restaurantsIds'][0] . '.svg');
+        }
+        unlink('View/' . $page->getUrl() . '.view.php');
+
+        $page = $builder->delete("page", ["id" => $idPage])
+
+            ->fetchClass("page")
+            ->fetch();
+
         header('Location: /restaurant/page');
     }
     public function showPage()

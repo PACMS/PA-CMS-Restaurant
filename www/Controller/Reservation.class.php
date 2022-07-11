@@ -59,7 +59,7 @@ class Reservation
 
 
         $reservation->hydrate($_POST);
-        dd($reservation);
+
         // $clientName = $reservation->getName();
         $reservation->setId($idReservation);
 
@@ -70,7 +70,7 @@ class Reservation
         $reservation->setNumTable($reservation->getNumTable());
         $reservation->setPhoneReserv($reservation->getPhoneReserv());
         $reservation->save();
-        return header("Location: /reservation");
+        return header("Location: /restaurant/reservation");
         // $view = new View("reservation", "back", 'success', 'Reservation', 'Modification avec succès de la reservation de ' . $clientName . ' !');
         // $view->assign('reservation', $reservation);
         // $view->assign('data', $data);
