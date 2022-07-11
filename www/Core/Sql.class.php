@@ -275,7 +275,6 @@ abstract class Sql
                 $_SESSION['user']['firstname'] = $userVerify['firstname'];
                 $_SESSION['user']['lastname'] = $userVerify['lastname'];
                 $_SESSION['user']['role'] = $userVerify['role'];
-
                 if ($userVerify['role'] == 'user') {
                     if (!is_null($_SESSION['previous_location'])) {
                         header('Location: ' . $_SESSION['previous_location']);

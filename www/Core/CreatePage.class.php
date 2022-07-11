@@ -14,7 +14,7 @@ class CreatePage
         
         $page = '
         <div class="index-header">
-        <h1 >' . $inputs['title'] . '<h1></div>';
+        <h1 >' . $inputs['title'] . '</h1></div>';
 
         foreach ($array_body as $key => $body) {
             if (strpos($key, "body")) {

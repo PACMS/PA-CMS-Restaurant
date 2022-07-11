@@ -18,11 +18,14 @@ class Comment
 
     public function addCommentView()
     {
-        $_SESSION['previous_location'] = 'addComment';
+        // $_SESSION['previous_location'] = 'addComment';
+        unset($_SESSION['previous_location']);
         $comment = new CommentModel();
         $view = new View("comment", "front");
         $view->assign('comment', $comment);
         $view->assign('id_restaurant', $_GET["restaurant"]);
+
+        
     }
 
     public function stockComment()
@@ -48,6 +51,7 @@ class Comment
         foreach ($users as $value) {
             $mail->askValidationComment($value);
         }
+        unset($_SESSION['previous_location']);
         header("Location: " . str_replace($_SERVER["HTTP_ORIGIN"], "", $_SERVER["HTTP_REFERER"]));
     }
 
