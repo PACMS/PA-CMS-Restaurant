@@ -160,8 +160,20 @@ class Restaurant
                     $restaurant->unfavoriteAllRestaurants();
                 }
                 $restaurant->save();
+                $page = new Page();
+                $builder = new MysqlBuilder();
                 $newUrl = $restaurant->getName();
                 $newUrl = $restaurant->removeAccents(strtolower($newUrl));
+                $pageRestaurant = $builder->select('page', ["url"])
+                    ->where('id_restaurant', $_SESSION["restaurant"]["id"])
+                    ->fetchClass("page")
+                    ->fetchAll();
+                foreach($pageRestaurant as $page){
+                    $updatedPage= $builder->update('page', ['url' => str_replace('pages/' . $folderName .'/', 'pages/' . $newUrl . '/', $page->getUrl())])
+                        ->where('id_restaurant', $_SESSION["restaurant"]["id"])
+                        ->fetchClass('page')
+                        ->execute();
+                }
                 $dirname = $_SERVER["DOCUMENT_ROOT"] . '/View/pages/' .  $folderName . '/';
                 rename($dirname, $_SERVER["DOCUMENT_ROOT"] . '/View/pages/' .  $newUrl . '/');
                 if ($restaurant->getFavorite() == 0) {
