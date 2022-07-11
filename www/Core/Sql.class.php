@@ -264,9 +264,8 @@ abstract class Sql
     public function verifyUser(array $params): void
     {
         $userVerify = $this->findOneBy($params);
-        echo '<pre>';
         if (empty($userVerify)) {
-            echo "ça fonctionne pas !";
+            header("Location: /login");
         } else {
             if (password_verify($_POST['password'], $userVerify['password'])) {
                 session_start();
@@ -285,7 +284,7 @@ abstract class Sql
                     header('Location: /dashboard');
                 }
             } else {
-                echo "ça fonctionne pas non plus!";
+                header("Location: /login");
             }
         };
     }
