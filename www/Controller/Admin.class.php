@@ -37,9 +37,12 @@ class Admin
         $view = new View("dashboard", "back");
 
         unset($_SESSION["restaurant"]);
-        if (!empty($_SESSION["favoriteRestaurant"])) {
-            $_SESSION["restaurant"]["id"] = $_SESSION["favoriteRestaurant"];
             $builder = new MysqlBuilder();
+            $restaurant = $builder->select("restaurant", ["id", "name"])
+            ->where('favorite', "1")
+            ->fetchClass("restaurant")
+            ->fetch();
+            $_SESSION["favoriteRestaurant"] = $restaurant->getId();
             $cartes = $builder->select("carte", ["*"])
                 ->where('id_restaurant', $_SESSION["favoriteRestaurant"])
                 ->fetchClass("carte")
@@ -50,13 +53,10 @@ class Admin
                 ->where('status', "0")
                 ->fetchClass("reservation")
                 ->fetchAll();
+            if($restaurant != false){
+                $view->assign("restaurant", $restaurant);
+            }
             $view->assign("reservations", $reservations);
-            $restaurant = $builder->select("restaurant", ["name"])
-                ->where('id', $_SESSION["favoriteRestaurant"])
-                ->fetchClass("restaurant")
-                ->fetch();
-            $view->assign("restaurant", $restaurant);
-        }
         $view->assign("user", $user);
     }
 
