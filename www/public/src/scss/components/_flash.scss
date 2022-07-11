@@ -10,7 +10,37 @@
   }
 
   .flash-error {
-    background-color: #ED6A5A;
+    background-color: #dc3545;
+    border-color: rgba(255, 129, 130, 0.4);
+  }
+  
+  .flash-success {
+    background-color: #28a745;
+    border-color: rgba(255, 129, 130, 0.4);
+  }
+
+  .flash-warn {
+    background-color: #ffc107;
+    border-color: rgba(255, 129, 130, 0.4);
+  }
+
+  .flash-info {
+    background-color: #17a2b8;
+    border-color: rgba(255, 129, 130, 0.4);
+  }
+
+  .flash-dark {
+    background-color: #343a40;
+    border-color: rgba(255, 129, 130, 0.4);
+  }
+
+  .flash-secondary {
+    background-color: #6c757d;
+    border-color: rgba(255, 129, 130, 0.4);
+  }
+
+  .flash-light {
+    background-color: #f8f9fa;
     border-color: rgba(255, 129, 130, 0.4);
   }
   
