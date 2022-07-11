@@ -152,7 +152,7 @@ class Reservation
         ///
         ///
         ///
-        /// 
+        ///
         $_POST['restaurant_id'] = 122;
         $_POST = array_map('htmlspecialchars', $_POST);
         $reservation->hydrate($_POST);

@@ -5,11 +5,12 @@
  */
 namespace App\Controller;
 
+use App\Controller\Mail;
+use App\Core\MysqlBuilder;
 use App\Core\Verificator;
 use App\Core\View;
 use App\Core\OAuth;
 use App\Model\User as UserModel;
-use App\Controller\Mail;
 /**
  * User Controller
  * 
@@ -211,35 +212,39 @@ class User
     public function lostPassword(): void
     {
         $user = new UserModel();
+        $errors = null;
+
+        if (!empty($_POST)) {
+            $errors = Verificator::checkForm($user->getLostPasswordForm(), $_POST);
+
+            if (!$errors) {
+                $_POST = array_map('htmlspecialchars', $_POST);
+                $user->hydrate($_POST);
+
+                if ((new MysqlBuilder())->select('user', ["*"])->where('email', $user->getEmail())->fetchClass('user')->fetch()) {
+                    if (isset($_POST['withPassword']) && $_POST['withPassword'] == "true") $linkConnexion = "false";
+                    else $linkConnexion = "true";
+
+                    $user->generateToken();
+                    $token = $user->getToken() . '&email=' . $user->getEmail() . '&date=' . (new \DateTime())->format("YmdHis") . '&tempLink=' . $linkConnexion;
+
+                    (new MysqlBuilder())->update('user', ['token' => $token])->where('email', $user->getEmail())->execute();
+
+                    $mail = new Mail();
+                    $mail->lostPasswordMail($user, $token);
+                }
+
+                $view = new View("lostPassword", "front", 'success', 'Email envoyé', 'Un email va vous êtes envoyé, pensez à vérifier les spams !');
+                $view->assign("title", "Mot de passe oublié");
+                $view->assign("user", $user);
+                $view->assign("errors", $errors);
+            }
+        }
 
         $view = new View("lostPassword");
         $view->assign("title", "Mot de passe oublié");
         $view->assign("user", $user);
-    }
-
-    /**
-     * Lost password action page
-     * 
-     * @deprecated
-     * 
-     * @return void
-     */
-    public function lostPasswordAction(): void
-    {
-        $user = new UserModel();
-
-        $view = new View("lostPasswordAction");
-        $view->assign("title", "Mail d'oubli de mdp");
-        $view->assign("user", $user);
-      
-        // if (!empty($_POST)) {
-        //     Verificator::checkForm(
-        //         $user->getLoginForm(),
-        //         $_POST + $_FILES
-        //     );
-        // }
-
-        // $email = $_POST['email'];
+        $view->assign("errors", $errors);
     }
 
     /**
@@ -249,55 +254,45 @@ class User
      */
     public function resetPassword(): void
     {
-        $user = new UserModel();
+        if (isset($_GET['tempLink']) && isset($_GET['email']) && !empty($_GET['email']) && isset($_GET['token']) && !empty($_GET['token']) && isset($_GET['date']) && !empty($_GET['date']))
+            if ((new MysqlBuilder())->select('user', ['*'])->where('email', htmlentities($_GET['email']))->fetchClass('user')->fetch()) {
+                $user = (new MysqlBuilder())->select('user', ['*'])->where('email', htmlentities($_GET['email']))->fetchClass('user')->fetch();
+                if (($_GET['token'] . '&email=' . $_GET['email'] . '&date=' . $_GET['date'] . '&tempLink=' . $_GET['tempLink']) == $user->getToken())
+                    if (((new \DateTime())->diff(new \DateTime($_GET['date']))->format('%i')) < 60)
+                        if ($_GET['tempLink'] == "true") {
+                            $_SESSION['user']['id'] = $user->getId();
+                            $_SESSION['user']['email'] = $user->getEmail();
+                            $_SESSION['user']['firstname'] = $user->getFirstname();
+                            $_SESSION['user']['lastname'] = $user->getLastname();
+                            $_SESSION['user']['role'] = $user->getRole();
 
-        $actualDateTime = new \DateTime();
-        $date = new \DateTime($_GET["date"]);
-        $interval = $actualDateTime->diff($date);
-        $minutes = $interval->format('%i');
+                            if ($user->getRole() == 'user') {
+                                if (!is_null($_SESSION['previous_location'])) header('Location: ' . $_SESSION['previous_location']);
+                                else header('Location: /');
+                            } else header('Location: dashboard');
+                        } else {
+                            $errors = null;
 
-        if (isset($_GET["email"]) && isset($_GET["token"]) && $minutes < 10) {
-            $user->verifyToken($_GET["email"], $_GET["token"], false);
-        } else {
-            if (!isset($_GET["email"]) && !isset($_GET["token"])) {
-                echo "L'email ou le token est null! Vérification impossible";
-            } else {
-                echo "Le lien n'est plus valide";
+                            if (!empty($_POST)) {
+                                $errors = Verificator::checkForm($user->getResetPasswordForm(), $_POST);
+
+                                if (!$errors) {
+                                    $_POST = array_map('htmlspecialchars', $_POST);
+                                    $user->hydrate($_POST);
+
+                                    (new MysqlBuilder())->update('user', ['password' => $user->getPassword()])->where('email', $user->getEmail())->execute();
+
+                                    new View("login", "front", 'success', 'Mot de passe changé', 'Votre mot de passe a bien été changé, vous pouvez maintenant vous connecter !');
+                                }
+                            }
+
+                            $view = new View("resetPassword");
+                            $view->assign("title", "Réinitialisation du mot de passe");
+                            $view->assign("user", $user);
+                            $view->assign("errors", $errors);
+                        }
             }
-        }
 
-        $view = new View("resetPassword");
-        $view->assign("title", "Réinitialisation du mot de passe");
-        $view->assign("user", $user);
-    }
-
-    /**
-     * Reset password action
-     * 
-     * @return void
-     */
-    public function resetPasswordAction(): void
-    {
-
-        $user = new UserModel();
-        $_POST = array_map('htmlspecialchars', $_POST);
-        if (!empty($_POST)) {
-            Verificator::checkForm(
-                $user->getResetPasswordForm(),
-                $_POST + $_FILES
-            );
-            // print_r($result);
-        }
-
-        $id = $user->getIdWithEmail($_GET['email']);
-
-        $user->setId($id);
-        $user->setEmail($_GET['email']);
-        $user->setPassword($_POST['password']);
-
-        $user->save();
-
-        new View('login');
     }
 
     /**

@@ -141,25 +141,19 @@ $(document).ready(function () {
     `<i class="fas fa-envelope"></i>`
   );
   //select choice with password
-  $(
-    "section.container-forgetPassword div#passwordChoice h3#withPassword"
-  ).click(function (e) {
-    $(
-      "section.container-forgetPassword div#passwordChoice h3#withoutPassword"
-    ).removeClass("active");
+  $("section.container-forgetPassword div#passwordChoice h3#withPassword").click(function (e) {
+    $("section.container-forgetPassword div#passwordChoice h3#withoutPassword").removeClass("active");
     $("section.container-forgetPassword p#without-pwd").removeClass("active");
     $("section.container-forgetPassword p#with-pwd").addClass("active");
+    $("section.container-forgetPassword form input#inputPasswordChoice").val("true");
     e.target.classList.add("active");
   });
   //select choice without password
-  $(
-    "section.container-forgetPassword div#passwordChoice h3#withoutPassword"
-  ).click(function (e) {
-    $(
-      "section.container-forgetPassword div#passwordChoice h3#withPassword"
-    ).removeClass("active");
+  $("section.container-forgetPassword div#passwordChoice h3#withoutPassword").click(function (e) {
+    $("section.container-forgetPassword div#passwordChoice h3#withPassword").removeClass("active");
     $("section.container-forgetPassword p#with-pwd").removeClass("active");
     $("section.container-forgetPassword p#without-pwd").addClass("active");
+    $("section.container-forgetPassword form input#inputPasswordChoice").val("false");
     e.target.classList.add("active");
   });
 

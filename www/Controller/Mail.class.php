@@ -55,16 +55,14 @@ class Mail
         }
     }
 
-    public function lostPasswordMail(?string $token, ?string $email)
+    public function lostPasswordMail(User $user, string $token)
     {
         try {
-            $actualDateTime = new \DateTime();
-            $actualDateTime = $actualDateTime->format('YmdHis');
-            $message = "http://localhost/resetPassword?token=" . $token . '&email=' . $email . '&date=' . $actualDateTime;
+            $message = "http://localhost/resetPassword?token=" . $token;
             $phpmailer = new PHPMailer();
             //Server settings
             $phpmailer->isSMTP();
-            $phpmailer->SMTPDebug = SMTP::DEBUG_CONNECTION;
+            $phpmailer->SMTPDebug = SMTP::DEBUG_OFF;
             $phpmailer->Host = MHOST;
             $phpmailer->SMTPAuth = true;
             $phpmailer->Username = MUSERNAME;
@@ -74,19 +72,16 @@ class Mail
 
             //Recipients
             $phpmailer->setFrom('pa.cms.test@gmail.com', 'PCR Contact');
-            $phpmailer->addAddress($email);     //Add a recipient
-            // $phpmailer->addAddress('vivin.fr@free.fr');     //Add a recipient
-
+            $phpmailer->addAddress($user->getEmail());     //Add a recipient
 
             //Content
             $phpmailer->isHTML(true);                                  //Set email format to HTML
-            $phpmailer->Subject = 'Salut Vivian Ruhlmann';
-            $phpmailer->Body    = "This is the HTML message body <b>in bold!</b>
-                                   <a href={$message}>Réinitialiser votre mot de passe</a>
-                                   <b>Ce mail n'est valable que 10 minutes</b>";
+            $phpmailer->Subject = 'Mot de passe oublié';
+            $phpmailer->Body    = "Mot de passe oublié ? Cliquez sur ce lien : 
+                                   <a href={$message}>Réinitialiser votre mot de passe / connexion magique</a> <br>
+                                   <b>Ce mail n'est valable qu'une heure !</b>";
 
             $phpmailer->send();
-            echo 'Message has been sent';
         } catch (Exception $e) {
             echo "Message could not be sent. Mailer Error: {$phpmailer->ErrorInfo}";
         }
