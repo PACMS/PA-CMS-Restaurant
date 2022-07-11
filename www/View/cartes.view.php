@@ -13,6 +13,8 @@
                         <button id="state-card" class="<?= $value->getStatus() ? "active" : "" ?>"><?= $value->getStatus() ? "Activé" : "Désactivé" ?></button>
                     </footer>
                     </a>
+                    <?php if($_SESSION["user"]["role"] == "admin"): ?>
+
                     <a href="?id=<?= $value->getId() ?>">
                         <svg id="edit-card" width="25" height="23" viewBox="0 0 25 23" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <g clip-path="url(#clip0_641_4396)">
@@ -25,8 +27,11 @@
                             </defs>
                         </svg>
                     </a>
+                    <?php endif; ?>
                 </article>
             <?php endforeach; ?>
+            <?php if($_SESSION["user"]["role"] == "admin"): ?>
+
             <article class="card create">
                 <a href="/restaurant/carte/create">
                     <main>
@@ -43,6 +48,7 @@
                     </footer>
                 </a>
             </article>
+            <?php endif; ?>
         </section>
     </section>
 </main>

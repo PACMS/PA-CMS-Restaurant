@@ -6,7 +6,9 @@
     <section class="flex flex-column secondPart">
     <?php $this->includePartial("topBar", ["title" => "Pages"]); ?>
         <section class="formProfile flex flex-column">
+            <?php if($_SESSION["user"]["role"] == "admin"): ?>
             <a class='btn btn-submit pr-20 pl-20 w-48' href="/restaurant/pagecreate?id=<?php echo $idrestaurant ?>" id=''>Ajout d'une page</a>
+            <?php endif; ?>
             <section class="grid" style="margin-top: 35px;">
                 <div class="row">
                     <div class="cols-lg-12 cols-md-12 cols-sm-12">
@@ -37,12 +39,14 @@
                                             <td> <?php echo $page['created_at'] ?> </td>
                                             <td> <?php echo $page['updated_at'] ?> </td>
                                             <td>
+                                            <?php if($_SESSION["user"]["role"] == "admin"): ?>
                                                 <a href='/page/show?id=<?php echo $page['id'] ?>'>
                                                     <i class='fas fa-pen'></i>
                                                 </a>
                                                 <a href='/page/delete?id=<?php echo $page['id'] ?>'>
                                                     <i class='fas fa-times-circle'></i>
                                                 </a>
+                                                <?php endif; ?>
                                             </td>
                                         </tr>
                                     <?php

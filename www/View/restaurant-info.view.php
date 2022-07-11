@@ -3,11 +3,13 @@
     <div id="pseudo-element"></div>
     <section class="flex flex-column secondPart">
     <?php $this->includePartial("topBar", ["title" => "Informations"]); ?>
+    <?php if($_SESSION["user"]["role"] == "admin"): ?>
 
         <div id="restaurant-delete">
             <a href="/restaurant/delete" id="delete">Supprimer</a>
         </div>
         <?php $this->includePartial("form", $restaurant->getCompleteUpdateRestaurantForm()); ?>
+        <?php endif; ?>
     </section>
 </main>
 

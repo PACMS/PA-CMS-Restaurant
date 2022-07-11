@@ -46,6 +46,7 @@ class Admin
             $view->assign("cartes", $cartes);
             $reservations = $builder->select("reservation", ["*"])
                 ->where('id_restaurant', $_SESSION["favoriteRestaurant"])
+                ->where('status', "0")
                 ->fetchClass("reservation")
                 ->fetchAll();
             $view->assign("reservations", $reservations);

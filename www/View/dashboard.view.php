@@ -4,7 +4,7 @@
     <div id="pseudo-element"></div>
     <section class="flex flex-column secondPart">
         <?php $this->includePartial("topBar"); ?>
-        <section class="stats flex justify-content-between border-bottom-solid border-bottom-2 border-bottom-blue">
+        <!-- <section class="stats flex justify-content-between border-bottom-solid border-bottom-2 border-bottom-blue">
             <div class="flex gap-30">
                 <div class="flex flex-column justify-content-end">
                     <div class="flex gap-7">
@@ -31,7 +31,7 @@
             <div class="align-self-end">
                 <a class="voir-plus-button" href="">Voir plus</a>
             </div>
-        </section>
+        </section> -->
 
         <?php if (!empty($_SESSION["favoriteRestaurant"])) : ?>
                 

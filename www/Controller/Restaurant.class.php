@@ -144,6 +144,8 @@ class Restaurant
         session_start();
         $restaurant = new RestaurantModel();
         $errors = null;
+        $_SESSION["restaurant"]["folderName"] = $restaurant->removeAccents(strtolower($_SESSION["restaurant"]["name"]));
+        $folderName = $_SESSION["restaurant"]["folderName"];
         if (!empty($_POST) && $_POST["id"] == $_SESSION["restaurant"]["id"]) {
             if (empty($_POST["favorite"])) {
                 $_POST["favorite"] = 0;
@@ -158,6 +160,10 @@ class Restaurant
                     $restaurant->unfavoriteAllRestaurants();
                 }
                 $restaurant->save();
+                $newUrl = $restaurant->getName();
+                $newUrl = $restaurant->removeAccents(strtolower($newUrl));
+                $dirname = $_SERVER["DOCUMENT_ROOT"] . '/View/pages/' .  $folderName . '/';
+                rename($dirname, $_SERVER["DOCUMENT_ROOT"] . '/View/pages/' .  $newUrl . '/');
                 if ($restaurant->getFavorite() == 0) {
                     unset($_SESSION["favoriteRestaurant"]);
                 } else {

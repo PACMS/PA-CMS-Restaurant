@@ -15,9 +15,13 @@
             </a>
             <ul class="sidebar-list">
                 <li><a href="/profile" class="sidebar-button"><i class="far fa-user-circle sidebar-button-picto"></i><span>Profil</span></a></li>
+                <?php if($_SESSION["user"]["role"] == "admin"): ?>
                 <li><a href="/themes" class="sidebar-button"><i class="far fa-edit sidebar-button-picto"></i><span>Thèmes</span></a></li>
+                <?php endif; ?>
                 <li><a href="/restaurants" class="sidebar-button"><i class="far fa-lemon sidebar-button-picto"></i><span>Restaurants</span></a></li>
+                <?php if($_SESSION["user"]["role"] == "admin"): ?>
                 <li> <a href="/users" class="sidebar-button"><i class="far fa-list-alt sidebar-button-picto"></i><span>Utilisateurs</span></a></li>
+                <?php endif; ?>
             </ul>
         </nav>
         <button id="navbarButton" class="sidebar-resizer"><i class="far fa-arrow-alt-circle-left"></i></button>
@@ -36,9 +40,13 @@
             </a>
             <ul class="sidebar-list">
                 <li><a href="/profile" class="sidebar-button"><i class="far fa-user-circle sidebar-button-picto"></i><span>Profil</span></a></li>
+                <?php if($_SESSION["user"]["role"] == "admin"): ?>
                 <li><a href="/themes" class="sidebar-button"><i class="far fa-edit sidebar-button-picto"></i><span>Thèmes</span></a></li>
-                <li><a href="/restaurants" class="sidebar-button--active"><i class="far fa-lemon sidebar-button-picto"></i><span>Restaurants</span></a></li>
+                <?php endif; ?>
+                <li><a href="/restaurants" class="sidebar-button"><i class="far fa-lemon sidebar-button-picto"></i><span>Restaurants</span></a></li>
+                <?php if($_SESSION["user"]["role"] == "admin"): ?>
                 <li> <a href="/users" class="sidebar-button"><i class="far fa-list-alt sidebar-button-picto"></i><span>Utilisateurs</span></a></li>
+                <?php endif; ?>
             </ul>
         </nav>
         <button id="navbarButton" class="sidebar-resizer"><i class="far fa-arrow-alt-circle-left"></i></button>
@@ -58,9 +66,13 @@
             </a>
             <ul class="sidebar-list">
                 <li><a href="/profile" class="sidebar-button"><i class="far fa-user-circle sidebar-button-picto"></i><span>Profil</span></a></li>
+                <?php if($_SESSION["user"]["role"] == "admin"): ?>
                 <li><a href="/themes" class="sidebar-button"><i class="far fa-edit sidebar-button-picto"></i><span>Thèmes</span></a></li>
-                <li><a href="/restaurants" class="sidebar-button--active"><i class="far fa-lemon sidebar-button-picto"></i><span>Restaurants</span></a></li>
+                <?php endif; ?>
+                <li><a href="/restaurants" class="sidebar-button"><i class="far fa-lemon sidebar-button-picto"></i><span>Restaurants</span></a></li>
+                <?php if($_SESSION["user"]["role"] == "admin"): ?>
                 <li> <a href="/users" class="sidebar-button"><i class="far fa-list-alt sidebar-button-picto"></i><span>Utilisateurs</span></a></li>
+                <?php endif; ?>
             </ul>
         </nav>
         <button id="navbarButton" class="sidebar-resizer"><i class="far fa-arrow-alt-circle-left"></i></button>
@@ -80,9 +92,13 @@
             </a>
             <ul class="sidebar-list">
                 <li><a href="/profile" class="sidebar-button"><i class="far fa-user-circle sidebar-button-picto"></i><span>Profil</span></a></li>
+                <?php if($_SESSION["user"]["role"] == "admin"): ?>
                 <li><a href="/themes" class="sidebar-button"><i class="far fa-edit sidebar-button-picto"></i><span>Thèmes</span></a></li>
+                <?php endif; ?>
                 <li><a href="/restaurants" class="sidebar-button"><i class="far fa-lemon sidebar-button-picto"></i><span>Restaurants</span></a></li>
-                <li> <a href="/users" class="sidebar-button--active"><i class="far fa-list-alt sidebar-button-picto"></i><span>Utilisateurs</span></a></li>
+                <?php if($_SESSION["user"]["role"] == "admin"): ?>
+                <li> <a href="/users" class="sidebar-button"><i class="far fa-list-alt sidebar-button-picto"></i><span>Utilisateurs</span></a></li>
+                <?php endif; ?>
             </ul>
         </nav>
         <button id="navbarButton" class="sidebar-resizer"><i class="far fa-arrow-alt-circle-left"></i></button>
@@ -102,9 +118,13 @@
             </a>
             <ul class="sidebar-list">
                 <li><a href="/profile" class="sidebar-button"><i class="far fa-user-circle sidebar-button-picto"></i><span>Profil</span></a></li>
+                <?php if($_SESSION["user"]["role"] == "admin"): ?>
                 <li><a href="/themes" class="sidebar-button"><i class="far fa-edit sidebar-button-picto"></i><span>Thèmes</span></a></li>
+                <?php endif; ?>
                 <li><a href="/restaurants" class="sidebar-button"><i class="far fa-lemon sidebar-button-picto"></i><span>Restaurants</span></a></li>
-                <li> <a href="/users" class="sidebar-button--active"><i class="far fa-list-alt sidebar-button-picto"></i><span>Utilisateurs</span></a></li>
+                <?php if($_SESSION["user"]["role"] == "admin"): ?>
+                <li> <a href="/users" class="sidebar-button"><i class="far fa-list-alt sidebar-button-picto"></i><span>Utilisateurs</span></a></li>
+                <?php endif; ?>
             </ul>
         </nav>
         <button id="navbarButton" class="sidebar-resizer"><i class="far fa-arrow-alt-circle-left"></i></button>
@@ -124,9 +144,13 @@
             </a>
             <ul class="sidebar-list">
                 <li><a href="/profile" class="sidebar-button"><i class="far fa-user-circle sidebar-button-picto"></i><span>Profil</span></a></li>
-                <li><a href="/themes" class="sidebar-button--active"><i class="far fa-edit sidebar-button-picto"></i><span>Thèmes</span></a></li>
+                <?php if($_SESSION["user"]["role"] == "admin"): ?>
+                <li><a href="/themes" class="sidebar-button"><i class="far fa-edit sidebar-button-picto"></i><span>Thèmes</span></a></li>
+                <?php endif; ?>
                 <li><a href="/restaurants" class="sidebar-button"><i class="far fa-lemon sidebar-button-picto"></i><span>Restaurants</span></a></li>
+                <?php if($_SESSION["user"]["role"] == "admin"): ?>
                 <li> <a href="/users" class="sidebar-button"><i class="far fa-list-alt sidebar-button-picto"></i><span>Utilisateurs</span></a></li>
+                <?php endif; ?>
             </ul>
         </nav>
         <button id="navbarButton" class="sidebar-resizer"><i class="far fa-arrow-alt-circle-left"></i></button>
@@ -146,9 +170,13 @@
             </a>
             <ul class="sidebar-list">
                 <li><a href="/profile" class="sidebar-button--active"><i class="far fa-user-circle sidebar-button-picto"></i><span>Profil</span></a></li>
+                <?php if($_SESSION["user"]["role"] == "admin"): ?>
                 <li><a href="/themes" class="sidebar-button"><i class="far fa-edit sidebar-button-picto"></i><span>Thèmes</span></a></li>
+                <?php endif; ?>
                 <li><a href="/restaurants" class="sidebar-button"><i class="far fa-lemon sidebar-button-picto"></i><span>Restaurants</span></a></li>
+                <?php if($_SESSION["user"]["role"] == "admin"): ?>
                 <li> <a href="/users" class="sidebar-button"><i class="far fa-list-alt sidebar-button-picto"></i><span>Utilisateurs</span></a></li>
+                <?php endif; ?>
             </ul>
         </nav>
         <button id="navbarButton" class="sidebar-resizer"><i class="far fa-arrow-alt-circle-left"></i></button>
