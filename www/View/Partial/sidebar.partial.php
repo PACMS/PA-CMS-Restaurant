@@ -2,7 +2,7 @@
 
 <section class="sidebar">
         <nav class="sidebar-nav">
-            <a href="dashboard">
+            <a href="/dashboard">
                 <img class="sidebar-image" src="https://images.unsplash.com/photo-1554469384-e58fac16e23a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxMTgwOTN8MHwxfHNlYXJjaHwzfHxidWlsZGluZ3xlbnwwfHx8fDE2NDUzODA4MTQ&ixlib=rb-1.2.1&q=80&w=1080" alt="Avatar">
                 <h2 class="sidebar-title"><?php if(!empty($_SESSION["restaurant"]) && !empty($_SESSION["restaurant"]["name"])){
                     echo $_SESSION["restaurant"]["name"];
