@@ -6,7 +6,8 @@ use App\Core\Verificator;
 use App\Model\User as UserModel;
 use App\Model\Theme as ThemeModel;
 use App\Core\View;
-
+use App\Model\Carte as CarteModel;
+use App\Core\MysqlBuilder;
 /**
  * Admin controller
  * 
@@ -30,9 +31,27 @@ class Admin
      */
     public function home()
     {
+        @session_start();
         $user = new UserModel();
-
         $view = new View("dashboard", "back");
+        if (!empty($_SESSION["restaurant"]["favorite"])) {
+            $builder = new MysqlBuilder();
+            $cartes = $builder->select("carte", ["*"])
+                ->where('id_restaurant', $_SESSION["restaurant"]["favorite"])
+                ->fetchClass("carte")
+                ->fetchAll();
+            $view->assign("cartes", $cartes);
+            $reservations = $builder->select("reservation", ["*"])
+                ->where('id_restaurant', $_SESSION["restaurant"]["favorite"])
+                ->fetchClass("reservation")
+                ->fetchAll();
+            $view->assign("reservations", $reservations);
+            $restaurant = $builder->select("restaurant", ["name"])
+                ->where('id', $_SESSION["restaurant"]["favorite"])
+                ->fetchClass("restaurant")
+                ->fetch();
+            $view->assign("restaurant", $restaurant);
+        }
         $view->assign("user", $user);
     }
 
