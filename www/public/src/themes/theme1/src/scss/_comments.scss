@@ -10,7 +10,7 @@ section#comments {
         border: 1px solid black;
         border-radius: 16px;
         margin-bottom: 10px;
-
+        padding: 10px;
         article {
 
             & article {
@@ -22,7 +22,6 @@ section#comments {
                 flex-direction: row;
                 justify-content: space-between;
                 border-bottom: 1px solid black;
-                margin: 10px;
 
                 h3 {
                     margin: 0;
@@ -34,13 +33,7 @@ section#comments {
                 }
             }
 
-            main {
-                margin: 10px;
-
-            } 
-
             footer {
-                margin: 10px;
                 display: flex;
                 justify-content: flex-end;
 
@@ -131,5 +124,43 @@ section#comments {
 
             }
         }
+
+        & > form {
+            align-items: flex-start;    
+            justify-content: flex-start;
+
+            input {
+                padding: 5px 16px;
+                font-size: 14px;
+                font-weight: 500;
+                line-height: 20px;
+                white-space: nowrap;
+                vertical-align: middle;
+                cursor: pointer;
+                -webkit-user-select: none;
+                user-select: none;
+                border: 1px solid;
+                border-radius: 6px;
+                -webkit-appearance: none;
+                appearance: none;
+                background-color: transparent;
+                transition: all 0.2s ease-out;
+                color: black;
+                width: 115px;
+
+                &:hover {
+                    transform: translateY(-5px);
+                    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+                }
+            }
+
+            textarea {
+                width: 99.5%;
+                max-width: 99.5%;
+            }
+
+        }
     }
+
+
 }
