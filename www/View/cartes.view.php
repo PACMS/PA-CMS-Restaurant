@@ -3,6 +3,8 @@
     <div id="pseudo-element"></div>
     <section class="cards-page">
     <?php $this->includePartial("topBar", ["title" => "Cartes"]); ?>
+        <a id="" href="/public/assets/img/qrcode<?php echo $restaurant->getId() ?>.svg"  class="flex justify-content-center btn btn-submit w-64 " download>Télécharger le Qrcode de la carte</a>
+
         <section class="list-cards">
             <?php foreach ($cartes as $key => $value) : ?>
                 <article class="card">

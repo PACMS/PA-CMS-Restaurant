@@ -40,7 +40,32 @@
                                 <?php
                                     foreach ($data as $reservationInfo) :
                                 ?>
-                                    
+                                    <div id="open-modalEdit<?php echo $reservationInfo['id'] ?>" class="modal-window">
+                                        <div class="flex flex-column">
+                                            <a href="#" title="Close" class="modal-close ">x</a>
+                                            <form method="POST" action="/restaurant/editReservation?id=<?php echo $reservationInfo['id']?>">
+                                                <label class="greytext" for="name">Nom et prénom</label>
+                                                <input class="mb-7" id="name" name="name" value="<?php echo $reservationInfo['name'] ?>" type="text">
+
+                                                <label class="greytext" for="numPerson">Nombre de personne</label>
+                                                <input class="mb-7" id="numPerson" name="numPerson" value="<?php echo intval($reservationInfo['numPerson']) ?>" type="number" >
+
+                                                <label class="greytext" for="numTable">Numero de table</label>
+                                                <input class="mb-7" id="numTable" name="numTable" value="<?php echo $reservationInfo['numTable'] ?>" type="number" >
+
+                                                <label class="greytext" for="date">Date de reservation</label>
+                                                <input class="mb-7" id="date" name="date" value="<?php echo $reservationInfo['date']?>" type="date">
+
+                                                <label class="greytext" for="hour"">Heure de reservation</label>
+                                                <input class="mb-7" id="hour" name="hour"  value="<?php echo $reservationInfo['hour']?>" type="time">
+
+                                                <label class="greytext" for="phoneReserv">Numéro de téléphone</label>
+                                                <input class="mb-7" id="phoneReserv" name="phoneReserv"  value="<?php echo $reservationInfo['phoneReserv'] ?>" type="number">
+
+                                                <input type="submit" value="Modifier">
+                                            </form>
+                                        </div>
+                                    </div>
                                    <tr>
                                        <td> <?= $reservationInfo["id"] ?> </td>
                                        <td> <?= $reservationInfo["name"] ?> </td>

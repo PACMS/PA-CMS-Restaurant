@@ -1,5 +1,6 @@
 <?php
 
+define('APP_URL', 'localhost:81');
 define('DBDRIVER', 'mysql');
 define('DBUSER', 'root');
 define('DBPWD', 'password');
