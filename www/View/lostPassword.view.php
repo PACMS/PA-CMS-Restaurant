@@ -1,4 +1,13 @@
 <main class="forgetPassword">
+    <section>
+        <div style="color: red; border: none">
+            <?php if ($errors): ?>
+                <?php foreach ($errors as $error):  ?>
+                    <p><?= $error ?></p>
+                <?php endforeach ?>
+            <?php endif ?>
+        </div>
+    </section>
     <section class="container-forgetPassword">
         <h1>Comment souhaitez-vous accéder à votre espace personnel ?</h1>
         <div id="passwordChoice">

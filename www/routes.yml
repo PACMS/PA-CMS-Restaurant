@@ -18,17 +18,9 @@
   controller: user
   action: lostPassword
 
-/lostPasswordAction:
-  controller: user
-  action: lostPasswordAction
-
 /resetPassword:
   controller: user
   action: resetPassword
-
-/resetPasswordAction:
-  controller: user
-  action: resetPasswordAction
 
 /register:
   controller: user

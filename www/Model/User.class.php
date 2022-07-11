@@ -592,11 +592,11 @@ class User extends Sql
         return [
             "config" => [
                 "method" => "POST",
-                "action" => "lostPasswordAction",
+                "action" => "lostPassword",
                 "class" => "formLostPassword",
                 "id" => "formLostPassword",
                 "submit" => "Envoyer",
-                'captcha' => false,
+                'captcha' => true,
             ],
             "inputs" => [
                 "email" => [
@@ -605,12 +605,18 @@ class User extends Sql
                     "id" => "emailLogin",
                     "class" => "formLostPassword",
                     "required" => true,
-                    "error" => "Votre combinaison mail/mot de passe n'est pas correct",
+                    "error" => "Email non conforme",
                 ],
-                // "captcha" => [
-                //     'type' => 'captcha',
-                //     'error' => 'Le captcha n\'a pas pu valider votre formulaire'
-                // ]
+                "withPassword" => [
+                    "type" => "hidden",
+                    "id" => "inputPasswordChoice",
+                    "required" => true,
+                    'value' => "false"
+                ],
+            ],
+            "captcha" => [
+                'type' => 'captcha',
+                'error' => 'Le captcha n\'a pas pu valider votre formulaire'
             ]
         ];
     }
@@ -622,11 +628,10 @@ class User extends Sql
      */
     public function getResetPasswordForm(): array
     {
-        $action = "resetPasswordAction?email=" . $_GET['email'];
         return [
             "config" => [
                 "method" => "POST",
-                "action" => $action,
+                "action" => 'resetPassword?token=' . ($_GET['token'] . '&email=' . $_GET['email'] . '&date=' . $_GET['date'] . '&tempLink=' . $_GET['tempLink']),
                 "class" => "formResetPassword",
                 "id" => "formResetPassword",
                 "submit" => "Envoyer",
@@ -647,7 +652,7 @@ class User extends Sql
                     "id" => "pwdConfirmRegister",
                     "class" => "formRegister",
                     "required" => true,
-                    "error" => "Votre confirmation doit ne correspond pas",
+                    "error" => "Votre confirmation ne correspond pas",
                     "confirm" => "password"
                 ]
             ]
