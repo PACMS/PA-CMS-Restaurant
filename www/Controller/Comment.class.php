@@ -31,7 +31,7 @@ class Comment
     public function stockComment()
     {
         if (empty($_SESSION["user"])) {
-            // @session_start();
+            @session_start();
             $_SESSION['previous_location'] = str_replace($_SERVER["HTTP_ORIGIN"], "", $_SERVER["HTTP_REFERER"]);
             $_SESSION["tempoComment"] = $_POST["content"];
             header("Location: /login");

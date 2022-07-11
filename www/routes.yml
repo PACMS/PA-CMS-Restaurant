@@ -255,7 +255,7 @@
 /restaurant/addComment:
   controller: comment
   action: stockComment
-  security: "user"
+  # security: "user"
 
 /restaurant/comments:
   controller: comment
