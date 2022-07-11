@@ -279,7 +279,7 @@ CREATE TABLE `pacm_user` (
   `lastname` mediumtext COLLATE utf8mb4_unicode_ci,
   `status` tinyint(4) DEFAULT '0',
   `role` varchar(8) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'user',
-  `token` char(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `token` text COLLATE utf8mb4_unicode_ci,
   `createdAt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updatedAt` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
