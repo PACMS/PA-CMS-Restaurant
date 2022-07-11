@@ -113,12 +113,24 @@ class CreatePage
                 $page .= '<section id="comments">
                     <h1>Avis</h1>';
                 $page .= $this->getCommentsParent();
+                $page .= "<section><form method=\"post\" action=\"/restaurant/addComment\" class=\"flex flex-column\" id=\"addComment\">
+                <label for=\"content\">Ajouter un commentaire :</label>
+                <textarea id=\"content\" name=\"content\" minlength=\"20\" maxlength=\"400\" required=\"required\"></textarea>
+                <input type=\"hidden\" name=\"id_restaurant\" value=\"" . $_SESSION["restaurant"]["id"];
+                $page .= "\"><input type=\"submit\" value=\"Publier\">
+                </form></section>";
                 $page .= "</section>";
             } else {
                 $page .= '<section id="comments">
                 <h1>Commentaires :</h1>
-                <p>Aucun commentaires n\'a été publié !</p>
-                </section>';
+                <p>Aucun commentaires n\'a été publié !</p>';
+                $page .= "<section><form method=\"post\" action=\"/restaurant/addComment\" class=\"flex flex-column\" id=\"addComment\">
+                <label for=\"content\">Ajouter un commentaire :</label>
+                <textarea id=\"content\" name=\"content\" minlength=\"20\" maxlength=\"400\" required=\"required\"></textarea>
+                <input type=\"hidden\" name=\"id_restaurant\" value=\"" . $_SESSION["restaurant"]["id"];
+                $page .= "\"><input type=\"submit\" value=\"Publier\">
+                </form></section>
+                </section>";
             }
         }
 

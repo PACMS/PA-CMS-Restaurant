@@ -27,7 +27,12 @@ class Comment
 
     public function stockComment()
     {
-        @session_start();
+        if (empty($_SESSION) || empty($_SESSION["user"])) {
+            @session_start();
+            $_SESSION['previous_location'] = str_replace($_SERVER["HTTP_ORIGIN"], "", $_SERVER["HTTP_REFERER"]);
+            $_SESSION["tempoComment"] = $_POST["content"];
+            header("Location: /login");
+        }
         $mail = new Mail();
         $_POST = array_map('htmlspecialchars', $_POST);
         $_POST["id_restaurant"] = intval($_POST["id_restaurant"]);
@@ -43,7 +48,7 @@ class Comment
         foreach ($users as $value) {
             $mail->askValidationComment($value);
         }
-        header("Location: /"); 
+        header("Location: " . str_replace($_SERVER["HTTP_ORIGIN"], "", $_SERVER["HTTP_REFERER"]));
     }
 
     public function getComments()
@@ -100,7 +105,7 @@ class Comment
 
     public function replyComment() 
     {
-        if (empty($_SESSION) || empty($_SESSION["user"])) {
+        if (empty($_SESSION) | empty($_SESSION["user"])) {
             @session_start();
             $_SESSION['previous_location'] = str_replace($_SERVER["HTTP_ORIGIN"], "", $_SERVER["HTTP_REFERER"]);
             $_SESSION["tempoComment"] = $_POST["content"];
@@ -124,7 +129,7 @@ class Comment
         } catch (\Exception $e) {
             header("Location: " . str_replace($_SERVER["HTTP_ORIGIN"], "", $_SERVER["HTTP_REFERER"]));
         }
-        
+        unset($_SESSION['previous_location']);
         //Une notif pour dire que son commentaire est en cours de traiement
         header("Location: " . str_replace($_SERVER["HTTP_ORIGIN"], "", $_SERVER["HTTP_REFERER"]));
     }
