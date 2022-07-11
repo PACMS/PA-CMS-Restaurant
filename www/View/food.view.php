@@ -2,12 +2,7 @@
     <?php $this->includePartial("sidebar"); ?>
     <div id="pseudo-element"></div>
     <section class="flex flex-column secondPart">
-    <?php $this->includePartial("topBar", ["title" => "Information de l'ingrédient"]); ?>
-
-        <!-- <form  id="food-delete" method="POST" action="/restaurant/food/delete">
-            <input name="id" id="id" type="hidden" value="<?= $oneFood["id"]; ?>">
-            <input type="submit" id="delete" value="Supprimer">
-        </form> -->
+    <?php $this->includePartial("topBar", ["title" => "Information de l'ingrédient"]); ?> 
         <?php $this->includePartial("form", $food->deleteFoodForm(intval($oneFood["id"]))); ?>
         <?php $this->includePartial("form", $food->updateFoodForm()); ?>
     </section>

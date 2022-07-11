@@ -105,6 +105,7 @@ class Meal
                         }
                     }
             }
+            (new \App\Controller\Page)->refreshPages();
         }
         header('Location: /restaurant/carte/meals');
     }
@@ -220,6 +221,7 @@ class Meal
                }
             }
         }
+        (new \App\Controller\Page)->refreshPages();
         header('Location: /restaurant/carte/meals');
     }
 
@@ -227,6 +229,7 @@ class Meal
     {
         $meal = new MealModel();
         $meal->deleteMeal($_POST["id"]);
+        (new \App\Controller\Page)->refreshPages();
         //header('Location: /restaurants');
     }
 }

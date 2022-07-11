@@ -14,7 +14,7 @@
         <div class="chart" id="chartdiv2"></div>
       </div>
       <div>
-        <p>10 foods les plus utilisé dans des plats</p>
+        <p>10 foods les plus utilisé dans des plats (de la carte qui est activée)</p>
         <div class="chart" id="chartdiv3"></div>
       </div>
     </section>

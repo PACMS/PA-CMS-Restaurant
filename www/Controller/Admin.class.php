@@ -6,6 +6,8 @@ use App\Core\Verificator;
 use App\Model\User as UserModel;
 use App\Model\Theme as ThemeModel;
 use App\Core\View;
+use App\Model\Carte as CarteModel;
+use App\Core\MysqlBuilder;
 
 /**
  * Admin controller
@@ -30,11 +32,31 @@ class Admin
      */
     public function home()
     {
+        @session_start();
         $user = new UserModel();
-
         $view = new View("dashboard", "back");
-        $view->assign('title', 'Dashboard');
-        $view->assign('description', 'Dashboard du back office');
+
+        unset($_SESSION["restaurant"]);
+        if (!empty($_SESSION["favoriteRestaurant"])) {
+            $_SESSION["restaurant"]["id"] = $_SESSION["favoriteRestaurant"];
+            $builder = new MysqlBuilder();
+            $cartes = $builder->select("carte", ["*"])
+                ->where('id_restaurant', $_SESSION["favoriteRestaurant"])
+                ->fetchClass("carte")
+                ->fetchAll();
+            $view->assign("cartes", $cartes);
+            $reservations = $builder->select("reservation", ["*"])
+                ->where('id_restaurant', $_SESSION["favoriteRestaurant"])
+                ->where('status', "0")
+                ->fetchClass("reservation")
+                ->fetchAll();
+            $view->assign("reservations", $reservations);
+            $restaurant = $builder->select("restaurant", ["name"])
+                ->where('id', $_SESSION["favoriteRestaurant"])
+                ->fetchClass("restaurant")
+                ->fetch();
+            $view->assign("restaurant", $restaurant);
+        }
         $view->assign("user", $user);
     }
 
@@ -52,6 +74,7 @@ class Admin
     public function profile()
     {
         $user = new UserModel();
+        unset($_SESSION["restaurant"]);
         $userInfos = $user->getUser(["id" => $_SESSION['user']['id']]);
         $view = new View("profile", "back");
         $view->assign('title', 'Profil');
@@ -63,14 +86,14 @@ class Admin
     {
         session_start();
         $user = new UserModel();
-        
+
         $user->setId($_SESSION['user']['id']);
         $user->setFirstname($_POST['firstname']);
         $user->setLastname($_POST['lastname']);
-        
+
         Verificator::checkEmail($_POST['email']) ?: die("Email non valide");
         $user->setEmail($_POST['email']);
-        
+
         if (!empty($_POST['passwordOld']) && !empty($_POST['passwordNew']) && !empty($_POST['confirmNewPassowrd'])) {
             Verificator::checkPwd($_POST['passwordNew']) ?: die("Mot de passe non valide");
             $userInfos = $user->getUser(["id" => $_SESSION['user']['id']]);
@@ -87,7 +110,7 @@ class Admin
                 // die("Le mot de passe actuel est incorrect");
             }
         }
-        
+
         $user->save();
         $_SESSION['user']['email'] = $user->getEmail();
         $_SESSION['user']['firstname'] = $user->getFirstname();
@@ -106,7 +129,7 @@ class Admin
     {
         $theme = new ThemeModel();
         $themes = $theme->getAllThemes();
-        
+        unset($_SESSION["restaurant"]);
         $view = new View("themes", "back");
         $view->assign('title', 'Thèmes');
         $view->assign('description', 'Choix des thèmes pour le front');
@@ -124,7 +147,7 @@ class Admin
     {
         $user = new UserModel();
         $users = $user->getAll();
-
+        unset($_SESSION["restaurant"]);
         foreach ($users as $user) {
             $user->createdAt = date("d/m/Y H\hi:s", strtotime($user->createdAt));
             $user->updatedAt = date("d/m/Y H\hi:s", strtotime($user->updatedAt));
@@ -160,7 +183,7 @@ class Admin
      */
     public function updateUser()
     {
-        
+
         session_start();
         $user = new UserModel();
         $userId = htmlspecialchars($_GET['id']);
@@ -182,9 +205,10 @@ class Admin
     {
         session_start();
         $user = new UserModel();
+        $_POST = array_map('htmlspecialchars', $_POST);
         $user->hydrate($_POST);
         $user->save();
-        if(!is_null($_POST["id"]) && $_POST["id"] == $_SESSION["user"]["id"]) {
+        if (!is_null($_POST["id"]) && $_POST["id"] == $_SESSION["user"]["id"]) {
             $_SESSION["user"]["firstname"] = $user->getFirstname();
             $_SESSION["user"]["lastname"] = $user->getLastname();
             $_SESSION["user"]["email"] = $user->getEmail();

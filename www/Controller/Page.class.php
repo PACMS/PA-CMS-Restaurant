@@ -45,11 +45,11 @@ class Page
             ->fetchClass("restaurant")
             ->fetch();
         $restaurant->getName();
-        $name = $restaurant->removeAccents($restaurant->getName());
+        $name = $restaurant->removeAccents(strtolower($restaurant->getName()));
+        $inputName = $restaurant->removeAccents(strtolower($inputs['name']));
 
-        $url = 'pages/' . $name . '/' . $inputs['name'];
-
-
+        $url = 'pages/' . $name . '/' . $inputName;
+        
         $fp = fopen('View/' . $url . '.view.php', 'w+');
         (new \App\Core\CreatePage)->createBasicPageIndex($fp, $inputs, $array_body);
         fclose($fp);
@@ -57,6 +57,8 @@ class Page
         $page->setTitle($inputs['title']);
         $page->setUrl($url);
         $page->setStatus(0);
+        $page->setDisplayMenu($_POST["displayMenu"]);
+        $page->setDisplayComments($_POST["displayComment"]);
         $page->setIdRestaurant($id_restaurant);
         $page->save();
         $page = $page->findOneBy(['url' => $page->getUrl()]);
@@ -110,6 +112,8 @@ class Page
         $pageUpdate->setTitle($inputs['title']);
         $pageUpdate->setUrl($page['url']);
         $pageUpdate->setStatus(0);
+        $pageUpdate->setDisplayMenu($_POST["displayMenu"]);
+        $pageUpdate->setDisplayComments($_POST["displayComment"]);
         $pageUpdate->setIdRestaurant($page['id_restaurant']);
         $pageUpdate->save();
 
@@ -121,5 +125,33 @@ class Page
             $content->save();
         }
         header('Location: /restaurant/page');
+    }
+
+    public function refreshPages()
+    {
+        $builder = new MysqlBuilder();
+        $pages = $builder->select("page", ["*"])
+                        ->where("id_restaurant", $_SESSION["restaurant"]["id"])
+                        ->fetchClass("page")
+                        ->fetchAll();
+        
+        $content = [];
+        $inputs = [];
+        foreach($pages as $page) {
+            if (file_exists('View/' . $page->getUrl() . '.view.php')) {
+                $fp = fopen('View/' . $page->getUrl() . '.view.php', 'w+');
+                $content["displayMenu"] = $page->getDisplayMenu();
+                $content["displayComment"] = $page->getDisplayComments();
+                $inputs["title"] = $page->getTitle();
+                $contents = $builder->select("content", ["*"])
+                        ->where("id_page", $page->getId())
+                        ->fetchClass("content")
+                        ->fetchAll();
+                foreach($contents as $contentValue) {
+                    $content["displayComment{$contentValue->getId()}"] = $contentValue->getBody();
+                }
+                (new \App\Core\CreatePage)->createBasicPageIndex($fp, $inputs, $content);
+            }
+        }
     }
 }

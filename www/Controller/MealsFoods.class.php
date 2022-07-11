@@ -27,6 +27,7 @@ class MealsFoods
                 }
             }
         }
+        (new \App\Controller\Page)->refreshPages();
         header("Location: /restaurant/carte/meals");
     }
 }

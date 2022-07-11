@@ -181,6 +181,35 @@ class Comment extends Sql
             ]
         ];
     }
+
+    public function replyComment($comment): array
+    {
+        return [
+            "config" => [
+                "method" => "POST",
+                "action" => "/replyComment",
+                "class" => "flex flex-column",
+                "id" => "",
+                "submit" => "Répondre",
+                'captcha' => false
+            ],
+            "inputs" => [
+                "content" => [
+                    "type" => "textarea",
+                    "label" => "Commentaire :",
+                    "id" => "content",
+                    "required" => true,
+                    "minlength" => 20,
+                    "maxlength" => 400
+                ],
+                "id_restaurant" => [
+                    "type" => "hidden",
+                    "id" => "id_restaurant",
+                    "value" => $comment->getIdRestaurant()
+                ]
+            ]
+        ];
+    }
    
     public function validateComment(int $id): array
     {

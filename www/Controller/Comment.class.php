@@ -18,16 +18,24 @@ class Comment
 
     public function addCommentView()
     {
-        $_SESSION['previous_location'] = 'addComment';
+        // $_SESSION['previous_location'] = 'addComment';
+        unset($_SESSION['previous_location']);
         $comment = new CommentModel();
         $view = new View("comment", "front");
         $view->assign('comment', $comment);
         $view->assign('id_restaurant', $_GET["restaurant"]);
+
+        
     }
 
     public function stockComment()
     {
-        @session_start();
+        if (empty($_SESSION["user"])) {
+            @session_start();
+            $_SESSION['previous_location'] = str_replace($_SERVER["HTTP_ORIGIN"], "", $_SERVER["HTTP_REFERER"]);
+            $_SESSION["tempoComment"] = $_POST["content"];
+            header("Location: /login");
+        }
         $mail = new Mail();
         $_POST = array_map('htmlspecialchars', $_POST);
         $_POST["id_restaurant"] = intval($_POST["id_restaurant"]);
@@ -43,11 +51,15 @@ class Comment
         foreach ($users as $value) {
             $mail->askValidationComment($value);
         }
-        header("Location: /"); 
+        unset($_SESSION['previous_location']);
+        header("Location: " . str_replace($_SERVER["HTTP_ORIGIN"], "", $_SERVER["HTTP_REFERER"]));
     }
 
     public function getComments()
     {
+        if(is_null($_SESSION["restaurant"]["id"])) {
+            header("Location: /restaurants");
+        }
         $request = new MysqlBuilder();
         $comment = new CommentModel();
         $view = new View("comments", "back");
@@ -68,6 +80,7 @@ class Comment
             ->where("id", $_POST["id"])
             ->fetchClass("comment")
             ->execute();
+        (new \App\Controller\Page)->refreshPages();
         header("Location: /restaurant/comments");
     }
 
@@ -79,6 +92,7 @@ class Comment
             ->delete("comments", ["id" => $_POST["id"]])
             ->fetchClass("comment")
             ->fetch();
+        (new \App\Controller\Page)->refreshPages();
         header("Location: /restaurant/comments");
     }
 
@@ -91,5 +105,36 @@ class Comment
                 ->fetchAll();
         $view = new View("comments-front", "front");
         $view->assign('comments', $result);
+    }
+
+    public function replyComment() 
+    {
+        if (empty($_SESSION["user"])) {
+            @session_start();
+            $_SESSION['previous_location'] = str_replace($_SERVER["HTTP_ORIGIN"], "", $_SERVER["HTTP_REFERER"]);
+            $_SESSION["tempoComment"] = $_POST["content"];
+            header("Location: /login");
+        }
+        $mail = new Mail();
+        $_POST = array_map('htmlspecialchars', $_POST);
+        $_POST["id_user"] = intval($_SESSION["user"]["id"]);
+        $request = new MysqlBuilder();
+        $result = $request->insert("comments", $_POST)
+                ->fetchClass("comment")
+                ->execute();
+        $users = $request->select("user", ["*"])
+                ->where("role", "admin")
+                ->fetchClass("user")
+                ->fetchAll();
+        try {
+            foreach ($users as $value) {
+                $mail->askValidationComment($value);
+            }
+        } catch (\Exception $e) {
+            header("Location: " . str_replace($_SERVER["HTTP_ORIGIN"], "", $_SERVER["HTTP_REFERER"]));
+        }
+        unset($_SESSION['previous_location']);
+        //Une notif pour dire que son commentaire est en cours de traiement
+        header("Location: " . str_replace($_SERVER["HTTP_ORIGIN"], "", $_SERVER["HTTP_REFERER"]));
     }
 }
