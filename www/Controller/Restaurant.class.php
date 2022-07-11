@@ -43,14 +43,18 @@ class Restaurant
         $restaurant = new RestaurantModel();
         $builder = new MysqlBuilder();
         $page = new Page();
-        $name = $builder->select('restaurant', ["name"])
+        $currentRestaurant = $builder->select('restaurant', ["name", "favorite"])
             ->where('id', $_SESSION["restaurant"]["id"])
             ->fetchClass("restaurant")
             ->fetch();
-        $name = $restaurant->removeAccents(strtolower($name->getName()));
+        $currentRestaurant->setName($restaurant->removeAccents(strtolower($currentRestaurant->getName())));
+
+        if($currentRestaurant->getFavorite() == 1){
+            unset($_SESSION["favoriteRestaurant"]);
+        }
         $restaurant->databaseDeleteOneRestaurant(["id" => $_SESSION["restaurant"]["id"]]);
 
-        $dirname = $_SERVER["DOCUMENT_ROOT"] . '/View/pages/' .  $name . '/';
+        $dirname = $_SERVER["DOCUMENT_ROOT"] . '/View/pages/' .  $currentRestaurant->getName() . '/';
         $result = $page->deleteDirectory($dirname);
         unset($_SESSION["restaurant"]["id"]);
         header('Location: /restaurants');
@@ -104,6 +108,10 @@ class Restaurant
                 }
                 // $restaurant->setId(null);
                 $restaurant->save();
+                $restaurantId =  $restaurant->last()->id;
+                if($restaurant->getFavorite() == 1) {
+                   $_SESSION["favoriteRestaurant"] = $restaurantId;
+                }
 
                 $pageRestaurant = $restaurant->findOneBy(['name' => $restaurant->getName()]);
                 $page->setTitle($inputs['title']);
@@ -119,7 +127,6 @@ class Restaurant
                 $content->setBody($array_body[0]);
                 $content->save();
 
-                $restaurantId =  $restaurant->last()->id;
                 $stock = new StockModel;
                 $stock->hydrate(['restaurantId' => $restaurantId]);
                 $stock->save();
@@ -187,6 +194,7 @@ class Restaurant
         $oneRestaurant = $restaurant->getOneRestaurant($id);
         $_SESSION["restaurant"]["name"] = $oneRestaurant["name"];
         $builder = new MysqlBuilder();
+        
         $stock = $builder->select("stock", ["id"])
             ->where("restaurantId", $_SESSION["restaurant"]["id"])
             ->fetchClass("stock")
