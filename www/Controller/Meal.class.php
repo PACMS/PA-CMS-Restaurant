@@ -49,6 +49,7 @@ class Meal
             $_SESSION["stock"]["allFoodsIds"][] = $value->getId();
         }
         $view = new View("meal", "back");
+        $view->assign('title', $_SESSION["restaurant"]["name"] . ' - Menu ' . $carte["name"]);
         $view->assign("allMeals", $allMeals);
         $view->assign("categorie", $categorie);
         $view->assign("meal", $meals);

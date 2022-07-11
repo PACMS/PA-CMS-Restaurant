@@ -35,6 +35,7 @@ class Admin
         @session_start();
         $user = new UserModel();
         $view = new View("dashboard", "back");
+
         unset($_SESSION["restaurant"]);
         if (!empty($_SESSION["favoriteRestaurant"])) {
             $_SESSION["restaurant"]["id"] = $_SESSION["favoriteRestaurant"];
@@ -76,6 +77,8 @@ class Admin
         unset($_SESSION["restaurant"]);
         $userInfos = $user->getUser(["id" => $_SESSION['user']['id']]);
         $view = new View("profile", "back");
+        $view->assign('title', 'Profil');
+        $view->assign('description', 'Page de profil du back office');
         $view->assign("userInfos", $userInfos);
     }
 
@@ -128,6 +131,8 @@ class Admin
         $themes = $theme->getAllThemes();
         unset($_SESSION["restaurant"]);
         $view = new View("themes", "back");
+        $view->assign('title', 'Thèmes');
+        $view->assign('description', 'Choix des thèmes pour le front');
         $view->assign("themes", $themes);
     }
 
@@ -149,6 +154,7 @@ class Admin
         }
 
         $view = new View("users", "back");
+        $view->assign('title', 'Gestion des utilisateurs');
         $view->assign("users", $users);
         $view->assign("user", $user);
     }

@@ -29,6 +29,7 @@ class Restaurant
         }
         $_SESSION["restaurantsIds"] = $restaurantsIds;
         $view = new View("restaurants", 'back');
+        $view->assign('title', 'Restaurants');
         $view->assign('restaurants', $allRestaurants);
         $view->assign('restaurant', $restaurant);
     }
@@ -68,6 +69,7 @@ class Restaurant
         $oneRestaurant = $restaurant->getOneRestaurant($_SESSION["restaurant"]["id"]);
         $restaurant->hydrate($oneRestaurant);
         $view = new View("restaurant-info", "back");
+        $view->assign('title', $_SESSION["restaurant"]["name"] . ' - Informations');
         $view->assign('restaurant', $restaurant);
         $view->assign('oneRestaurant', $oneRestaurant);
     }
@@ -194,6 +196,7 @@ class Restaurant
         $restaurant = new RestaurantModel();
         $errors = null;
         $view = new View("create-restaurant", "back");
+        $view->assign('title', 'Création restaurant');
         $view->assign('restaurant', $restaurant);
         $view->assign("errors", $errors);
     }
@@ -220,6 +223,7 @@ class Restaurant
         $_SESSION["stock"]["id"] = $stock->getId();
         $restaurant->hydrate($oneRestaurant);
         $view = new View("restaurant", "back");
+        $view->assign('title', $_SESSION["restaurant"]["name"]);
         $view->assign('restaurant', $restaurant);
         $view->assign('oneRestaurant', $oneRestaurant);
     }

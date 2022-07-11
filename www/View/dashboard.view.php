@@ -31,6 +31,7 @@
             <div class="align-self-end">
                 <a class="voir-plus-button" href="">Voir plus</a>
             </div>
+
         </section> -->
 
         <?php if (!empty($_SESSION["favoriteRestaurant"])) : ?>
@@ -144,6 +145,7 @@
             </section>
 
     </section>
+
 <?php else : ?>
     <p>Vous n'avez aucun restaurant favori</p>
 <?php endif; ?>

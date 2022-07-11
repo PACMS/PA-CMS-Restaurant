@@ -261,10 +261,11 @@ abstract class Sql
      * 
      * @return void
      */
-    public function verifyUser(array $params): void
+    public function verifyUser(array $params)
     {
         $userVerify = $this->findOneBy($params);
         if (empty($userVerify)) {
+
             header("Location: /login");
         } else {
             if (password_verify($_POST['password'], $userVerify['password'])) {
@@ -275,14 +276,17 @@ abstract class Sql
                 $_SESSION['user']['lastname'] = $userVerify['lastname'];
                 $_SESSION['user']['role'] = $userVerify['role'];
                 if ($userVerify['role'] == 'user') {
+
                     $stockUrl = $_SESSION['previous_location'];
                     unset($_SESSION['previous_location']);
                     if (!is_null($stockUrl)) {
                         header('Location: ' . $stockUrl);
                     } else  {
                         header('Location: /');
+                        return true;
                     }
                 } else {
+
                     header('Location: /dashboard');
                 }
             } else {

@@ -59,34 +59,36 @@ class GlobalController
             $config_file = file('conf.inc-sample.php');
             foreach ( $config_file as $line_num => $line ) {
                 preg_match( '/^define\(\s*\'([A-Z_]+)\',([ ]+)/', $line, $match );
-                switch($match[1]) {
-                    case 'DBDRIVER':
-                        $config_file[ $line_num ] = "define('" . $match[1] . "', '" . $_POST['driver'] . "');\r\n";
-                        break;
-                    case 'DBUSER':
-                        $config_file[ $line_num ] = "define('" . $match[1] . "', '" . $_POST['user'] . "');\r\n";
-                        break;
-                    case 'DBPWD':
-                        $config_file[ $line_num ] = "define('" . $match[1] . "', '" . $_POST['password'] . "');\r\n";
-                        break;
-                    case 'DBHOST':
-                        $config_file[ $line_num ] = "define('" . $match[1] . "', '" . $_POST['host'] . "');\r\n";
-                        break;
-                    case 'DBPORT':
-                        $config_file[ $line_num ] = "define('" . $match[1] . "', '" . $_POST['port'] . "');\r\n";
-                        break;
-                    case 'DBNAME':
-                        $config_file[ $line_num ] = "define('" . $match[1] . "', '" . $_POST['name'] . "');\r\n";
-                        break;
-                    case 'DBPREFIXE':
-                        $config_file[ $line_num ] = "define('" . $match[1] . "', '" . $_POST['prefixe'] . "');\r\n";
-                        break;
-                    case 'REDIRECT_URI_GOOGLE':
-                        $config_file[ $line_num ] = "define('" . $match[1] . "', '" . $_POST['domain_name'] . "/googleConnect');\r\n";
-                        break;
-                    case 'REDIRECT_URI_FACEBOOK':
-                        $config_file[ $line_num ] = "define('" . $match[1] . "', '" . $_POST['domain_name'] . "/facebookConnect');\r\n";
-                        break;
+                if(!empty($match)) {
+                    switch($match[1]) {
+                        case 'DBDRIVER':
+                            $config_file[ $line_num ] = "define('" . $match[1] . "', '" . $_POST['driver'] . "');\r\n";
+                            break;
+                        case 'DBUSER':
+                            $config_file[ $line_num ] = "define('" . $match[1] . "', '" . $_POST['user'] . "');\r\n";
+                            break;
+                        case 'DBPWD':
+                            $config_file[ $line_num ] = "define('" . $match[1] . "', '" . $_POST['password'] . "');\r\n";
+                            break;
+                        case 'DBHOST':
+                            $config_file[ $line_num ] = "define('" . $match[1] . "', '" . $_POST['host'] . "');\r\n";
+                            break;
+                        case 'DBPORT':
+                            $config_file[ $line_num ] = "define('" . $match[1] . "', '" . $_POST['port'] . "');\r\n";
+                            break;
+                        case 'DBNAME':
+                            $config_file[ $line_num ] = "define('" . $match[1] . "', '" . $_POST['name'] . "');\r\n";
+                            break;
+                        case 'DBPREFIXE':
+                            $config_file[ $line_num ] = "define('" . $match[1] . "', '" . $_POST['prefixe'] . "');\r\n";
+                            break;
+                        case 'REDIRECT_URI_GOOGLE':
+                            $config_file[ $line_num ] = "define('" . $match[1] . "', '" . $_POST['domain_name'] . "/googleConnect');\r\n";
+                            break;
+                        case 'REDIRECT_URI_FACEBOOK':
+                            $config_file[ $line_num ] = "define('" . $match[1] . "', '" . $_POST['domain_name'] . "/facebookConnect');\r\n";
+                            break;
+                    }
                 }
             }
             $config_text = '';
@@ -189,7 +191,6 @@ class GlobalController
         header('Content-Type: text/xml; charset=UTF-8');
         $xmlstr = <<<XML
         <?xml version="1.0" encoding="UTF-8"?>
-
         <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
         <url>
             <loc>$protocol://$domain/login</loc>
