@@ -35,8 +35,9 @@
         </section> -->
 
         <?php if (!empty($_SESSION["favoriteRestaurant"])) : ?>
-                
+            <?php if(!empty($restaurant)): ?>
             <h3 style="text-align: center">Voir restaurant favori : <?= $restaurant->getName() ?></h3>
+            <?php endif; ?>
             <section class="grid">
                 <div class="row">
                     <div class="cols-lg-12 cols-md-12 cols-sm-12">
