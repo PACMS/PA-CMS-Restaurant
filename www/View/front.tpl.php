@@ -15,7 +15,7 @@ if (!isset($_SESSION)) {
 <head>
     <meta charset="UTF-8">
     <title><?php echo $title ?? "Titre par défaut" ?></title>
-    <meta name="description" content="ceci est une super page">
+    <meta name="description" content="<?php echo $description ?? 'Page du restaurant' ?>">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="/www/../public/dist/main.css">
     <link rel="stylesheet" href="/www/..<?php echo $_SESSION['theme']['path']; ?>dist/main.css">

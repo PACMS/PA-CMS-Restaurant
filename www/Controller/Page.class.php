@@ -17,6 +17,7 @@ class Page
         $pages = new PageModel();
         $pages = $pages->getAllPagesFromRestaurant($_SESSION["restaurant"]["id"]);
         $view = new View('page', 'back');
+        $view->assign('title', $_SESSION["restaurant"]["name"] . ' - Pages');
         $view->assign('pages', $pages);
         $view->assign('idrestaurant', $_SESSION["restaurant"]["id"]);
     }
@@ -25,6 +26,7 @@ class Page
         $arrayuri = explode('=', $_SERVER['REQUEST_URI']);
         $id_restaurant = $arrayuri[1];
         $view = new View('pagecreate', 'back');
+        $view->assign('title', $_SESSION["restaurant"]["name"] . ' - Création d\'une page');
         $view->assign('id_restaurant', $id_restaurant);
     }
     public function savePage()
