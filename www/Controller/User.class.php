@@ -52,6 +52,7 @@ class User
 
         $view = new View("login");
         $view->assign("title", "Connexion");
+        $view->assign('description', 'Page de connexion');
         $view->assign("user", $user);
 
 
@@ -158,7 +159,7 @@ class User
         $user->setPassword($_POST['password']);
 
         $params = ["email" => $_POST['email']];
-        
+
         if ($user->verifyUser($params) == false) {
             header('Location: /login?error=login');
         }
@@ -183,7 +184,9 @@ class User
             $user->save();
         }
 
-        new View('dashboard');
+        $view = new View('dashboard', 'back');
+        $view->assign('title', 'Dashboard');
+        $view->assign('description', 'Dashboard du back office');
     }
 
     /**
@@ -205,7 +208,9 @@ class User
             $user->save();
         }
 
-        new View('dashboard');
+        $view = new View('dashboard', 'back');
+        $view->assign('title', 'Dashboard');
+        $view->assign('description', 'Dashboard du back office');
     }
 
     /**

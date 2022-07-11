@@ -13,8 +13,9 @@ if (!isset($_SESSION)) {
 
 <head>
     <meta charset="UTF-8">
-    <title>Template du back</title>
-    <meta name="description" content="ceci est une super page">
+    <title><?php echo $title ?? "Back Office" ?></title>
+    <meta name="description" content="<?php echo $description ?? 'Page du Back Office' ?>">
+    <link rel="icon" type="image/png" href="public/assets/img/default.jpg">
     <meta http-equiv="X-UA-Compatible" content="IE=edge"> 
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" href="/public/dist/main.css">

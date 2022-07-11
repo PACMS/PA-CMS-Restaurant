@@ -37,6 +37,7 @@ class Carte
             }
             $_SESSION["restaurant"]["cartesIds"]   = $allCartesIds;
             $view = new View("cartes", "back");
+            $view->assign('title', $_SESSION["restaurant"]["name"] . ' - Cartes');
             $view->assign('cartes', $allCartes);
             $view->assign('restaurant', $restaurant);
         } elseif (!empty($_GET["id"])) {
