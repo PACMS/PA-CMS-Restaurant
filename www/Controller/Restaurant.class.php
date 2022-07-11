@@ -77,23 +77,20 @@ class Restaurant
         session_start();
         if (!empty($_POST) && $_POST["user_id"] == $_SESSION["user"]["id"]) {
 
-            if (!empty($_POST["favorite"]) && !empty($_POST["favorite"][0]) == "favorite") {
-                $restaurant->unfavoriteAllRestaurants();
-                $_POST["favorite"] = "1";
-                $favorite = htmlspecialchars($_POST["favorite"][0]);
+            if (empty($_POST["favorite"])) {
+                $_POST["favorite"] = 0;
             } else {
-                $_POST["favorite"] = "0";
-                $favorite = htmlspecialchars($_POST["favorite"][0]);
+                $_POST["favorite"] = 1;
             }
-            unset($_POST["favorite"]);
             $_POST = array_map('htmlspecialchars', $_POST);
-            $_POST["favorite"] = $favorite;
             $errors = Verificator::checkForm($restaurant->getCompleteRestaurantForm(), $_POST + $_FILES);
-
 
             if (!$errors) {
 
                 $restaurant->hydrate($_POST);
+                if ($_POST["favorite"] == 1) {
+                    $restaurant->unfavoriteAllRestaurants();
+                }
                 $name = $restaurant->removeAccents(strtolower($restaurant->getName()));
                 $dirname = $_SERVER["DOCUMENT_ROOT"] . '/View/pages/' .  $name . '/';
                 $url = 'pages/' .  $name . '/index';
@@ -141,21 +138,18 @@ class Restaurant
         $restaurant = new RestaurantModel();
         $errors = null;
         if (!empty($_POST) && $_POST["id"] == $_SESSION["restaurant"]["id"]) {
-            if (!empty($_POST["favorite"]) && !empty($_POST["favorite"][0]) == "favorite") {
-                $restaurant->unfavoriteAllRestaurants();
-                $_POST["favorite"] = "1";
-
-                $favorite = htmlspecialchars($_POST["favorite"][0]);
+            if (empty($_POST["favorite"])) {
+                $_POST["favorite"] = 0;
             } else {
-                $_POST["favorite"] = "0";
-                $favorite = htmlspecialchars($_POST["favorite"][0]);
+                $_POST["favorite"] = 1;
             }
-            unset($_POST["favorite"]);
             $_POST = array_map('htmlspecialchars', $_POST);
-            $_POST["favorite"] = $favorite;
             $errors = Verificator::checkForm($restaurant->getCompleteUpdateRestaurantForm(), $_POST + $_FILES);
             if (!$errors) {
                 $restaurant->hydrate($_POST);
+                if ($_POST["favorite"] == 1) {
+                    $restaurant->unfavoriteAllRestaurants();
+                }
                 $restaurant->save();
                 if ($restaurant->getFavorite() == 0) {
                     unset($_SESSION["favoriteRestaurant"]);

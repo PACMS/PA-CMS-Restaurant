@@ -124,4 +124,32 @@ class Page
         }
         header('Location: /restaurant/page');
     }
+
+    public function refreshPages()
+    {
+        $builder = new MysqlBuilder();
+        $pages = $builder->select("page", ["*"])
+                        ->where("id_restaurant", $_SESSION["restaurant"]["id"])
+                        ->fetchClass("page")
+                        ->fetchAll();
+        
+        $content = [];
+        $inputs = [];
+        foreach($pages as $page) {
+            if (file_exists('View/' . $page->getUrl() . '.view.php')) {
+                $fp = fopen('View/' . $page->getUrl() . '.view.php', 'w+');
+                $content["displayMenu"] = $page->getDisplayMenu();
+                $content["displayComment"] = $page->getDisplayComments();
+                $inputs["title"] = $page->getTitle();
+                $contents = $builder->select("content", ["*"])
+                        ->where("id_page", $page->getId())
+                        ->fetchClass("content")
+                        ->fetchAll();
+                foreach($contents as $contentValue) {
+                    $content["displayComment{$contentValue->getId()}"] = $contentValue->getBody();
+                }
+                (new \App\Core\CreatePage)->createBasicPageIndex($fp, $inputs, $content);
+            }
+        }
+    }
 }

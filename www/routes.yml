@@ -390,7 +390,3 @@
 /setupAction:
   controller: globalController
   action: setupAction
-
-/test:
-  controller: carte
-  action: asupprimer

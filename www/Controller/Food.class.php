@@ -73,7 +73,7 @@ class Food
             if (!$errors) {
                 $food->hydrate($_POST);
                 $food->save();
-
+                (new \App\Controller\Page)->refreshPages();
                 return header('Location: /restaurant/stock');
             }
         }
@@ -100,6 +100,7 @@ class Food
                     return header("Location: /restaurant/stock");
                 }
                 $food->deleteFood($_POST['id']);
+                (new \App\Controller\Page)->refreshPages();
                 return header('Location: /restaurant/stock');
             }
         }

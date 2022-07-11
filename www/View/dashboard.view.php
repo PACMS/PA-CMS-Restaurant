@@ -106,6 +106,7 @@
                                                     <a class="cta-button--blue">Activé</a>
                                                 <?php endif; ?>
                                                 <h1><?= $carte->getName() ?></h1>
+                                                <h2>Pour <?= $restaurant->getName() ?></h2>
                                             </footer>
                                         </figure>
                                     </article>
@@ -114,6 +115,8 @@
 
                         </section>
                     </div>
+
+
 
                     <div class="cols-lg-6 cols-md-12 cols-sm-12 offset-sm-3" style="width: 47.5%">
                         <div>

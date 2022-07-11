@@ -305,17 +305,14 @@ class Restaurant extends Sql
                     "error" => "Votre numéro de téléphone est incorrect",
                 ],
                 "favorite" => [
-                    "title" => "",
-                    "additionnalDiv" => true,
                     "type" => "checkbox",
-                    "id" => "accept_conditions_register",
-                    "class" => "formRegister",
-                    "required" => false,
+                    "additionnalDiv" => false,
                     "checked" => false,
-                    "error" => "Une erreur pour le choisi du restaurant favori",
+                    "required" => false,
                     "values" => [
                         "favorite" => "Choisir ce restaurant en tant que favori",
-                    ]
+                    ],
+                    "error" => "Erreur dans le choix du restaurant favori",
                 ],
                 // "captcha" => [
                 //     'type' => 'captcha',
@@ -420,17 +417,14 @@ class Restaurant extends Sql
                     "error" => "Votre numéro de téléphone est incorrect",
                 ],
                 "favorite" => [
-                    "title" => "",
-                    "additionnalDiv" => true,
                     "type" => "checkbox",
-                    "id" => "accept_conditions_register",
-                    "class" => "formRegister",
-                    "required" => false,
+                    "additionnalDiv" => false,
                     "checked" => $this->favorite,
-                    "error" => "Une erreur pour le choisi du restaurant favori",
+                    "required" => false,
                     "values" => [
                         "favorite" => "Choisir ce restaurant en tant que favori",
-                    ]
+                    ],
+                    "error" => "Erreur dans le choix du restaurant favori",
                 ],
             ]
         ];
