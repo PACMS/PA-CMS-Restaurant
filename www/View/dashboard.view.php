@@ -89,7 +89,7 @@
                     <section class="bookingTableHeader flex justify-content-between align-items-center">
                         <p>Cartes</p>
 
-                        <a href="#">Voir plus</a>
+                        <a href="/restaurant/cartes">Voir plus</a>
 
                     </section>
                     <section class="container-preview-cards">
@@ -106,6 +106,7 @@
                                     <a class="cta-button--blue">Activé</a>
                                     <?php endif; ?>
                                     <h1><?= $carte->getName() ?></h1>
+                                    <h2>Pour <?= $restaurant->getName() ?></h2>
                                 </footer>
                             </figure>
                         </article>

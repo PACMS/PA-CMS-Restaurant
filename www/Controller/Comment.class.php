@@ -71,6 +71,7 @@ class Comment
             ->where("id", $_POST["id"])
             ->fetchClass("comment")
             ->execute();
+        (new \App\Controller\Page)->refreshPages();
         header("Location: /restaurant/comments");
     }
 
@@ -82,6 +83,7 @@ class Comment
             ->delete("comments", ["id" => $_POST["id"]])
             ->fetchClass("comment")
             ->fetch();
+        (new \App\Controller\Page)->refreshPages();
         header("Location: /restaurant/comments");
     }
 
@@ -115,10 +117,15 @@ class Comment
                 ->where("role", "admin")
                 ->fetchClass("user")
                 ->fetchAll();
-        foreach ($users as $value) {
-            $mail->askValidationComment($value);
+        try {
+            foreach ($users as $value) {
+                $mail->askValidationComment($value);
+            }
+        } catch (\Exception $e) {
+            header("Location: " . str_replace($_SERVER["HTTP_ORIGIN"], "", $_SERVER["HTTP_REFERER"]));
         }
+        
         //Une notif pour dire que son commentaire est en cours de traiement
-        header("Location: {$_SERVER["HTTP_REFERER"]}");
+        header("Location: " . str_replace($_SERVER["HTTP_ORIGIN"], "", $_SERVER["HTTP_REFERER"]));
     }
 }
