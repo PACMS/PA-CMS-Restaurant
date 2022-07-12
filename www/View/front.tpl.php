@@ -25,6 +25,20 @@ if (!isset($_SESSION)) {
 </head>
 
 <body>
+    <style>
+        h1 {
+            color: <?php echo $_SESSION['theme']['h1']; ?>
+        }
+        h2 {
+            color: <?php echo $_SESSION['theme']['h2']; ?>
+        }
+        h3 {
+            color: <?php echo $_SESSION['theme']['h3']; ?>
+        }
+        p {
+            color: <?php echo $_SESSION['theme']['p']; ?>
+        }
+    </style>
     
     <?php 
 
