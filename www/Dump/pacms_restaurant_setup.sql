@@ -168,7 +168,7 @@ INSERT INTO `pacm_theme` (`id`, `name`, `slug`, `path`, `font`, `h1`, `h2`, `h3`
 CREATE TABLE IF NOT EXISTS `pacm_user` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `email` varchar(320) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `password` varchar(255) COLLATE utf8mb4_unicode_ci NULL,
   `firstname` varchar(25) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `lastname` mediumtext COLLATE utf8mb4_unicode_ci,
   `status` tinyint(4) DEFAULT '0',
