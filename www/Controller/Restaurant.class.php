@@ -171,7 +171,7 @@ class Restaurant
                     ->fetchClass("page")
                     ->fetchAll();
                 foreach($pageRestaurant as $page){
-                    $updatedPage= $builder->update('page', ['url' => str_replace('pages/' . $folderName .'/', 'pages/' . $newUrl . '/', $page->getUrl())])
+                     $builder->update('page', ['url' => str_replace('pages/' . $folderName .'/', 'pages/' . $newUrl . '/', $page->getUrl())])
                         ->where('id_restaurant', $_SESSION["restaurant"]["id"])
                         ->fetchClass('page')
                         ->execute();
@@ -226,5 +226,173 @@ class Restaurant
         $view->assign('title', $_SESSION["restaurant"]["name"]);
         $view->assign('restaurant', $restaurant);
         $view->assign('oneRestaurant', $oneRestaurant);
+    }
+    public function QrcodeEdit()
+    {
+        session_start();
+        $_SESSION['inputsQrcode'] = $_POST;
+dd($_FILES["logo"]);
+        $builder = new MysqlBuilder();
+
+        $pageRestaurant = $builder->select('page', ["url"])
+            ->where('id_restaurant', $_SESSION["restaurantsIds"][0])
+            ->where('display_menu', 1)
+            ->fetchClass("page")
+            ->fetch();
+
+        //Sans logo
+        if (empty($_FILES["logo"]["name"])){
+            $curl = curl_init();
+            $urlqrcode = APP_URL . '%2Fpages%2F' . $_SESSION['restaurant']['name'] . '%2F' . $pageRestaurant->getUrl();
+            curl_setopt_array($curl, [
+                CURLOPT_URL => "https://qrcode3.p.rapidapi.com/generateQR?text=" . $urlqrcode .  '&inner_eye_style=' . $_SESSION["inputsQrcode"]["style_inner"] . '&style=' . $_SESSION["inputsQrcode"]["style"] . '&style_color=' . $_SESSION["inputsQrcode"]["color"] .  '&outer_eye_style=' .  $_SESSION["inputsQrcode"]["style_outer"],
+                CURLOPT_RETURNTRANSFER => true,
+                CURLOPT_FOLLOWLOCATION => true,
+                CURLOPT_ENCODING => "",
+                CURLOPT_MAXREDIRS => 10,
+                CURLOPT_TIMEOUT => 30,
+                CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                CURLOPT_CUSTOMREQUEST => "GET",
+                CURLOPT_HTTPHEADER => [
+                    "X-RapidAPI-Host: qrcode3.p.rapidapi.com",
+                    "X-RapidAPI-Key: cabda91867mshb30fccb93e66b88p161593jsn9e28f5024f8a"
+                ],
+            ]);
+
+            $response = curl_exec($curl);
+            $err = curl_error($curl);
+
+            curl_close($curl);
+
+            if ($err) {
+                echo "cURL Error #:" . $err;
+            } else {
+                $fp = fopen('public/assets/img/qrcode/qrcode' . $_SESSION["restaurantsIds"][0] . '.svg', 'w+');
+                fwrite($fp,$response);
+                fclose($fp);
+            }
+        }else{
+            //Avec logo
+            $imageFileType = strtolower(pathinfo($_FILES["logo"]["name"],PATHINFO_EXTENSION));
+            //Verification de l'extention du fichier
+            if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
+                && $imageFileType != "svg" ) {
+
+                $restaurant = $builder
+                    ->select('restaurant', ["*"])
+                    ->where("id", $_SESSION["restaurant"]["id"])
+                    ->fetchClass("restaurant")
+                    ->fetch();
+                $allCartes = $builder
+                    ->select('carte', ["*"])
+                    ->where("id_restaurant", $_SESSION["restaurant"]["id"])
+                    ->fetchClass("carte")
+                    ->fetchAll();
+                $allCartesIds = [];
+                foreach ($allCartes as $value) {
+                    array_push($allCartesIds, $value->getId());
+                }
+
+                $view = new View('cartes', 'back');
+                $view->assign('title', $_SESSION["restaurant"]["name"] . ' - Cartes');
+                $view->assign('cartes', $allCartes);
+                $view->assign('restaurant', $restaurant);
+                $view->setFlashMessage('error', 'Les extensions autorisées sont jpg, jpeg, png, svg');
+                die();
+            }
+
+            // Check si le fichier poster est une image ou non
+            $check = getimagesize($_FILES["logo"]["tmp_name"]);
+            if($check == false) {
+                $restaurant = $builder
+                    ->select('restaurant', ["*"])
+                    ->where("id", $_SESSION["restaurant"]["id"])
+                    ->fetchClass("restaurant")
+                    ->fetch();
+                $allCartes = $builder
+                    ->select('carte', ["*"])
+                    ->where("id_restaurant", $_SESSION["restaurant"]["id"])
+                    ->fetchClass("carte")
+                    ->fetchAll();
+                $allCartesIds = [];
+                foreach ($allCartes as $value) {
+                    array_push($allCartesIds, $value->getId());
+                }
+
+                $view = new View('cartes', 'back');
+                $view->assign('title', $_SESSION["restaurant"]["name"] . ' - Cartes');
+                $view->assign('cartes', $allCartes);
+                $view->assign('restaurant', $restaurant);
+                $view->setFlashMessage('error', 'Le fichier poster n\'est pas une image');
+                die();
+            }
+            //Check sur la taille du fichier
+            if ($_FILES["logo"]["size"] > 2097152) {
+                $restaurant = $builder
+                    ->select('restaurant', ["*"])
+                    ->where("id", $_SESSION["restaurant"]["id"])
+                    ->fetchClass("restaurant")
+                    ->fetch();
+                $allCartes = $builder
+                    ->select('carte', ["*"])
+                    ->where("id_restaurant", $_SESSION["restaurant"]["id"])
+                    ->fetchClass("carte")
+                    ->fetchAll();
+                $allCartesIds = [];
+                foreach ($allCartes as $value) {
+                    array_push($allCartesIds, $value->getId());
+                }
+
+                $view = new View('cartes', 'back');
+                $view->assign('title', $_SESSION["restaurant"]["name"] . ' - Cartes');
+                $view->assign('cartes', $allCartes);
+                $view->assign('restaurant', $restaurant);
+                $view->setFlashMessage('error', 'Votre fichier est trop lour, la limite de taille est 2MB');
+                die();
+            }
+            $dirname = $_SERVER["DOCUMENT_ROOT"] . '/public/assets/img/qrcode/';
+            if (!is_dir($dirname)) {
+                mkdir($dirname, 0755, true);
+            }
+
+            move_uploaded_file($_FILES["logo"]["tmp_name"], 'public/assets/img/qrcode/logo.png');
+
+            $_SESSION["inputsQrcode"]["color"] = str_replace('#', '%23',$_SESSION["inputsQrcode"]["color"] );
+
+
+            if ($_SESSION['inputsQrcode'])
+
+                $curl = curl_init();
+            $urlqrcode = APP_URL . '%2Fpages%2F' . $_SESSION['restaurant']['name'] . '%2F' . $pageRestaurant->getUrl();
+            curl_setopt_array($curl, [                                                                                                                                                                                                                                                  //Mettre    public/assets/img/qrcode/logo en prod
+                CURLOPT_URL => "https://qrcode3.p.rapidapi.com/generateQR?text=" . $urlqrcode .  '&inner_eye_style=' . $_SESSION["inputsQrcode"]["style_inner"] . '&style=' . $_SESSION["inputsQrcode"]["style"] . '&style_color=' . $_SESSION["inputsQrcode"]["color"] . '&image=' . 'https%3A%2F%2Fupload.wikimedia.org%2Fwikipedia%2Fcommons%2F4%2F47%2FPNG_transparency_demonstration_1.png' .  '&outer_eye_style=' .  $_SESSION["inputsQrcode"]["style_outer"],
+                CURLOPT_RETURNTRANSFER => true,
+                CURLOPT_FOLLOWLOCATION => true,
+                CURLOPT_ENCODING => "",
+                CURLOPT_MAXREDIRS => 10,
+                CURLOPT_TIMEOUT => 30,
+                CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                CURLOPT_CUSTOMREQUEST => "GET",
+                CURLOPT_HTTPHEADER => [
+                    "X-RapidAPI-Host: qrcode3.p.rapidapi.com",
+                    "X-RapidAPI-Key: cabda91867mshb30fccb93e66b88p161593jsn9e28f5024f8a"
+                ],
+            ]);
+
+            $response = curl_exec($curl);
+            $err = curl_error($curl);
+
+            curl_close($curl);
+
+            if ($err) {
+                echo "cURL Error #:" . $err;
+            } else {
+                $fp = fopen('public/assets/img/qrcode/qrcode' . $_SESSION["restaurantsIds"][0] . '.svg', 'w+');
+                fwrite($fp,$response);
+                fclose($fp);
+            }
+        }
+
+        return header('Location: /restaurant/cartes');
     }
 }

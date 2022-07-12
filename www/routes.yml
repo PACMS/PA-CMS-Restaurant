@@ -255,6 +255,10 @@
   controller: reservation
   action: addReservationTable
 
+/restaurant/QrcodeEdit:
+  controller: restaurant
+  action: QrcodeEdit
+
 # Route pour les commentaires
 
 /addComment:
