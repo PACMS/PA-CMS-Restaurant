@@ -88,6 +88,9 @@ class GlobalController
                         case 'REDIRECT_URI_FACEBOOK':
                             $config_file[ $line_num ] = "define('" . $match[1] . "', '" . $_POST['domain_name'] . "/facebookConnect');\r\n";
                             break;
+                        case 'APP_URL':
+                            $config_file[ $line_num ] = "define('" . $match[1] . "', '" . $_POST['domain_name'] . "');\r\n";
+                            break;
                     }
                 }
             }
