@@ -52,6 +52,38 @@ class Theme
         header('Location: /themes'); 
     }
 
+    /**
+     * The view to configure the theme
+     *
+     * @param integer $id
+     * @return void
+     */
+    public function configureThemes(int $id)
+    {
+        $themeModel = new ThemeModel();
+        $theme = $themeModel->getThemeById($id);
+
+        $view = new View('configure-theme', 'back');
+        $view->assign('theme', $theme);
+        $view->assign('title', $theme['name'] . ' - Configuration');
+        $view->assign('description', 'Configuration du thème');
+    }
+
+    /**
+     * The action to update the theme
+     *
+     * @param integer $id
+     * @return void
+     */
+    public function updateTheme(int $id)
+    {
+        $themeModel = new ThemeModel();
+        $themeModel->setId($id);
+        $themeModel->hydrate($_POST);
+        $themeModel->save();
+        header('Location: /themes/configure/' . $id);
+    }
+
     public function render()
     {
         new View('theme');

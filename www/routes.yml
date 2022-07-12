@@ -213,6 +213,16 @@
   action: switchTheme
   security: "admin"
 
+/themes/configure/:id:
+  controller: theme
+  action: configureThemes
+  security: "admin"
+
+/themes/update/:id:
+  controller: theme
+  action: updateTheme
+  security: "admin"
+
 # Route pour la reservation
 /restaurant/reservation:
   controller: reservation
