@@ -274,7 +274,7 @@ INSERT INTO `pacm_theme` (`id`, `name`, `slug`, `path`) VALUES
 CREATE TABLE `pacm_user` (
   `id` int(11) NOT NULL,
   `email` varchar(320) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `password` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL ,
   `firstname` varchar(25) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `lastname` mediumtext COLLATE utf8mb4_unicode_ci,
   `status` tinyint(4) DEFAULT '0',

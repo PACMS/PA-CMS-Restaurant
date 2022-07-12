@@ -2,7 +2,9 @@
 
 namespace App\Controller;
 
+use App\Core\MysqlBuilder;
 use App\Core\Verificator;
+use App\Enum\Role;
 use App\Model\User as UserModel;
 use App\Model\Theme as ThemeModel;
 use App\Core\View;
@@ -52,47 +54,38 @@ class Admin
     public function profile()
     {
         $user = new UserModel();
-        $userInfos = $user->getUser(["id" => $_SESSION['user']['id']]);
-        $view = new View("profile", "back");
-        $view->assign('title', 'Profil');
-        $view->assign('description', 'Page de profil du back office');
-        $view->assign("userInfos", $userInfos);
-    }
+        $data = (new MysqlBuilder())->select('user', ['*'])->where('email', $_SESSION['user']['email'])->fetchClass('user')->fetch();
+        $errors = null;
 
-    public function updateProfile()
-    {
-        session_start();
-        $user = new UserModel();
-        
-        $user->setId($_SESSION['user']['id']);
-        $user->setFirstname($_POST['firstname']);
-        $user->setLastname($_POST['lastname']);
-        
-        Verificator::checkEmail($_POST['email']) ?: die("Email non valide");
-        $user->setEmail($_POST['email']);
-        
-        if (!empty($_POST['passwordOld']) && !empty($_POST['passwordNew']) && !empty($_POST['confirmNewPassowrd'])) {
-            Verificator::checkPwd($_POST['passwordNew']) ?: die("Mot de passe non valide");
-            $userInfos = $user->getUser(["id" => $_SESSION['user']['id']]);
+        if (!empty($_POST)) {
+            $errors = Verificator::checkForm($user->getUpdateUserForm(), $_POST);
 
-            if (password_verify($_POST['passwordOld'], $userInfos['password'])) {
-                if ($_POST['passwordNew'] === $_POST['confirmNewPassowrd']) {
-                    $user->setPassword($_POST['passwordNew']);
-                } else {
-                    $errors = ["Les mots de passe ne correspondent pas"];
-                    // die("Les mots de passe ne correspondent pas");
-                }
-            } else {
-                $errors = ["Le mot de passe actuel est incorrect"];
-                // die("Le mot de passe actuel est incorrect");
+            if (!$errors) {
+                $_POST = array_map('htmlspecialchars', $_POST);
+                $user->hydrate($_POST);
+
+                if (password_verify($_POST['lastPassword'], $user->getPassword())) {
+                    if ($user->getEmail() == $_SESSION['user']['email']) {
+                        $this->setUserData($user);
+                        header("Location: /profile");
+                    } else {
+                        $emailVerifyUni = (new MysqlBuilder())->select('user', ['email'])->where('email', $user->getEmail())->fetchClass('user')->fetch();
+                        if (!$emailVerifyUni) {
+                            $this->setUserData($user);
+                            header("Location: /profile");
+                        }
+                        else $errors = ['Adresse email déjà utilisée'];
+                    }
+                } else $errors = ['Ancien mot de passe ne correspond pas'];
             }
         }
-        
-        $user->save();
-        $_SESSION['user']['email'] = $user->getEmail();
-        $_SESSION['user']['firstname'] = $user->getFirstname();
-        $_SESSION['user']['lastname'] = $user->getLastname();
-        header("Location: /profile");
+
+        $view = new View("profile", "back");
+        $view->assign('user', $user);
+        $view->assign("data", $data);
+        $view->assign("errors", $errors);
+        $view->assign('title', 'Profil');
+        $view->assign('description', 'Page de profil du back office');
     }
 
     /**
@@ -125,30 +118,9 @@ class Admin
         $user = new UserModel();
         $users = $user->getAll();
 
-        foreach ($users as $user) {
-            $user->createdAt = date("d/m/Y H\hi:s", strtotime($user->createdAt));
-            $user->updatedAt = date("d/m/Y H\hi:s", strtotime($user->updatedAt));
-        }
-
         $view = new View("users", "back");
         $view->assign('title', 'Gestion des utilisateurs');
         $view->assign("users", $users);
-        $view->assign("user", $user);
-    }
-
-    /**
-     * Form create user
-     * 
-     * @link http://localhost:81/user/create /user/create
-     *
-     * @return void
-     */
-    public function createUser()
-    {
-        $user = new UserModel();
-
-        $view = new View("createUser", "back");
-        $view->assign("user", $user);
     }
 
     /**
@@ -158,41 +130,82 @@ class Admin
      *
      * @return void
      */
-    public function updateUser()
+    public function updateUser(int $id)
     {
-        
+        if (!(new MysqlBuilder())->select('user', ['id'])->where('id', htmlentities($id))->fetchClass('user')->fetch())
+            header('Location: /404');
+
         session_start();
         $user = new UserModel();
-        $userId = htmlspecialchars($_GET['id']);
+        $_SESSION['updateID'] = htmlentities($id);
+        $errors = null;
 
-        $userInfos = $user->getUserById($userId);
+        if (!empty($_POST)) {
+            $errors = Verificator::checkForm($user->getUpdateUsersForm(), $_POST);
+
+            if (!$errors) {
+                $_POST = array_map('htmlspecialchars', $_POST);
+                $user->hydrate($_POST);
+                $emailUser = (new MysqlBuilder())->select('user', ['email'])->where('id', $_SESSION['updateID'])->fetchClass('user')->fetch()->getEmail();
+
+                if ($user->getEmail() == $emailUser) {
+                    $this->setUserUpdateData($user);
+                } else {
+                    if (!(new MysqlBuilder())->select('user', ['email'])->where('email', $user->getEmail())->fetchClass('user')->fetch()) {
+                        $this->setUserUpdateData($user);
+                    } else $errors = ['Adresse email déjà utilisée'];
+                }
+            }
+        }
+
         $view = new View("updateUser", "back");
         $view->assign("user", $user);
-        $view->assign("userInfos", $userInfos);
+        $view->assign("errors", $errors);
     }
 
     /**
-     * Save an user
-     * 
-     * @link http://localhost:81/user/save /user/save
+     * Form create user
+     *
+     * @link http://localhost:81/user/create /user/create
      *
      * @return void
      */
-    public function saveUser()
+    public function createUser()
     {
-        session_start();
         $user = new UserModel();
-        $_POST = array_map('htmlspecialchars', $_POST);
-        $user->hydrate($_POST);
-        $user->save();
-        dd($user);
-        if(!is_null($_POST["id"]) && $_POST["id"] == $_SESSION["user"]["id"]) {
-            $_SESSION["user"]["firstname"] = $user->getFirstname();
-            $_SESSION["user"]["lastname"] = $user->getLastname();
-            $_SESSION["user"]["email"] = $user->getEmail();
-            $_SESSION["user"]["role"] = $user->getRole();
+        $errors = null;
+
+        if (!empty($_POST)) {
+            $errors = Verificator::checkForm($user->getUserCreationForm(), $_POST);
+
+            if (!$errors) {
+                $_POST = array_map('htmlspecialchars', $_POST);
+                $user->hydrate($_POST);
+
+                if (!(new MysqlBuilder())->select('user', ['email'])->where('email', $user->getEmail())->fetchClass('user')->fetch()) {
+                    $user->generateToken();
+                    $token = $user->getToken() . '&email=' . $user->getEmail() . '&date=' . (new \DateTime())->format("YmdHis") . '&tempLink=false';
+
+                    $userData = [
+                        'lastname' => $user->getLastname(),
+                        'firstname' => $user->getFirstname(),
+                        'email' => $user->getEmail(),
+                        'role' => $user->getRole(),
+                        'status' => $user->getStatus(),
+                        'token' => $token
+                    ];
+
+                    (new MysqlBuilder())->insert('user', $userData)->execute();
+
+                    $mail = new Mail();
+                    $mail->activePasswordMail($user, $token);
+                } else $errors = ['Adresse email déjà utilisée'];
+            }
         }
-        header("Location: /users");
+
+        $view = new View("createUser", "back");
+        $view->assign("user", $user);
+        $view->assign("errors", $errors);
     }
 
     /**
@@ -208,5 +221,51 @@ class Admin
         $userId = htmlspecialchars($_GET['id']);
         $user->deleteUser($userId);
         header("Location: /users");
+    }
+
+    /**
+     * @param UserModel $user
+     * @return void
+     */
+    private function setUserData(UserModel $user): void
+    {
+        session_start();
+
+        $userData = [
+            'lastname' => $user->getLastname(),
+            'firstname' => $user->getFirstname(),
+            'password' => $user->getPassword(),
+            'email' => $user->getEmail()
+        ];
+
+        (new MysqlBuilder())->update('user', $userData)->where('id', $_SESSION['user']['id'])->execute();
+
+        $_SESSION['user']['lastname'] = $user->getLastname();
+        $_SESSION['user']['firstname'] = $user->getFirstname();
+        $_SESSION['user']['email'] = $user->getEmail();
+    }
+
+    /**
+     * @param UserModel $user
+     * @return void
+     */
+    private function setUserUpdateData(UserModel $user): void
+    {
+        session_start();
+
+        $userData = [
+            'lastname' => $user->getLastname(),
+            'firstname' => $user->getFirstname(),
+            'email' => $user->getEmail(),
+            'role' => $user->getRole(),
+            'status' => $user->getStatus()
+        ];
+
+        (new MysqlBuilder())->update('user', $userData)->where('id', $_SESSION['updateID'])->execute();
+
+        $mail = new Mail();
+        $mail->sendConfirmUpdateUserMail($user);
+
+        header("Location: /user/update/".$_SESSION['updateID']);
     }
 }

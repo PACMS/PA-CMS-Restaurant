@@ -226,52 +226,25 @@ $(document).ready(function () {
     $(".alert-window").css("visibility", "hidden");
   });
 
+  $(function() {
+    $('#formUpdateProfile input[type="submit"]').addClass('hidden');
+  });
   $("#editProfile").on("click", function (event) {
-    $(".container").css("margin-top", "0px");
-    $("input").attr("disabled", false);
+    $("#formUpdateProfile input").attr("disabled", false).removeClass(['disabled', 'hidden'])
+    $('#formUpdateProfile input[type="submit"]').removeClass('hidden')
+    $('#btncancel').removeClass('hidden')
+  });
 
-    var labelOld = $(
-      "<label class='greytext mt-8' id='labelOld' for='labelOld'>Ancien mot de passe</label>\n"
-    );
-    $("input#email").after(labelOld);
-    var inputOld = $(
-      "<input name='passwordOld' id='passwordOld' type='password'>"
-    );
-    $("label#labelOld").after(inputOld);
+  $("#btncancel").on("click", function (event) {
+    $("#formUpdateProfile #lastnameUpdateProfile").attr("disabled", true).addClass('disabled')
+    $("#formUpdateProfile #firstnameUpdateProfile").attr("disabled", true).addClass('disabled')
+    $("#formUpdateProfile #emailUpdateProfile").attr("disabled", true).addClass('disabled')
 
-    var labelNew = $(
-      "<label class='greytext mt-8' id='labelNew' for='labelNew'>Nouveau mot de passe</label>\n"
-    );
-    $("input#passwordOld").after(labelNew);
-    var inputNew = $(
-      "<input name='passwordNew' id='passwordNew' type='password'>"
-    );
-    $("label#labelNew").after(inputNew);
-
-    var labelConfirm = $(
-      "<label class='greytext mt-8' id='labelConfirm' for='labelConfirm'>Confirmation du mot de passe</label>\n"
-    );
-    $("input#passwordNew").after(labelConfirm);
-    var inputConfirm = $(
-      "<input name='confirmNewPassowrd' id='confirmNewPassowrd' type='password'>"
-    );
-    $("label#labelConfirm").after(inputConfirm);
-
-    var cancelButton = $(
-      "<a href='profile'><button class='btn btn-cancel mr-4' id='btncancel'>Annuler </button></a>"
-    );
-    $("div#sectionButton").append(cancelButton);
-
-    $("#btncancel").on("click", function (event) {
-      event.target.disabled = true;
-    });
-
-    var submitButton = $(
-      "<button class='btn btn-submit' type='submit' id='btnConfirm'>Confirmer </button>"
-    );
-    $("button#btncancel").after(submitButton);
-
-    $(this).off(event);
+    $("#formUpdateProfile #lastPwdUpdateProfile").attr("disabled", true).addClass('hidden')
+    $("#formUpdateProfile #pwdUpdateProfile").attr("disabled", true).addClass('hidden')
+    $("#formUpdateProfile #pwdConfirmUpdateProfile").attr("disabled", true).addClass('hidden')
+    $('#formUpdateProfile input[type="submit"]').addClass('hidden')
+    $('#btncancel').addClass('hidden')
   });
 
   $("#bookingTable").DataTable({
@@ -365,7 +338,7 @@ $(document).ready(function () {
 
   $("#usersTable tbody").on("click", "#updateUser", function () {
     var data = $("#usersTable").DataTable().row($(this).parents("tr")).data();
-    window.location.href = "/user/update?id=" + data[0];
+    window.location.href = "/user/update/" + data[0];
   });
 
   $("#usersTable tbody").on("click", "#deleteUser", function () {
