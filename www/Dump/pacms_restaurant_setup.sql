@@ -153,6 +153,7 @@ CREATE TABLE IF NOT EXISTS `pacm_theme` (
   `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `slug` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `path` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `font` varchar(40) COLLATE utf8mb4_unicode_ci NOT NULL,
   `h1` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
   `h2` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
   `h3` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -160,9 +161,9 @@ CREATE TABLE IF NOT EXISTS `pacm_theme` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
-INSERT INTO `pacm_theme` (`id`, `name`, `slug`, `path`, `h1`, `h2`, `h3`, `p`) VALUES
-(1, 'Thème 1', 'theme1', '/public/src/themes/theme1/', '#9acd32', '#000000', '#000000', '#000000'),
-(2, 'Thème 2', 'theme2', '/public/src/themes/theme2/', '#ffd700', '#000000', '#000000', '#000000');
+INSERT INTO `pacm_theme` (`id`, `name`, `slug`, `path`, `font`, `h1`, `h2`, `h3`, `p`) VALUES
+(1, 'Theme 1', 'theme1', '/public/src/themes/theme1/', 'Poppins', '#9acd32', '#000000', '#000000', '#000000'),
+(2, 'Theme 2', 'theme2', '/public/src/themes/theme2/', 'Poppins', '#ff190a', '#000000', '#000000', '#000000');
 
 CREATE TABLE IF NOT EXISTS `pacm_user` (
   `id` int(11) NOT NULL AUTO_INCREMENT,

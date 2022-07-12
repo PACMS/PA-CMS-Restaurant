@@ -46,6 +46,13 @@ class Theme extends Sql
     protected $path = null;
 
     /**
+     * The font of the theme
+     *
+     * @var string
+     */
+    protected $font;
+
+    /**
      * The color of the h1
      *
      * @var string
@@ -122,6 +129,56 @@ class Theme extends Sql
     }
 
     /**
+     * Get the font of the theme
+     * 
+     * @return string
+     */
+    public function getFont()
+    {
+        return $this->font;
+    }
+
+    /**
+     * Get the color of the h1 of the theme
+     * 
+     * @return string
+     */
+    public function getH1()
+    {
+        return $this->h1;
+    }
+
+    /**
+     * Get the color of the h2 of the theme
+     * 
+     * @return string
+     */
+    public function geth2()
+    {
+        return $this->h2;
+    }
+
+    /**
+     * Get the color of the h3 of the theme
+     * 
+     * @return string
+     */
+    public function getH3()
+    {
+        return $this->h3;
+    }
+
+    /**
+     * Get the color of the p of the theme
+     * 
+     * @return string
+     */
+    public function getP()
+    {
+        return $this->p;
+    }
+
+    /**
      * Set the id of the theme
      * 
      * @param int $id The id of the theme
@@ -170,13 +227,36 @@ class Theme extends Sql
     }
 
     /**
+     * Set the font of the theme
+     *
+     * @param string $font
+     * @return void
+     */
+    public function setFont(string $font): void
+    {
+        $this->font = $font;
+    }
+
+    /**
      * Set the color of the h1
      * 
      * @param string $slug The color of the h1
      * 
      * @return void
      */
-    public function setH2(string $h2)
+    public function setH1(string $h1): void
+    {
+        $this->h1 = $h1;
+    }
+
+    /**
+     * Set the color of the h1
+     * 
+     * @param string $slug The color of the h1
+     * 
+     * @return void
+     */
+    public function setH2(string $h2): void
     {
         $this->h2 = $h2;
     }
@@ -188,7 +268,7 @@ class Theme extends Sql
      * 
      * @return void
      */
-    public function setH3(string $h3)
+    public function setH3(string $h3): void
     {
         $this->h3 = $h3;
     }
@@ -200,21 +280,9 @@ class Theme extends Sql
      * 
      * @return void
      */
-    public function setP(string $p)
+    public function setP(string $p): void
     {
         $this->p = $p;
-    }
-
-    /**
-     * Set the color of the h1
-     * 
-     * @param string $slug The color of the h1
-     * 
-     * @return void
-     */
-    public function setH1(string $h1)
-    {
-        $this->h1 = $h1;
     }
 
     /**
