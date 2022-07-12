@@ -14,10 +14,12 @@
                 <div class="toValidate">
                     <?php foreach ($comments as $value) : ?>
                         <?php if ($value->getStatus() == 0) : ?>
-                            <div style="gap: 10px" class="flex align-items-center">
+                            <div style="gap: 10px" class="flex flex-column  flex-wrap ">
                                 <p>User :<?= $value->getIdUser() ?></p>
-                                <p><?= $value->getContent() ?></p>
-                                <p>status :<?= $value->getStatus() ?></p> <?php $this->includePartial("form", $comment->validateComment($value->getId())); ?><?php $this->includePartial("form", $comment->deleteComment($value->getId())); ?>
+                                <textarea  id="comment" rows="10"  cols="80"  disabled><?= $value->getContent() ?></textarea>
+                                <div class="flex flex-row">
+                                <p class="mr-3">status :<?= $value->getStatus() ?></p> <?php $this->includePartial("form", $comment->validateComment($value->getId())); ?><?php $this->includePartial("form", $comment->deleteComment($value->getId())); ?>
+                                </div>
                             </div>
                         <?php endif; ?>
                     <?php endforeach; ?>

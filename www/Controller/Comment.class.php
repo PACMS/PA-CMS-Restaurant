@@ -6,9 +6,17 @@ use App\Controller\Mail;
 use App\Core\View;
 use App\Model\Comment as CommentModel;
 use App\Core\MysqlBuilder;
+use App\Controller\CommentObserver;
 
-class Comment
+class Comment implements \SplSubject
 {
+    public $state;
+    private $observers;
+
+    public function __construct()
+    {
+        $this->observers = new \SplObjectStorage();
+    }
 
     public function mailAskForComment(string $email, string $name, int $id_restaurant)
     {
@@ -49,8 +57,11 @@ class Comment
                 ->fetchClass("user")
                 ->fetchAll();
         foreach ($users as $value) {
-            $mail->askValidationComment($value);
+        //    $mail->askValidationComment($value);
         }
+        $toto = new CommentObserver();
+        $this->attach($toto);
+        $this->notify();
         unset($_SESSION['previous_location']);
         header("Location: " . str_replace($_SERVER["HTTP_ORIGIN"], "", $_SERVER["HTTP_REFERER"]));
     }
@@ -136,5 +147,31 @@ class Comment
         unset($_SESSION['previous_location']);
         //Une notif pour dire que son commentaire est en cours de traiement
         header("Location: " . str_replace($_SERVER["HTTP_ORIGIN"], "", $_SERVER["HTTP_REFERER"]));
+    }
+
+    public function attach(\SplObserver $observer): void
+    {
+        dd('ok');
+        echo "Subject: Attached an observer.\n";
+        $this->observers->attach($observer);
+    }
+
+    public function detach(\SplObserver $observer): void
+    {
+        $this->observers->detach($observer);
+        echo "Subject: Detached an observer.\n";
+    }
+
+    /**
+     * Trigger an update in each subscriber.
+     */
+    public function notify(): void
+    {
+
+        echo "Subject: Notifying observers...\n";
+        dd($this->observers);
+        foreach ($this->observers as $observer) {
+            $observer->update($this);
+        }
     }
 }
