@@ -281,6 +281,7 @@ abstract class Sql
                     unset($_SESSION['previous_location']);
                     if (!is_null($stockUrl)) {
                         header('Location: ' . $stockUrl);
+
                     } else  {
                         header('Location: /');
                         return true;
@@ -291,6 +292,7 @@ abstract class Sql
                 }
             } else {
                 header("Location: /login");
+
             }
         };
     }

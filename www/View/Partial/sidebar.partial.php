@@ -19,6 +19,7 @@
                 <?php if($_SESSION["user"]["role"] == "admin"): ?>
                 <li> <a href="/users" class="sidebar-button<?php echo strpos($_SERVER['REQUEST_URI'], "/user") === 0 ? '--active' : ''; ?>"><i class="far fa-list-alt sidebar-button-picto"></i><span>Utilisateurs</span></a></li>
                 <?php endif; ?>
+
             </ul>
         </nav>
         <button id="navbarButton" class="sidebar-resizer"><i class="far fa-arrow-alt-circle-left"></i></button>

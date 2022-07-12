@@ -2,47 +2,14 @@
     <?php $this->includePartial("sidebar"); ?>
     <div id="pseudo-element"></div>
     <section class="flex flex-column secondPart">
-    <?php $this->includePartial("topBar", ["title" => "Modifier un utilisateur"]); ?>
-        <section class="usersTableHeader flex justify-content-between">
-            <form action="/user/save" method="POST">
-                <div class="flex justify-content-between">
-                    <div class="flex flex-column">
-                        <label for="firstname">Prénom</label>
-                        <input type="text" name="firstname" id="firstname" value="<?php echo $userInfos['firstname'] ?>">
-                    </div>
-                    <div class="flex flex-column">
-                        <label for="lastname">Nom</label>
-                        <input type="text" name="lastname" id="lastname" value="<?php echo $userInfos['lastname'] ?>">
-                    </div>
-                </div>
-                <div class="flex justify-content-between">
-                    <div class="flex flex-column">
-                        <label for="email">Email</label>
-                        <input type="email" name="email" id="email" value="<?php echo $userInfos['email'] ?>">
-                    </div>
-                </div>
-                <div class="flex justify-content-between">
-                    <div>
-                        <label for="role">Rôle</label>
-                        <select name="role" id="role">
-                            <option value="admin" <?php echo $userInfos['role'] == 'admin' ? 'selected' : '' ?>>Administrateur</option>
-                            <option value="user" <?php echo $userInfos['role'] == 'user' ? 'selected' : '' ?>>Utilisateur</option>
-                            <option value="employee" <?php echo $userInfos['role'] == 'employee' ? 'selected' : '' ?>>Employé</option>
-                        </select>
-                    </div>
-                    <div>
-                        <label for="status">Statut</label>
-                        <select name="status" id="status">
-                            <option value="1" <?php echo $userInfos['status'] == '1' ? 'selected' : '' ?>>Actif</option>
-                            <option value="0" <?php echo $userInfos['status'] == '0' ? 'selected' : '' ?>>Inactif</option>
-                        </select>
-                    </div>
-                </div>
-                <div>
-                    <input name="id" type="hidden" value="<?php echo $userInfos['id'] ?>">
-                    <input type="submit" value="Mettre à jour">
-                </div>
-            </form>
+        <?php if ($errors): ?>
+            <?php foreach ($errors as $error):  ?>
+                <p style="color: red"><?= $error ?></p>
+            <?php endforeach ?>
+        <?php endif ?>
+        <?php $this->includePartial("topBar", ["title" => "Modifier un utilisateur"]); ?>
+        <section class="usersTableHeader flex justify-content-center align-items-center">
+            <?php $this->includePartial("form", $user->getUpdateUsersForm()) ?>
         </section>
     </section>
 </main>

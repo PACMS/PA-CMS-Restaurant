@@ -45,6 +45,7 @@
 
                             <section class="bookingTableHeader flex justify-content-between">
 
+
                             </section>
                             <table id="bookingTable3" class="display nowrap">
                                 <thead>
@@ -150,6 +151,7 @@
 <?php else : ?>
     <p>Vous n'avez aucun restaurant favori</p>
 <?php endif; ?>
+
 </main>
 
 <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.4/js/jquery.dataTables.js"></script>

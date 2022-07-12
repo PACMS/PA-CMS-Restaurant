@@ -176,6 +176,7 @@ class User
         }
         
         $user->verifyUser($params);
+
     }
 
     /**
@@ -326,6 +327,7 @@ class User
     {
         session_start();
         unset($_SESSION);
+
         session_destroy();
         header('Location: /login');
     }

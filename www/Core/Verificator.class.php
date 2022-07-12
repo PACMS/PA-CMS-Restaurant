@@ -159,7 +159,7 @@ class Verificator extends Sql
     public static function checkCaptcha($value): bool
     {
         $url = "https://www.google.com/recaptcha/api/siteverify?secret=6LcQTkkeAAAAAPD-IViqaHsMOuj_iWFpFBKZuzGm&response={$value}";
-        $response = file_get_contents($url);
+        $response = @file_get_contents($url);
         $data = json_decode($response);
 
         if ($data->success) {

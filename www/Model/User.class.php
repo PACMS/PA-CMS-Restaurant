@@ -3,7 +3,9 @@
 namespace App\Model;
 
 use App\Core\Cleaner;
+use App\Core\MysqlBuilder;
 use App\Core\Sql;
+use App\Enum\Role;
 
 /**
  * User Model
@@ -26,6 +28,23 @@ class User extends Sql
     protected $status;
     protected $role;
     protected $password;
+    protected $lastPassword;
+
+    /**
+     * @return mixed
+     */
+    public function getLastPassword()
+    {
+        return $this->lastPassword;
+    }
+
+    /**
+     * @param mixed $lastPassword
+     */
+    public function setLastPassword($lastPassword): void
+    {
+        $this->lastPassword = password_hash($lastPassword, PASSWORD_DEFAULT);
+    }
     protected $token = null;
 
     /**
@@ -278,9 +297,9 @@ class User extends Sql
         return parent::databaseFindOne(['id' => $id]);
     }
 
-    public function getUser(array $id) 
+    public function getUser()
     {
-        return parent::databaseFindOne($id);
+        return (new MysqlBuilder())->select('user', ['*'])->where('email', $_SESSION['user']['email'])->fetchClass('user')->fetch();
     }
 
     public function verifyUser(array $params)
@@ -661,11 +680,15 @@ class User extends Sql
 
     public function getUserCreationForm()
     {
+        $options = [];
+        foreach (Role::cases() as $role)
+            $options[$role->name] = $role->value;
+
         return [
             "config"=>[
                 "method"=>"POST",
-                "action"=>"/user/save",
-                "class"=>"",
+                "action"=>"",
+                "class"=>"restaurant-form",
                 "id"=>"",
                 "submit"=>"Ajouter l'utilisateur",
                 'captcha' => true,
@@ -675,7 +698,7 @@ class User extends Sql
                     "label"=>"Prénom",
                     "type"=>"text",
                     "id"=>"firstname",
-                    "class"=>"",
+                    "class"=>"inputProfile",
                     "required"=>true,
                     "min"=>2,
                     "max"=>255,
@@ -685,7 +708,8 @@ class User extends Sql
                     "label"=>"Nom",
                     "type"=>"text",
                     "id"=>"lastname",
-                    "class"=>"",
+                    "class"=>"inputProfile",
+                    "min"=>2,
                     "max"=>255,
                     "error"=>"Le nom n'est pas correct"
                 ],
@@ -693,66 +717,199 @@ class User extends Sql
                     "label" => "Adresse mail",
                     "type" => "email",
                     "id" => "emailRegister",
-                    "class" => "formRegister",
+                    "class" => "inputProfile",
                     "required" => true,
+                    "min"=>2,
+                    "max"=>255,
                     "error" => "Votre email n'est pas correct",
                     "unicity" => 'user',
                     "errorUnicity" => "Un comte existe déjà avec cet email"
                 ],
-                "password" => [
-                    "label" => "Mot de passe",
-                    "type" => "password",
-                    "id" => "pwdRegister",
-                    "class" => "formRegister",
-                    "required" => true,
-                    "error" => "Votre mot de passe doit faire au minimum 8 caractères avec une majuscule et un chiffre"
-                ],
-                "passwordConfirm" => [
-                    "label" => "Confirmer Mot de passe",
-                    "placeholder" => "Confirmation ...",
-                    "type" => "password",
-                    "id" => "pwdConfirmRegister",
-                    "class" => "formRegister",
-                    "required" => true,
-                    "error" => "Votre confirmation doit ne correspond pas",
-                    "confirm" => "password"
-                ],
                 "role"=>[
                     "type"=>"select",
                     "name"=>"role",
-                    "class"=>"",
+                    "class"=>"inputProfile",
                     "id"=>"role",
                     "multiple"=>false,
                     "label"=>"Choisissez un role:",
                     "placeholder"=>"Choisissez...",
                     "default"=>"Utilisateur",
-                    "options"=>[
-                        "admin"=>"Administrateur",
-                        "user"=>"Utilisateur",
-                        "employee"=>"Employé"
-                        
-                    ],
+                    "options"=> $options,
                     "error"=>"Vous devez sélectionner une valeur dans la liste"
                 ],
                 "status"=>[
                     "type"=>"select",
                     "name"=>"status",
-                    "class"=>"",
+                    "class"=>"inputProfile",
                     "id"=>"status",
                     "multiple"=>false,
                     "label"=>"Choisissez un status:",
                     "placeholder"=>"Choisissez...",
                     "default"=>"Inactif",
                     "options"=>[
-                        "1"=>"Actif",
-                        "0"=>"Inactif"
-                        
+                        1 => "Actif",
+                        -1 => "Inactif"
                     ],
                     "error"=>"Vous devez sélectionner une valeur dans la liste"
                 ],
                 "captcha" => [
                     'type' => 'captcha',
                     'error' => 'Le captcha n\'a pas pu validé votre formulaire'
+                ]
+            ]
+        ];
+    }
+
+
+    public function getUpdateUserForm(): array
+    {
+        return [
+            "config" => [
+                "method" => "POST",
+                "action" => "",
+                "class" => "restaurant-form",
+                "id" => "formUpdateProfile",
+                "submit" => "Confirmer",
+                'captcha' => true,
+            ],
+            "inputs" => [
+                "lastname" => [
+                    "label" => "Nom",
+                    "type" => "text",
+                    "id" => "lastnameUpdateProfile",
+                    "class" => "inputProfile disabled",
+                    "value" => $this->getUser()->lastname,
+                    "min" => 2,
+                    "max" => 100,
+                    "error" => "Votre nom doit faire entre 2 et 100 caractères",
+                    "required" => true,
+                    "disabled" => true
+                ],
+                "firstname" => [
+                    "label" => "Prénom",
+                    "type" => "text",
+                    "id" => "firstnameUpdateProfile",
+                    "class" => "inputProfile disabled",
+                    "value" => $this->getUser()->firstname,
+                    "min" => 2,
+                    "max" => 25,
+                    "error" => "Votre prénom doit faire entre 2 et 25 caractères",
+                    "required" => true,
+                    "disabled" => true
+                ],
+                "email" => [
+                    "label" => "Adresse mail",
+                    "type" => "email",
+                    "id" => "emailUpdateProfile",
+                    "class" => "inputProfile disabled",
+                    "value" => $this->getUser()->email,
+                    "required" => true,
+                    "error" => "Votre email n'est pas correct",
+                    "disabled" => true
+                ],
+                "lastPassword" => [
+                    "placeholder" => 'Ancien mot de passe',
+                    "type" => "password",
+                    "id" => "lastPwdUpdateProfile",
+                    "class" => "inputProfile hidden",
+                    "required" => true,
+                    "error" => "Votre ancien mot de passe ne correspond pas"
+                ],
+                "password" => [
+                    "placeholder" => 'Mot de passe',
+                    "type" => "password",
+                    "id" => "pwdUpdateProfile",
+                    "class" => "inputProfile hidden",
+                    "required" => true,
+                    "error" => "Votre mot de passe doit faire au minimum 8 caractères avec une majuscule et un chiffre"
+                ],
+                "passwordConfirm" => [
+                    "placeholder" => 'Confirmer mot de passe',
+                    "type" => "password",
+                    "id" => "pwdConfirmUpdateProfile",
+                    "class" => "inputProfile hidden",
+                    "required" => true,
+                    "error" => "Votre confirmation doit ne correspond pas",
+                    "confirm" => "password"
+                ],
+                "captcha" => [
+                    'type' => 'captcha',
+                    'error' => 'Le captcha n\'a pas pu valider votre formulaire'
+                ]
+            ]
+        ];
+    }
+
+
+    public function getUpdateUsersForm(): array
+    {
+        $options = [];
+        foreach (Role::cases() as $role)
+            $options[$role->name] = $role->value;
+
+        $user = (new MysqlBuilder())->select('user', ['*'])->where('id', $_SESSION['updateID'])->fetchClass('user')->fetch();
+
+        return [
+            "config" => [
+                "method" => "POST",
+                "action" => "",
+                "class" => "restaurant-form",
+                "id" => "formUpdateUsers",
+                "submit" => "Mettre à jour",
+                'captcha' => false,
+            ],
+            "inputs" => [
+                "lastname" => [
+                    "label" => "Nom",
+                    "type" => "text",
+                    "id" => "lastnameUpdateProfile",
+                    "class" => "inputProfile",
+                    "value" => $user->getLastname(),
+                    "min" => 2,
+                    "max" => 100,
+                    "error" => "Votre nom doit faire entre 2 et 100 caractères",
+                    "required" => true,
+                ],
+                "firstname" => [
+                    "label" => "Prénom",
+                    "type" => "text",
+                    "id" => "firstnameUpdateProfile",
+                    "class" => "inputProfile",
+                    "value" => $user->getFirstname(),
+                    "min" => 2,
+                    "max" => 25,
+                    "error" => "Votre prénom doit faire entre 2 et 25 caractères",
+                    "required" => true,
+                ],
+                "email" => [
+                    "label" => "Adresse mail",
+                    "type" => "email",
+                    "id" => "emailUpdateProfile",
+                    "class" => "inputProfile",
+                    "value" => $user->getEmail(),
+                    "required" => true,
+                    "error" => "Votre email n'est pas correct",
+                ],
+                "role" => [
+                    "type" => "select",
+                    "label" => "Rôle",
+                    "placeholder" => "Choisissez un rôle",
+                    "default" => $user->getRole(),
+                    "multiple" => false,
+                    "options" => $options,
+                    "required" => true
+                ],
+                "status" => [
+                    "type" => "select",
+                    "label" => "Status",
+                    "placeholder" => "Choisissez un status",
+                    "default" => $user->getStatus(),
+                    "multiple" => false,
+                    "options" => [
+                        -1 => 'Inactif',
+                        true => 'Actif'
+                    ],
+                    "required" => true
                 ]
             ]
         ];
