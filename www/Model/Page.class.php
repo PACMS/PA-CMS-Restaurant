@@ -160,6 +160,16 @@ class Page extends Sql
         $pages = parent::databaseFindAll("SELECT * FROM " . DBPREFIXE . "page" , ['id_restaurant' => $id]);
         return $pages;
     }
+
+    public function getPageFromRestaurant(?int $id)
+    {
+        $page = parent::findOneBy(['id_restaurant' => $id, 'title' => 'index']);
+        if (!$page) {
+            $page = parent::findOneBy(['id_restaurant' => $id]);
+        }
+        return $page;
+    }
+
     public function getPageId(string $table, int $id)
     {
         $page = parent::databaseFindOne(['id' => $id], $table);

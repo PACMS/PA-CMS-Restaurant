@@ -16,7 +16,7 @@
 
 /* ------------------------------- Components ------------------------------- */
 
-@import "components/button", "components/grid", "components/input", "components/sitemap", "components/flash";
+@import "components/button", "components/grid", "components/input", "components/sitemap", "components/flash", "components/admin";
 
 /* ---------------------------------- Pages --------------------------------- */
   
@@ -34,7 +34,8 @@
 "pages/products", 
 "pages/comments", 
 "pages/stats", 
-"pages/error404";
+"pages/error404",
+"pages/themes";
 
 
 

@@ -12,7 +12,7 @@ CREATE TABLE IF NOT EXISTS `pacm_carte` (
   `id_restaurant` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `restaurantDeleteCards` (`id_restaurant`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 CREATE TABLE IF NOT EXISTS `pacm_categorie` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -22,7 +22,7 @@ CREATE TABLE IF NOT EXISTS `pacm_categorie` (
   `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   KEY `carteDeleteCategorie` (`id_carte`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE IF NOT EXISTS `pacm_comments` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
@@ -36,7 +36,7 @@ CREATE TABLE IF NOT EXISTS `pacm_comments` (
   PRIMARY KEY (`id`),
   KEY `restaurantDeleteComment` (`id_restaurant`),
   KEY `userDeleteComment` (`id_user`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 CREATE TABLE IF NOT EXISTS `pacm_content` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -46,7 +46,7 @@ CREATE TABLE IF NOT EXISTS `pacm_content` (
   `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   KEY `page` (`id_page`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 CREATE TABLE IF NOT EXISTS `pacm_food` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -58,7 +58,7 @@ CREATE TABLE IF NOT EXISTS `pacm_food` (
   `updatedAt` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `stockDeleteFood` (`stockId`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 CREATE TABLE IF NOT EXISTS `pacm_meal` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -72,7 +72,7 @@ CREATE TABLE IF NOT EXISTS `pacm_meal` (
   PRIMARY KEY (`id`),
   KEY `carteDeleteMeal` (`id_carte`),
   KEY `categorieDeleteMeal` (`id_categories`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE IF NOT EXISTS `pacm_mealsFoods` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -81,14 +81,14 @@ CREATE TABLE IF NOT EXISTS `pacm_mealsFoods` (
   PRIMARY KEY (`id`),
   KEY `mealDeleteFoods` (`meal_id`),
   KEY `foodDeleteFood` (`food_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 CREATE TABLE IF NOT EXISTS `pacm_option` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `value` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 INSERT INTO `pacm_option` (`id`, `name`, `value`) VALUES
 (1, 'Theme', '1');
@@ -107,7 +107,7 @@ CREATE TABLE IF NOT EXISTS `pacm_page` (
   PRIMARY KEY (`id`),
   KEY `rest` (`id_restaurant`),
   KEY `theme` (`id_theme`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 CREATE TABLE IF NOT EXISTS `pacm_reservation` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -124,7 +124,7 @@ CREATE TABLE IF NOT EXISTS `pacm_reservation` (
   `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   KEY `id_restaurant` (`id_restaurant`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE IF NOT EXISTS `pacm_restaurant` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -137,7 +137,7 @@ CREATE TABLE IF NOT EXISTS `pacm_restaurant` (
   `phone` int(50) DEFAULT NULL,
   `favorite` tinyint(1) DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 CREATE TABLE IF NOT EXISTS `pacm_stock` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -146,19 +146,24 @@ CREATE TABLE IF NOT EXISTS `pacm_stock` (
   `updatedAt` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `restaurantId` (`restaurantId`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 CREATE TABLE IF NOT EXISTS `pacm_theme` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `slug` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `path` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `font` varchar(40) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `h1` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `h2` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `h3` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `p` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
-INSERT INTO `pacm_theme` (`id`, `name`, `slug`, `path`) VALUES
-(1, 'Theme 1', 'theme1', '/public/src/themes/theme1/'),
-(2, 'Theme 2', 'theme2', '/public/src/themes/theme2/');
+INSERT INTO `pacm_theme` (`id`, `name`, `slug`, `path`, `font`, `h1`, `h2`, `h3`, `p`) VALUES
+(1, 'Theme 1', 'theme1', '/public/src/themes/theme1/', 'Poppins', '#9acd32', '#000000', '#000000', '#000000'),
+(2, 'Theme 2', 'theme2', '/public/src/themes/theme2/', 'Poppins', '#ff190a', '#000000', '#000000', '#000000');
 
 CREATE TABLE IF NOT EXISTS `pacm_user` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -172,7 +177,7 @@ CREATE TABLE IF NOT EXISTS `pacm_user` (
   `createdAt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updatedAt` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 
 ALTER TABLE `pacm_carte`

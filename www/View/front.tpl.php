@@ -19,14 +19,36 @@ if (!isset($_SESSION)) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="/www/../public/dist/main.css">
     <link rel="stylesheet" href="/www/..<?php echo $_SESSION['theme']['path']; ?>dist/main.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=<?php echo $_SESSION['theme']['font']; ?>">
     <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
     <script src="/www/../public/dist/main.js"></script>
     <script src="<?php echo $_SESSION['theme']['path']; ?>dist/main.js"></script>
 </head>
 
 <body>
+    <style>
+        html {
+            font-family: '<?php echo $_SESSION['theme']['font']; ?>', Arial;
+        }
+        h1 {
+            color: <?php echo $_SESSION['theme']['h1']; ?>
+        }
+        h2 {
+            color: <?php echo $_SESSION['theme']['h2']; ?>
+        }
+        h3 {
+            color: <?php echo $_SESSION['theme']['h3']; ?>
+        }
+        p {
+            color: <?php echo $_SESSION['theme']['p']; ?>
+        }
+    </style>
     
-    <?php 
+    <?php if (isset($_SESSION['user']) && $_SESSION['user']['role'] == 'admin') { ?>
+        <div class="admin">
+            <h2>Vous êtes actuellement en vue Administrateur : <a href="/themes/configure/<?php echo $_SESSION['theme']['id']; ?>">revenir à la configuration du thème</a></h2>
+        </div>
+    <?php }
 
         empty($this->_flashType) ?: include "View/flash.tpl.php";
         require $this->_view . ".view.php"; 
