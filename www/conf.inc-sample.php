@@ -26,3 +26,5 @@ define('PRIVATE_KEY_FACEBOOK', '03af7457fa2dd6afdb9a1a2bc788ac4f');
 define('URL_API_OAUTH_FACEBOOK', 'https://graph.facebook.com/v13.0/oauth/access_token');
 define('URL_API_INFO_FACEBOOK', 'https://graph.facebook.com/v13.0/me?fields=email,last_name,first_name');
 define('REDIRECT_URI_FACEBOOK', 'https://localhost/facebookConnect');
+
+define('FONTS_KEY_API', 'AIzaSyBo1F6LeW8iTlOoK9rauItIwa1X79ct6cw');
