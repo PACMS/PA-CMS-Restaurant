@@ -231,7 +231,7 @@ class Restaurant
     {
         session_start();
         $_SESSION['inputsQrcode'] = $_POST;
-dd($_FILES["logo"]);
+
         $builder = new MysqlBuilder();
 
         $pageRestaurant = $builder->select('page', ["url"])
