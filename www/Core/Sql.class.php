@@ -217,7 +217,7 @@ abstract class Sql
             $where[] = $key . "=:" . $key;
         }
 
-        $sql = "SELECT * FROM " . $this->_table . " WHERE " . implode(",", $where);
+        $sql = "SELECT * FROM " . $this->_table . " WHERE " . implode(" AND ", $where);
         $queryPrepared = $this->_pdo->getPdo()->prepare($sql);
 
         if ($queryPrepared !== false) {
