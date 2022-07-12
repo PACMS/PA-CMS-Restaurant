@@ -6,6 +6,7 @@ namespace App\Controller;
 
 use App\Model\Theme as ThemeModel;
 use App\Model\Option as OptionModel;
+use App\Model\Page as PageModel;
 use App\Core\View;
 use App\Core\Theme as Template;
 
@@ -62,9 +63,25 @@ class Theme
     {
         $themeModel = new ThemeModel();
         $theme = $themeModel->getThemeById($id);
+        $content = trim(file_get_contents("https://www.googleapis.com/webfonts/v1/webfonts?key=" . FONTS_KEY_API . "&sort=popularity"));
+        if (!empty($content)) {
+            $fonts = json_decode($content, true);
+        } else {
+            $fonts = "Aucune police";
+        }
+
+        $pageModel = new PageModel();
+        $page = $pageModel->getPageFromRestaurant(isset($_SESSION['favoriteRestaurant']) ? $_SESSION['favoriteRestaurant'] : null);
+        if ($page) {
+            $pageUrl = $page['url'];
+        } else {
+            $pageUrl = false;
+        }
 
         $view = new View('configure-theme', 'back');
+        $view->assign('pageUrl', $pageUrl);
         $view->assign('theme', $theme);
+        $view->assign('fonts', $fonts['items']);
         $view->assign('title', $theme['name'] . ' - Configuration');
         $view->assign('description', 'Configuration du thème');
     }
@@ -81,6 +98,19 @@ class Theme
         $themeModel->setId($id);
         $themeModel->hydrate($_POST);
         $themeModel->save();
+
+        $pageModel = new PageModel();
+        $page = $pageModel->getPageFromRestaurant(isset($_SESSION['favoriteRestaurant']) ? $_SESSION['favoriteRestaurant'] : null);
+        if ($page) {
+            $pageUrl = $page['url'];
+        } else {
+            $pageUrl = false;
+        }
+
+        if ($pageUrl) {
+            header('Location: /' . $pageUrl);
+            die();
+        }
         header('Location: /themes/configure/' . $id);
     }
 
