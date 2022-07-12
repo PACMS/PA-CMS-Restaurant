@@ -105,7 +105,7 @@ class Restaurant
                     $fp = fopen('View/' . $url . '.view.php', 'w+');
                     $inputs['title'] = 'index';
                     $array_body[] = "Hello World";
-                    (new \App\Core\CreatePage)->createBasicPageIndex($fp, $inputs, $array_body);
+                    (new \App\Core\CreatePage)->createBasicPageIndex($fp, $inputs, $array_body, $restaurant->getId());
                     fclose($fp);
                 }
                 // $restaurant->setId(null);

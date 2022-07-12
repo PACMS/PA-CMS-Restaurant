@@ -90,7 +90,7 @@ class Page
         }
 
         $fp = fopen('View/' . $url . '.view.php', 'w+');
-        (new \App\Core\CreatePage)->createBasicPageIndex($fp, $inputs, $array_body);
+        (new \App\Core\CreatePage)->createBasicPageIndex($fp, $inputs, $array_body, $id_restaurant);
         fclose($fp);
         $page = new PageModel();
         $page->setTitle($inputs['title']);
@@ -108,7 +108,7 @@ class Page
             $content->save();
         }
 
-
+        $this->refreshPages();
 
         header('Location: /restaurant/page');
     }
@@ -134,6 +134,8 @@ class Page
 
             ->fetchClass("page")
             ->fetch();
+
+        $this->refreshPages();
 
         header('Location: /restaurant/page');
     }
@@ -163,7 +165,7 @@ class Page
         $page["url"] = $restaurant->removeAccents(strtolower($page["url"]));
         unlink('View/' . $page['url'] . '.view.php');
         $fp = fopen('View/' . $page['url'] . '.view.php', 'w+');
-        (new \App\Core\CreatePage)->createBasicPageIndex($fp, $inputs, $array_body);
+        (new \App\Core\CreatePage)->createBasicPageIndex($fp, $inputs, $array_body, $page['id_restaurant']);
         //dd($page['title']);
         $pageUpdate = new PageModel();
         $pageUpdate->setId($page['id']);
@@ -182,6 +184,9 @@ class Page
             $content->setBody($body);
             $content->save();
         }
+
+        $this->refreshPages();
+
         header('Location: /restaurant/page');
     }
 
@@ -208,7 +213,7 @@ class Page
                 foreach($contents as $contentValue) {
                     $content["displayComment{$contentValue->getId()}"] = $contentValue->getBody();
                 }
-                (new \App\Core\CreatePage)->createBasicPageIndex($fp, $inputs, $content);
+                (new \App\Core\CreatePage)->createBasicPageIndex($fp, $inputs, $content, $page->getIdRestaurant());
             }
         }
     }
