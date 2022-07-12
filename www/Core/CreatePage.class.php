@@ -3,16 +3,30 @@
 namespace App\Core;
 
 use App\Core\MysqlBuilder;
+use App\Model\Page as PageModel;
 
 class CreatePage
 {
     protected $comment_content;
     protected $page;
 
-    public function createBasicPageIndex($fp, $inputs, $array_body)
+    public function createBasicPageIndex($fp, $inputs, $array_body, ?int $id = null)
     {
+        if (is_null($id)) {
+            $id = $_SESSION['favoriteRestaurant'];
+        }
+        $pageModel = new PageModel();
+        $pages = $pageModel->getAllPagesFromRestaurant($id);
         
-        $page = '
+        $page = '<div class="topnav">';
+
+        foreach ($pages as $pageDb) {
+            $page .= '<li><a href="/' . $pageDb["url"] . '">' . $pageDb["title"] . '</a></li>';
+        }
+
+        $page .= '
+        <li class="right"><a href="/login">Connexion</a></li>
+        </div>
         <div class="index-header">
         <h1 >' . $inputs['title'] . '</h1></div>';
 
