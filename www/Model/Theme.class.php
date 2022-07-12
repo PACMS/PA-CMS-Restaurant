@@ -46,6 +46,34 @@ class Theme extends Sql
     protected $path = null;
 
     /**
+     * The color of the h1
+     *
+     * @var string
+     */
+    protected $h1;
+
+    /**
+     * The color of the h2
+     *
+     * @var string
+     */
+    protected $h2;
+
+    /**
+     * The color of the h3
+     *
+     * @var string
+     */
+    protected $h3;
+
+    /**
+     * The color of the p
+     *
+     * @var string
+     */
+    protected $p;
+
+    /**
      * Themes constructor.
      */
     public function __construct()
@@ -139,6 +167,54 @@ class Theme extends Sql
     public function setPath($path): void
     {
         $this->path = $path;
+    }
+
+    /**
+     * Set the color of the h1
+     * 
+     * @param string $slug The color of the h1
+     * 
+     * @return void
+     */
+    public function setH2(string $h2)
+    {
+        $this->h2 = $h2;
+    }
+
+    /**
+     * Set the color of the h1
+     * 
+     * @param string $slug The color of the h1
+     * 
+     * @return void
+     */
+    public function setH3(string $h3)
+    {
+        $this->h3 = $h3;
+    }
+
+    /**
+     * Set the color of the h1
+     * 
+     * @param string $slug The color of the h1
+     * 
+     * @return void
+     */
+    public function setP(string $p)
+    {
+        $this->p = $p;
+    }
+
+    /**
+     * Set the color of the h1
+     * 
+     * @param string $slug The color of the h1
+     * 
+     * @return void
+     */
+    public function setH1(string $h1)
+    {
+        $this->h1 = $h1;
     }
 
     /**

@@ -256,6 +256,10 @@ CREATE TABLE `pacm_theme` (
   `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `slug` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `path` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL
+  `h1` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `h2` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `h3` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `p` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -263,8 +267,8 @@ CREATE TABLE `pacm_theme` (
 --
 
 INSERT INTO `pacm_theme` (`id`, `name`, `slug`, `path`) VALUES
-(1, 'Theme 1', 'theme1', '/public/src/themes/theme1/'),
-(2, 'Theme 2', 'theme2', '/public/src/themes/theme2/');
+(1, 'Theme 1', 'theme1', '/public/src/themes/theme1/', '#9acd32', '#000000', '#000000', '#000000'),
+(2, 'Theme 2', 'theme2', '/public/src/themes/theme2/', '#ff190a', '#000000', '#000000', '#000000');
 
 -- --------------------------------------------------------
 
