@@ -217,7 +217,7 @@ abstract class Sql
             $where[] = $key . "=:" . $key;
         }
 
-        $sql = "SELECT * FROM " . $this->_table . " WHERE " . implode(",", $where);
+        $sql = "SELECT * FROM " . $this->_table . " WHERE " . implode(" AND ", $where);
         $queryPrepared = $this->_pdo->getPdo()->prepare($sql);
 
         if ($queryPrepared !== false) {
@@ -264,9 +264,9 @@ abstract class Sql
     public function verifyUser(array $params)
     {
         $userVerify = $this->findOneBy($params);
-        echo '<pre>';
         if (empty($userVerify)) {
-            return false;
+
+            header("Location: /login");
         } else {
             if (password_verify($_POST['password'], $userVerify['password'])) {
                 session_start();
@@ -275,21 +275,24 @@ abstract class Sql
                 $_SESSION['user']['firstname'] = $userVerify['firstname'];
                 $_SESSION['user']['lastname'] = $userVerify['lastname'];
                 $_SESSION['user']['role'] = $userVerify['role'];
-
                 if ($userVerify['role'] == 'user') {
-                    if (!is_null($_SESSION['previous_location'])) {
-                        header('Location: ' . $_SESSION['previous_location']);
-                        return true;
+
+                    $stockUrl = $_SESSION['previous_location'];
+                    unset($_SESSION['previous_location']);
+                    if (!is_null($stockUrl)) {
+                        header('Location: ' . $stockUrl);
+
                     } else  {
                         header('Location: /');
                         return true;
                     }
                 } else {
-                    header('Location: dashboard');
-                    return true;
+
+                    header('Location: /dashboard');
                 }
             } else {
-                return false;
+                header("Location: /login");
+
             }
         };
     }

@@ -141,19 +141,31 @@ $(document).ready(function () {
     `<i class="fas fa-envelope"></i>`
   );
   //select choice with password
-  $("section.container-forgetPassword div#passwordChoice h3#withPassword").click(function (e) {
-    $("section.container-forgetPassword div#passwordChoice h3#withoutPassword").removeClass("active");
+  $(
+    "section.container-forgetPassword div#passwordChoice h3#withPassword"
+  ).click(function (e) {
+    $(
+      "section.container-forgetPassword div#passwordChoice h3#withoutPassword"
+    ).removeClass("active");
     $("section.container-forgetPassword p#without-pwd").removeClass("active");
     $("section.container-forgetPassword p#with-pwd").addClass("active");
-    $("section.container-forgetPassword form input#inputPasswordChoice").val("true");
+    $("section.container-forgetPassword form input#inputPasswordChoice").val(
+      "true"
+    );
     e.target.classList.add("active");
   });
   //select choice without password
-  $("section.container-forgetPassword div#passwordChoice h3#withoutPassword").click(function (e) {
-    $("section.container-forgetPassword div#passwordChoice h3#withPassword").removeClass("active");
+  $(
+    "section.container-forgetPassword div#passwordChoice h3#withoutPassword"
+  ).click(function (e) {
+    $(
+      "section.container-forgetPassword div#passwordChoice h3#withPassword"
+    ).removeClass("active");
     $("section.container-forgetPassword p#with-pwd").removeClass("active");
     $("section.container-forgetPassword p#without-pwd").addClass("active");
-    $("section.container-forgetPassword form input#inputPasswordChoice").val("false");
+    $("section.container-forgetPassword form input#inputPasswordChoice").val(
+      "false"
+    );
     e.target.classList.add("active");
   });
 
@@ -303,19 +315,26 @@ $(document).ready(function () {
     info: true,
   });
 
+  $("#bookingTable3").dataTable({
+    language: {
+      url: "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/French.json",
+    },
+    columnDefs: [{ className: "dt-center", targets: "_all" }],
+    order: [3, "desc"],
+    columns: [null, null, null, { type: "date-eu" }, null, null, null, null],
+
+    searching: true,
+    //paging: false,
+    lengthMenu: [10, 20, 30, 40, 50],
+    pageLength: 10,
+    info: true,
+  });
+
   $("#usersTable").dataTable({
     language: {
       url: "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/French.json",
     },
-    columnDefs: [
-      { className: "dt-center", targets: "_all" },
-      {
-        targets: -1,
-        data: null,
-        defaultContent:
-          "<button id='updateUser'><i class='fas fa-pen'></i></button><button id='deleteUser'><i class='fas fa-times-circle'></i></button>",
-      },
-    ],
+    columnDefs: [{ className: "dt-center", targets: "_all" }],
     order: [3, "desc"],
     columns: [
       null,

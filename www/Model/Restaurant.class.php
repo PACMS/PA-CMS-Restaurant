@@ -4,7 +4,7 @@ namespace App\Model;
 
 use App\Core\Sql;
 use App\Core\Cleaner;
-
+use App\Core\MysqlBuilder;
 /**
  *
  */
@@ -19,7 +19,7 @@ class Restaurant extends Sql
     protected $zipcode;
     protected $phone;
     protected $user_id;
-
+    protected $favorite;
     /**
      * @return null
      */
@@ -36,7 +36,7 @@ class Restaurant extends Sql
         $this->id = intval($id);
     }
 
-    // getter and setter for name	
+    // getter and setter for name
     /**
      * @return mixed
      */
@@ -151,6 +151,22 @@ class Restaurant extends Sql
     }
 
 
+    /**
+     * @return mixed
+     */
+    public function getFavorite(): string
+    {
+        return $this->favorite;
+    }
+
+    /**
+     * @param mixed $favorite
+     */
+    public function setFavorite(int $favorite): void
+    {
+        $this->favorite = $favorite;
+    }
+
     public function getAllRestaurants(array $params = [])
     {
         $restaurants = parent::databaseFindAll("SELECT * FROM " . DBPREFIXE . "restaurant", $params);
@@ -171,10 +187,20 @@ class Restaurant extends Sql
 
     public function removeAccents($value)
     {
-        $search  = array('À', 'Á', 'Â', 'Ã', 'Ä', 'Å', 'Ç', 'È', 'É', 'Ê', 'Ë', 'Ì', 'Í', 'Î', 'Ï', 'Ò', 'Ó', 'Ô', 'Õ', 'Ö', 'Ù', 'Ú', 'Û', 'Ü', 'Ý', 'à', 'á', 'â', 'ã', 'ä', 'å', 'ç', 'è', 'é', 'ê', 'ë', 'ì', 'í', 'î', 'ï', 'ð', 'ò', 'ó', 'ô', 'õ', 'ö', 'ù', 'ú', 'û', 'ü', 'ý', 'ÿ', ' ');
-    $replace = array('A', 'A', 'A', 'A', 'A', 'A', 'C', 'E', 'E', 'E', 'E', 'I', 'I', 'I', 'I', 'O', 'O', 'O', 'O', 'O', 'U', 'U', 'U', 'U', 'Y', 'a', 'a', 'a', 'a', 'a', 'a', 'c', 'e', 'e', 'e', 'e', 'i', 'i', 'i', 'i', 'o', 'o', 'o', 'o', 'o', 'o', 'u', 'u', 'u', 'u', 'y', 'y', '');
-    $MaChaine = str_replace($search, $replace, $value);
-    return $MaChaine;
+        $search  = array('À', 'Á', 'Â', 'Ã', 'Ä', 'Å', 'Ç', 'È', 'É', 'Ê', 'Ë', 'Ì', 'Í', 'Î', 'Ï', 'Ò', 'Ó', 'Ô', 'Õ', 'Ö', 'Ù', 'Ú', 'Û', 'Ü', 'Ý', 'à', 'á', 'â', 'ã', 'ä', 'å', 'ç', 'è', 'é', 'ê', 'ë', 'ì', 'í', 'î', 'ï', 'ð', 'ò', 'ó', 'ô', 'õ', 'ö', 'ù', 'ú', 'û', 'ü', 'ý', 'ÿ', ' ', '_', '-', '.', ',', '\'', '\\"', '=', '<', '>');
+        $replace = array('A', 'A', 'A', 'A', 'A', 'A', 'C', 'E', 'E', 'E', 'E', 'I', 'I', 'I', 'I', 'O', 'O', 'O', 'O', 'O', 'U', 'U', 'U', 'U', 'Y', 'a', 'a', 'a', 'a', 'a', 'a', 'c', 'e', 'e', 'e', 'e', 'i', 'i', 'i', 'i', 'o', 'o', 'o', 'o', 'o', 'o', 'u', 'u', 'u', 'u', 'y', 'y', '', '', '', '', '', '', '', '' , '','');
+        $MaChaine = str_replace($search, $replace, $value);
+        return $MaChaine;
+    }
+
+    public function unfavoriteAllRestaurants()
+    {
+        $request = new MysqlBuilder();
+        $request
+            ->update('restaurant', ["favorite" => 0])
+            ->where("user_id", $_SESSION["user"]["id"])
+            ->fetchClass("restaurant")
+            ->fetchAll();
     }
 
     public function getCompleteRestaurantForm()
@@ -208,7 +234,7 @@ class Restaurant extends Sql
                     "maxlength" => 100,
                     "value" => $this->name,
                     "error" => "Le nom de votre restaurant n'est pas correct",
-                    "unicityresto" => true,
+                    "unicitycreateresto" => true,
                     "errorunicityresto" => "Ce nom de restaurant est déjà utilisé",
                 ],
                 "address" => [
@@ -277,6 +303,16 @@ class Restaurant extends Sql
                     "maxlength" => 15,
                     "value" => $this->phone,
                     "error" => "Votre numéro de téléphone est incorrect",
+                ],
+                "favorite" => [
+                    "type" => "checkbox",
+                    "additionnalDiv" => false,
+                    "checked" => false,
+                    "required" => false,
+                    "values" => [
+                        "favorite" => "Choisir ce restaurant en tant que favori",
+                    ],
+                    "error" => "Erreur dans le choix du restaurant favori",
                 ],
                 // "captcha" => [
                 //     'type' => 'captcha',
@@ -379,6 +415,16 @@ class Restaurant extends Sql
                     "maxlength" => 15,
                     "value" => $this->phone,
                     "error" => "Votre numéro de téléphone est incorrect",
+                ],
+                "favorite" => [
+                    "type" => "checkbox",
+                    "additionnalDiv" => false,
+                    "checked" => $this->favorite,
+                    "required" => false,
+                    "values" => [
+                        "favorite" => "Choisir ce restaurant en tant que favori",
+                    ],
+                    "error" => "Erreur dans le choix du restaurant favori",
                 ],
             ]
         ];

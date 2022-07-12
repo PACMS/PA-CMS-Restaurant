@@ -1,0 +1,9 @@
+.themes-card {
+    filter: blur(0);
+    transition: all .4s;
+
+    &:hover {
+        filter: blur(3px);
+    }
+}
+

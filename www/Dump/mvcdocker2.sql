@@ -59,8 +59,8 @@ CREATE TABLE `pacm_categorie` (
 CREATE TABLE `pacm_comments` (
   `id` bigint(20) NOT NULL,
   `content` varchar(400) NOT NULL,
+  `id_parent` int(11) NOT NULL DEFAULT '0',
   `status` tinyint(1)  NULL DEFAULT '0',
-  `id_parent` int(11) DEFAULT NULL,
   `id_user` int(11) NOT NULL,
   `id_restaurant` int(11) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -189,18 +189,18 @@ CREATE TABLE `pacm_page` (
 --
 
 CREATE TABLE `pacm_reservation` (
-  `id` int(11) NOT NULL,
-  `name` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `email` varchar(320) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `date` date NOT NULL,
-  `hour` time NOT NULL,
-  `numTable` int(11) NOT NULL,
-  `numPerson` int(11) NOT NULL,
-  `phoneReserv` char(10) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `status` tinyint(1) NOT NULL DEFAULT '0',
-  `id_restaurant` int(11) NOT NULL,
-  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+    `id` int(11) NOT NULL,
+    `name` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+    `email` varchar(320) COLLATE utf8mb4_unicode_ci NOT NULL,
+    `date` date NOT NULL,
+    `hour` time NOT NULL,
+    `numTable` int(11) NOT NULL,
+    `numPerson` int(11) NOT NULL,
+    `phoneReserv` char(10) COLLATE utf8mb4_unicode_ci NOT NULL,
+    `status` tinyint(1) NOT NULL DEFAULT '0',
+    `id_restaurant` int(11) NOT NULL,
+    `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+    `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -217,7 +217,8 @@ CREATE TABLE `pacm_restaurant` (
   `city` varchar(50) NOT NULL,
   `zipcode` int(50) DEFAULT NULL,
   `user_id` varchar(50) NOT NULL,
-  `phone` int(50) DEFAULT NULL
+  `phone` int(50) DEFAULT NULL,
+  `favorite` tinyint(1) NULL DEFAULT "0"
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -254,16 +255,21 @@ CREATE TABLE `pacm_theme` (
   `id` int(11) NOT NULL,
   `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `slug` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `path` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL
+  `path` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `font` varchar(40) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `h1` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `h2` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `h3` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `p` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Déchargement des données de la table `pacm_theme`
 --
 
-INSERT INTO `pacm_theme` (`id`, `name`, `slug`, `path`) VALUES
-(1, 'Theme 1', 'theme1', '/public/src/themes/theme1/'),
-(2, 'Theme 2', 'theme2', '/public/src/themes/theme2/');
+INSERT INTO `pacm_theme` (`id`, `name`, `slug`, `path`, `font`, `h1`, `h2`, `h3`, `p`) VALUES
+(1, 'Theme 1', 'theme1', '/public/src/themes/theme1/', 'Poppins', '#9acd32', '#000000', '#000000', '#000000'),
+(2, 'Theme 2', 'theme2', '/public/src/themes/theme2/', 'Poppins', '#ff190a', '#000000', '#000000', '#000000');
 
 -- --------------------------------------------------------
 
@@ -279,7 +285,7 @@ CREATE TABLE `pacm_user` (
   `lastname` mediumtext COLLATE utf8mb4_unicode_ci,
   `status` tinyint(4) DEFAULT '0',
   `role` varchar(8) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'user',
-  `token` char(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `token` text COLLATE utf8mb4_unicode_ci,
   `createdAt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updatedAt` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -415,7 +421,7 @@ ALTER TABLE `pacm_comments`
 -- AUTO_INCREMENT pour la table `pacm_content`
 --
 ALTER TABLE `pacm_content`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
 
 --
 -- AUTO_INCREMENT pour la table `pacm_food`
@@ -433,49 +439,49 @@ ALTER TABLE `pacm_meal`
 -- AUTO_INCREMENT pour la table `pacm_mealsFoods`
 --
 ALTER TABLE `pacm_mealsFoods`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
 
 --
 -- AUTO_INCREMENT pour la table `pacm_option`
 --
 ALTER TABLE `pacm_option`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
 
 --
 -- AUTO_INCREMENT pour la table `pacm_page`
 --
 ALTER TABLE `pacm_page`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
 
 --
 -- AUTO_INCREMENT pour la table `pacm_reservation`
 --
 ALTER TABLE `pacm_reservation`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
 
 --
 -- AUTO_INCREMENT pour la table `pacm_restaurant`
 --
 ALTER TABLE `pacm_restaurant`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=122;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
 
 --
 -- AUTO_INCREMENT pour la table `pacm_stock`
 --
 ALTER TABLE `pacm_stock`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=99;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
 
 --
 -- AUTO_INCREMENT pour la table `pacm_theme`
 --
 ALTER TABLE `pacm_theme`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
 
 --
 -- AUTO_INCREMENT pour la table `pacm_user`
 --
 ALTER TABLE `pacm_user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
 
 --
 -- Contraintes pour les tables déchargées
@@ -524,6 +530,16 @@ ALTER TABLE `pacm_reservation`
 ALTER TABLE `pacm_stock`
   ADD CONSTRAINT `restauDeleteStock` FOREIGN KEY (`restaurantId`) REFERENCES `pacm_restaurant` (`id`) ON DELETE CASCADE;
 COMMIT;
+
+ALTER TABLE `pacm_content`
+  ADD CONSTRAINT `pageDeleteContent` FOREIGN KEY (`id_page`) REFERENCES `pacm_page` (`id`) ON DELETE CASCADE;
+COMMIT;
+
+ALTER TABLE `pacm_comments`
+  ADD CONSTRAINT `restaurantDeleteComment` FOREIGN KEY (`id_restaurant`) REFERENCES `pacm_restaurant` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `userDeleteComment` FOREIGN KEY (`id_user`) REFERENCES `pacm_user` (`id`) ON DELETE CASCADE;
+COMMIT;
+
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

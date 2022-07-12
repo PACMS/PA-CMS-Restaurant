@@ -213,6 +213,16 @@
   action: switchTheme
   security: "admin"
 
+/themes/configure/:id:
+  controller: theme
+  action: configureThemes
+  security: "admin"
+
+/themes/update/:id:
+  controller: theme
+  action: updateTheme
+  security: "admin"
+
 # Route pour la reservation
 /restaurant/reservation:
   controller: reservation
@@ -245,6 +255,10 @@
   controller: reservation
   action: addReservationTable
 
+/restaurant/QrcodeEdit:
+  controller: restaurant
+  action: QrcodeEdit
+
 # Route pour les commentaires
 
 /addComment:
@@ -255,7 +269,7 @@
 /restaurant/addComment:
   controller: comment
   action: stockComment
-  security: "user"
+  # security: "user"
 
 /restaurant/comments:
   controller: comment
@@ -275,6 +289,10 @@
 /showComments:
   controller: comment
   action: showComments
+
+/replyComment:
+  controller: comment
+  action: replyComment
 
 # Route pour la gestion des utilisateurs
 
@@ -378,7 +396,3 @@
 /setupAction:
   controller: globalController
   action: setupAction
-
-/test:
-  controller: carte
-  action: asupprimer

@@ -1,0 +1,166 @@
+section#comments {
+    padding: 10px;
+
+    h1 {
+        margin: 0;
+        color: black;
+    }
+
+    section {
+        border: 1px solid black;
+        border-radius: 16px;
+        margin-bottom: 10px;
+        padding: 10px;
+        article {
+
+            & article {
+                margin-left: 50px;
+            }
+
+            header {
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                border-bottom: 1px solid black;
+
+                h3 {
+                    margin: 0;
+                }
+
+                time {
+                    font-weight: 600;
+                    color: #C4C4C4;
+                }
+            }
+
+            footer {
+                display: flex;
+                justify-content: flex-end;
+
+                button#answerComment {
+                    padding: 5px 16px;
+                    font-size: 14px;
+                    font-weight: 500;
+                    line-height: 20px;
+                    white-space: nowrap;
+                    vertical-align: middle;
+                    cursor: pointer;
+                    -webkit-user-select: none;
+                    user-select: none;
+                    border: 1px solid;
+                    border-radius: 6px;
+                    -webkit-appearance: none;
+                    appearance: none;
+                    background-color: transparent;
+                    transition: all 0.2s ease-out;
+
+                    
+                    &:hover {
+                        transform: translateY(-5px);
+                        box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+                    }
+                }
+
+                form {
+                    align-items: flex-end;    
+                    justify-content: flex-end;
+
+                    input {
+                        padding: 5px 16px;
+                        font-size: 14px;
+                        font-weight: 500;
+                        line-height: 20px;
+                        white-space: nowrap;
+                        vertical-align: middle;
+                        cursor: pointer;
+                        -webkit-user-select: none;
+                        user-select: none;
+                        border: 1px solid;
+                        border-radius: 6px;
+                        -webkit-appearance: none;
+                        appearance: none;
+                        transition: all 0.2s ease-out;
+                        width: 115px;
+
+                        &:hover {
+                            box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+                        }
+                    }
+
+                    width: 100%;
+
+                    textarea {
+                        width: 100%;
+                    }
+
+                    div {
+                        button#cancel {
+                            padding: 5px 16px;
+                            font-size: 14px;
+                            line-height: 20px;
+                            white-space: nowrap;
+                            vertical-align: middle;
+                            cursor: pointer;
+                            border: none;
+                            -webkit-user-select: none;
+                            user-select: none;
+                            -webkit-appearance: none;
+                            appearance: none;
+                            transition: all 0.2s ease-out;
+                            width: 115px;
+                            color: #c4c4c4;
+                            background-color: transparent;
+
+                            &:hover {
+                                color: black;
+                            }
+                        }
+                    }
+                }
+            }
+
+            &:not(article:first-child) {
+                border-top: 1px solid black;
+
+            }
+        }
+
+        & > form {
+            align-items: flex-start;    
+            justify-content: flex-start;
+
+            input {
+                padding: 5px 16px;
+                font-size: 14px;
+                font-weight: 500;
+                line-height: 20px;
+                white-space: nowrap;
+                vertical-align: middle;
+                cursor: pointer;
+                -webkit-user-select: none;
+                user-select: none;
+                border: 1px solid;
+                border-radius: 6px;
+                -webkit-appearance: none;
+                appearance: none;
+                background-color: transparent;
+                transition: all 0.2s ease-out;
+                color: black;
+                width: 115px;
+
+                &:hover {
+                    transform: translateY(-5px);
+                    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+                }
+            }
+
+            textarea {
+                width: 99.5%;
+                max-width: 99.5%;
+            }
+
+        }
+    }
+
+
+}

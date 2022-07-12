@@ -16,6 +16,7 @@ class Reservation extends Sql
     protected $numPerson;
     protected $numTable;
     protected $phoneReserv;
+    protected $status;
     protected $id_restaurant;
 
     public function __construct()
@@ -195,9 +196,9 @@ class Reservation extends Sql
     {
         return parent::getAll();
     }
-    public function getAllReservationsFromRestaurant(int $id)
+    public function getAllReservationsFromRestaurant($params)
     {
-        $reservations = parent::databaseFindAll("SELECT * FROM " . DBPREFIXE . "reservation" , ['id_restaurant' => $id]);
+        $reservations = parent::databaseFindAll("SELECT * FROM " . DBPREFIXE . "reservation" , $params);
         return $reservations;
     }
     public function databaseDeleteOneReservation(array $params)
@@ -217,7 +218,7 @@ class Reservation extends Sql
                 "method"=>"POST",
                 "action"=>"/restaurant/completeReservation",
                 "id"=>"formReservation",
-                "submit"=>"Valider",
+                "submit"=>"Terminer",
                 'captcha' => false,
             ],
             "inputs"=>[
@@ -245,6 +246,7 @@ class Reservation extends Sql
                     "label"=>"Nom et prénom",
                     "type"=>"text",
                     "class"=>"formReservation",
+                    "required" => true
                 ],
                 "email" => [
                     "label"=>"Adresse mail",
@@ -263,6 +265,7 @@ class Reservation extends Sql
                     "minlength" => 1,
                     "max"=>10,
                     "maxlength"=>10,
+                    "required" => true
                 ],
 
                 "numTable"=>[
@@ -278,12 +281,13 @@ class Reservation extends Sql
                     "class"=>"formReservation",
                     "min"=>date('Y-m-d'),
                     "max"=>date('Y-m-d', strtotime('+1 year')),
+                    "required" => true
                 ],
                 "hour"=>[
                     "label"=>"Heure de reservation",
                     "type"=>"time",
                     "class"=>"formReservation",
-
+                    "required" => true
                 ],
                 "phoneReserv"=>[
                     "label"=>"Numéro de téléphone",
@@ -293,9 +297,8 @@ class Reservation extends Sql
                     "minlength"=>10,
                     "max"=>10,
                     "maxlength"=>10,
-
+                    "required" => true
                 ],
-                
             ]
         ];
     }
@@ -363,7 +366,6 @@ class Reservation extends Sql
                     "minlength"=>4,
                     "max"=>15,
                     "maxlength"=>15,
-
                 ],
                 
             ]

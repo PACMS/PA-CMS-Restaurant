@@ -8,6 +8,8 @@ use App\Enum\Role;
 use App\Model\User as UserModel;
 use App\Model\Theme as ThemeModel;
 use App\Core\View;
+use App\Model\Carte as CarteModel;
+use App\Core\MysqlBuilder;
 
 /**
  * Admin controller
@@ -32,9 +34,31 @@ class Admin
      */
     public function home()
     {
+        @session_start();
         $user = new UserModel();
-
         $view = new View("dashboard", "back");
+
+        unset($_SESSION["restaurant"]);
+            $builder = new MysqlBuilder();
+            $restaurant = $builder->select("restaurant", ["id", "name"])
+            ->where('favorite', "1")
+            ->fetchClass("restaurant")
+            ->fetch();
+            $_SESSION["favoriteRestaurant"] = $restaurant->getId();
+            $cartes = $builder->select("carte", ["*"])
+                ->where('id_restaurant', $_SESSION["favoriteRestaurant"])
+                ->fetchClass("carte")
+                ->fetchAll();
+            $view->assign("cartes", $cartes);
+            $reservations = $builder->select("reservation", ["*"])
+                ->where('id_restaurant', $_SESSION["favoriteRestaurant"])
+                ->where('status', "0")
+                ->fetchClass("reservation")
+                ->fetchAll();
+            if($restaurant != false){
+                $view->assign("restaurant", $restaurant);
+            }
+            $view->assign("reservations", $reservations);
         $view->assign('title', 'Dashboard');
         $view->assign('description', 'Dashboard du back office');
         $view->assign("user", $user);
@@ -54,6 +78,7 @@ class Admin
     public function profile()
     {
         $user = new UserModel();
+
         $data = (new MysqlBuilder())->select('user', ['*'])->where('email', $_SESSION['user']['email'])->fetchClass('user')->fetch();
         $errors = null;
 
@@ -80,6 +105,7 @@ class Admin
             }
         }
 
+
         $view = new View("profile", "back");
         $view->assign('user', $user);
         $view->assign("data", $data);
@@ -99,7 +125,7 @@ class Admin
     {
         $theme = new ThemeModel();
         $themes = $theme->getAllThemes();
-        
+        unset($_SESSION["restaurant"]);
         $view = new View("themes", "back");
         $view->assign('title', 'Thèmes');
         $view->assign('description', 'Choix des thèmes pour le front');
@@ -117,7 +143,7 @@ class Admin
     {
         $user = new UserModel();
         $users = $user->getAll();
-
+        unset($_SESSION["restaurant"]);
         $view = new View("users", "back");
         $view->assign('title', 'Gestion des utilisateurs');
         $view->assign("users", $users);
@@ -132,8 +158,10 @@ class Admin
      */
     public function updateUser(int $id)
     {
+
         if (!(new MysqlBuilder())->select('user', ['id'])->where('id', htmlentities($id))->fetchClass('user')->fetch())
             header('Location: /404');
+
 
         session_start();
         $user = new UserModel();
@@ -173,6 +201,7 @@ class Admin
     public function createUser()
     {
         $user = new UserModel();
+
         $errors = null;
 
         if (!empty($_POST)) {

@@ -36,13 +36,13 @@ endif;
                             <button><a href="/restaurant/cartes">Accéder</a></button>
                         </div>
                     </div>
-                    <div class="restaurant-card">
+                    <!-- <div class="restaurant-card">
                         <img src="../public/assets/img/restauOptions/salle.jpg" alt="salle" />
                         <div class="bandeau">
                             <p>Salle</p>
                             <button><a href="/restaurants">Accéder</a></button>
                         </div>
-                    </div>
+                    </div> -->
                     <div class="restaurant-card">
                         <img src="../public/assets/img/restauOptions/stock.jpg" alt="stock" />
                         <div class="bandeau">
@@ -57,6 +57,8 @@ endif;
                             <button><a href="/restaurant/reservation">Accéder</a></button>
                         </div>
                     </div>
+                    <?php if($_SESSION["user"]["role"] == "admin"): ?>
+
                     <div class="restaurant-card">
                         <img src="../public/assets/img/restauOptions/comments.png" alt="commentaires" />
                         <div class="bandeau">
@@ -64,6 +66,7 @@ endif;
                             <button><a href="/restaurant/comments">Accéder</a></button>
                         </div>
                     </div>
+                    <?php endif; ?>
                     <div class="restaurant-card">
                         <img src="../public/assets/img/restauOptions/stats.jpg" alt="statistiques" />
                         <div class="bandeau">
@@ -74,7 +77,7 @@ endif;
                         </div>
                     </div>
 
-                    <div class="restaurant-card">
+                    <!-- <div class="restaurant-card">
                         <img src="../public/assets/img/restauOptions/mentions-legales.jpg" alt="mentions-legales" />
                         <div class="bandeau">
                             <p>Mentions légales</p>
@@ -82,7 +85,7 @@ endif;
                                 <a href="/restaurants">Accéder</a>
                             </button>
                         </div>
-                    </div>
+                    </div> -->
                 </div>
             </div>
         </section>

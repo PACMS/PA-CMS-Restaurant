@@ -69,6 +69,7 @@ class Carte
                 $this->unselectAllCarte();
             }
             $carte->save();
+            (new \App\Controller\Page)->refreshPages();
         }
         header('Location: /restaurant/cartes');
     }
@@ -117,6 +118,7 @@ class Carte
                 $this->unselectAllCarte();
             }
             $carte->save();
+            (new \App\Controller\Page)->refreshPages();
         }
         header('Location: /restaurant/cartes');
     }
@@ -128,6 +130,7 @@ class Carte
             ->delete('carte', ["id" => $_POST["id"]])
             ->fetchClass("carte")
             ->fetch();
+        (new \App\Controller\Page)->refreshPages();
         header('Location: /restaurant/cartes');
     }
 
@@ -140,10 +143,5 @@ class Carte
             ->where("id_restaurant", $_SESSION["restaurant"]["id"])
             ->fetchClass("carte")
             ->fetchAll();
-    }
-
-    public function asupprimer()
-    {
-        $view = new View("asupprimer", "back");
     }
 }

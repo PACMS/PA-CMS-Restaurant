@@ -7,6 +7,7 @@ use App\phpmailer\src\PHPMailer;
 use App\phpmailer\src\SMTP;
 use App\phpmailer\src\Exception;
 use App\Model\User;
+use App\Core\MysqlBuilder;
 class Mail
 {
     public function index()
@@ -20,7 +21,7 @@ class Mail
         try {
             $actualDateTime = new \DateTime();
             $actualDateTime = $actualDateTime->format('YmdHis');
-            $message = "http://localhost/verifyToken?token=" . $user->getToken() . '&email=' . $user->getEmail() . '&date=' . $actualDateTime;
+            $message = $_SERVER["REQUEST_SCHEME"] . "://" . $_SERVER["HTTP_HOST"] . "/" . "verifyToken?token=" . $user->getToken() . '&email=' . $user->getEmail() . '&date=' . $actualDateTime;
             $phpmailer = new PHPMailer();
             //Server settings
             $phpmailer->isSMTP();
@@ -58,7 +59,7 @@ class Mail
     public function lostPasswordMail(User $user, string $token)
     {
         try {
-            $message = "http://localhost/resetPassword?token=" . $token;
+            $message = $_SERVER["REQUEST_SCHEME"] . "://" . $_SERVER["HTTP_HOST"] . "/" . "resetPassword?token=" . $token;
             $phpmailer = new PHPMailer();
             //Server settings
             $phpmailer->isSMTP();
@@ -157,9 +158,18 @@ class Mail
     public function askCommentMail(string $email, string $name, int $id_restaurant)
     {
         try {
+            $builder = new MysqlBuilder();
+            $pages = $builder->select("page", ["*"])
+                            ->where("id_restaurant", $id_restaurant)
+                            ->fetchClass("page")
+                            ->fetchAll();
+            foreach ($pages as $page) {
+                if (str_contains($page->getTitle(), "index") ) {
+                    $message = $_SERVER["REQUEST_SCHEME"] . "://" . $_SERVER["HTTP_HOST"] . "/" . $page->getUrl();
+                }
+            }
             $actualDateTime = new \DateTime();
             $actualDateTime = $actualDateTime->format('YmdHis');
-            $message = "http://localhost/addComment?restaurant={$id_restaurant}";
             $phpmailer = new PHPMailer();
             //Server settings
             $phpmailer->isSMTP();
@@ -183,6 +193,8 @@ class Mail
             $phpmailer->Body    = "Salut {$name}, {$message}";
             $phpmailer->send();
             echo 'Message has been sent';
+
+            header("Location: /restaurant/reservation");
         } catch (Exception $e) {
             echo "Message could not be sent. Mailer Error: {$phpmailer->ErrorInfo}";
         }
@@ -193,7 +205,7 @@ class Mail
         try {
             $actualDateTime = new \DateTime();
             $actualDateTime = $actualDateTime->format('YmdHis');
-            $message = "http://localhost/restaurant/comments";
+            $message = $_SERVER["REQUEST_SCHEME"] . "://" . $_SERVER["HTTP_HOST"] . "/" . "restaurant/comments";
             $phpmailer = new PHPMailer();
             //Server settings
             $phpmailer->isSMTP();
