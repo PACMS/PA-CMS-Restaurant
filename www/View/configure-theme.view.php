@@ -4,6 +4,7 @@
     <secion class="flex flex-column secondPart">
         <?php $this->includePartial("topBar", ["title" => $theme['name']]); ?>
         <section class="flex flex-column">
+            <button class="button"><a class="text-white" href="/themes">Retour</a></button>
             <?php if ($pageUrl) : ?>
             <button class="button"><a class="text-white" href="/<?php echo $pageUrl; ?>">Voir la vue Administrateur</a></button>
             <?php endif; ?>
