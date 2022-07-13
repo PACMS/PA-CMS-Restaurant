@@ -17,10 +17,10 @@
                                 <thead>
                                 <tr>
                                     <th>ID</th>
-                                    <th>User</th>
+                                    <th>Utilisateur</th>
                                     <th>Email</th>
                                     <th>Etat</th>
-                                    <th>Created_at</th>
+                                    <th>Date</th>
                                 </tr>
                                 </thead>
                                 <tbody>
