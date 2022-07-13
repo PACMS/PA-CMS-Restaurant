@@ -274,7 +274,7 @@
 /restaurant/addComment:
   controller: comment
   action: stockComment
-  # security: "user"
+  security: "user"
 
 /restaurant/comments:
   controller: comment
@@ -298,7 +298,7 @@
 /replyComment:
   controller: comment
   action: replyComment
-
+  security: "user"
 # Route pour la gestion des utilisateurs
 
 /restaurant/statistiques:

@@ -31,12 +31,6 @@ class Comment
 
     public function stockComment()
     {
-        if (empty($_SESSION["user"])) {
-            @session_start();
-            $_SESSION['previous_location'] = str_replace($_SERVER["HTTP_ORIGIN"], "", $_SERVER["HTTP_REFERER"]);
-            $_SESSION["tempoComment"] = $_POST["content"];
-            header("Location: /login");
-        }
         $mail = new Mail();
         $_POST = array_map('htmlspecialchars', $_POST);
         $_POST["id_restaurant"] = intval($_POST["id_restaurant"]);
@@ -110,12 +104,6 @@ class Comment
 
     public function replyComment() 
     {
-        if (empty($_SESSION["user"])) {
-            @session_start();
-            $_SESSION['previous_location'] = str_replace($_SERVER["HTTP_ORIGIN"], "", $_SERVER["HTTP_REFERER"]);
-            $_SESSION["tempoComment"] = $_POST["content"];
-            header("Location: /login");
-        }
         $mail = new Mail();
         $_POST = array_map('htmlspecialchars', $_POST);
         $_POST["id_user"] = intval($_SESSION["user"]["id"]);

@@ -266,8 +266,7 @@ abstract class Sql
     {
         $userVerify = $this->findOneBy($params);
         if (empty($userVerify)) {
-
-            header("Location: /login");
+            header("Location: /login?error=login");
         } else {
             if (password_verify($_POST['password'], $userVerify['password'])) {
                 session_start();
@@ -284,18 +283,13 @@ abstract class Sql
                 $auth->loginEvent();
 
                 if ($userVerify['role'] == 'user') {
-
-                    $stockUrl = $_SESSION['previous_location'];
-                    unset($_SESSION['previous_location']);
-                    if (!is_null($stockUrl)) {
-                        header('Location: ' . $stockUrl);
-
+                    if (!is_null($_SESSION['previous_location'])) {
+                        header('Location: ' . $_SESSION['previous_location']);
                     } else  {
                         header('Location: /');
                         return true;
                     }
                 } else {
-
                     header('Location: /dashboard');
                 }
             } else {
@@ -305,7 +299,7 @@ abstract class Sql
                 $auth->attach($logger);
                 $auth->loginAttemptEvent($userVerify['id']);
 
-                header("Location: /login");
+                header("Location: /login?error=login");
 
             }
         };

@@ -63,7 +63,6 @@ class User
         $view->assign('description', 'Page de connexion');
         $view->assign("user", $user);
 
-
         empty($_GET['error']) ?: $view->setFlashMessage('error', 'Identifiant ou mot de passe invalide');
     }
 
@@ -184,10 +183,7 @@ class User
         $user->setPassword($_POST['password']);
 
         $params = ["email" => $_POST['email']];
-
-        if ($user->verifyUser($params) == false) {
-            header('Location: /login?error=login');
-        }
+        $user->verifyUser($params);
     }
 
     /**
