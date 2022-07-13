@@ -19,7 +19,11 @@ class LoggerObserver implements AuthObserver {
             $request->insert("activitylog", ['user_id' => $_SESSION['user']['id'], 'state' => 'logout'])
                 ->fetchClass("activitylog")
                 ->execute();
+        } else if ($event == 'user:loginAttempt') {
+            $request = new MysqlBuilder();
+            $request->insert("activitylog", ['user_id' => $auth->getUserId(), 'state' => 'loginAttempt'])
+                ->fetchClass("activitylog")
+                ->execute();
         }
-
     }
 }

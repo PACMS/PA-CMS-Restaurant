@@ -239,11 +239,11 @@ class Restaurant
             ->where('display_menu', 1)
             ->fetchClass("page")
             ->fetch();
-
+        $urlqrcode = APP_URL . '%2Fpages%2F' . $_SESSION['restaurant']['name'] . '%2F' . $pageRestaurant->getUrl();
         //Sans logo
         if (empty($_FILES["logo"]["name"])){
             $curl = curl_init();
-            $urlqrcode = APP_URL . '%2Fpages%2F' . $_SESSION['restaurant']['name'] . '%2F' . $pageRestaurant->getUrl();
+
             curl_setopt_array($curl, [
                 CURLOPT_URL => "https://qrcode3.p.rapidapi.com/generateQR?text=" . $urlqrcode .  '&inner_eye_style=' . $_SESSION["inputsQrcode"]["style_inner"] . '&style=' . $_SESSION["inputsQrcode"]["style"] . '&style_color=' . $_SESSION["inputsQrcode"]["color"] .  '&outer_eye_style=' .  $_SESSION["inputsQrcode"]["style_outer"],
                 CURLOPT_RETURNTRANSFER => true,
@@ -363,7 +363,6 @@ class Restaurant
             if ($_SESSION['inputsQrcode'])
 
                 $curl = curl_init();
-            $urlqrcode = APP_URL . '%2Fpages%2F' . $_SESSION['restaurant']['name'] . '%2F' . $pageRestaurant->getUrl();
             curl_setopt_array($curl, [                                                                                                                                                                                                                                                  //Mettre    public/assets/img/qrcode/logo en prod
                 CURLOPT_URL => "https://qrcode3.p.rapidapi.com/generateQR?text=" . $urlqrcode .  '&inner_eye_style=' . $_SESSION["inputsQrcode"]["style_inner"] . '&style=' . $_SESSION["inputsQrcode"]["style"] . '&style_color=' . $_SESSION["inputsQrcode"]["color"] . '&image=' . 'https%3A%2F%2Fupload.wikimedia.org%2Fwikipedia%2Fcommons%2F4%2F47%2FPNG_transparency_demonstration_1.png' .  '&outer_eye_style=' .  $_SESSION["inputsQrcode"]["style_outer"],
                 CURLOPT_RETURNTRANSFER => true,

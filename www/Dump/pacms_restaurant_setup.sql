@@ -179,6 +179,14 @@ CREATE TABLE IF NOT EXISTS `pacm_user` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+CREATE TABLE IF NOT EXISTS `pacm_activitylog` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `state` varchar(50) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `user` (`user_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 ALTER TABLE `pacm_carte`
   ADD CONSTRAINT `restaurantDeleteCards` FOREIGN KEY (`id_restaurant`) REFERENCES `pacm_restaurant` (`id`) ON DELETE CASCADE;
@@ -208,4 +216,8 @@ ALTER TABLE `pacm_reservation`
 
 ALTER TABLE `pacm_stock`
   ADD CONSTRAINT `restauDeleteStock` FOREIGN KEY (`restaurantId`) REFERENCES `pacm_restaurant` (`id`) ON DELETE CASCADE;
+COMMIT;
+
+ALTER TABLE `pacm_activitylog`
+  ADD CONSTRAINT `user` FOREIGN KEY (`user_id`) REFERENCES `pacm_user` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 COMMIT;

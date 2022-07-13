@@ -314,6 +314,17 @@ $(document).ready(function () {
     searching: true,
     info: true,
   });
+  $("#logTable").dataTable({
+    language: {
+      url: "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/French.json",
+    },
+    columnDefs: [{ className: "dt-center", targets: "_all" }],
+    order: [4, "desc"],
+    columns: [null, null, null, null, { type: "date-eu" }],
+
+    searching: true,
+    info: true,
+  });
 
   $("#bookingTable3").dataTable({
     language: {

@@ -40,9 +40,9 @@ class Admin
         unset($_SESSION["restaurant"]);
             $builder = new MysqlBuilder();
             $restaurant = $builder->select("restaurant", ["id", "name"])
-            ->where('favorite', "1")
-            ->fetchClass("restaurant")
-            ->fetch();
+                ->where('favorite', "1")
+                ->fetchClass("restaurant")
+                ->fetch();
             $_SESSION["favoriteRestaurant"] = $restaurant->getId();
             $cartes = $builder->select("carte", ["*"])
                 ->where('id_restaurant', $_SESSION["favoriteRestaurant"])

@@ -43,6 +43,11 @@
   action: home
   security: "employee"
 
+/logs:
+  controller: log
+  action: index
+  security: "employee"
+
 /sendmail:
   controller: mail
   action: sendConfirmMail
