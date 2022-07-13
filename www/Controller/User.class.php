@@ -175,6 +175,7 @@ class User
 
         if ($user->verifyUser($params) == false) {
             header('Location: /login?error=login');
+        }
     }
 
     /**
