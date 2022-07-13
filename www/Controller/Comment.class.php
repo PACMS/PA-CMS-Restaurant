@@ -62,8 +62,13 @@ class Comment
                 ->where("id_restaurant", $_SESSION["restaurant"]["id"])
                 ->fetchClass("comment")
                 ->fetchAll();
+        $users = $request->select("user", ["id", "firstname", "lastname"])
+                ->where("status", "1")
+                ->fetchClass("user")
+                ->fetchAll();
         $view->assign('comments', $result);
         $view->assign('comment', $comment);
+        $view->assign('users', $users);
     }
 
     public function validateComment()
