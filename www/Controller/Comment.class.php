@@ -6,6 +6,7 @@ use App\Controller\Mail;
 use App\Core\View;
 use App\Model\Comment as CommentModel;
 use App\Core\MysqlBuilder;
+use App\Controller\CommentObserver;
 
 class Comment
 {
@@ -49,7 +50,7 @@ class Comment
                 ->fetchClass("user")
                 ->fetchAll();
         foreach ($users as $value) {
-            $mail->askValidationComment($value);
+        //    $mail->askValidationComment($value);
         }
         unset($_SESSION['previous_location']);
         header("Location: " . str_replace($_SERVER["HTTP_ORIGIN"], "", $_SERVER["HTTP_REFERER"]));
@@ -137,4 +138,5 @@ class Comment
         //Une notif pour dire que son commentaire est en cours de traiement
         header("Location: " . str_replace($_SERVER["HTTP_ORIGIN"], "", $_SERVER["HTTP_REFERER"]));
     }
+
 }

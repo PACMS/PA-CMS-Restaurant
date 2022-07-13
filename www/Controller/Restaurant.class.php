@@ -231,7 +231,7 @@ class Restaurant
     {
         session_start();
         $_SESSION['inputsQrcode'] = $_POST;
-
+        $_SESSION["inputsQrcode"]["color"] = str_replace('#', '%23',$_SESSION["inputsQrcode"]["color"]);
         $builder = new MysqlBuilder();
 
         $pageRestaurant = $builder->select('page', ["url"])
