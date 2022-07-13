@@ -269,6 +269,10 @@ abstract class Sql
             header("Location: /login?error=login");
         } else {
             if (password_verify($_POST['password'], $userVerify['password'])) {
+                if ($userVerify['status'] !== 1) {
+                    header("Location: /login?error=loginstatus");
+                    die();
+                }
                 session_start();
                 $_SESSION['user']['id'] = $userVerify['id'];
                 $_SESSION['user']['email'] = $userVerify['email'];

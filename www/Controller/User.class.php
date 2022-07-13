@@ -63,7 +63,18 @@ class User
         $view->assign('description', 'Page de connexion');
         $view->assign("user", $user);
 
-        empty($_GET['error']) ?: $view->setFlashMessage('error', 'Identifiant ou mot de passe invalide');
+        if (!empty($_GET['error'])) {
+            switch($_GET['error']) {
+                case 'login':
+                    $view->setFlashMessage('error', 'Identifiant ou mot de passe invalide');
+                    break;
+                case 'loginstatus':
+                    $view->setFlashMessage('error', 'Votre compte n\'a pas été confirmé');
+                    break;
+                default:
+                $view->setFlashMessage('error', 'Une erreur est survenue lors de la connexion');
+            }
+        }
     }
 
     /**

@@ -16,7 +16,7 @@ class Stats
         $food = new Food();
         $foods = $food->getFoodStats();
         $foodMeal = $food->getFoodStatsByMeal();
-
+        $view->assign('foodMeal', $foodMeal);
         $foodObj = [];
         for($i = 0; $i < count($foods); $i++) {
             $foodObj[$i] = new \stdClass();
@@ -25,23 +25,10 @@ class Stats
         }
 
         $reservation = new Reservation();
-        $data = $reservation->getReservationsStats();
-        $nbReservations = [];
-        for($i = 0; $i < 15; $i++) {
-            $theDate = new \DateTime();
-            $nb = 0;
-            $formatedDate = $theDate->modify('+' . $i .  'day')->format('Y-m-d');
-            foreach($data as $value) {
-
-                 if($value->getDate() == $formatedDate) {
-                    $nb++;
-                 }
-            }
-            array_push($nbReservations, $nb);
-        }
+        $nbReservations = $reservation->getReservationsStats();
+        
         $view->assign('stats', $nbReservations);
         $view->assign('foodQuantity', $foodObj);
-        $view->assign('foodMeal', $foodMeal);
     }    
     
 
