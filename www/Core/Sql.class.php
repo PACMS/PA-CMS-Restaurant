@@ -299,6 +299,12 @@ abstract class Sql
                     header('Location: /dashboard');
                 }
             } else {
+                $auth = new Auth();
+                $logger = new LoggerObserver();
+
+                $auth->attach($logger);
+                $auth->loginAttemptEvent($userVerify['id']);
+
                 header("Location: /login");
 
             }
