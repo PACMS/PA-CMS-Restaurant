@@ -317,7 +317,7 @@
   action: users
   security: "admin"
 
-/user/update:
+/user/update/:id:
   controller: admin
   action: updateUser
   security: "admin"

@@ -50,6 +50,7 @@ if (!isset($_SESSION)) {
         </div>
     <?php }
 
+
         empty($this->_flashType) ?: include "View/flash.tpl.php";
         require $this->_view . ".view.php"; 
     ?>

@@ -175,7 +175,6 @@ class User
 
         if ($user->verifyUser($params) == false) {
             header('Location: /login?error=login');
-        }        
     }
 
     /**
@@ -194,12 +193,31 @@ class User
             $user->setLastname($info->family_name);
             $user->setEmail($info->email);
             $user->setStatus(true);
+            $user->setRole('user');
             $user->save();
         }
+        
+        $userInfos = $user->findOneBy(['email' => $info->email]);
+        session_start();
+        $_SESSION['user']['id'] = $userInfos['id'];
+        $_SESSION['user']['email'] = $userInfos['email'];
+        $_SESSION['user']['firstname'] = $userInfos['firstname'];
+        $_SESSION['user']['lastname'] = $userInfos['lastname'];
+        $_SESSION['user']['role'] = $userInfos['role'];
 
-        $view = new View('dashboard', 'back');
-        $view->assign('title', 'Dashboard');
-        $view->assign('description', 'Dashboard du back office');
+        switch($userInfos['role']) {
+            case 'user':
+                header('Location: /');
+                break;
+            case 'employee':
+                header('Location: /dashboard');
+                break;
+            case 'admin':
+                header('Location: /dashboard');
+                break;
+            default:
+                header('Location: /');
+        }  
     }
 
     /**
@@ -218,12 +236,31 @@ class User
             $user->setLastname($info->last_name);
             $user->setEmail($info->email);
             $user->setStatus(true);
+            $user->setRole('user');
             $user->save();
         }
 
-        $view = new View('dashboard', 'back');
-        $view->assign('title', 'Dashboard');
-        $view->assign('description', 'Dashboard du back office');
+        $userInfos = $user->findOneBy(['email' => $info->email]);
+        session_start();
+        $_SESSION['user']['id'] = $userInfos['id'];
+        $_SESSION['user']['email'] = $userInfos['email'];
+        $_SESSION['user']['firstname'] = $userInfos['firstname'];
+        $_SESSION['user']['lastname'] = $userInfos['lastname'];
+        $_SESSION['user']['role'] = $userInfos['role'];
+
+        switch($userInfos['role']) {
+            case 'user':
+                header('Location: /');
+                break;
+            case 'employee':
+                header('Location: /dashboard');
+                break;
+            case 'admin':
+                header('Location: /dashboard');
+                break;
+            default:
+                header('Location: /');
+        }
     }
 
     /**
@@ -332,6 +369,7 @@ class User
 
         session_start();
         unset($_SESSION);
+
         session_destroy();
         header('Location: /login');
     }

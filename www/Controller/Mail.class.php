@@ -88,6 +88,73 @@ class Mail
         }
     }
 
+    public function activePasswordMail(User $user, string $token)
+    {
+        try {
+            $message = "http://localhost/resetPassword?token=" . $token;
+            $phpmailer = new PHPMailer();
+            //Server settings
+            $phpmailer->isSMTP();
+            $phpmailer->SMTPDebug = SMTP::DEBUG_OFF;
+            $phpmailer->Host = MHOST;
+            $phpmailer->SMTPAuth = true;
+            $phpmailer->Username = MUSERNAME;
+            $phpmailer->Password = MPASSWORD;
+            $phpmailer->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
+            $phpmailer->Port = MPORT;
+
+            //Recipients
+            $phpmailer->setFrom('pa.cms.test@gmail.com', 'PCR Contact');
+            $phpmailer->addAddress($user->getEmail());     //Add a recipient
+
+            //Content
+            $phpmailer->isHTML(true);                                  //Set email format to HTML
+            $phpmailer->Subject = 'Activer votre compte';
+            $phpmailer->Body    = "Pour activer votre compte et choisir un mot de passe, merci de cliquer sur : 
+                                   <a href={$message}>Choisir un mot de passe</a> <br>
+                                   <b>Ce mail n'est valable qu'une heure !</b>";
+
+            $phpmailer->send();
+        } catch (Exception $e) {
+            echo "Message could not be sent. Mailer Error: {$phpmailer->ErrorInfo}";
+        }
+    }
+
+    public function sendConfirmUpdateUserMail(User $user)
+    {
+        try {
+            $phpmailer = new PHPMailer();
+            //Server settings
+            $phpmailer->isSMTP();
+            $phpmailer->SMTPDebug = SMTP::DEBUG_OFF;
+            $phpmailer->Host = MHOST;
+            $phpmailer->SMTPAuth = true;
+            $phpmailer->Username = MUSERNAME;
+            $phpmailer->Password = MPASSWORD;
+            $phpmailer->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
+            $phpmailer->Port = MPORT;
+
+            //Recipients
+            $phpmailer->setFrom('pa.cms.test@gmail.com', 'PCR Contact');
+            $phpmailer->addAddress($user->getEmail());     //Add a recipient
+
+            //Content
+            $phpmailer->isHTML(true);                                  //Set email format to HTML
+            $phpmailer->Subject = 'Modification du compte par un administrateur';
+            $phpmailer->Body    = "
+                                    Un administrateur a modifié votre compte avec les informations suivantes : <br>
+                                    Nom : {$user->getLastname()} <br>
+                                    Prénom : {$user->getFirstname()} <br>
+                                    Email : {$user->getEmail()} <br>
+                                    Role : {$user->getRole()} <br>
+                                   ";
+
+            $phpmailer->send();
+        } catch (Exception $e) {
+            echo "Message could not be sent. Mailer Error: {$phpmailer->ErrorInfo}";
+        }
+    }
+
     public function askCommentMail(string $email, string $name, int $id_restaurant)
     {
         try {

@@ -136,7 +136,6 @@ class Carte
 
     public function unselectAllCarte()
     {
-        session_start();
         $request = new MysqlBuilder();
         $request
             ->update('carte', ["status" => 0])

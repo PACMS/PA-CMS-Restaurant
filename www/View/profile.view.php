@@ -21,37 +21,22 @@
 
             </div>
 
-            <div class="container justify-center items-center">
-                <form action="profile/update" method="post">
-                    <div class="flex flex-row justify-content-between w-full">
-                        <!-- Prenom -->
-                        <div class="flex flex-column">
-                            <label class="greytext" for="firstname">Prénom</label>
-                            <input type="text" id="firstname" name="firstname" value="<?php echo $userInfos['firstname'] ?>" disabled>
-                        </div>
-
-                        <!-- Nom de famille -->
-                        <div class="flex flex-column">
-                            <label class="greytext" for="lastname">Nom de famille</label>
-                            <input type="text" id="lastname" name="lastname" value="<?php echo $userInfos['lastname'] ?>" disabled>
-                        </div>
-                    </div>
-                    <div class="flex flex-column w-full">
-                    <!-- Adresse mail -->
-                    <label class="greytext mt-8" for="email">Adresse mail</label>
-                    <input type="email" id="email" name="email" value="<?php echo $userInfos['email'] ?>" disabled>
-
-                    <!-- Numéro de telephone-->
-                    <!-- <label class="greytext mt-8" for="phoneNumber">Numero de téléphone</label>
-                    <input type="tel" id="phoneNumber" name="phoneNumber" value="01 01 01 01 01" disabled> -->
-                    </div>
-                    <div id="sectionButton" class="flex flex-row mt-8 justify-content-end w-full">
-
-                    </div>
-                </form>
-                <?php echo "<p class='greytext'>Profil modifié le ". date("d/m/Y à H\hi", strtotime($userInfos['updatedAt'] . '+2 hours')) . "</p>"; ?>
+            <div class="container">
+                <?php if ($errors): ?>
+                    <?php foreach ($errors as $error):  ?>
+                        <p style="color: red"><?= $error ?></p>
+                    <?php endforeach ?>
+                <?php endif ?>
             </div>
-            <?php echo "<p class='greytext'>Inscrit depuis le ". date("d/m/Y à H\hi", strtotime($userInfos['createdAt'] . '+2 hours')) . "</p>"; ?>
+
+            <div class="container justify-center items-center">
+                <?php $this->includePartial("form", $user->getUpdateUserForm()); ?>
+
+                <button class='btn btn-cancel mr-4 hidden' id='btncancel'>Annuler </button>
+
+                <p class='greytext'>Profil modifié le <?= date("d/m/Y à H\hi", strtotime($data->updatedAt . '+2 hours')) ?> </p>
+            </div>
+            <p class='greytext'>Profil modifié le <?= date("d/m/Y à H\hi", strtotime($data->createdAt . '+2 hours')) ?> </p>
         </section>
     </section>
 
