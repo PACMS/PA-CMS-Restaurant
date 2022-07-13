@@ -18,7 +18,7 @@
                 <li><a href="/restaurants" class="sidebar-button<?php echo strpos($_SERVER['REQUEST_URI'], "/restaurant") === 0 ? '--active' : ''; ?>"><i class="far fa-lemon sidebar-button-picto"></i><span>Restaurants</span></a></li>
                 <?php if($_SESSION["user"]["role"] == "admin"): ?>
                 <li> <a href="/users" class="sidebar-button<?php echo strpos($_SERVER['REQUEST_URI'], "/user") === 0 ? '--active' : ''; ?>"><i class="far fa-list-alt sidebar-button-picto"></i><span>Utilisateurs</span></a></li>
-                <li> <a href="/logs" class="sidebar-button<?php echo strpos($_SERVER['REQUEST_URI'], "/logs") === 0 ? '--active' : ''; ?>"><i class="far fa-list-alt sidebar-button-picto"></i><span>Logs</span></a></li>
+                <li> <a href="/logs" class="sidebar-button<?php echo strpos($_SERVER['REQUEST_URI'], "/logs") === 0 ? '--active' : ''; ?>"><i class="far fa-id-card sidebar-button-picto"></i><span>Logs</span></a></li>
                 <?php endif; ?>
             </ul>
         </nav>

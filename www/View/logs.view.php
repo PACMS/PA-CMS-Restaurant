@@ -12,27 +12,31 @@
                 <div class="row">
                     <div class="cols-lg-12 cols-md-12 cols-sm-12">
                         <div class="flex flex-column">
-                            <section class="bookingTableHeader flex justify-content-between">
 
-                            </section>
-                            <table id="pageTable" class="display nowrap">
+                            <table id="logTable" class="display nowrap">
                                 <thead>
                                 <tr>
                                     <th>ID</th>
                                     <th>User</th>
+                                    <th>Email</th>
                                     <th>Etat</th>
                                     <th>Created_at</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-
+                                <?php
+                                foreach ($logs as $log) :
+                                ?>
                                     <tr>
-                                        <td>test </td>
-                                        <!-- modifier le port dans le href si la page affiche rien -->
-                                        <td> test </td>
-                                        <td> test </td>
-                                        <td> test </td>
+                                        <td> <?php echo $log->id ?> </td>
+                                        <td> <?php echo $log->firstname ?> <?php echo $log->lastname ?> </td>
+                                        <td> <?php echo $log->email ?> </td>
+                                        <td> <?php echo $log->state ?> </td>
+                                        <td> <?php echo $log->created_at ?> </td>
                                     </tr>
+                                <?php
+                                endforeach;
+                                ?>
                                 </tbody>
                             </table>
                         </div>
@@ -42,3 +46,4 @@
         </section>
     </section>
 </main>
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.4/js/jquery.dataTables.js"></script>

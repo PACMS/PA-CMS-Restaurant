@@ -20,7 +20,6 @@ class Log
 
         $view = new View('logs', 'back');
         $view->assign('title', 'Logs');
-       // $view->assign('logs', $log);
-        //$view->assign('idrestaurant', $_SESSION["restaurant"]["id"]);
+        $view->assign('logs', $logs);
     }
 }
