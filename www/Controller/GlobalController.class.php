@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Core\View;
 use App\Model\User as UserModel;
+use App\Model\Page as PageModel;
 use App\Core\Verificator;
 use SimpleXMLElement;
 
@@ -58,34 +59,39 @@ class GlobalController
             $config_file = file('conf.inc-sample.php');
             foreach ( $config_file as $line_num => $line ) {
                 preg_match( '/^define\(\s*\'([A-Z_]+)\',([ ]+)/', $line, $match );
-                switch($match[1]) {
-                    case 'DBDRIVER':
-                        $config_file[ $line_num ] = "define('" . $match[1] . "', '" . $_POST['driver'] . "');\r\n";
-                        break;
-                    case 'DBUSER':
-                        $config_file[ $line_num ] = "define('" . $match[1] . "', '" . $_POST['user'] . "');\r\n";
-                        break;
-                    case 'DBPWD':
-                        $config_file[ $line_num ] = "define('" . $match[1] . "', '" . $_POST['password'] . "');\r\n";
-                        break;
-                    case 'DBHOST':
-                        $config_file[ $line_num ] = "define('" . $match[1] . "', '" . $_POST['host'] . "');\r\n";
-                        break;
-                    case 'DBPORT':
-                        $config_file[ $line_num ] = "define('" . $match[1] . "', '" . $_POST['port'] . "');\r\n";
-                        break;
-                    case 'DBNAME':
-                        $config_file[ $line_num ] = "define('" . $match[1] . "', '" . $_POST['name'] . "');\r\n";
-                        break;
-                    case 'DBPREFIXE':
-                        $config_file[ $line_num ] = "define('" . $match[1] . "', '" . $_POST['prefixe'] . "');\r\n";
-                        break;
-                    case 'REDIRECT_URI_GOOGLE':
-                        $config_file[ $line_num ] = "define('" . $match[1] . "', '" . $_POST['domain_name'] . "/googleConnect');\r\n";
-                        break;
-                    case 'REDIRECT_URI_FACEBOOK':
-                        $config_file[ $line_num ] = "define('" . $match[1] . "', '" . $_POST['domain_name'] . "/facebookConnect');\r\n";
-                        break;
+                if(!empty($match)) {
+                    switch($match[1]) {
+                        case 'DBDRIVER':
+                            $config_file[ $line_num ] = "define('" . $match[1] . "', '" . $_POST['driver'] . "');\r\n";
+                            break;
+                        case 'DBUSER':
+                            $config_file[ $line_num ] = "define('" . $match[1] . "', '" . $_POST['user'] . "');\r\n";
+                            break;
+                        case 'DBPWD':
+                            $config_file[ $line_num ] = "define('" . $match[1] . "', '" . $_POST['password'] . "');\r\n";
+                            break;
+                        case 'DBHOST':
+                            $config_file[ $line_num ] = "define('" . $match[1] . "', '" . $_POST['host'] . "');\r\n";
+                            break;
+                        case 'DBPORT':
+                            $config_file[ $line_num ] = "define('" . $match[1] . "', '" . $_POST['port'] . "');\r\n";
+                            break;
+                        case 'DBNAME':
+                            $config_file[ $line_num ] = "define('" . $match[1] . "', '" . $_POST['name'] . "');\r\n";
+                            break;
+                        case 'DBPREFIXE':
+                            $config_file[ $line_num ] = "define('" . $match[1] . "', '" . $_POST['prefixe'] . "');\r\n";
+                            break;
+                        case 'REDIRECT_URI_GOOGLE':
+                            $config_file[ $line_num ] = "define('" . $match[1] . "', '" . $_POST['domain_name'] . "/googleConnect');\r\n";
+                            break;
+                        case 'REDIRECT_URI_FACEBOOK':
+                            $config_file[ $line_num ] = "define('" . $match[1] . "', '" . $_POST['domain_name'] . "/facebookConnect');\r\n";
+                            break;
+                        case 'APP_URL':
+                            $config_file[ $line_num ] = "define('" . $match[1] . "', '" . $_POST['domain_name'] . "');\r\n";
+                            break;
+                    }
                 }
             }
             $config_text = '';
@@ -154,68 +160,68 @@ class GlobalController
     }
 
     /**
-     * Sitemap
+     * Sitemap human readable
      *
      * @return void
      */
     function sitemap()
     {
+        $protocol = $_SERVER['SERVER_PORT'] == '443' ? 'https' : 'http';
+        $domain = $_SERVER['HTTP_HOST'];
+
+        $page = new PageModel();
+        $pages = $page->getAllPages();
+
+        $view = new View('sitemap', 'back');
+        $view->assign('protocol', $protocol);
+        $view->assign('domain',$domain);
+        $view->assign('pages',$pages);
+    }
+
+    /**
+     * Sitemap XML
+     *
+     * @return void
+     */
+    function sitemapXML()
+    {
+        $protocol = $_SERVER['SERVER_PORT'] == '443' ? 'https' : 'http';
+        $domain = $_SERVER['HTTP_HOST'];
+
+        $page = new PageModel();
+        $pages = $page->getAllPages();
+
         header('Content-Type: text/xml; charset=UTF-8');
         $xmlstr = <<<XML
         <?xml version="1.0" encoding="UTF-8"?>
-
         <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-
         <url>
-
-            <loc>http://www.example.com/</loc>
-
-            <lastmod>2005-01-01</lastmod>
-
-            <changefreq>monthly</changefreq>
-
-            <priority>0.8</priority>
-
+            <loc>$protocol://$domain/login</loc>
+            <lastmod>2022-07-01 00:00:00</lastmod>
         </url>
-
         <url>
-
-            <loc>http://www.example.com/catalog?item=12&amp;desc=vacation_hawaii</loc>
-
-            <changefreq>weekly</changefreq>
-
+            <loc>$protocol://$domain/register</loc>
+            <lastmod>2022-07-01 00:00:00</lastmod>
         </url>
-
         <url>
-
-            <loc>http://www.example.com/catalog?item=73&amp;desc=vacation_new_zealand</loc>
-
-            <lastmod>2004-12-23</lastmod>
-
-            <changefreq>weekly</changefreq>
-
+            <loc>$protocol://$domain/lostPassword</loc>
+            <lastmod>2022-07-01 00:00:00</lastmod>
         </url>
-
-        <url>
-
-            <loc>http://www.example.com/catalog?item=74&amp;desc=vacation_newfoundland</loc>
-
-            <lastmod>2004-12-23T18:00:15+00:00</lastmod>
-
-            <priority>0.3</priority>
-
-        </url>
-
-        <url>
-
-            <loc>http://www.example.com/catalog?item=83&amp;desc=vacation_usa</loc>
-
-            <lastmod>2004-11-23</lastmod>
-
-        </url>
-
-        </urlset>
         XML;
+
+        foreach ($pages as $page) {
+            $xmlstr .= <<<XML
+            <url>
+                <loc>$protocol://$domain/$page->url</loc>
+                <lastmod>$page->updated_at</lastmod>
+            </url>
+            XML;
+        }
+
+        $xmlstr .= <<<XML
+        </urlset> 
+        XML;
+
         $sitemapXML = new SimpleXMLElement($xmlstr);
         echo($sitemapXML->asXML());
     }

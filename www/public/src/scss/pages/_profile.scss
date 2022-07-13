@@ -29,6 +29,14 @@ z-index: 1;
     font-size: rem(30);
   }
 
+  .disabled {
+    color: #6c757d;
+  }
+
+  .hidden {
+    visibility: hidden;
+  }
+
   #editProfile {
     border: none;
     background-color: $white;
@@ -38,6 +46,18 @@ z-index: 1;
 
 }
 
+.inputProfile {
+  width: 600px;
+  border: none;
+  border-bottom: solid 1px;
+  font-size: rem(18);
+  padding-top: 10px;
+  padding-bottom: 4px;
+  margin-bottom: 45px;
+  font-family: $font1;
+  color: black;
+  padding-left: 5px;
+}
 
 .greytext{
   font-size: rem(18);

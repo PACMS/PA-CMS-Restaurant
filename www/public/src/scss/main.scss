@@ -16,7 +16,8 @@
 
 /* ------------------------------- Components ------------------------------- */
 
-@import "components/button", "components/grid", "components/input";
+@import "components/button", "components/grid", "components/input", "components/sitemap", "components/flash", "components/admin", "components/topbar";
+
 
 /* ---------------------------------- Pages --------------------------------- */
   
@@ -32,7 +33,10 @@
 "pages/carteDetails", 
 "pages/alert",
 "pages/products", 
-"pages/error404";
+"pages/comments", 
+"pages/stats", 
+"pages/error404",
+"pages/themes";
 
 
 

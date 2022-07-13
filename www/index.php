@@ -21,17 +21,19 @@ function myAutoloader($class)
 
 spl_autoload_register("App\myAutoloader");
 
+if (!file_exists('conf.inc.php')) {
+    (new \App\Controller\GlobalController())->setup();
+    die();
+} else {
+    require "conf.inc.php";
+}
+
 use App\Core\Security;
 use App\Model\Option as OptionModel;
 use App\Model\Theme as ThemeModel;
 use App\Core\View;
 use App\Model\Page;
 
-if (file_exists('conf.inc.php')) {
-    require "conf.inc.php";
-} else {
-    $_SERVER["REQUEST_URI"] = "/setup";
-}
 
 $option = new OptionModel();
 $idTheme = $option->getOptionByName('theme')['value'];
@@ -87,7 +89,7 @@ if (!$uriPage){
         die("401 : Unauthorized");
     }
 
-    $controller = ucfirst(strtolower($routes[$uri]["controller"]));
+    $controller = ucfirst($routes[$uri]["controller"]);
     $action = strtolower($routes[$uri]["action"]);
 
     $controllerFile = "Controller/" . $controller . ".class.php";

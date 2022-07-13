@@ -5,11 +5,14 @@
  */
 namespace App\Controller;
 
+use App\Controller\Mail;
+use App\Core\Auth;
+use App\Core\LoggerObserver;
+use App\Core\MysqlBuilder;
 use App\Core\Verificator;
 use App\Core\View;
 use App\Core\OAuth;
 use App\Model\User as UserModel;
-
 /**
  * User Controller
  * 
@@ -30,6 +33,11 @@ class User
      */
     public function login(): void
     {
+        if (!empty($_SESSION["user"])) {
+            if ($_SESSION["user"]["role"] != "user") {
+                header("Location: /dashboard");
+            }
+        }
         $user = new UserModel();
 
         // if (!empty($_POST)) {
@@ -52,7 +60,11 @@ class User
 
         $view = new View("login");
         $view->assign("title", "Connexion");
+        $view->assign('description', 'Page de connexion');
         $view->assign("user", $user);
+
+
+        empty($_GET['error']) ?: $view->setFlashMessage('error', 'Identifiant ou mot de passe invalide');
     }
 
     /**
@@ -62,17 +74,31 @@ class User
      */
     public function register():void
     {
+        if (!empty($_SESSION["user"])) {
+            if ($_SESSION["user"]["role"] != "user") {
+                header("Location: /dashboard");
+            }
+        }
         $user = new UserModel();
         $errors = null;
-
         if (!empty($_POST)) {
+            $conditions = $_POST['acceptConditions'];
+            unset($_POST['acceptConditions']);
+            $_POST = array_map('htmlspecialchars', $_POST);
+            $conditions[0] = htmlspecialchars($conditions[0]);
+            $_POST["acceptConditions"] = $conditions;
             $errors = Verificator::checkForm($user->getCompleteRegisterForm(), $_POST + $_FILES);
 
             if (!$errors) {
                 $user->hydrate($_POST);
                 $user->setRole('user');
+                $user->generateToken();
                 $user->save();
-                /////////// redirection vers le dashboard à faire
+
+                $mail = new Mail();
+                $mail->sendConfirmMail($user);
+
+                header('Location: /register/validate');
             }
         }
 
@@ -81,6 +107,10 @@ class User
         $view->assign("errors", $errors);
     }
 
+    public function notifyValidation()
+    {
+        $view = new View("notifyRegister", "front");
+    }
     /**
      * Verify user token
      * 
@@ -89,7 +119,6 @@ class User
     public function verifyToken(): void
     {
         $user = new UserModel();
-
         $actualDateTime = new \DateTime();
         $date = new \DateTime($_GET["date"]);
         $interval = $actualDateTime->diff($date);
@@ -122,29 +151,6 @@ class User
     }
 
     /**
-     * Retrieve user token
-     * 
-     * @return void
-     */
-    public function getToken(): void
-    {
-        $user = new UserModel();
-        //$user->setId(1);
-        $user->setEmail("thibautsembeni@gmail.com");
-        $user->setPassword("Test1234");
-        $user->setLastname("SembEnI   ");
-        $user->setFirstname("  THIBaut   ");
-        $user->generateToken();
-        Mail::sendConfirmMail($user->getToken(), $user->getEmail());
-        //$user->save();
-        echo "<pre>";
-        echo ("Token créé " . $user->getToken());
-
-        //envoie du mail
-        //click sur http://localhost/verifyToken?token=<token>?email=<email>
-    }
-
-    /**
      * Verify if user exists
      * 
      * @return void
@@ -152,7 +158,8 @@ class User
     public function loginVerify(): void
     {
         $user = new UserModel();
-        
+        $_POST = array_map('htmlspecialchars', $_POST);
+
 
         if (!empty($_POST)) {
             Verificator::checkForm(
@@ -166,12 +173,9 @@ class User
 
         $params = ["email" => $_POST['email']];
 
-        $user->verifyUser($params);
-        
-        
-        $view = new View("loginVerify");
-        $view->assign("title", "Vérification");
-        $view->assign("user", $user);
+        if ($user->verifyUser($params) == false) {
+            header('Location: /login?error=login');
+        }
     }
 
     /**
@@ -190,10 +194,37 @@ class User
             $user->setLastname($info->family_name);
             $user->setEmail($info->email);
             $user->setStatus(true);
+            $user->setRole('user');
             $user->save();
         }
+        
+        $userInfos = $user->findOneBy(['email' => $info->email]);
+        session_start();
+        $_SESSION['user']['id'] = $userInfos['id'];
+        $_SESSION['user']['email'] = $userInfos['email'];
+        $_SESSION['user']['firstname'] = $userInfos['firstname'];
+        $_SESSION['user']['lastname'] = $userInfos['lastname'];
+        $_SESSION['user']['role'] = $userInfos['role'];
 
-        new View('dashboard');
+        $auth = new Auth();
+        $logger = new LoggerObserver();
+
+        $auth->attach($logger);
+        $auth->loginEvent();
+
+        switch($userInfos['role']) {
+            case 'user':
+                header('Location: /');
+                break;
+            case 'employee':
+                header('Location: /dashboard');
+                break;
+            case 'admin':
+                header('Location: /dashboard');
+                break;
+            default:
+                header('Location: /');
+        }  
     }
 
     /**
@@ -212,10 +243,37 @@ class User
             $user->setLastname($info->last_name);
             $user->setEmail($info->email);
             $user->setStatus(true);
+            $user->setRole('user');
             $user->save();
         }
 
-        new View('dashboard');
+        $userInfos = $user->findOneBy(['email' => $info->email]);
+        session_start();
+        $_SESSION['user']['id'] = $userInfos['id'];
+        $_SESSION['user']['email'] = $userInfos['email'];
+        $_SESSION['user']['firstname'] = $userInfos['firstname'];
+        $_SESSION['user']['lastname'] = $userInfos['lastname'];
+        $_SESSION['user']['role'] = $userInfos['role'];
+
+        $auth = new Auth();
+        $logger = new LoggerObserver();
+
+        $auth->attach($logger);
+        $auth->loginEvent();
+
+        switch($userInfos['role']) {
+            case 'user':
+                header('Location: /');
+                break;
+            case 'employee':
+                header('Location: /dashboard');
+                break;
+            case 'admin':
+                header('Location: /dashboard');
+                break;
+            default:
+                header('Location: /');
+        }
     }
 
     /**
@@ -226,35 +284,39 @@ class User
     public function lostPassword(): void
     {
         $user = new UserModel();
+        $errors = null;
+
+        if (!empty($_POST)) {
+            $errors = Verificator::checkForm($user->getLostPasswordForm(), $_POST);
+
+            if (!$errors) {
+                $_POST = array_map('htmlspecialchars', $_POST);
+                $user->hydrate($_POST);
+
+                if ((new MysqlBuilder())->select('user', ["*"])->where('email', $user->getEmail())->fetchClass('user')->fetch()) {
+                    if (isset($_POST['withPassword']) && $_POST['withPassword'] == "true") $linkConnexion = "false";
+                    else $linkConnexion = "true";
+
+                    $user->generateToken();
+                    $token = $user->getToken() . '&email=' . $user->getEmail() . '&date=' . (new \DateTime())->format("YmdHis") . '&tempLink=' . $linkConnexion;
+
+                    (new MysqlBuilder())->update('user', ['token' => $token])->where('email', $user->getEmail())->execute();
+
+                    $mail = new Mail();
+                    $mail->lostPasswordMail($user, $token);
+                }
+
+                $view = new View("lostPassword", "front", 'success', 'Email envoyé', 'Un email va vous êtes envoyé, pensez à vérifier les spams !');
+                $view->assign("title", "Mot de passe oublié");
+                $view->assign("user", $user);
+                $view->assign("errors", $errors);
+            }
+        }
 
         $view = new View("lostPassword");
         $view->assign("title", "Mot de passe oublié");
         $view->assign("user", $user);
-    }
-
-    /**
-     * Lost password action page
-     * 
-     * @deprecated
-     * 
-     * @return void
-     */
-    public function lostPasswordAction(): void
-    {
-        $user = new UserModel();
-
-        $view = new View("lostPasswordAction");
-        $view->assign("title", "Mail d'oubli de mdp");
-        $view->assign("user", $user);
-      
-        // if (!empty($_POST)) {
-        //     Verificator::checkForm(
-        //         $user->getLoginForm(),
-        //         $_POST + $_FILES
-        //     );
-        // }
-
-        // $email = $_POST['email'];
+        $view->assign("errors", $errors);
     }
 
     /**
@@ -264,55 +326,45 @@ class User
      */
     public function resetPassword(): void
     {
-        $user = new UserModel();
+        if (isset($_GET['tempLink']) && isset($_GET['email']) && !empty($_GET['email']) && isset($_GET['token']) && !empty($_GET['token']) && isset($_GET['date']) && !empty($_GET['date']))
+            if ((new MysqlBuilder())->select('user', ['*'])->where('email', htmlentities($_GET['email']))->fetchClass('user')->fetch()) {
+                $user = (new MysqlBuilder())->select('user', ['*'])->where('email', htmlentities($_GET['email']))->fetchClass('user')->fetch();
+                if (($_GET['token'] . '&email=' . $_GET['email'] . '&date=' . $_GET['date'] . '&tempLink=' . $_GET['tempLink']) == $user->getToken())
+                    if (((new \DateTime())->diff(new \DateTime($_GET['date']))->format('%i')) < 60)
+                        if ($_GET['tempLink'] == "true") {
+                            $_SESSION['user']['id'] = $user->getId();
+                            $_SESSION['user']['email'] = $user->getEmail();
+                            $_SESSION['user']['firstname'] = $user->getFirstname();
+                            $_SESSION['user']['lastname'] = $user->getLastname();
+                            $_SESSION['user']['role'] = $user->getRole();
 
-        $actualDateTime = new \DateTime();
-        $date = new \DateTime($_GET["date"]);
-        $interval = $actualDateTime->diff($date);
-        $minutes = $interval->format('%i');
+                            if ($user->getRole() == 'user') {
+                                if (!is_null($_SESSION['previous_location'])) header('Location: ' . $_SESSION['previous_location']);
+                                else header('Location: /');
+                            } else header('Location: dashboard');
+                        } else {
+                            $errors = null;
 
-        if (isset($_GET["email"]) && isset($_GET["token"]) && $minutes < 10) {
-            $user->verifyToken($_GET["email"], $_GET["token"], false);
-        } else {
-            if (!isset($_GET["email"]) && !isset($_GET["token"])) {
-                echo "L'email ou le token est null! Vérification impossible";
-            } else {
-                echo "Le lien n'est plus valide";
+                            if (!empty($_POST)) {
+                                $errors = Verificator::checkForm($user->getResetPasswordForm(), $_POST);
+
+                                if (!$errors) {
+                                    $_POST = array_map('htmlspecialchars', $_POST);
+                                    $user->hydrate($_POST);
+
+                                    (new MysqlBuilder())->update('user', ['password' => $user->getPassword()])->where('email', $user->getEmail())->execute();
+
+                                    new View("login", "front", 'success', 'Mot de passe changé', 'Votre mot de passe a bien été changé, vous pouvez maintenant vous connecter !');
+                                }
+                            }
+
+                            $view = new View("resetPassword");
+                            $view->assign("title", "Réinitialisation du mot de passe");
+                            $view->assign("user", $user);
+                            $view->assign("errors", $errors);
+                        }
             }
-        }
 
-        $view = new View("resetPassword");
-        $view->assign("title", "Réinitialisation du mot de passe");
-        $view->assign("user", $user);
-    }
-
-    /**
-     * Reset password action
-     * 
-     * @return void
-     */
-    public function resetPasswordAction(): void
-    {
-
-        $user = new UserModel();
-
-        if (!empty($_POST)) {
-            Verificator::checkForm(
-                $user->getResetPasswordForm(),
-                $_POST + $_FILES
-            );
-            // print_r($result);
-        }
-
-        $id = $user->getIdWithEmail($_GET['email']);
-
-        $user->setId($id);
-        $user->setEmail($_GET['email']);
-        $user->setPassword($_POST['password']);
-
-        $user->save();
-
-        new View('login');
     }
 
     /**
@@ -322,6 +374,15 @@ class User
      */
     public function logout()
     {
+        $auth = new Auth();
+        $logger = new LoggerObserver();
+
+        $auth->attach($logger);
+        $auth->logoutEvent();
+
+        session_start();
+        unset($_SESSION);
+
         session_destroy();
         header('Location: /login');
     }

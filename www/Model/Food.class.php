@@ -108,7 +108,7 @@ class Food extends Sql
      */
     public function setStockId(int $stockId): void
     {
-        $this->stockId = $stockId;
+        $this->stockId = intval($stockId);
     }
 
 
@@ -157,7 +157,9 @@ class Food extends Sql
                     "class" => "formRestaurant",
                     "required" => true,
                     "min" => 2,
+                    "minlength" => 2,
                     "max" => 100,
+                    "maxlength" => 100,
                     "value" => $this->name,
                     "error" => "Le nom de votre produit n'est pas correct",
                 ],
@@ -168,7 +170,9 @@ class Food extends Sql
                     "class" => "formRestaurant",
                     "required" => true,
                     "min" => 2,
+                    "minlength" => 2,
                     "max" => 255,
+                    "maxlength" => 255,
                     "value" => $this->nature,
                     "error" => "Le champs adresse contient une erreur",
                 ],
@@ -178,6 +182,7 @@ class Food extends Sql
                     "id" => "quantity",
                     "class" => "formRestaurant",
                     "max" => 255,
+                    "maxlength" => 255,
                     "required" => true,
                     "value" => $this->quantity,
                     "error" => "Le champs quantité contient une erreur"
@@ -236,7 +241,9 @@ class Food extends Sql
                     "class" => "restaurant-name",
                     "required" => true,
                     "min" => 2,
+                    "minlength" => 2,
                     "max" => 100,
+                    "maxlength" => 100,
                     "value" => $this->name,
                     "error" => "Le nom de votre produit n'est pas correct",
                 ],
@@ -247,7 +254,9 @@ class Food extends Sql
                     "class" => "restaurant-inputs",
                     "required" => true,
                     "min" => 2,
+                    "minlength" => 2,
                     "max" => 100,
+                    "maxlength" => 100,
                     "value" => $this->nature,
                     "error" => "La nature de votre produit n'est pas correct",
                 ],
@@ -258,6 +267,7 @@ class Food extends Sql
                     "required" => true,
                     "class" => "restaurant-inputs",
                     "max" => 255,
+                    "maxlength" => 255,
                     "value" => $this->quantity,
                     "error" => "Le champs quantité contient une erreur"
                 ],
@@ -265,6 +275,28 @@ class Food extends Sql
                     "type" => "hidden",
                     "value" => $_SESSION["stock"]["id"],
                     "label" => "StockId",
+                ],
+            ]
+        ];
+    }
+
+    public function deleteFoodForm(int $id)
+    {
+        return [
+            "config" => [
+                "method" => "POST",
+                "action" => "/restaurant/food/delete",
+                "id" => "food-delete",
+                "submit" => "Supprimer",
+                'captcha' => false,
+            ],
+            "inputs" => [
+                "id" => [
+                    "type" => "hidden",
+                    "id" => "id",
+                    "name" => "id",
+                    "class" => "restaurant-inputs",
+                    "value" => $id,
                 ],
             ]
         ];

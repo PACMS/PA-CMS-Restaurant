@@ -12,6 +12,23 @@
     height: 300px;
     position: relative;
     
+    & .favorite{
+        position: absolute;
+        top: 0;
+        right: 50%;
+        height: 25px;
+        padding: 5px 15px;
+        background-color: $primaryBlue;
+        transform: translateY(-50%) translateX(50%);
+        border-radius: 10px;
+
+
+        & p {
+            margin: 0;
+            color: white;
+            text-align: center;
+        }
+    }
 
     & img {
         width: 100%;
@@ -32,6 +49,22 @@
         font-family: $font1;
         background-color: $restaurant-card-bandeau;
         border-radius: 0 0px 20px 20px;
+
+        & input[type="submit"] {
+            margin-right: 20px;
+            background-color: $main-color;
+            color: $white;
+            width: 120px;
+            padding: 10px 25px;
+            border: none;
+            border-radius: 11px;
+            cursor: pointer;
+    
+            & a {
+                color: $white;
+                text-decoration: none;
+            }
+        }
     }
 
     & p {

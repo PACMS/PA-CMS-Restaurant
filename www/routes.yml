@@ -18,21 +18,17 @@
   controller: user
   action: lostPassword
 
-/lostPasswordAction:
-  controller: user
-  action: lostPasswordAction
-
 /resetPassword:
   controller: user
   action: resetPassword
 
-/resetPasswordAction:
-  controller: user
-  action: resetPasswordAction
-
 /register:
   controller: user
   action: register
+
+/register/validate:
+  controller: user
+  action: notifyValidation
 
 /googleConnect:
   controller: user
@@ -45,6 +41,11 @@
 /dashboard:
   controller: admin
   action: home
+  security: "employee"
+
+/logs:
+  controller: log
+  action: index
   security: "employee"
 
 /sendmail:
@@ -149,65 +150,83 @@
   action: updateProfile
   security: "employee"
 
-/cartes:
+/restaurant/cartes:
   controller: carte
   action: carte
 
-/carte/create:
+/restaurant/carte/create:
   controller: carte
-  action: createCarte
+  action: createCarteView
 
-/updateCarte:
+/restaurant/updateCarte:
   controller: carte
   action: updateCarte
 
-/carte/delete:
+/restaurant/createCarte:
+  controller: carte
+  action: createCarte
+
+/restaurant/carte/delete:
   controller: carte
   action: deleteCarte
 
-/carte/meals:
+/restaurant/carte/meals:
   controller: meal
   action: meal
 
-/carte/meals/sendId:
+/restaurant/carte/meals/sendId:
   controller: meal
   action: setIdCard
 
-/carte/meals/addCategorie:
+/restaurant/carte/meals/addCategorie:
   controller: categorie
   action: createcategorie
 
-/carte/meals/updateCategorie:
+/restaurant/carte/meals/updateCategorie:
   controller: categorie
   action: updateCategorie
 
-/carte/meals/deleteCategorie:
+/restaurant/carte/meals/deleteCategorie:
   controller: categorie
   action: deleteCategorie
 
-/carte/meals/addMeal:
+/restaurant/carte/meals/addMeal:
   controller: meal
   action: createMeal
 
-/carte/meals/updateMeal:
+/restaurant/carte/meals/updateMeal:
   controller: meal
   action: updateMeal
 
-/carte/meals/deleteMeal:
+/restaurant/carte/meals/deleteMeal:
   controller: meal
   action: deleteMeal
+
+/restaurant/carte/meals/deleteFoods:
+  controller: mealsFoods
+  action: deleteFoods
 
 # Route pour les thèmes
 
 /themes:
   controller: admin
   action: themes
-  security: 'admin'
+  security: "admin"
 
 /themes/switchTheme:
   controller: theme
   action: switchTheme
-  security: 'admin'
+  security: "admin"
+
+/themes/configure/:id:
+  controller: theme
+  action: configureThemes
+  security: "admin"
+
+/themes/update/:id:
+  controller: theme
+  action: updateTheme
+  security: "admin"
 
 # Route pour la reservation
 /restaurant/reservation:
@@ -222,12 +241,69 @@
 /addReservationClient:
   controller: reservation
   action: addReservationClient
-  security: "employee"
 
 /restaurant/addReservation:
   controller: reservation
   action: addReservation
   security: "employee"
+
+/restaurant/completeReservation:
+  controller: reservation
+  action: completeReservation
+  security: "employee"
+
+/reserver-une-table:
+  controller: reservation
+  action: reservationTable
+
+/reserver-une-table/add:
+  controller: reservation
+  action: addReservationTable
+
+/restaurant/QrcodeEdit:
+  controller: restaurant
+  action: QrcodeEdit
+
+# Route pour les commentaires
+
+/addComment:
+  controller: comment
+  action: addCommentView
+  security: "user"
+
+/restaurant/addComment:
+  controller: comment
+  action: stockComment
+  # security: "user"
+
+/restaurant/comments:
+  controller: comment
+  action: getComments
+  security: "admin"
+
+/restaurant/validateComment:
+  controller: comment
+  action: validateComment
+  security: "admin"
+
+/restaurant/deleteComment:
+  controller: comment
+  action: deleteComment
+  security: "admin"
+
+/showComments:
+  controller: comment
+  action: showComments
+
+/replyComment:
+  controller: comment
+  action: replyComment
+
+# Route pour la gestion des utilisateurs
+
+/restaurant/statistiques:
+  controller: stats
+  action: stats
 
 /restaurant/editReservation:
   controller: reservation
@@ -246,7 +322,7 @@
   action: users
   security: "admin"
 
-/user/update:
+/user/update/:id:
   controller: admin
   action: updateUser
   security: "admin"
@@ -302,11 +378,15 @@
 /notFound:
   controller: user
   action: errorNotFound
-  security: 'employee'
+  security: "employee"
+
+/sitemap:
+  controller: globalController
+  action: sitemap
 
 /sitemap.xml:
   controller: globalController
-  action: sitemap
+  action: sitemapXML
 
 # Setup
 
@@ -321,4 +401,3 @@
 /setupAction:
   controller: globalController
   action: setupAction
-

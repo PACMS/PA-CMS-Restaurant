@@ -2,18 +2,7 @@
     <?php $this->includePartial("sidebar"); ?>
     <div id="pseudo-element"></div>
     <section class="flex flex-column secondPart">
-        <div class="flex justify-content-between navbar align-items-center">
-            <h1>Utilisateurs</h1>
-            <div id="profileDiv">
-                <a href="#">
-                    <p><?php echo $_SESSION['user']['firstname'] ?><i class="fas fa-user"></i></p>
-                </a>
-                <button>
-                    <i class="far fa-moon"></i>
-                    <i class="fas fa-toggle-off"></i>
-                </button>
-            </div>
-        </div>
+        <?php $this->includePartial("topBar", ["title" => "Utilisateurs"]); ?>
         <section class="usersTableHeader flex justify-content-between">
             <table id="usersTable" class="display nowrap">
                 <thead>
@@ -32,7 +21,7 @@
                 <tbody>
                     <?php
                     foreach ($users as $user) :
-                        ?>
+                    ?>
                         <tr>
                             <td> <?php echo $user->id ?> </td>
                             <td> <?php echo $user->email ?> </td>
@@ -42,9 +31,14 @@
                             <td> <?php echo $user->role ?> </td>
                             <td> <?php echo $user->createdAt ?> </td>
                             <td> <?php echo $user->updatedAt ?> </td>
-                            <td></td>
+                            <td> 
+                            <?php if ($_SESSION["user"]["id"] != $user->id): ?>
+                                <button id='updateUser'><i class='fas fa-pen'></i></button>
+                                <button id='deleteUser'><i class='fas fa-times-circle'></i></button>
+                            <?php endif; ?> 
+                            </td>
                         </tr>
-                        <?php
+                    <?php
                     endforeach;
                     ?>
                 </tbody>

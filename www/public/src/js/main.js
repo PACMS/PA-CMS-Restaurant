@@ -149,7 +149,76 @@ $(document).ready(function () {
     ).removeClass("active");
     $("section.container-forgetPassword p#without-pwd").removeClass("active");
     $("section.container-forgetPassword p#with-pwd").addClass("active");
+    $("section.container-forgetPassword form input#inputPasswordChoice").val(
+      "true"
+    );
     e.target.classList.add("active");
+  });
+  //select choice without password
+  $(
+    "section.container-forgetPassword div#passwordChoice h3#withoutPassword"
+  ).click(function (e) {
+    $(
+      "section.container-forgetPassword div#passwordChoice h3#withPassword"
+    ).removeClass("active");
+    $("section.container-forgetPassword p#with-pwd").removeClass("active");
+    $("section.container-forgetPassword p#without-pwd").addClass("active");
+    $("section.container-forgetPassword form input#inputPasswordChoice").val(
+      "false"
+    );
+    e.target.classList.add("active");
+  });
+
+  //Carte Part
+  $("main#meals div.modal > form").append("<p class='close'>close</p>");
+
+  $("main#meals div.modal > form > p.close").click(function (e) {
+    $("div.modal").hide();
+  });
+
+  $("header#meals article#Add button#addCategorie").click(function (e) {
+    console.log("click");
+    $("main#meals div.modal.addCategorie").toggle();
+  });
+
+  $("button#addMeal").click(function (e) {
+    $("div.modal.addMeal").toggle();
+  });
+
+  $("figure#editCategorie").click(function (e) {
+    $(e.target.parentElement.children[1]).hide();
+    $(e.target.parentElement.children[2]).hide();
+    $(e.target.parentElement.children[0]).removeClass("hidden");
+  });
+
+  $("span#editMeal").click(function (e) {
+    $(e.target.parentElement.parentElement.parentElement).hide();
+    $(
+      e.target.parentElement.parentElement.parentElement.parentElement
+        .children[0]
+    ).removeClass("hidden");
+  });
+
+  $("span#deleteMeal").click(function (e) {
+    $.post("/restaurant/carte/meals/deleteMeal", {
+      id: e.target.getAttribute("data-id-meal"),
+    });
+    location.reload();
+  });
+
+  $("span#deleteCategorie").click(function (e) {
+    $.post("/restaurant/carte/meals/deleteCategorie", {
+      id: e.target.getAttribute("data-id-categorie"),
+    });
+    location.reload();
+  });
+
+  $("span#deleteFood").click(function (e) {
+    $.post("/restaurant/carte/meals/deleteFoods", {
+      id: e.target.getAttribute("data-id-food"),
+      id_meal: e.target.getAttribute("data-id-meal"),
+    });
+    location.reload();
   });
 
   $("#navbarButton").click(function () {
@@ -169,52 +238,25 @@ $(document).ready(function () {
     $(".alert-window").css("visibility", "hidden");
   });
 
+  $(function() {
+    $('#formUpdateProfile input[type="submit"]').addClass('hidden');
+  });
   $("#editProfile").on("click", function (event) {
-    $(".container").css("margin-top", "0px");
-    $("input").attr("disabled", false);
+    $("#formUpdateProfile input").attr("disabled", false).removeClass(['disabled', 'hidden'])
+    $('#formUpdateProfile input[type="submit"]').removeClass('hidden')
+    $('#btncancel').removeClass('hidden')
+  });
 
-    var labelOld = $(
-      "<label class='greytext mt-8' id='labelOld' for='labelOld'>Ancien mot de passe</label>\n"
-    );
-    $("input#email").after(labelOld);
-    var inputOld = $(
-      "<input name='passwordOld' id='passwordOld' type='password'>"
-    );
-    $("label#labelOld").after(inputOld);
+  $("#btncancel").on("click", function (event) {
+    $("#formUpdateProfile #lastnameUpdateProfile").attr("disabled", true).addClass('disabled')
+    $("#formUpdateProfile #firstnameUpdateProfile").attr("disabled", true).addClass('disabled')
+    $("#formUpdateProfile #emailUpdateProfile").attr("disabled", true).addClass('disabled')
 
-    var labelNew = $(
-      "<label class='greytext mt-8' id='labelNew' for='labelNew'>Nouveau mot de passe</label>\n"
-    );
-    $("input#passwordOld").after(labelNew);
-    var inputNew = $(
-      "<input name='passwordNew' id='passwordNew' type='password'>"
-    );
-    $("label#labelNew").after(inputNew);
-
-    var labelConfirm = $(
-      "<label class='greytext mt-8' id='labelConfirm' for='labelConfirm'>Confirmation du mot de passe</label>\n"
-    );
-    $("input#passwordNew").after(labelConfirm);
-    var inputConfirm = $(
-      "<input name='confirmNewPassowrd' id='confirmNewPassowrd' type='password'>"
-    );
-    $("label#labelConfirm").after(inputConfirm);
-
-    var cancelButton = $(
-      "<a href='profile'><button class='btn btn-cancel mr-4' id='btncancel'>Annuler </button></a>"
-    );
-    $("div#sectionButton").append(cancelButton);
-
-    $("#btncancel").on("click", function (event) {
-      event.target.disabled = true;
-    });
-
-    var submitButton = $(
-      "<button class='btn btn-submit' type='submit' id='btnConfirm'>Confirmer </button>"
-    );
-    $("button#btncancel").after(submitButton);
-
-    $(this).off(event);
+    $("#formUpdateProfile #lastPwdUpdateProfile").attr("disabled", true).addClass('hidden')
+    $("#formUpdateProfile #pwdUpdateProfile").attr("disabled", true).addClass('hidden')
+    $("#formUpdateProfile #pwdConfirmUpdateProfile").attr("disabled", true).addClass('hidden')
+    $('#formUpdateProfile input[type="submit"]').addClass('hidden')
+    $('#btncancel').addClass('hidden')
   });
 
   $("#bookingTable").DataTable({
@@ -237,14 +279,59 @@ $(document).ready(function () {
     table.draw();
   });
 
-  $('#bookingTable2').dataTable( {
+  $("#bookingTable2").dataTable({
     language: {
-      "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/French.json"
+      url: "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/French.json",
     },
-    columnDefs: [
-      { className: "dt-center", targets: "_all" },
+    columnDefs: [{ className: "dt-center", targets: "_all" }],
+    order: [3, "desc"],
+    columns: [
+      null,
+      null,
+      null,
+      { type: "date-eu" },
+      null,
+      null,
+      null,
+      null,
+      null,
     ],
-    order: [3, 'desc'],
+
+    searching: true,
+    //paging: false,
+    lengthMenu: [10, 20, 30, 40, 50],
+    pageLength: 10,
+    info: true,
+  });
+  $("#pageTable").dataTable({
+    language: {
+      url: "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/French.json",
+    },
+    columnDefs: [{ className: "dt-center", targets: "_all" }],
+    order: [1, "desc"],
+    columns: [null, null, null, { type: "date-eu" }, { type: "date-eu" }, null],
+
+    searching: true,
+    info: true,
+  });
+  $("#logTable").dataTable({
+    language: {
+      url: "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/French.json",
+    },
+    columnDefs: [{ className: "dt-center", targets: "_all" }],
+    order: [4, "desc"],
+    columns: [null, null, null, null, { type: "date-eu" }],
+
+    searching: true,
+    info: true,
+  });
+
+  $("#bookingTable3").dataTable({
+    language: {
+      url: "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/French.json",
+    },
+    columnDefs: [{ className: "dt-center", targets: "_all" }],
+    order: [3, "desc"],
     columns: [null, null, null, { type: "date-eu" }, null, null, null, null],
 
     searching: true,
@@ -253,35 +340,24 @@ $(document).ready(function () {
     pageLength: 10,
     info: true,
   });
-  $('#pageTable').dataTable( {
+
+  $("#usersTable").dataTable({
     language: {
-      "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/French.json"
+      url: "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/French.json",
     },
-    columnDefs: [
-      { className: "dt-center", targets: "_all" },
-
+    columnDefs: [{ className: "dt-center", targets: "_all" }],
+    order: [3, "desc"],
+    columns: [
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      { type: "date-eu" },
+      { type: "date-eu" },
+      null,
     ],
-    order: [1, 'desc'],
-    columns: [null, null, null, { type: "date-eu" }, { type: "date-eu" },  null],
-
-    searching: true,
-    info: true,
-  });
-
-  $('#usersTable').dataTable( {
-    language: {
-      "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/French.json"
-    },
-    columnDefs: [
-      { className: "dt-center", targets: "_all" },
-      { 
-        targets: -1,
-        data: null,
-        defaultContent: "<button id='updateUser'><i class='fas fa-pen'></i></button><button id='deleteUser'><i class='fas fa-times-circle'></i></button>"
-      },
-    ],
-    order: [3, 'desc'],
-    columns: [null, null, null, null, null, null, { type: "date-eu" }, { type: "date-eu" }, null],
 
     searching: true,
     //paging: false,
@@ -290,19 +366,18 @@ $(document).ready(function () {
     info: true,
   });
 
-  $('#usersTable tbody').on('click','#updateUser',function(){
-    var data = $('#usersTable').DataTable().row($(this).parents('tr')).data();
-    window.location.href = "/user/update?id="+data[0];
+  $("#usersTable tbody").on("click", "#updateUser", function () {
+    var data = $("#usersTable").DataTable().row($(this).parents("tr")).data();
+    window.location.href = "/user/update/" + data[0];
   });
 
-  $('#usersTable tbody').on('click','#deleteUser',function(){
-    var data = $('#usersTable').DataTable().row($(this).parents('tr')).data();
-    window.location.href = "/user/delete?id="+data[0];
+  $("#usersTable tbody").on("click", "#deleteUser", function () {
+    var data = $("#usersTable").DataTable().row($(this).parents("tr")).data();
+    window.location.href = "/user/delete?id=" + data[0];
   });
 
   // Refilter the table
   $("#min, #max").on("change", function () {
     table.draw();
-
   });
 });

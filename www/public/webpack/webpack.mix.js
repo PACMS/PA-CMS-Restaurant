@@ -64,4 +64,5 @@ module.exports = {
 //   purifyCss: false, // Remove unused CSS selectors.
 //   terser: {}, // Terser-specific options. https://github.com/webpack-contrib/terser-webpack-plugin#options
 //   postCss: [] // Post-CSS options: https://github.com/postcss/postcss/blob/master/docs/plugins.md
+
 // });

@@ -1,36 +1,43 @@
 <?php
     namespace App\Core;
     
-    use App\Core\Sql;
+    use App\Core\Pdo;
 
     interface QueryBuilder
     {
         public function select(string $table, array $columns): QueryBuilder;
 
         public function where(string $column, string $value, string $operator = "="): QueryBuilder;
+
+        public function rightJoin(string $table, string $fk, string $pk): QueryBuilder;
         
         public function limit(int $from, int $offset = 1): QueryBuilder;
 
         public function order(string $columnName, string $value): QueryBuilder;
 
-        public function executeQuery(): ?array;
-
-        public function get();
-
-        public function getOne();
-
         public function insert(string $table, array $columns): QueryBuilder;
 
         public function update(string $table, array $columns): QueryBuilder;
 
-        public function setObject(): QueryBuilder;
+        public function delete(string $table, array $columns): QueryBuilder;
+
+        public function getQuery();
+
+        public function fetch();
+
+        public function fetchAll();
+
+        public function fetchClass(string $class): QueryBuilder;
+
+        public function execute(): void;
     }
 
-    class MysqlBuilder extends Sql implements QueryBuilder
+    class MysqlBuilder implements QueryBuilder
     {
         private $query;
         private $data = null;
-        private $type = \PDO::FETCH_ASSOC;
+        private $type = \PDO::FETCH_CLASS;
+        private $fetchClass;
 
         private function reset()
         {
@@ -47,7 +54,18 @@
 
         public function where(string $column, string $value, string $operator = "="): QueryBuilder
         {
-            $this->query->where[] = $column . $operator . "'" . $value . "'";
+            if (is_null($this->data)){
+                $this->data = [$column => $value];
+            } else {    
+                $this->data = array_merge([htmlentities($column) => htmlentities($value)], $this->data);
+            }
+            $this->query->where[] = $column . $operator . " :" . htmlentities($column);
+            return $this;
+        }
+
+        public function rightJoin(string $table, string $fk, string $pk): QueryBuilder 
+        {
+            $this->query->join[] = " RIGHT JOIN "  . DBPREFIXE . $table . " ON " . $pk . " = " . $fk;
             return $this;
         }
 
@@ -63,48 +81,24 @@
             return $this;
         }
 
-        public function executeQuery(): ?array
-        {
-
-            $sql = $this->createSqlRequest();
-
-            if (is_null($this->data)) {
-                return parent::selectQuery($sql); 
-            } else {
-                return parent::upsertQuery($sql, $this->data);
-            }
-           
-        }
-
-        public function get()
-        {
-
-            $sql = $this->createSqlRequest();
-
-            if (is_null($this->data)) {
-                return parent::selectFetchAll($sql, $this->type); 
-            } else {
-                return parent::upsertQuery($sql, $this->data);
-            }
-           
-        }
-
-        public function getOne()
-        {
-            $sql = $this->createSqlRequest();
-            if (is_null($this->data)) {
-                return parent::selectFetch($sql, $this->type); 
-            } else {
-                return parent::upsertQuery($sql, $this->data);
-            }
-           
-        }
-
         public function insert(string $table, array $columns): QueryBuilder 
         {
             $this->reset(); 
             $this->data = $columns;
             $this->query->base = "INSERT INTO " . DBPREFIXE . $table . " (" . implode(",", array_keys($this->data)) . ") VALUES (:" . implode(",:", array_keys($this->data)) . ")";
+            return $this;
+        }
+
+        public function delete(string $table, array $columns): QueryBuilder 
+        {
+            $this->reset(); 
+            $this->data = $columns;
+            foreach ($this->data as $key => $whereValue) {
+                if (!is_null($whereValue)) {
+                    $delete[] = $key . " = :" . $key;
+                }
+            }
+            $this->query->base = "DELETE FROM " . DBPREFIXE . $table . " WHERE " . implode(" AND ", $delete);
             return $this;
         }
 
@@ -132,18 +126,16 @@
 
         }
 
-        public function setObject(): QueryBuilder
-        {
-            $this->type = \PDO::FETCH_OBJ;
-            return $this;
-        }
-
-        private function createSqlRequest()
+        public function getQuery()
         {
             $query = $this->query;
             $data = $this->data;
 
             $sql = $query->base;
+
+            if (!empty($query->join)) {
+                $sql .= implode(' ', $query->join);
+            }
 
             if (!empty($query->where)) {
                 $sql .= " WHERE "  . implode(' AND ', $query->where);
@@ -158,7 +150,37 @@
             }
 
             $sql .= ";";
-            return $sql;
+
+            $this->query->sql = $sql;
+        }
+
+        public function fetch()
+        {
+            $this->getQuery();
+            $pdo = Pdo::getInstance();
+            $result = $pdo->fetch($this->query->sql, $this->fetchClass, $this->data);
+            return $result;
+        }
+
+        public function fetchAll()
+        {
+            $this->getQuery();
+            $pdo = Pdo::getInstance();
+            $result = $pdo->fetchAll($this->query->sql, $this->fetchClass, $this->data);
+            return $result;
+        }
+
+        public function fetchClass(string $class): QueryBuilder
+        {
+            $this->fetchClass = ucfirst($class);
+            return $this;
+        }
+
+        public function execute(): void
+        {
+            $this->getQuery();
+            $pdo = Pdo::getInstance();
+            $pdo->execute($this->query->sql, $this->data);
         }
     }
 

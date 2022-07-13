@@ -1,4 +1,4 @@
 
 <div class="container">
-    <?php $this->includePartial("formReserv", $reservation->getClientModalForm()); ?>
+    <?php $this->includePartial("form", $reservation->getClientModalForm()); ?>
 </div>

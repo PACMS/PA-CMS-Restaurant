@@ -46,6 +46,41 @@ class Theme extends Sql
     protected $path = null;
 
     /**
+     * The font of the theme
+     *
+     * @var string
+     */
+    protected $font;
+
+    /**
+     * The color of the h1
+     *
+     * @var string
+     */
+    protected $h1;
+
+    /**
+     * The color of the h2
+     *
+     * @var string
+     */
+    protected $h2;
+
+    /**
+     * The color of the h3
+     *
+     * @var string
+     */
+    protected $h3;
+
+    /**
+     * The color of the p
+     *
+     * @var string
+     */
+    protected $p;
+
+    /**
      * Themes constructor.
      */
     public function __construct()
@@ -91,6 +126,56 @@ class Theme extends Sql
     public function getPath()
     {
         return $this->path;
+    }
+
+    /**
+     * Get the font of the theme
+     * 
+     * @return string
+     */
+    public function getFont()
+    {
+        return $this->font;
+    }
+
+    /**
+     * Get the color of the h1 of the theme
+     * 
+     * @return string
+     */
+    public function getH1()
+    {
+        return $this->h1;
+    }
+
+    /**
+     * Get the color of the h2 of the theme
+     * 
+     * @return string
+     */
+    public function geth2()
+    {
+        return $this->h2;
+    }
+
+    /**
+     * Get the color of the h3 of the theme
+     * 
+     * @return string
+     */
+    public function getH3()
+    {
+        return $this->h3;
+    }
+
+    /**
+     * Get the color of the p of the theme
+     * 
+     * @return string
+     */
+    public function getP()
+    {
+        return $this->p;
     }
 
     /**
@@ -142,6 +227,65 @@ class Theme extends Sql
     }
 
     /**
+     * Set the font of the theme
+     *
+     * @param string $font
+     * @return void
+     */
+    public function setFont(string $font): void
+    {
+        $this->font = $font;
+    }
+
+    /**
+     * Set the color of the h1
+     * 
+     * @param string $slug The color of the h1
+     * 
+     * @return void
+     */
+    public function setH1(string $h1): void
+    {
+        $this->h1 = $h1;
+    }
+
+    /**
+     * Set the color of the h1
+     * 
+     * @param string $slug The color of the h1
+     * 
+     * @return void
+     */
+    public function setH2(string $h2): void
+    {
+        $this->h2 = $h2;
+    }
+
+    /**
+     * Set the color of the h1
+     * 
+     * @param string $slug The color of the h1
+     * 
+     * @return void
+     */
+    public function setH3(string $h3): void
+    {
+        $this->h3 = $h3;
+    }
+
+    /**
+     * Set the color of the h1
+     * 
+     * @param string $slug The color of the h1
+     * 
+     * @return void
+     */
+    public function setP(string $p): void
+    {
+        $this->p = $p;
+    }
+
+    /**
      * Get all themes
      * 
      * @return array
@@ -158,7 +302,7 @@ class Theme extends Sql
      * 
      * @return array
      */
-    public function getThemeById(int $id): null|array
+    public function getThemeById(int $id)
     {
         return parent::findOneBy(['id' => $id]);
     }

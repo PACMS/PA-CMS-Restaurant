@@ -1,7 +1,8 @@
 <?php
 
 namespace App\Core;
-
+use App\Core\Pdo;
+use App\Core\Auth;
 /**
  * Sql class
  * 
@@ -28,16 +29,7 @@ abstract class Sql
     {
         //Plus tard il faudra penser au singleton
         try {
-            $this->_pdo = new \PDO(
-                DBDRIVER .
-                    ":host=" . DBHOST .
-                    ";port=" . DBPORT .
-                    ";dbname=" . DBNAME .
-                    ";charset=utf8",
-                DBUSER,
-                DBPWD,
-                [\PDO::ATTR_ERRMODE => \PDO::ERRMODE_WARNING]
-            );
+            $this->_pdo = Pdo::getInstance();
         } catch (\Exception $e) {
             die("Erreur SQL : " . $e->getMessage());
         }
@@ -67,7 +59,7 @@ abstract class Sql
             $sql = "SELECT * FROM " . $this->_table . " WHERE " . implode(" AND ", $where);
         }
 
-        $queryPrepared = $this->_pdo->prepare($sql);
+        $queryPrepared = $this->_pdo->getPdo()->prepare($sql);
         if ($queryPrepared !== false) {
             $success = $queryPrepared->execute($whereClause);
             if ($success) {
@@ -97,7 +89,7 @@ abstract class Sql
             }
             $sql = $sql . " WHERE " . implode(" AND ", $where);
         }
-        $statement = $this->_pdo->prepare($sql);
+        $statement = $this->_pdo->getPdo()->prepare($sql);
         if ($statement !== false) {
             $success = $statement->execute($params);
             if ($success) {
@@ -137,7 +129,7 @@ abstract class Sql
     public function updateStatus(int $result, string $email): void
     {
         $sql = "UPDATE " . $this->_table . " SET " . "status = " . $result . " WHERE email=:email";
-        $queryPrepared = $this->_pdo->prepare($sql);
+        $queryPrepared = $this->_pdo->getPdo()->prepare($sql);
         $queryPrepared->execute(["email" => $email]);
     }
 
@@ -173,7 +165,7 @@ abstract class Sql
 
             $sql = "UPDATE " . $this->_table . " SET " . implode(", ", $update) . " WHERE id = :id";
         }
-        $queryPrepared = $this->_pdo->prepare($sql);
+        $queryPrepared = $this->_pdo->getPdo()->prepare($sql);
         if (is_null($columns['id'])) {
             $queryPrepared->execute($columns);
         } else {
@@ -214,9 +206,9 @@ abstract class Sql
      * 
      * @param array $whereClause An associative array of where clause
      * 
-     * @return array|null Returns an associative array or null if no result
+     * @return array|object|null Returns an associative array or null if no result
      */
-    public function findOneBy(array $whereClause): mixed
+    public function findOneBy(array $whereClause)
     {
         $columns = get_object_vars($this);
         $varToExclude = get_class_vars(get_class());
@@ -226,9 +218,9 @@ abstract class Sql
             $where[] = $key . "=:" . $key;
         }
 
-        $sql = "SELECT * FROM " . $this->_table . " WHERE " . implode(",", $where);
+        $sql = "SELECT * FROM " . $this->_table . " WHERE " . implode(" AND ", $where);
+        $queryPrepared = $this->_pdo->getPdo()->prepare($sql);
 
-        $queryPrepared = $this->_pdo->prepare($sql);
         if ($queryPrepared !== false) {
             $success = $queryPrepared->execute($whereClause);
             if ($success) {
@@ -247,7 +239,7 @@ abstract class Sql
     {
 
         $sql = "SELECT * FROM " . $this->_table ;
-        $queryPrepared = $this->_pdo->prepare($sql);
+        $queryPrepared = $this->_pdo->getPdo()->prepare($sql);
         $queryPrepared->execute();
         return $queryPrepared->fetchAll(\PDO::FETCH_OBJ);
     }
@@ -255,7 +247,7 @@ abstract class Sql
     public function last()
     {
         $sql = "SELECT * FROM " . $this->_table . " ORDER BY id DESC LIMIT 1";
-        $queryPrepared = $this->_pdo->prepare($sql);
+        $queryPrepared = $this->_pdo->getPdo()->prepare($sql);
         $queryPrepared->execute();
         return $queryPrepared->fetch(\PDO::FETCH_OBJ);
     }
@@ -270,12 +262,12 @@ abstract class Sql
      * 
      * @return void
      */
-    public function verifyUser(array $params): void
+    public function verifyUser(array $params)
     {
         $userVerify = $this->findOneBy($params);
-        echo '<pre>';
         if (empty($userVerify)) {
-            echo "ça fonctionne pas !";
+
+            header("Location: /login");
         } else {
             if (password_verify($_POST['password'], $userVerify['password'])) {
                 session_start();
@@ -285,13 +277,36 @@ abstract class Sql
                 $_SESSION['user']['lastname'] = $userVerify['lastname'];
                 $_SESSION['user']['role'] = $userVerify['role'];
 
+                $auth = new Auth();
+                $logger = new LoggerObserver();
+
+                $auth->attach($logger);
+                $auth->loginEvent();
+
                 if ($userVerify['role'] == 'user') {
-                    header('Location: /');
+
+                    $stockUrl = $_SESSION['previous_location'];
+                    unset($_SESSION['previous_location']);
+                    if (!is_null($stockUrl)) {
+                        header('Location: ' . $stockUrl);
+
+                    } else  {
+                        header('Location: /');
+                        return true;
+                    }
                 } else {
-                    header('Location: dashboard');
+
+                    header('Location: /dashboard');
                 }
             } else {
-                echo "ça fonctionne pas non plus!";
+                $auth = new Auth();
+                $logger = new LoggerObserver();
+
+                $auth->attach($logger);
+                $auth->loginAttemptEvent($userVerify['id']);
+
+                header("Location: /login");
+
             }
         };
     }
@@ -306,14 +321,15 @@ abstract class Sql
     protected function delete(int $id): void
     {
         $sql = "DELETE FROM " . $this->_table . " WHERE id = :id";
-        $queryPrepared = $this->_pdo->prepare($sql);
+        $queryPrepared = $this->_pdo->getPdo()->prepare($sql);
         $queryPrepared->execute(["id" => $id]);
     }
 
     protected function databaseDeleteOne(string $sql, array $params)
 
     {
-        $statement = $this->_pdo->prepare($sql);
+
+        $statement = $this->_pdo->getPdo()->prepare($sql);
         if ($statement !== false) {
             $success = $statement->execute($params);
             if ($success) {
@@ -325,32 +341,34 @@ abstract class Sql
 
     function selectQuery(string $sql, int $type)
     {
-        $queryPrepared = $this->_pdo->prepare($sql);
+        $queryPrepared = $this->_pdo->getPdo()->prepare($sql);
         $queryPrepared->execute();
         return $queryPrepared->fetchAll($type);
     }
 
     function selectFetchAll(string $sql, int $type)
     {
-        $queryPrepared = $this->_pdo->prepare($sql);
+        $queryPrepared = $this->_pdo->getPdo()->prepare($sql);
         $queryPrepared->execute();
-        if ($type == 5) {
-            return (object) $queryPrepared->fetchAll($type);
-        } else {
-            return $queryPrepared->fetchAll($type);
-        }
+        $queryPrepared->setFetchMode(\PDO::FETCH_CLASS, 'CarteModel');
+        return $queryPrepared->fetch();
+        // if ($type == 5) {
+        //     return (object) $queryPrepared->fetchAll($type);
+        // } else {
+        //     return $queryPrepared->fetchAll($type);
+        // }
     }
 
     function selectFetch(string $sql, int $type)
     {
-        $queryPrepared = $this->_pdo->prepare($sql);
+        $queryPrepared = $this->_pdo->getPdo()->prepare($sql);
         $queryPrepared->execute();
         return $queryPrepared->fetch($type);
     }
 
     function upsertQuery(string $sql, array $data)
     {
-        $queryPrepared= $this->_pdo->prepare($sql);
+        $queryPrepared= $this->_pdo->getPdo()->prepare($sql);
         $queryPrepared->execute($data);
     }
 

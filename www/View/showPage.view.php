@@ -1,36 +1,8 @@
-
 <main class="flex pageDashboard">
-    <section class="sidebar">
-        <nav class="sidebar-nav">
-            <a href="dashboard">
-                <img class="sidebar-image" src="https://images.unsplash.com/photo-1554469384-e58fac16e23a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxMTgwOTN8MHwxfHNlYXJjaHwzfHxidWlsZGluZ3xlbnwwfHx8fDE2NDUzODA4MTQ&ixlib=rb-1.2.1&q=80&w=1080" alt="Avatar">
-                <h2 class="sidebar-title">Nom Entreprise</h2>
-            </a>
-            <ul class="sidebar-list">
-                <li><a href="profile" class="sidebar-button--active"><i class="far fa-user-circle sidebar-button-picto"></i><span>Profil</span></a></li>
-                <li><a href="#" class="sidebar-button"><i class="far fa-edit sidebar-button-picto"></i><span>Thèmes</span></a></li>
-                <li><a href="#" class="sidebar-button"><i class="far fa-chart-bar sidebar-button-picto"></i><span>Statistiques</span></a></li>
-                <li><a href="#" class="sidebar-button"><i class="far fa-lemon sidebar-button-picto"></i><span>Restaurants</span></a></li>
-                <li> <a href="#" class="sidebar-button"><i class="far fa-list-alt sidebar-button-picto"></i><span>Utilisateurs</span></a></li>
-            </ul>
-        </nav>
-        <button id="navbarButton" class="sidebar-resizer"><i class="far fa-arrow-alt-circle-left"></i></button>
-    </section>
+    <?php $this->includePartial("sidebar"); ?>
     <div id="pseudo-element"></div>
     <section class="flex flex-column secondPart">
-        <div class="flex justify-content-between navbar align-items-center">
-
-            <h1>Modification de pages</h1>
-            <div id="profileDiv">
-                <a href="#">
-                    <p>Jean Pierre<i class="fas fa-user"></i></p>
-                </a>
-                <button>
-                    <i class="far fa-moon"></i>
-                    <i class="fas fa-toggle-off"></i>
-                </button>
-            </div>
-        </div>
+    <?php $this->includePartial("topBar", ["title" => "Modification de pages"]); ?>
         <section class="formProfile flex flex-column">
             <section class="grid" style="margin-top: 35px;">
                 <div class="row">
@@ -42,8 +14,23 @@
 
                                         <label class="greytext">Titre</label>
                                         <input class="w-48" type="text" name="title" value="<?php echo $page['title'] ?>">
+                                        <div>
+                                            <h4>Afficher le menu dans votre page ?</h4>
+                                            <input type="radio" id="menuYes" name="displayMenu" value="1" required="required" <?= $page["display_menu"] == 1 ? 'checked="checked"' : "" ?>>
+                                            <label for="menuYes">Oui</label>
 
-                                        <?php foreach ($contents as $content){ ?>
+                                            <input type="radio" id="menuNo" name="displayMenu" value="0" required="required" <?= $page["display_menu"] == 0 ? 'checked="checked"' : "" ?>>
+                                            <label for="menuNo">Non</label>
+                                        </div>
+                                        <div>
+                                            <h4>Afficher les commentaires dans votre page ?</h4>
+                                            <input type="radio" id="commentYes" name="displayComment" value="1" required="required" <?= $page["display_comments"] == 1 ? 'checked="checked"' : "" ?>>
+                                            <label for="commentYes">Oui</label>
+
+                                            <input type="radio" id="commentNo" name="displayComment" value="0" required="required" <?= $page["display_comments"] == 0 ? 'checked="checked"' : "" ?>>
+                                            <label for="commentNo">Non</label>
+                                        </div>
+                                        <?php foreach ($contents as $content) { ?>
 
                                             <label class="greytext mt-7 "><?php echo 'Section' ?></label>
                                             <textarea name="body<?php echo $content['id'] ?>">
@@ -66,11 +53,9 @@
 <script type="text/javascript">
     tinymce.init({
         selector: 'textarea',
-        plugins: 'a11ychecker advcode casechange export formatpainter image editimage linkchecker autolink lists checklist media mediaembed pageembed permanentpen powerpaste table advtable tableofcontents tinycomments tinymcespellchecker',
-        toolbar: 'a11ycheck addcomment showcomments casechange checklist code export formatpainter image editimage pageembed permanentpen table tableofcontents',
+        plugins: 'advlist autolink lists link image charmap preview anchor pagebreak',
         toolbar_mode: 'floating',
         tinycomments_mode: 'embedded',
         tinycomments_author: 'Author name',
     });
-
 </script>

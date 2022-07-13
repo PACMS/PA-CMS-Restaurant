@@ -3,7 +3,7 @@
 namespace App\Core;
 
 use App\Model\User as UserModel;
-
+use App\Core\MysqlBuilder;
 class Verificator extends Sql
 {
     public static function checkForm($config, $data): array
@@ -36,6 +36,14 @@ class Verificator extends Sql
             }
             if (!empty($input['unicity']) && !self::unicity($data[$name], $input['unicity'])) {
                 $errors[] = $input["errorUnicity"];
+            }
+
+            if (!empty($input['unicitycreateresto']) && !self::unicityCreateRestaurant($data[$name])) {
+                $errors[] = $input["errorunicityresto"];
+            }
+
+            if (!empty($input['unicityresto']) && !self::unicityRestaurant($data[$name], $data["id"])) {
+                $errors[] = $input["errorunicityresto"];
             }
 
             if ($input['type'] == "email" && !self::checkEmail($data[$name])) {
@@ -87,6 +95,35 @@ class Verificator extends Sql
         }
     }
 
+    public static function unicityCreateRestaurant($name)
+    {
+        $builder = new MysqlBuilder();
+        $restaurants = $builder->select('restaurant', ["name"])
+            ->where('name' , $name)
+            ->fetchClass("restaurant")
+            ->fetchAll();
+        if (!empty($restaurants)) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    public static function unicityRestaurant($name,$id)
+    {
+        $builder = new MysqlBuilder();
+        $restaurants = $builder->select('restaurant', ["name", "id"])
+            ->where('name' , $name)
+            ->where('id', $id, '!=')
+            ->fetchClass("restaurant")
+            ->fetchAll();
+        if (!empty($restaurants)) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
     public static function checkPwd($pwd): bool
     {
         return strlen($pwd) >= 8 && preg_match("/[0-9]/", $pwd, $result) && preg_match("/[A-Z]/", $pwd, $result);
@@ -122,7 +159,7 @@ class Verificator extends Sql
     public static function checkCaptcha($value): bool
     {
         $url = "https://www.google.com/recaptcha/api/siteverify?secret=6LcQTkkeAAAAAPD-IViqaHsMOuj_iWFpFBKZuzGm&response={$value}";
-        $response = file_get_contents($url);
+        $response = @file_get_contents($url);
         $data = json_decode($response);
 
         if ($data->success) {

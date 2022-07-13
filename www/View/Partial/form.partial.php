@@ -8,7 +8,7 @@
         <?php if ($input["type"] === "radio") : ?>
             <p><?= $input["title"] ?></p>
             <?php foreach ($input['values'] as $value => $label) : ?>
-                <input name="<?= $name ?>" class="<?= $input["class"] ?? "" ?>" id="<?= $value ?? "" ?>" type="<?= $input["type"] ?? "text" ?>" value="<?= $value ?>" <?= !empty($input["required"]) ? 'required="required"' : ""  ?> <?php if ($input["checked"] === $value) : ?> checked="checked" <?php endif ?>>
+                <input name="<?= $name ?>" class="<?= $input["class"] ?? "" ?>" id="<?= $value ?? "" ?>" type="<?= $input["type"] ?? "text" ?>" value="<?= $value ?>" <?= !empty($input["required"]) ? 'required="required"' : ""  ?> <?= !empty($input["disabled"]) ? 'disabled="disabled"' : ""  ?> <?php if ($input["checked"] === $value) : ?> checked="checked" <?php endif ?>>
                 <label for="<?= $value ?>"><?= $label ?></label>
             <?php endforeach ?>
         <?php elseif ($input["type"]  === "checkbox") : ?>
@@ -19,7 +19,7 @@
                     <p><?= $input["title"] ?></p>
                 <?php endif ?>
                 <?php foreach ($input['values'] as $value => $label) : ?>
-                    <input name="<?= $name ?>[]" class="<?= $input["class"] ?? "" ?>" id="<?= $value ?? "" ?>" type="<?= $input["type"] ?? "text" ?>" value="<?= $value ?>" <?= !empty($input["required"]) ? 'required="required"' : ""  ?> <?= !empty($input["checked"]) ? 'checked="checked"' : "" ?>>
+                    <input name="<?= $name ?>[]" class="<?= $input["class"] ?? "" ?>" id="<?= $value ?? "" ?>" type="<?= $input["type"] ?? "text" ?>" value="<?= $value ?>" <?= !empty($input["required"]) ? 'required="required"' : ""  ?> <?= !empty($input["disabled"]) ? 'disabled="disabled"' : ""  ?> <?= !empty($input["checked"]) ? 'checked="checked"' : "" ?>>
                     <label for="<?= $value ?>"><?= $label ?></label>
                 <?php endforeach ?>
                 <?php if ($input["additionnalDiv"]) : ?>
@@ -29,7 +29,7 @@
             <?php if (!empty($input["label"])) : ?>
                 <p><?= $input["label"] ?></p>
             <?php endif ?>
-            <select name="<?= $name ?>" class="<?= $input["class"] ?? "" ?>" id="<?= $name ?? "" ?>" type="<?= $input["type"] ?? "text" ?>" <?= !empty($input["required"]) ? 'required="required"' : ""  ?>>
+            <select name="<?= $name ?><?= $input["multiple"] ? '[]' : ""  ?>" class="<?= $input["class"] ?? "" ?>" id="<?= $name ?? "" ?>" type="<?= $input["type"] ?? "text" ?>" <?= !empty($input["required"]) ? 'required="required"' : ""  ?> <?= !empty($input["disabled"]) ? 'disabled="disabled"' : ""  ?> <?= $input["multiple"] ? 'multiple="multiple"' : ""  ?>>
                 <option disabled="disabled"><?= $input["placeholder"] ?></option>
                 <?php foreach ($input['options'] as $value => $label) : ?>
                     <option value="<?= $value ?>" <?php if ($input["default"] === $value) : ?> selected="selected" <?php endif ?>><?= $label ?></option>
@@ -37,7 +37,7 @@
             </select>
         <?php elseif ($input["type"] === "textarea") : ?>
             <label for="<?= $name ?>"><?= $input["label"] ?></label>
-            <textarea name="<?= $name ?>" placeholder="<?= $input["placeholder"] ?? "" ?>" id="<?= $input["id"] ?>" <?= !empty($input["class"]) ? 'class="'. $input["class"] .'"' : ""  ?> <?= !empty($input["maxlength"]) ? 'maxlength="'. $input["maxlength"] .'"' : ""  ?> <?= !empty($input["required"]) ? 'required="required"' : ""  ?>></textarea>
+            <textarea name="<?= $name ?>" placeholder="<?= $input["placeholder"] ?? "" ?>" id="<?= $input["id"] ?>" <?= !empty($input["class"]) ? 'class="' . $input["class"] . '"' : ""  ?> <?= !empty($input["maxlength"]) ? 'maxlength="' . $input["maxlength"] . '"' : ""  ?> <?= !empty($input["minlength"]) ? 'minlength="' . $input["minlength"] . '"' : ""  ?> <?= !empty($input["required"]) ? 'required="required"' : ""  ?> <?= !empty($input["disabled"]) ? 'disabled="disabled"' : ""  ?> ><?= !empty($input["value"]) ? $input["value"] : "" ?></textarea>
         <?php elseif ($input["type"] === "file") : ?>
             <label for="<?= $name ?>"><?= $input["label"] ?></label>
             <?php $concatAccept = "" ?>
@@ -46,36 +46,18 @@
             <?php endforeach ?>
             <?php $concatAccept = substr($concatAccept, 0, -2) ?>
 
-            <input name="<?= $name ?>" id="<?= $input["id"] ?>" class="<?= $input["class"] ?>" type="<?= $input["type"] ?>" accept="<?= $concatAccept ?>" <?= !empty($input["required"]) ? 'required="required"' : ""  ?> />
+            <input name="<?= $name ?>" id="<?= $input["id"] ?>" class="<?= $input["class"] ?>" type="<?= $input["type"] ?>" accept="<?= $concatAccept ?>" <?= !empty($input["required"]) ? 'required="required"' : ""  ?> <?= !empty($input["disabled"]) ? 'disabled="disabled"' : ""  ?> />
         <?php elseif ($input["type"] === "captcha") : ?>
-            <input 
-                type="hidden" 
-                name="<?= $name ?>" 
-                id="recaptchaResponse"
-            />
+            <input type="hidden" name="<?= $name ?>" id="recaptchaResponse" />
         <?php elseif ($input["type"] === "hidden") : ?>
-            <input 
-                type="hidden" 
-                name="<?= $name ?>" 
-                id="<?= $input["id"] ?? "" ?>" 
-                <?= !empty($input["value"]) ? 'value='.$input["value"] : ""  ?>
-            />
+            <input type="hidden" name="<?= $name ?>" id="<?= $input["id"] ?? "" ?>" <?= !empty($input["value"]) ? 'value=' . $input["value"] : ""  ?> />
         <?php else : ?>
             <?php if (!empty($input["label"])) : ?>
                 <label for="<?= $name ?>"><?= $input["label"] ?></label>
             <?php endif ?>
 
-            <input 
-                name="<?= $name ?>" 
-                class="<?= $input["class"] ?? "" ?>" 
-                id="<?= $input["id"] ?? "" ?>" 
-                placeholder="<?= $input["placeholder"] ?? "" ?>" 
-                type="<?= $input["type"] ?? "text" ?>" 
-                
-                <?= !empty($input["value"]) ? 'value="'.$input["value"].'"' : "" ?>
-                <?= !empty($input["required"]) ? 'required="required"' : ""  ?>
-            />
-                
+            <input name="<?= $name ?>" class="<?= $input["class"] ?? "" ?>" id="<?= $input["id"] ?? "" ?>" placeholder="<?= $input["placeholder"] ?? "" ?>" type="<?= $input["type"] ?? "text" ?>" <?= !empty($input["maxlength"]) ? 'maxlength="' . $input["maxlength"] . '"' : ""  ?> <?= !empty($input["minlength"]) ? 'minlength="' . $input["minlength"] . '"' : ""  ?> <?= !empty($input["value"]) ? 'value="' . $input["value"] . '"' : "" ?> <?= !empty($input["required"]) ? 'required="required"' : ""  ?> <?= !empty($input["disabled"]) ? 'disabled="disabled"' : ""  ?> <?= !empty($input["unicityresto"]) ? 'unicityresto="' . $input["unicityresto"] . '"' : ""  ?> />
+
         <?php endif ?>
 
 

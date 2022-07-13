@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : mysql
--- Généré le : mer. 01 juin 2022 à 18:01
+-- Généré le : mer. 13 juil. 2022 à 15:39
 -- Version du serveur : 5.7.36
 -- Version de PHP : 7.4.20
 
@@ -24,6 +24,143 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Structure de la table `pacm_activitylog`
+--
+
+CREATE TABLE IF NOT EXISTS `pacm_activitylog` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `state` varchar(50) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `user` (`user_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `pacm_carte`
+--
+
+CREATE TABLE IF NOT EXISTS `pacm_carte` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) NOT NULL,
+  `status` tinyint(1) NOT NULL,
+  `create_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `id_restaurant` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `restaurantDeleteCards` (`id_restaurant`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `pacm_categorie`
+--
+
+CREATE TABLE IF NOT EXISTS `pacm_categorie` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(250) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `id_carte` int(11) NOT NULL,
+  `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `carteDeleteCategorie` (`id_carte`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `pacm_comments`
+--
+
+CREATE TABLE IF NOT EXISTS `pacm_comments` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `content` varchar(400) NOT NULL,
+  `id_parent` int(11) NOT NULL DEFAULT '0',
+  `status` tinyint(1) DEFAULT '0',
+  `id_user` int(11) NOT NULL,
+  `id_restaurant` int(11) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `restaurantDeleteComment` (`id_restaurant`),
+  KEY `userDeleteComment` (`id_user`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `pacm_content`
+--
+
+CREATE TABLE IF NOT EXISTS `pacm_content` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id_page` int(11) NOT NULL,
+  `body` text NOT NULL,
+  `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `page` (`id_page`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `pacm_food`
+--
+
+CREATE TABLE IF NOT EXISTS `pacm_food` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(50) NOT NULL,
+  `nature` varchar(50) DEFAULT NULL,
+  `quantity` int(10) DEFAULT NULL,
+  `stockId` int(10) NOT NULL,
+  `createdAt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `updatedAt` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `stockDeleteFood` (`stockId`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `pacm_meal`
+--
+
+CREATE TABLE IF NOT EXISTS `pacm_meal` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(250) NOT NULL,
+  `price` float NOT NULL,
+  `description` varchar(250) NOT NULL,
+  `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `update_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `id_carte` int(11) NOT NULL,
+  `id_categories` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `carteDeleteMeal` (`id_carte`),
+  KEY `categorieDeleteMeal` (`id_categories`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `pacm_mealsFoods`
+--
+
+CREATE TABLE IF NOT EXISTS `pacm_mealsFoods` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `meal_id` int(11) NOT NULL,
+  `food_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `mealDeleteFoods` (`meal_id`),
+  KEY `foodDeleteFood` (`food_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
 -- Structure de la table `pacm_option`
 --
 
@@ -32,14 +169,36 @@ CREATE TABLE IF NOT EXISTS `pacm_option` (
   `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `value` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Déchargement des données de la table `pacm_option`
 --
 
 INSERT INTO `pacm_option` (`id`, `name`, `value`) VALUES
-(1, 'Theme', '1');
+(1, 'Theme', '2');
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `pacm_page`
+--
+
+CREATE TABLE IF NOT EXISTS `pacm_page` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `title` varchar(50) NOT NULL,
+  `url` varchar(100) NOT NULL,
+  `status` tinyint(4) NOT NULL DEFAULT '0',
+  `display_menu` tinyint(1) NOT NULL DEFAULT '0',
+  `display_comments` tinyint(1) NOT NULL DEFAULT '0',
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `id_theme` int(11) DEFAULT NULL,
+  `id_restaurant` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `rest` (`id_restaurant`),
+  KEY `theme` (`id_theme`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -50,39 +209,53 @@ INSERT INTO `pacm_option` (`id`, `name`, `value`) VALUES
 CREATE TABLE IF NOT EXISTS `pacm_reservation` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(320) COLLATE utf8mb4_unicode_ci NOT NULL,
   `date` date NOT NULL,
   `hour` time NOT NULL,
   `numTable` int(11) NOT NULL,
   `numPerson` int(11) NOT NULL,
   `phoneReserv` char(10) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `status` tinyint(1) NOT NULL DEFAULT '0',
+  `id_restaurant` int(11) NOT NULL,
   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `id_restaurant` (`id_restaurant`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `pacm_restaurant`
+--
+
+CREATE TABLE IF NOT EXISTS `pacm_restaurant` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(50) NOT NULL,
+  `address` varchar(255) NOT NULL,
+  `additional_address` varchar(100) DEFAULT NULL,
+  `city` varchar(50) NOT NULL,
+  `zipcode` int(50) DEFAULT NULL,
+  `user_id` varchar(50) NOT NULL,
+  `phone` int(50) DEFAULT NULL,
+  `favorite` tinyint(1) DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
 
 --
--- Déchargement des données de la table `pacm_reservation`
+-- Structure de la table `pacm_stock`
 --
 
-INSERT INTO `pacm_reservation` (`id`, `name`, `date`, `hour`, `numTable`, `numPerson`, `phoneReserv`, `created_at`, `updated_at`) VALUES
-(1, 'test', '1999-02-10', '10:10:00', 45, 5, '0780808080', '2022-04-18 18:06:11', '2022-04-18 18:06:11'),
-(2, 'test2', '2022-01-10', '10:10:00', 100, 2, '0780808080', '2022-04-18 21:50:06', '2022-04-18 21:50:06'),
-(6, 'testlength', '2022-04-20', '10:45:00', 10, 10, '0780808080', '2022-04-21 20:35:20', '2022-04-21 20:35:20'),
-(7, 'testlength', '2022-04-20', '10:45:00', 10, 10, '0780808080', '2022-04-21 20:35:25', '2022-04-21 20:35:25'),
-(8, 'testlength', '2022-04-20', '10:45:00', 10, 10, '0780808080', '2022-04-21 20:35:26', '2022-04-21 20:35:26'),
-(9, 'testlength', '2022-04-20', '10:45:00', 10, 10, '0780808080', '2022-04-21 20:35:28', '2022-04-21 20:35:28'),
-(10, 'testlength', '2022-04-20', '10:45:00', 10, 10, '0780808080', '2022-04-21 20:35:29', '2022-04-21 20:35:29'),
-(11, 'testlength', '2022-04-20', '10:45:00', 10, 10, '0780808080', '2022-04-21 20:35:31', '2022-04-21 20:35:31'),
-(12, 'testlength', '2022-04-20', '10:45:00', 10, 10, '0780808080', '2022-04-21 20:35:32', '2022-04-21 20:35:32'),
-(13, 'testlength', '2022-04-20', '10:45:00', 10, 10, '0780808080', '2022-04-21 20:35:35', '2022-04-21 20:35:35'),
-(14, 'testlength', '2022-04-20', '10:45:00', 10, 10, '0780808080', '2022-04-21 20:35:37', '2022-04-21 20:35:37'),
-(15, 'testlength', '2022-04-20', '10:45:00', 10, 10, '0780808080', '2022-04-21 20:35:38', '2022-04-21 20:35:38'),
-(16, 'testlength', '2022-04-20', '10:45:00', 10, 10, '0780808080', '2022-04-21 20:35:39', '2022-04-21 20:35:39'),
-(17, 'testlength', '2022-04-20', '10:45:00', 10, 10, '0780808080', '2022-04-21 20:35:40', '2022-04-21 20:35:40'),
-(18, 'testlength', '2022-04-20', '10:45:00', 10, 10, '0780808080', '2022-04-21 20:35:41', '2022-04-21 20:35:41'),
-(19, 'testlength', '2022-04-20', '10:45:00', 10, 10, '0780808080', '2022-04-21 20:35:42', '2022-04-21 20:35:42'),
-(20, 'testlength', '2022-04-20', '10:45:00', 10, 10, '0780808080', '2022-04-21 20:35:43', '2022-04-21 20:35:43'),
-(21, 'testlength', '2022-04-20', '10:45:00', 10, 10, '0780808080', '2022-04-21 20:35:48', '2022-04-21 20:35:48');
+CREATE TABLE IF NOT EXISTS `pacm_stock` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `restaurantId` int(11) NOT NULL,
+  `createdAt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `updatedAt` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `restaurantId` (`restaurantId`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -95,16 +268,21 @@ CREATE TABLE IF NOT EXISTS `pacm_theme` (
   `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `slug` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `path` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `font` varchar(40) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `h1` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `h2` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `h3` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `p` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Déchargement des données de la table `pacm_theme`
 --
 
-INSERT INTO `pacm_theme` (`id`, `name`, `slug`, `path`) VALUES
-(1, 'Theme 1', 'theme1', '/public/src/themes/theme1/'),
-(2, 'Theme 2', 'theme2', '/public/src/themes/theme2/');
+INSERT INTO `pacm_theme` (`id`, `name`, `slug`, `path`, `font`, `h1`, `h2`, `h3`, `p`) VALUES
+(1, 'Thème 1', 'theme1', '/public/src/themes/theme1/', 'Poppins', '#aa7da9', '#ffc524', '#5ef7ed', '#e24040'),
+(2, 'Thème 2', 'theme2', '/public/src/themes/theme2/', 'Nunito', '#6f7c90', '#8171fe', '#cc1919', '#000000');
 
 -- --------------------------------------------------------
 
@@ -115,24 +293,82 @@ INSERT INTO `pacm_theme` (`id`, `name`, `slug`, `path`) VALUES
 CREATE TABLE IF NOT EXISTS `pacm_user` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `email` varchar(320) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `password` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `firstname` varchar(25) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `lastname` mediumtext COLLATE utf8mb4_unicode_ci,
   `status` tinyint(4) DEFAULT '0',
   `role` varchar(8) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'user',
-  `token` char(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `token` text COLLATE utf8mb4_unicode_ci,
   `createdAt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updatedAt` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Déchargement des données de la table `pacm_user`
+-- Contraintes pour les tables déchargées
 --
 
-INSERT INTO `pacm_user` (`id`, `email`, `password`, `firstname`, `lastname`, `status`, `role`, `token`, `createdAt`, `updatedAt`) VALUES
-(1, 'admin@admin.fr', '$2y$10$RmqsCm15R7YCsxFcTFlixONe0a3r1MPWwX3CmsvhtXKvd4LWA7KgK', 'Admin', 'ADMIN', 1, 'admin', NULL, '2022-05-06 13:48:09', '2022-05-06 13:48:09'),
-(4, 'vivian.fr@free.fr', '$2y$10$p9IyP1AUR0P.hZSdE8gOluiSNOoliqxysUwR6DDeg7uPPXCCLYYDK', 'Vivian', 'RUHLMANN', 1, 'admin', NULL, '2022-05-06 23:38:29', '2022-05-09 20:45:15');
+--
+-- Contraintes pour la table `pacm_activitylog`
+--
+ALTER TABLE `pacm_activitylog`
+  ADD CONSTRAINT `user` FOREIGN KEY (`user_id`) REFERENCES `pacm_user` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Contraintes pour la table `pacm_carte`
+--
+ALTER TABLE `pacm_carte`
+  ADD CONSTRAINT `restaurantDeleteCards` FOREIGN KEY (`id_restaurant`) REFERENCES `pacm_restaurant` (`id`) ON DELETE CASCADE;
+
+--
+-- Contraintes pour la table `pacm_categorie`
+--
+ALTER TABLE `pacm_categorie`
+  ADD CONSTRAINT `carteDeleteCategorie` FOREIGN KEY (`id_carte`) REFERENCES `pacm_carte` (`id`) ON DELETE CASCADE;
+
+--
+-- Contraintes pour la table `pacm_comments`
+--
+ALTER TABLE `pacm_comments`
+  ADD CONSTRAINT `restaurantDeleteComment` FOREIGN KEY (`id_restaurant`) REFERENCES `pacm_restaurant` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `userDeleteComment` FOREIGN KEY (`id_user`) REFERENCES `pacm_user` (`id`) ON DELETE CASCADE;
+
+--
+-- Contraintes pour la table `pacm_content`
+--
+ALTER TABLE `pacm_content`
+  ADD CONSTRAINT `pageDeleteContent` FOREIGN KEY (`id_page`) REFERENCES `pacm_page` (`id`) ON DELETE CASCADE;
+
+--
+-- Contraintes pour la table `pacm_food`
+--
+ALTER TABLE `pacm_food`
+  ADD CONSTRAINT `stockDeleteFood` FOREIGN KEY (`stockId`) REFERENCES `pacm_stock` (`id`) ON DELETE CASCADE;
+
+--
+-- Contraintes pour la table `pacm_meal`
+--
+ALTER TABLE `pacm_meal`
+  ADD CONSTRAINT `carteDeleteMeal` FOREIGN KEY (`id_carte`) REFERENCES `pacm_carte` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `categorieDeleteMeal` FOREIGN KEY (`id_categories`) REFERENCES `pacm_categorie` (`id`) ON DELETE CASCADE;
+
+--
+-- Contraintes pour la table `pacm_page`
+--
+ALTER TABLE `pacm_page`
+  ADD CONSTRAINT `restaurantDeletePages` FOREIGN KEY (`id_restaurant`) REFERENCES `pacm_restaurant` (`id`) ON DELETE CASCADE;
+
+--
+-- Contraintes pour la table `pacm_reservation`
+--
+ALTER TABLE `pacm_reservation`
+  ADD CONSTRAINT `restaurantDeleteReservations` FOREIGN KEY (`id_restaurant`) REFERENCES `pacm_restaurant` (`id`) ON DELETE CASCADE;
+
+--
+-- Contraintes pour la table `pacm_stock`
+--
+ALTER TABLE `pacm_stock`
+  ADD CONSTRAINT `restauDeleteStock` FOREIGN KEY (`restaurantId`) REFERENCES `pacm_restaurant` (`id`) ON DELETE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

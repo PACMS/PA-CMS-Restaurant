@@ -10,6 +10,8 @@ class Page extends Sql
     protected $title;
     protected $url ;
     protected $status ;
+    protected $display_menu;
+    protected $display_comments;
     protected $id_theme ;
     protected $id_restaurant ;
 
@@ -110,11 +112,64 @@ class Page extends Sql
         $this->id_restaurant = $id_restaurant;
     }
 
+    /**
+     * @return null
+     */
+    public function getDisplayMenu()
+    {
+        return $this->display_menu;
+    }
+
+    /**
+     * @param null $display_menu
+     * 
+     */
+    public function setDisplayMenu($display_menu): void
+    {
+        $this->display_menu = $display_menu;
+    }
+
+    /**
+     * @return null
+     */
+    public function getDisplayComments()
+    {
+        return $this->display_comments;
+    }
+
+    /**
+     * @param null $display_comments
+     */
+    public function setDisplayComments($display_comments): void
+    {
+        $this->display_comments = $display_comments;
+    }
+
+    /**
+     * Retrieve all pages
+     *
+     * @return void
+     */
+    public function getAllPages()
+    {
+        return parent::getAll();
+    }
+
     public function getAllPagesFromRestaurant(int $id)
     {
         $pages = parent::databaseFindAll("SELECT * FROM " . DBPREFIXE . "page" , ['id_restaurant' => $id]);
         return $pages;
     }
+
+    public function getPageFromRestaurant(?int $id)
+    {
+        $page = parent::findOneBy(['id_restaurant' => $id, 'title' => 'index']);
+        if (!$page) {
+            $page = parent::findOneBy(['id_restaurant' => $id]);
+        }
+        return $page;
+    }
+
     public function getPageId(string $table, int $id)
     {
         $page = parent::databaseFindOne(['id' => $id], $table);
@@ -125,5 +180,27 @@ class Page extends Sql
     {
         $page = parent::databaseDeleteOne("DELETE FROM " . DBPREFIXE . "page" . " WHERE id = :id", $params);
         return $page;
+    }
+
+    public function deleteDirectory($dir) {
+        if (!file_exists($dir)) {
+            return true;
+        }
+    
+        if (!is_dir($dir)) {
+            return unlink($dir);
+        }
+    
+        foreach (scandir($dir) as $item) {
+            if ($item == '.' || $item == '..') {
+                continue;
+            }
+            unlink($dir . DIRECTORY_SEPARATOR . $item);
+                   
+              
+    
+        }
+    
+        return rmdir($dir);
     }
 }

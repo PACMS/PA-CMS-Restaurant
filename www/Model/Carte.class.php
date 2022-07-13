@@ -102,16 +102,16 @@ class Carte extends Sql
 
     public function deleteCarte(int $id)
     {
-        $carte = parent::databaseDeleteOne("DELETE FROM " . DBPREFIXE . "carte", ['id' => $id]);
+        $carte = parent::databaseDeleteOne("DELETE FROM " . DBPREFIXE . "carte WHERE id = :id", ['id' => $id]);
         return $carte;
     }
 
-    public function getUpdateForm(array $carte): array
+    public function getUpdateForm($carte): array
     {
         return [
             "config" => [
                 "method" => "POST",
-                "action" => "updateCarte",
+                "action" => "/restaurant/updateCarte",
                 "class" => "updateCarte",
                 "id" => "updateCarte",
                 "submit" => "Modifier",
@@ -120,19 +120,22 @@ class Carte extends Sql
             "inputs" => [
                 "id" => [
                     "type" => "hidden",
-                    "value" => $carte["id"],
+                    "value" => $carte->getId(),
                     "error" => "Le nom de la carte n'est pas correct !"
                 ],
                 "name" => [
                     "label" => "Nom",
                     "type" => "text",
-                    "value" => $carte['name'],
+                    "required" => true,
+                    "maxlength" => 250,
+                    "max" => 250,
+                    "value" => $carte->getName(),                   
                     "error" => "Le nom de la carte n'est pas correct !"
                 ],
                 "status" => [
                     "type" => "checkbox",
                     "additionnalDiv" => false,
-                    "checked" => $carte["status"],
+                    "checked" => $carte->getStatus(),
                     "required" => false,
                     "values" => [
                         "status" => "Status",
@@ -141,7 +144,7 @@ class Carte extends Sql
                 ],
                 "idRestaurant" => [
                     "type" => "hidden",
-                    "value" => $carte["id_restaurant"],
+                    "value" => $carte->getIdRestaurant(),
                     "error" => "Le nom de la carte n'est pas correct !"
                 ],
             ]
@@ -153,7 +156,7 @@ class Carte extends Sql
         return [
             "config" => [
                 "method" => "POST",
-                "action" => "/updateCarte",
+                "action" => "/restaurant/createCarte",
                 "class" => "createCarte",
                 "id" => "createCarte",
                 "submit" => "Créer",
@@ -163,6 +166,9 @@ class Carte extends Sql
                 "name" => [
                     "label" => "Nom",
                     "type" => "text",
+                    "maxlength" => 250,
+                    "max" => 250,
+                    "required" => true,
                     "error" => "Le nom de la carte n'est pas correct !"
                 ],
                 "status" => [
@@ -189,7 +195,7 @@ class Carte extends Sql
         return [
             "config" => [
                 "method" => "POST",
-                "action" => "/carte/delete",
+                "action" => "/restaurant/carte/delete",
                 "submit" => "Supprimer",
                 'captcha' => false
             ],
