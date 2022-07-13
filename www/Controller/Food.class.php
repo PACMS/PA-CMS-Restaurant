@@ -132,7 +132,9 @@ class Food
 
         $myFoods = [];
         foreach ($foods as $food) {
-            array_push($myFoods, $food->getFoodId());
+            if(!is_null($food->getFoodId()) ){
+                array_push($myFoods, $food->getFoodId());
+            }
         }
 
         $vals = array_count_values($myFoods);

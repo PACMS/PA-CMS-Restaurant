@@ -38,27 +38,35 @@ class Admin
         $view = new View("dashboard", "back");
 
         unset($_SESSION["restaurant"]);
-            $builder = new MysqlBuilder();
-            $restaurant = $builder->select("restaurant", ["id", "name"])
-                ->where('favorite', "1")
-                ->fetchClass("restaurant")
-                ->fetch();
+        $builder = new MysqlBuilder();
+        $restaurant = $builder->select("restaurant", ["id", "name"])
+            ->where('favorite', "1")
+            ->fetchClass("restaurant")
+            ->fetch();
+        if($restaurant != false){
             $_SESSION["favoriteRestaurant"] = $restaurant->getId();
+        }
+        if(!empty($_SESSION["favoriteRestaurant"])){
+
             $cartes = $builder->select("carte", ["*"])
-                ->where('id_restaurant', $_SESSION["favoriteRestaurant"])
-                ->fetchClass("carte")
-                ->fetchAll();
+            ->where('id_restaurant', $_SESSION["favoriteRestaurant"])
+            ->fetchClass("carte")
+            ->fetchAll();
             $view->assign("cartes", $cartes);
             $reservations = $builder->select("reservation", ["*"])
-                ->where('id_restaurant', $_SESSION["favoriteRestaurant"])
-                ->where('status', "0")
-                ->fetchClass("reservation")
-                ->fetchAll();
-            if($restaurant != false){
+            ->where('id_restaurant', $_SESSION["favoriteRestaurant"])
+            ->where('status', "0")
+            ->fetchClass("reservation")
+            ->fetchAll();
+            if ($restaurant != false) {
                 $view->assign("restaurant", $restaurant);
             }
             $view->assign("reservations", $reservations);
-        $view->assign('title', 'Dashboard');
+            $reservation = new Reservation();
+            $nbReservations = $reservation->getReservationsStats();
+            $view->assign('stats', $nbReservations);
+        }
+            $view->assign('title', 'Dashboard');
         $view->assign('description', 'Dashboard du back office');
         $view->assign("user", $user);
     }
@@ -97,8 +105,7 @@ class Admin
                         if (!$emailVerifyUni) {
                             $this->setUserData($user);
                             header("Location: /profile");
-                        }
-                        else $errors = ['Adresse email déjà utilisée'];
+                        } else $errors = ['Adresse email déjà utilisée'];
                     }
                 } else $errors = ['Ancien mot de passe ne correspond pas'];
             }
@@ -294,6 +301,6 @@ class Admin
         $mail = new Mail();
         $mail->sendConfirmUpdateUserMail($user);
 
-        header("Location: /user/update/".$_SESSION['updateID']);
+        header("Location: /user/update/" . $_SESSION['updateID']);
     }
 }
