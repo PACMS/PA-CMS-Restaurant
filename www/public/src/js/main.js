@@ -319,7 +319,7 @@ $(document).ready(function () {
       url: "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/French.json",
     },
     columnDefs: [{ className: "dt-center", targets: "_all" }],
-    order: [1, "desc"],
+    order: [4, "desc"],
     columns: [null, null, null, null, { type: "date-eu" }],
 
     searching: true,
