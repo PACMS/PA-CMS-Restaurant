@@ -2,6 +2,7 @@
 
 namespace App\Core;
 use App\Core\Pdo;
+use App\Core\Auth;
 /**
  * Sql class
  * 
@@ -275,6 +276,13 @@ abstract class Sql
                 $_SESSION['user']['firstname'] = $userVerify['firstname'];
                 $_SESSION['user']['lastname'] = $userVerify['lastname'];
                 $_SESSION['user']['role'] = $userVerify['role'];
+
+                $auth = new Auth();
+                $logger = new LoggerObserver();
+
+                $auth->attach($logger);
+                $auth->loginEvent();
+
                 if ($userVerify['role'] == 'user') {
 
                     $stockUrl = $_SESSION['previous_location'];
