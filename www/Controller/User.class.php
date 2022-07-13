@@ -214,7 +214,16 @@ class User
             $user->setEmail($info->email);
             $user->setStatus(true);
             $user->setRole('user');
-            $user->save();
+
+            $userData = [
+                'lastname' => $user->getLastname(),
+                'firstname' => $user->getFirstname(),
+                'email' => $user->getEmail(),
+                'role' => $user->getRole(),
+                'status' => $user->getStatus(),
+            ];
+
+            (new MysqlBuilder())->insert('user', $userData)->execute();
         }
         
         $userInfos = $user->findOneBy(['email' => $info->email]);
@@ -263,7 +272,16 @@ class User
             $user->setEmail($info->email);
             $user->setStatus(true);
             $user->setRole('user');
-            $user->save();
+
+            $userData = [
+                'lastname' => $user->getLastname(),
+                'firstname' => $user->getFirstname(),
+                'email' => $user->getEmail(),
+                'role' => $user->getRole(),
+                'status' => $user->getStatus(),
+            ];
+
+            (new MysqlBuilder())->insert('user', $userData)->execute();
         }
 
         $userInfos = $user->findOneBy(['email' => $info->email]);
