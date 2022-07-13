@@ -205,6 +205,12 @@ class User
         $_SESSION['user']['lastname'] = $userInfos['lastname'];
         $_SESSION['user']['role'] = $userInfos['role'];
 
+        $auth = new Auth();
+        $logger = new LoggerObserver();
+
+        $auth->attach($logger);
+        $auth->loginEvent();
+
         switch($userInfos['role']) {
             case 'user':
                 header('Location: /');
