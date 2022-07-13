@@ -92,8 +92,20 @@ class User
             if (!$errors) {
                 $user->hydrate($_POST);
                 $user->setRole('user');
+                $user->setStatus(-1);
                 $user->generateToken();
-                $user->save();
+
+                $userData = [
+                    'lastname' => $user->getLastname(),
+                    'firstname' => $user->getFirstname(),
+                    'password' => $user->getPassword(),
+                    'email' => $user->getEmail(),
+                    'role' => $user->getRole(),
+                    'status' => $user->getStatus(),
+                    'token' => $user->getToken()
+                ];
+
+                (new MysqlBuilder())->insert('user', $userData)->execute();
 
                 $mail = new Mail();
                 $mail->sendConfirmMail($user);
