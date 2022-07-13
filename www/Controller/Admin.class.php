@@ -9,7 +9,6 @@ use App\Model\User as UserModel;
 use App\Model\Theme as ThemeModel;
 use App\Core\View;
 use App\Model\Carte as CarteModel;
-use App\Core\MysqlBuilder;
 
 /**
  * Admin controller
