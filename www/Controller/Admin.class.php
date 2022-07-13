@@ -10,7 +10,6 @@ use App\Model\Theme as ThemeModel;
 use App\Core\View;
 use App\Model\Carte as CarteModel;
 
-
 /**
  * Admin controller
  * 
