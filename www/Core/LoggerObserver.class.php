@@ -15,6 +15,6 @@ class LoggerObserver implements AuthObserver {
                 ->fetchClass("activitylog")
                 ->execute();
         }
-        
+
     }
 }
