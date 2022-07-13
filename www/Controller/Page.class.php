@@ -110,8 +110,6 @@ class Page
             }
         }
 
-        $this->refreshPages();
-
         header('Location: /restaurant/page');
     }
     public function delete()
@@ -190,8 +188,6 @@ class Page
             }
         }
 
-        $this->refreshPages();
-
         header('Location: /restaurant/page');
     }
 
@@ -216,7 +212,7 @@ class Page
                         ->fetchClass("content")
                         ->fetchAll();
                 foreach($contents as $contentValue) {
-                    $content["displayComment{$contentValue->getId()}"] = $contentValue->getBody();
+                    $content["body{$contentValue->getId()}"] = $contentValue->getBody();
                 }
                 (new \App\Core\CreatePage)->createBasicPageIndex($fp, $inputs, $content, $page->getIdRestaurant());
             }

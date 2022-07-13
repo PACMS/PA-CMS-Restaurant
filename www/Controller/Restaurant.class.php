@@ -101,6 +101,11 @@ class Restaurant
                 $dirname = $_SERVER["DOCUMENT_ROOT"] . '/View/pages/' .  $name . '/';
                 $url = 'pages/' .  $name . '/index';
                 if (!is_dir($dirname)) {
+                    $restaurant->save();
+                    $restaurantId =  $restaurant->last()->id;
+                    if($restaurant->getFavorite() == 1) {
+                        $_SESSION["favoriteRestaurant"] = $restaurantId;
+                    }
                     mkdir($dirname, 0755, true);
                     $fp = fopen('View/' . $url . '.view.php', 'w+');
                     $inputs['title'] = 'index';
@@ -109,11 +114,6 @@ class Restaurant
                     fclose($fp);
                 }
                 // $restaurant->setId(null);
-                $restaurant->save();
-                $restaurantId =  $restaurant->last()->id;
-                if($restaurant->getFavorite() == 1) {
-                   $_SESSION["favoriteRestaurant"] = $restaurantId;
-                }
 
                 $pageRestaurant = $restaurant->findOneBy(['name' => $restaurant->getName()]);
                 $page->setTitle($inputs['title']);
