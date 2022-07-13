@@ -50,7 +50,7 @@ class Comment
                 ->fetchClass("user")
                 ->fetchAll();
         foreach ($users as $value) {
-        //    $mail->askValidationComment($value);
+           $mail->askValidationComment($value);
         }
         unset($_SESSION['previous_location']);
         header("Location: " . str_replace($_SERVER["HTTP_ORIGIN"], "", $_SERVER["HTTP_REFERER"]));
