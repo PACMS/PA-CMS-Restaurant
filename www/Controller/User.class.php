@@ -6,6 +6,8 @@
 namespace App\Controller;
 
 use App\Controller\Mail;
+use App\Core\Auth;
+use App\Core\LoggerObserver;
 use App\Core\MysqlBuilder;
 use App\Core\Verificator;
 use App\Core\View;
@@ -173,9 +175,7 @@ class User
 
         if ($user->verifyUser($params) == false) {
             header('Location: /login?error=login');
-        }
-        
-        $user->verifyUser($params);
+        }        
     }
 
     /**
@@ -324,6 +324,12 @@ class User
      */
     public function logout()
     {
+        $auth = new Auth();
+        $logger = new LoggerObserver();
+
+        $auth->attach($logger);
+        $auth->logoutEvent();
+
         session_start();
         unset($_SESSION);
         session_destroy();
