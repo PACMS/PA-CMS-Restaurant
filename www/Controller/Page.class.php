@@ -31,9 +31,9 @@ class Page
     }
     public function savePage()
     {
+
         $array_body = $_POST;
-        $inputs = array_splice($array_body, 0, 2);
-        // $array_body = array_shift($inputs);
+        $inputs = array_splice($array_body, 0, 4);
 
         $arrayuri = explode('=', $_SERVER['REQUEST_URI']);
         $id_restaurant = $arrayuri[1];
@@ -89,9 +89,10 @@ class Page
             }
         }
 
-        $fp = fopen('View/' . $url . '.view.php', 'w+');
-        (new \App\Core\CreatePage)->createBasicPageIndex($fp, $inputs, $array_body, $id_restaurant);
-        fclose($fp);
+       // $fp = fopen('View/' . $url . '.view.php', 'w+');
+       // dd($array_body)
+        //(new \App\Core\CreatePage)->createBasicPageIndex($fp, $inputs, $array_body, $id_restaurant);
+       // fclose($fp);
         $page = new PageModel();
         $page->setTitle($inputs['title']);
         $page->setUrl($url);
@@ -107,8 +108,11 @@ class Page
             $content->setBody($body);
             $content->save();
         }
+        $_SESSION['id_page'] = $page['id'];
+        $fp = fopen('View/' . $url . '.view.php', 'w+');
+        (new \App\Core\CreatePage)->createBasicPageIndex($fp, $inputs, $array_body, $id_restaurant);
+        fclose($fp);
 
-        $this->refreshPages();
 
         header('Location: /restaurant/page');
     }
@@ -156,16 +160,16 @@ class Page
     public function edit()
     {
         $array_body = $_POST;
-        $inputs = array_splice($array_body, 0, 1);
+
+        $inputs = array_splice($array_body, 0, 3);
+        //dd($array_body);
         $arrayuri = explode('=', $_SERVER['REQUEST_URI']);
         $id_page = $arrayuri[1];
         $restaurant = new Restaurant();
         $page = new PageModel();
         $page = $page->findOneBy(['id' => $id_page]);
         $page["url"] = $restaurant->removeAccents(strtolower($page["url"]));
-        unlink('View/' . $page['url'] . '.view.php');
-        $fp = fopen('View/' . $page['url'] . '.view.php', 'w+');
-        (new \App\Core\CreatePage)->createBasicPageIndex($fp, $inputs, $array_body, $page['id_restaurant']);
+
         //dd($page['title']);
         $pageUpdate = new PageModel();
         $pageUpdate->setId($page['id']);
@@ -176,7 +180,7 @@ class Page
         $pageUpdate->setDisplayComments($_POST["displayComment"]);
         $pageUpdate->setIdRestaurant($page['id_restaurant']);
         $pageUpdate->save();
-
+        $_SESSION['id_page'] = $page['id'];
         foreach ($array_body as $key => $body) {
             $contentId = substr($key, 4);
             $content = new Content();
@@ -185,8 +189,11 @@ class Page
             $content->save();
         }
 
-        $this->refreshPages();
 
+        unlink('View/' . $page['url'] . '.view.php');
+        $fp = fopen('View/' . $page['url'] . '.view.php', 'w+');
+        (new \App\Core\CreatePage)->createBasicPageIndex($fp, $inputs, $array_body, $page['id_restaurant']);
+        fclose($fp);
         header('Location: /restaurant/page');
     }
 
@@ -200,11 +207,12 @@ class Page
         
         $content = [];
         $inputs = [];
+
         foreach($pages as $page) {
             if (file_exists('View/' . $page->getUrl() . '.view.php')) {
                 $fp = fopen('View/' . $page->getUrl() . '.view.php', 'w+');
-                $content["displayMenu"] = $page->getDisplayMenu();
-                $content["displayComment"] = $page->getDisplayComments();
+                $inputs["displayMenu"] = $page->getDisplayMenu();
+                $inputs["displayComment"] = $page->getDisplayComments();
                 $inputs["title"] = $page->getTitle();
                 $contents = $builder->select("content", ["*"])
                         ->where("id_page", $page->getId())

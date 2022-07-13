@@ -12,6 +12,7 @@ class CreatePage
 
     public function createBasicPageIndex($fp, $inputs, $array_body, ?int $id = null)
     {
+
         if (is_null($id)) {
             $id = $_SESSION['favoriteRestaurant'];
         }
@@ -29,15 +30,18 @@ class CreatePage
         </div>
         <div class="index-header">
         <h1 >' . $inputs['title'] . '</h1></div>';
+        $builder = new MysqlBuilder();
+        $contents = $builder->select("content", ["body"])
+            ->where("id_page", $_SESSION['id_page'])
+            ->fetchClass("content")
+            ->fetchAll();
 
-        foreach ($array_body as $key => $body) {
-            if (strpos($key, "body")) {
-                $page .= '<section class="page-container"><div><p>' . $body . '</p></div></section>';
-            }
+        foreach ($contents as  $content) {
+            $page .= '<section class="page-container"><div><p>' . $content->getBody() . '</p></div></section>';
         }
 
         // On vérifie que l'utilisateur veut afficher les cartes
-        if ($array_body["displayMenu"] == 1) {
+        if ($inputs["displayMenu"] == 1) {
             $builder = new MysqlBuilder();
             // On récupére toutes les cartes selon des paramétres
             $carte = $builder->select("carte", ["*"])
@@ -116,7 +120,7 @@ class CreatePage
                     }
                     $page .= "</section></section>";
     }
-        if ($array_body["displayComment"] == 1) {
+        if ($inputs["displayComment"] == 1) {
             $builder = new MysqlBuilder();
             $comments = $builder->select("comments", ["*"])
                             ->where("id_restaurant", $_SESSION["restaurant"]["id"])
