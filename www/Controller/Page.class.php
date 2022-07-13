@@ -101,11 +101,13 @@ class Page
         $page->setIdRestaurant($id_restaurant);
         $page->save();
         $page = $page->findOneBy(['url' => $page->getUrl()]);
-        foreach ($array_body as $body) {
-            $content = new Content();
-            $content->setIdPage($page['id']);
-            $content->setBody($body);
-            $content->save();
+        foreach ($array_body as $key => $body) {
+            if(str_contains($key, "body")){
+                $content = new Content();
+                $content->setIdPage($page['id']);
+                $content->setBody($body);
+                $content->save();
+            }
         }
 
         $this->refreshPages();
@@ -178,11 +180,14 @@ class Page
         $pageUpdate->save();
 
         foreach ($array_body as $key => $body) {
-            $contentId = substr($key, 4);
-            $content = new Content();
-            $content->setId($contentId);
-            $content->setBody($body);
-            $content->save();
+            if(str_contains($key, "body")){
+
+                $contentId = substr($key, 4);
+                $content = new Content();
+                $content->setId($contentId);
+                $content->setBody($body);
+                $content->save();
+            }
         }
 
         $this->refreshPages();
