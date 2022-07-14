@@ -191,7 +191,7 @@
         <section class="list-cards">
             <?php foreach ($cartes as $key => $value) : ?>
                 <article class="card">
-                    <img src="../public/src/pizza.jpg" alt="graph" />
+                    <img src="https://marketplace.canva.com/EAEPN913uPs/1/0/1131w/canva-vert-et-or-case-bordure-g%C3%A9om%C3%A9trique-floral-mariage-menu-DI7xnk_h_VU.jpg" alt="graph" />
                     <footer>
                         <h3 class="linkMeal" data-id-card="<?= $value->getId() ?>"><?= $value->getName() ?></h3>
                         <h6><?= $restaurant->getName() ?></h6>
