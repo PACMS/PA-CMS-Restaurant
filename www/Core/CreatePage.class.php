@@ -28,6 +28,7 @@ class CreatePage
         $page = "<?php \$this->includePartial('navfront'); ?>";
     
         $page .= '
+        </div>
         <div class="index-header">
         <h1>' . $inputs['title'] . '</h1></div>';
         foreach ($array_body as $key => $body) {
