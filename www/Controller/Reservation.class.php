@@ -176,13 +176,39 @@ class Reservation
 
     public function getReservationsStats()
     {
-        $reservation = new ReservationModel();
         $builder = new MysqlBuilder();
         // à mettre en param en dessous ["id_restaurant" => $_SESSION["restaurant"]["id"]]
-        $data =  $builder->select("reservation", ["*"])
-        ->where("id_restaurant", $_SESSION["restaurant"]["id"])
-        ->fetchClass("reservation")
-        ->fetchAll();
-        return $data;
+        if(!empty($_SESSION["restaurant"]["id"])){
+
+            $data =  $builder->select("reservation", ["*"])
+            ->where("id_restaurant", $_SESSION["restaurant"]["id"])
+            ->fetchClass("reservation")
+            ->fetchAll();
+        }else{
+            $restaurant = $builder->select("restaurant", ["id"])
+            ->where("favorite", "1")
+            ->fetchClass("restaurant")
+            ->fetch();
+            if($restaurant != false){
+                $data =  $builder->select("reservation", ["*"])
+                ->where("id_restaurant", $restaurant->getId())
+                ->fetchClass("reservation")
+                ->fetchAll();
+            }
+        }
+        $nbReservations = [];
+        for($i = 0; $i < 15; $i++) {
+            $theDate = new \DateTime();
+            $nb = 0;
+            $formatedDate = $theDate->modify('+' . $i .  'day')->format('Y-m-d');
+            foreach($data as $value) {
+
+                 if($value->getDate() == $formatedDate) {
+                    $nb++;
+                 }
+            }
+            array_push($nbReservations, $nb);
+        }
+        return $nbReservations;
     }
 }

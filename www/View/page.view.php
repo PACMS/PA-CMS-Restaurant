@@ -34,7 +34,7 @@
                                         <tr>
                                             <td> <?php echo $page['id'] ?> </td>
                                             <!-- modifier le port dans le href si la page affiche rien -->
-                                            <td> <a style="color: black; text-decoration: underline" target="_blank" href="http://localhost:81/<?=strtolower($page['url'])  ?>"><?php echo strtolower($page['url']) ?></a> </td>
+                                            <td> <a style="color: black; text-decoration: underline" target="_blank" href="<?php echo $protocol ?>://<?php echo $domain ?>/<?php echo strtolower($page['url']) ?>"><?php echo strtolower($page['url']) ?></a> </td>
                                             <td> <?php echo $page['status'] ?> </td>
                                             <td> <?php echo $page['created_at'] ?> </td>
                                             <td> <?php echo $page['updated_at'] ?> </td>

@@ -11,6 +11,7 @@ class Security
             session_start();
         }
         if (empty($_SESSION["user"])) {
+            session_start();
             $_SESSION["previous_location"] = $_SERVER["HTTP_REFERER"];
             header("Location: /login");
         } elseif ($_SESSION["user"]['role'] == "admin") {

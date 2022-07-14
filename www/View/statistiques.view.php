@@ -13,6 +13,7 @@
         <p>10 foods avec le moins de quantité</p>
         <div class="chart" id="chartdiv2"></div>
       </div>
+      
       <div>
         <p>10 foods les plus utilisé dans des plats (de la carte qui est activée)</p>
         <div class="chart" id="chartdiv3"></div>
@@ -325,8 +326,11 @@
 
 
     // Set data
+    <?php if(!empty($foodMeal)): ?>
     var data = <?php echo json_encode($foodMeal) ?>;
-
+    <?php else: ?>
+    var data = 0;
+    <?php endif; ?>
     xAxis.data.setAll(data);
     series.data.setAll(data);
 

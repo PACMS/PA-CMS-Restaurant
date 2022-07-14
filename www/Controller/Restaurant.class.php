@@ -101,7 +101,12 @@ class Restaurant
                 $dirname = $_SERVER["DOCUMENT_ROOT"] . '/View/pages/' .  $name . '/';
                 $url = 'pages/' .  $name . '/index';
                 if (!is_dir($dirname)) {
-                    mkdir($dirname, 0755, true);
+                    $restaurant->save();
+                    $restaurantId =  $restaurant->last()->id;
+                    if($restaurant->getFavorite() == 1) {
+                        $_SESSION["favoriteRestaurant"] = $restaurantId;
+                    }
+                    mkdir($dirname, 0777, true);
                     $fp = fopen('View/' . $url . '.view.php', 'w+');
                     $inputs['title'] = 'index';
                     $array_body[] = "Hello World";
@@ -109,11 +114,6 @@ class Restaurant
                     fclose($fp);
                 }
                 // $restaurant->setId(null);
-                $restaurant->save();
-                $restaurantId =  $restaurant->last()->id;
-                if($restaurant->getFavorite() == 1) {
-                   $_SESSION["favoriteRestaurant"] = $restaurantId;
-                }
 
                 $pageRestaurant = $restaurant->findOneBy(['name' => $restaurant->getName()]);
                 $page->setTitle($inputs['title']);
@@ -124,11 +124,20 @@ class Restaurant
                 $page->setIdRestaurant($pageRestaurant['id']);
                 $page->save();
                 $page = $page->findOneBy(['url' => $page->getUrl()]);
-                $content = new Content();
-                $content->setIdPage($page['id']);
-                $content->setBody($array_body[0]);
-                $content->save();
+                foreach ($array_body as $key => $body) {
+                    $content = new Content();
+                    $content->setIdPage($page['id']);
+                    $content->setBody($body);
+                    $content->save();
+                }
 
+                if (is_null($_SESSION["restaurant"])) {
+                    $_SESSION["restaurant"]["id"] = $restaurantId;
+                } elseif ($_SESSION["restaurant"]["id"] != $restaurantId) {
+                    $_SESSION["restaurant"]["id"] = $restaurantId;
+                }
+                (new \App\Controller\Page)->refreshPages();
+                
                 $stock = new StockModel;
                 $stock->hydrate(['restaurantId' => $restaurantId]);
                 $stock->save();
@@ -235,10 +244,12 @@ class Restaurant
         $builder = new MysqlBuilder();
 
         $pageRestaurant = $builder->select('page', ["url"])
-            ->where('id_restaurant', $_SESSION["restaurantsIds"][0])
+            ->where('id_restaurant',  $_SESSION["restaurant"]["id"])
             ->where('display_menu', 1)
             ->fetchClass("page")
             ->fetch();
+
+        //dd($pageRestaurant);
         $urlqrcode = APP_URL . '%2Fpages%2F' . $_SESSION['restaurant']['name'] . '%2F' . $pageRestaurant->getUrl();
         //Sans logo
         if (empty($_FILES["logo"]["name"])){
@@ -267,7 +278,7 @@ class Restaurant
             if ($err) {
                 echo "cURL Error #:" . $err;
             } else {
-                $fp = fopen('public/assets/img/qrcode/qrcode' . $_SESSION["restaurantsIds"][0] . '.svg', 'w+');
+                $fp = fopen('public/assets/img/qrcode/qrcode' . $_SESSION["restaurant"]["id"] . '.svg', 'w+');
                 fwrite($fp,$response);
                 fclose($fp);
             }
@@ -355,7 +366,7 @@ class Restaurant
                 mkdir($dirname, 0755, true);
             }
 
-            move_uploaded_file($_FILES["logo"]["tmp_name"], 'public/assets/img/qrcode/logo.png');
+            move_uploaded_file($_FILES["logo"]["tmp_name"], 'public/assets/img/qrcode/logo.' . $imageFileType);
 
             $_SESSION["inputsQrcode"]["color"] = str_replace('#', '%23',$_SESSION["inputsQrcode"]["color"] );
 
@@ -386,7 +397,7 @@ class Restaurant
             if ($err) {
                 echo "cURL Error #:" . $err;
             } else {
-                $fp = fopen('public/assets/img/qrcode/qrcode' . $_SESSION["restaurantsIds"][0] . '.svg', 'w+');
+                $fp = fopen('public/assets/img/qrcode/qrcode' . $_SESSION["restaurant"]["id"] . '.svg', 'w+');
                 fwrite($fp,$response);
                 fclose($fp);
             }

@@ -14,11 +14,15 @@ class Page
     public function index()
     {
         session_start();
+        $protocol = $_SERVER['SERVER_PORT'] == '443' ? 'https' : 'http';
+        $domain = $_SERVER['HTTP_HOST'];
         $pages = new PageModel();
         $pages = $pages->getAllPagesFromRestaurant($_SESSION["restaurant"]["id"]);
         $view = new View('page', 'back');
         $view->assign('title', $_SESSION["restaurant"]["name"] . ' - Pages');
         $view->assign('pages', $pages);
+        $view->assign('protocol', $protocol);
+        $view->assign('domain', $domain);
         $view->assign('idrestaurant', $_SESSION["restaurant"]["id"]);
     }
     public function createPage()
@@ -31,9 +35,9 @@ class Page
     }
     public function savePage()
     {
-
         $array_body = $_POST;
-        $inputs = array_splice($array_body, 0, 4);
+        $inputs = array_splice($array_body, 0, 2);
+        // $array_body = array_shift($inputs);
 
         $arrayuri = explode('=', $_SERVER['REQUEST_URI']);
         $id_restaurant = $arrayuri[1];
@@ -50,7 +54,7 @@ class Page
 
         $url = 'pages/' . $name . '/' . $inputName;
         if ($_POST["displayMenu"]) {
-            if (file_exists('public/assets/img/qrcode' . $id_restaurant . '.svg') == true){
+            if (file_exists('public/assets/img/qrcode/qrcode' . $id_restaurant . '.svg') == true){
                 $view = new View('pagecreate', 'back');
                 $view->assign('title', $_SESSION["restaurant"]["name"] . ' - Création d\'une page');
                 $view->assign('id_restaurant', $id_restaurant);
@@ -83,16 +87,15 @@ class Page
             if ($err) {
                 echo "cURL Error #:" . $err;
             } else {
-                $fp = fopen('public/assets/img/qrcode' . $id_restaurant . '.svg', 'w+');
+                $fp = fopen('public/assets/img/qrcode/qrcode' . $id_restaurant . '.svg', 'w+');
                 fwrite($fp,$response);
                 fclose($fp);
             }
         }
 
-       // $fp = fopen('View/' . $url . '.view.php', 'w+');
-       // dd($array_body)
-        //(new \App\Core\CreatePage)->createBasicPageIndex($fp, $inputs, $array_body, $id_restaurant);
-       // fclose($fp);
+        $fp = fopen('View/' . $url . '.view.php', 'w+');
+        (new \App\Core\CreatePage)->createBasicPageIndex($fp, $inputs, $array_body, $id_restaurant);
+        fclose($fp);
         $page = new PageModel();
         $page->setTitle($inputs['title']);
         $page->setUrl($url);
@@ -102,17 +105,14 @@ class Page
         $page->setIdRestaurant($id_restaurant);
         $page->save();
         $page = $page->findOneBy(['url' => $page->getUrl()]);
-        foreach ($array_body as $body) {
-            $content = new Content();
-            $content->setIdPage($page['id']);
-            $content->setBody($body);
-            $content->save();
+        foreach ($array_body as $key => $body) {
+            if(str_contains($key, "body")){
+                $content = new Content();
+                $content->setIdPage($page['id']);
+                $content->setBody($body);
+                $content->save();
+            }
         }
-        $_SESSION['id_page'] = $page['id'];
-        $fp = fopen('View/' . $url . '.view.php', 'w+');
-        (new \App\Core\CreatePage)->createBasicPageIndex($fp, $inputs, $array_body, $id_restaurant);
-        fclose($fp);
-
 
         header('Location: /restaurant/page');
     }
@@ -130,7 +130,8 @@ class Page
             ->fetchClass("page")
             ->fetch();
         if ($page->getDisplayMenu()){
-            unlink('public/assets/img/qrcode' . $_SESSION['restaurantsIds'][0] . '.svg');
+            //d($_SESSION);
+            unlink('public/assets/img/qrcode/qrcode' . $_SESSION['restaurant']['id'] . '.svg');
         }
         unlink('View/' . $page->getUrl() . '.view.php');
 
@@ -152,7 +153,7 @@ class Page
         $page = $page->findOneBy(['id' => $idPage]);
         $content = new Content();
         $content = $content->getAllContentsFromIdPage($idPage);
-        $view = new View('showpage', 'back');
+        $view = new View('showPage', 'back');
         $view->assign('page', $page);
         $view->assign('contents', $content);
     }
@@ -160,16 +161,16 @@ class Page
     public function edit()
     {
         $array_body = $_POST;
-
-        $inputs = array_splice($array_body, 0, 3);
-        //dd($array_body);
+        $inputs = array_splice($array_body, 0, 1);
         $arrayuri = explode('=', $_SERVER['REQUEST_URI']);
         $id_page = $arrayuri[1];
         $restaurant = new Restaurant();
         $page = new PageModel();
         $page = $page->findOneBy(['id' => $id_page]);
         $page["url"] = $restaurant->removeAccents(strtolower($page["url"]));
-
+        unlink('View/' . $page['url'] . '.view.php');
+        $fp = fopen('View/' . $page['url'] . '.view.php', 'w+');
+        (new \App\Core\CreatePage)->createBasicPageIndex($fp, $inputs, $array_body, $page['id_restaurant']);
         //dd($page['title']);
         $pageUpdate = new PageModel();
         $pageUpdate->setId($page['id']);
@@ -180,20 +181,18 @@ class Page
         $pageUpdate->setDisplayComments($_POST["displayComment"]);
         $pageUpdate->setIdRestaurant($page['id_restaurant']);
         $pageUpdate->save();
-        $_SESSION['id_page'] = $page['id'];
+
         foreach ($array_body as $key => $body) {
-            $contentId = substr($key, 4);
-            $content = new Content();
-            $content->setId($contentId);
-            $content->setBody($body);
-            $content->save();
+            if(str_contains($key, "body")){
+
+                $contentId = substr($key, 4);
+                $content = new Content();
+                $content->setId($contentId);
+                $content->setBody($body);
+                $content->save();
+            }
         }
 
-
-        unlink('View/' . $page['url'] . '.view.php');
-        $fp = fopen('View/' . $page['url'] . '.view.php', 'w+');
-        (new \App\Core\CreatePage)->createBasicPageIndex($fp, $inputs, $array_body, $page['id_restaurant']);
-        fclose($fp);
         header('Location: /restaurant/page');
     }
 
@@ -201,25 +200,24 @@ class Page
     {
         $builder = new MysqlBuilder();
         $pages = $builder->select("page", ["*"])
-                        ->where("id_restaurant", $_SESSION["restaurant"]["id"])
-                        ->fetchClass("page")
-                        ->fetchAll();
-        
+            ->where("id_restaurant", $_SESSION["restaurant"]["id"])
+            ->fetchClass("page")
+            ->fetchAll();
+
         $content = [];
         $inputs = [];
-
         foreach($pages as $page) {
             if (file_exists('View/' . $page->getUrl() . '.view.php')) {
                 $fp = fopen('View/' . $page->getUrl() . '.view.php', 'w+');
-                $inputs["displayMenu"] = $page->getDisplayMenu();
-                $inputs["displayComment"] = $page->getDisplayComments();
+                $content["displayMenu"] = $page->getDisplayMenu();
+                $content["displayComment"] = $page->getDisplayComments();
                 $inputs["title"] = $page->getTitle();
                 $contents = $builder->select("content", ["*"])
-                        ->where("id_page", $page->getId())
-                        ->fetchClass("content")
-                        ->fetchAll();
+                    ->where("id_page", $page->getId())
+                    ->fetchClass("content")
+                    ->fetchAll();
                 foreach($contents as $contentValue) {
-                    $content["displayComment{$contentValue->getId()}"] = $contentValue->getBody();
+                    $content["body{$contentValue->getId()}"] = $contentValue->getBody();
                 }
                 (new \App\Core\CreatePage)->createBasicPageIndex($fp, $inputs, $content, $page->getIdRestaurant());
             }

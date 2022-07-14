@@ -17,11 +17,10 @@ class Mail
 
     public function sendConfirmMail($user)
     {
-
         try {
             $actualDateTime = new \DateTime();
             $actualDateTime = $actualDateTime->format('YmdHis');
-            $message = $_SERVER["REQUEST_SCHEME"] . "://" . $_SERVER["HTTP_HOST"] . "/" . "verifyToken?token=" . $user->getToken() . '&email=' . $user->getEmail() . '&date=' . $actualDateTime;
+            $message = $_SERVER["REQUEST_SCHEME"] . "://" . APP_URL . "/" . "verifyToken?token=" . $user->getToken() . '&email=' . $user->getEmail() . '&date=' . $actualDateTime;
             $phpmailer = new PHPMailer();
             //Server settings
             $phpmailer->isSMTP();
@@ -59,7 +58,7 @@ class Mail
     public function lostPasswordMail(User $user, string $token)
     {
         try {
-            $message = $_SERVER["REQUEST_SCHEME"] . "://" . $_SERVER["HTTP_HOST"] . "/" . "resetPassword?token=" . $token;
+            $message = $_SERVER["REQUEST_SCHEME"] . "://" . APP_URL . "/" . "resetPassword?token=" . $token;
             $phpmailer = new PHPMailer();
             //Server settings
             $phpmailer->isSMTP();
@@ -91,7 +90,7 @@ class Mail
     public function activePasswordMail(User $user, string $token)
     {
         try {
-            $message = "http://localhost/resetPassword?token=" . $token;
+            $message = $_SERVER["REQUEST_SCHEME"] . "://" . APP_URL . "/" . "resetPassword?token=" . $token;
             $phpmailer = new PHPMailer();
             //Server settings
             $phpmailer->isSMTP();
@@ -165,7 +164,7 @@ class Mail
                             ->fetchAll();
             foreach ($pages as $page) {
                 if (str_contains($page->getTitle(), "index") ) {
-                    $message = $_SERVER["REQUEST_SCHEME"] . "://" . $_SERVER["HTTP_HOST"] . "/" . $page->getUrl();
+                    $message = $_SERVER["REQUEST_SCHEME"] . "://" . APP_URL . "/" . $page->getUrl();
                 }
             }
             $actualDateTime = new \DateTime();
@@ -205,7 +204,7 @@ class Mail
         try {
             $actualDateTime = new \DateTime();
             $actualDateTime = $actualDateTime->format('YmdHis');
-            $message = $_SERVER["REQUEST_SCHEME"] . "://" . $_SERVER["HTTP_HOST"] . "/" . "restaurant/comments";
+            $message = $_SERVER["REQUEST_SCHEME"] . "://" . APP_URL . "/" . "restaurant/comments";
             $phpmailer = new PHPMailer();
             //Server settings
             $phpmailer->isSMTP();

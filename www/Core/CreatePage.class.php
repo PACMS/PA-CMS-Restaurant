@@ -12,13 +12,12 @@ class CreatePage
 
     public function createBasicPageIndex($fp, $inputs, $array_body, ?int $id = null)
     {
-
         if (is_null($id)) {
             $id = $_SESSION['favoriteRestaurant'];
         }
         $pageModel = new PageModel();
         $pages = $pageModel->getAllPagesFromRestaurant($id);
-        
+
         $page = '<div class="topnav">';
 
         foreach ($pages as $pageDb) {
@@ -29,104 +28,98 @@ class CreatePage
         <li class="right"><a href="/login">Connexion</a></li>
         </div>
         <div class="index-header">
-        <h1 >' . $inputs['title'] . '</h1></div>';
-        $builder = new MysqlBuilder();
-        $contents = $builder->select("content", ["body"])
-            ->where("id_page", $_SESSION['id_page'])
-            ->fetchClass("content")
-            ->fetchAll();
-
-        foreach ($contents as  $content) {
-            $page .= '<section class="page-container"><div><p>' . $content->getBody() . '</p></div></section>';
+        <h1>' . $inputs['title'] . '</h1></div>';
+        foreach ($array_body as $key => $body) {
+            if (str_contains($key, "body")) {
+                $page .= '<section class="page-container"><div>' . $body . '</div></section>';
+            }
         }
-
         // On vérifie que l'utilisateur veut afficher les cartes
-        if ($inputs["displayMenu"] == 1) {
+        if (!empty($array_body["displayMenu"]) && $array_body["displayMenu"] == 1) {
             $builder = new MysqlBuilder();
             // On récupére toutes les cartes selon des paramétres
             $carte = $builder->select("carte", ["*"])
-                            ->where("id_restaurant", $_SESSION["restaurant"]["id"])
-                            ->where("status", "1")
-                            ->fetchClass("carte")
-                            ->fetch();
+                ->where("id_restaurant", $_SESSION["restaurant"]["id"])
+                ->where("status", "1")
+                ->fetchClass("carte")
+                ->fetch();
             // On Vérifie qu'il existe bien des cartes
             if (!empty($carte)) {
                 $categories = $builder->select("categorie", ["*"])
-                                    ->where("id_carte", $carte->getId())
-                                    ->fetchClass("categorie")
-                                    ->fetchAll();
+                    ->where("id_carte", $carte->getId())
+                    ->fetchClass("categorie")
+                    ->fetchAll();
                 $meals = $builder->select("meal", ["*"])
-                                    ->where("id_carte", $carte->getId())
-                                    ->fetchClass("meal")
-                                    ->fetchAll();
+                    ->where("id_carte", $carte->getId())
+                    ->fetchClass("meal")
+                    ->fetchAll();
             }
 
-
             // on va créer toute l'architecture du code pour afficher les cartes
-            $page .= 
-            "<section id=\"carte\">
-                <h3>Notre Carte :</h3>
+            $page .=
+                "<section id=\"carte\">
+            <h3>Notre Carte :</h3>
                 <h1>";
-                if (!empty($carte)) {
-                    $page .= $carte->getName();
-                } else {
-                   $page .= "Pas de carte active !";
-                } 
-                $page .= "</h1>
+            if (!empty($carte)) {
+                $page .= $carte->getName();
+            } else {
+                $page .= "Pas de carte active !";
+            }
+            $page .= "</h1>
                 <section id=\"categories\">";
-                    if (!empty($categories)) {
-                        foreach ($categories as $categorie) {
-                            $page .=
-                            "<article>
+            if (!empty($categories)) {
+                foreach ($categories as $categorie) {
+                    $page .=
+                        "<article>
                                 <h1>{$categorie->getName()}</h1>";
-                            if (!empty($meals)) {
-                                $page .= "<ul>";
-                                    foreach($meals as $meal) {
-                                        if ($meal->getIdCategorie() == $categorie->getId()) {
-                                            $mealsFoods = $builder->select("mealsFoods", ["*"])
-                                                ->where("meal_id", $meal->getId())
-                                                ->fetchClass("mealsFoods")
-                                                ->fetchAll();
-                                           
-                                            $page .= "<li>
+                    if (!empty($meals)) {
+                        $page .= "<ul>";
+                        foreach($meals as $meal) {
+                            if ($meal->getIdCategorie() == $categorie->getId()) {
+                                $mealsFoods = $builder->select("mealsFoods", ["*"])
+                                    ->where("meal_id", $meal->getId())
+                                    ->fetchClass("mealsFoods")
+                                    ->fetchAll();
+
+                                $page .= "<li>
                                                 <h3>{$meal->getName()} <span>{$meal->getPrice()} &euro;</span></h3>";
-                                                if (!empty($mealsFoods)) {
-                                                    $foodArray = [];
-                                                    foreach ($mealsFoods as $mealsFood) {
-                                                        $foods = $builder->select("food", ["*"])
-                                                            ->where("id", $mealsFood->getFoodId())
-                                                            ->fetchClass("food")
-                                                            ->fetchAll();
-                                                        foreach ($foods as $food) {
-                                                            array_push($foodArray, $food->getName());
-                                                        }
-                                                    }
-                                                    $page .= "<p>" . implode(", ", $foodArray) ."</p>";
-                                                } else {
-                                                    $page .= "<p>Aucun ingrédients renseigné</p>";
-                                                }
-                                                $page .= "<p>". empty($meal->getDescription()) != 0 ? $meal->getDescription() : "Pas de description renseigné" . "</p>";
-                                            $page .= "</li>";
+                                if (!empty($mealsFoods)) {
+                                    $foodArray = [];
+                                    foreach ($mealsFoods as $mealsFood) {
+                                        $foods = $builder->select("food", ["*"])
+                                            ->where("id", $mealsFood->getFoodId())
+                                            ->fetchClass("food")
+                                            ->fetchAll();
+                                        foreach ($foods as $food) {
+                                            array_push($foodArray, $food->getName());
                                         }
                                     }
-                                $page .= "</ul>";
-                            } else {
-                                $page .= "<p>Aucun plats n'a été renseigné !</p>";
+                                    $page .= "<p>" . implode(", ", $foodArray) ."</p>";
+                                } else {
+                                    $page .= "<p>Aucun ingrédients renseigné</p>";
+                                }
+                                $page .= "<p>". empty($meal->getDescription()) != 0 ? $meal->getDescription() : "Pas de description renseigné" . "</p>";
+                                $page .= "</li>";
                             }
-                            $page .="</article>";
-                        } 
+                        }
+                        $page .= "</ul>";
                     } else {
-                        $page .= "<p>Aucune catégorie n'a été renseigné !</p>";
+                        $page .= "<p>Aucun plats n'a été renseigné !</p>";
                     }
-                    $page .= "</section></section>";
-    }
-        if ($inputs["displayComment"] == 1) {
+                    $page .="</article>";
+                }
+            } else {
+                $page .= "<p>Aucune catégorie n'a été renseigné !</p>";
+            }
+            $page .= "</section></section>";
+        }
+        if (!empty($array_body["displayComment"]) && $array_body["displayComment"] == 1) {
             $builder = new MysqlBuilder();
             $comments = $builder->select("comments", ["*"])
-                            ->where("id_restaurant", $_SESSION["restaurant"]["id"])
-                            ->where("status", "1")
-                            ->fetchClass("comment")
-                            ->fetchAll();
+                ->where("id_restaurant", $_SESSION["restaurant"]["id"])
+                ->where("status", "1")
+                ->fetchClass("comment")
+                ->fetchAll();
             if (!empty($comments)) {
                 $page .= '<section id="comments">
                     <h1>Avis</h1>';
@@ -152,26 +145,26 @@ class CreatePage
             }
         }
 
-
-        $page .= "</section>";
+        // $page .= "</section>";
         fwrite($fp, $page);
+
     }
 
-     function getCommentsParent()
-     {
+    function getCommentsParent()
+    {
         $builder = new MysqlBuilder();
         $comments = $builder->select("comments", ["*"])
-                            ->where("id_restaurant", $_SESSION["restaurant"]["id"])
-                            ->where("id_parent", "0")
-                            ->where("status", "1")
-                            ->fetchClass("comment")
-                            ->fetchAll();
+            ->where("id_restaurant", $_SESSION["restaurant"]["id"])
+            ->where("id_parent", "0")
+            ->where("status", "1")
+            ->fetchClass("comment")
+            ->fetchAll();
         foreach ($comments as $comment) {
             $this->page .= "<section class=\"{$comment->getId()}\">";
             $user = $builder->select("user", ["*"])
-                    ->where("id", $comment->getIdUser())
-                    ->fetchClass("user")
-                    ->fetch();
+                ->where("id", $comment->getIdUser())
+                ->fetchClass("user")
+                ->fetch();
             $this->comment_content .= "<section>
             <article>
                 <header>
@@ -186,12 +179,12 @@ class CreatePage
                     <form method=\"post\" action=\"/replyComment\" class=\"flex flex-column hidden\" id=\"replyComment\">
                         <label for=\"content\">Commentaire :</label>
                         <textarea id=\"content\" name=\"content\" minlength=\"20\" maxlength=\"400\" required=\"required\"";
-                        $this->comment_content .= "></textarea>
+            $this->comment_content .= "></textarea>
                         <div>
                         <button id=\"cancel\">Annuler</button>
                         <input type=\"hidden\" name=\"id_parent\" value=\"{$comment->getId()}\">
                         <input type=\"hidden\" name=\"id_restaurant\" value=\"" . $comment->getIdRestaurant();
-                $this->comment_content .= "\"><input type=\"submit\" value=\"Répondre\">
+            $this->comment_content .= "\"><input type=\"submit\" value=\"Répondre\">
                         </div>
                     </form>
                 </footer>";
@@ -199,22 +192,22 @@ class CreatePage
             $this->comment_content .= "</article></section>";
         }
         return $this->comment_content;
-     }
+    }
 
-     function getChildren($idParent)
-     {
+    function getChildren($idParent)
+    {
         $builder = new MysqlBuilder();
         $childrens = $builder->select("comments", ["*"])
-                            ->where("id_restaurant", $_SESSION["restaurant"]["id"])
-                            ->where("id_parent", $idParent)
-                            ->where("status", "1")
-                            ->fetchClass("comment")
-                            ->fetchAll();
+            ->where("id_restaurant", $_SESSION["restaurant"]["id"])
+            ->where("id_parent", $idParent)
+            ->where("status", "1")
+            ->fetchClass("comment")
+            ->fetchAll();
         foreach ($childrens as $children) {
             $user = $builder->select("user", ["*"])
-                    ->where("id", $children->getIdUser())
-                    ->fetchClass("user")
-                    ->fetch();
+                ->where("id", $children->getIdUser())
+                ->fetchClass("user")
+                ->fetch();
             $this->comment_content .= "
             <article>
                 <header>
@@ -229,17 +222,17 @@ class CreatePage
                     <form method=\"post\" action=\"/replyComment\" class=\"flex flex-column hidden\" id=\"replyComment\">
                         <label for=\"content\">Commentaire :</label>
                         <textarea id=\"content\" name=\"content\" minlength=\"20\" maxlength=\"400\" required=\"required\"";
-                        $this->comment_content .= "></textarea>
+            $this->comment_content .= "></textarea>
                         <div>
                         <button id=\"cancel\">Annuler</button>
                         <input type=\"hidden\" name=\"id_parent\" value=\"{$children->getId()}\">
                         <input type=\"hidden\" name=\"id_restaurant\" value=\"" . $children->getIdRestaurant();
-                $this->comment_content .= "\"><input type=\"submit\" value=\"Répondre\">
+            $this->comment_content .= "\"><input type=\"submit\" value=\"Répondre\">
                         </div>
                     </form>
                 </footer>";
             $this->getChildren($children->getId());
             $this->comment_content .= "</article>";
         }
-     }
+    }
 }
