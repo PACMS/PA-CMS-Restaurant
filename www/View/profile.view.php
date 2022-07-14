@@ -30,7 +30,7 @@
             </div>
 
             <div class="container justify-center items-center">
-                <?php $this->includePartial("form", $user->getUpdateUserForm()); ?>
+                <?php $this->includePartial("form", $user->getFullUpdateUserForm()); ?>
 
                 <button class='btn btn-cancel mr-4 hidden' id='btncancel'>Annuler </button>
 

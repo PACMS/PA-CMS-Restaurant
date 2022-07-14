@@ -173,7 +173,7 @@ class User extends Sql
      * 
      * @return string
      */
-    public function getPassword(): string
+    public function getPassword(): ?string
     {
         return $this->password;
     }
@@ -761,7 +761,7 @@ class User extends Sql
     }
 
 
-    public function getUpdateUserForm(): array
+    public function getFullUpdateUserForm(): array
     {
         return [
             "config" => [
@@ -828,6 +828,60 @@ class User extends Sql
                     "class" => "inputProfile hidden",
                     "error" => "Votre confirmation doit ne correspond pas",
                     "confirm" => "password"
+                ],
+                "captcha" => [
+                    'type' => 'captcha',
+                    'error' => 'Le captcha n\'a pas pu valider votre formulaire'
+                ]
+            ]
+        ];
+    }
+
+    public function getUpdateUserForm(): array
+    {
+        return [
+            "config" => [
+                "method" => "POST",
+                "action" => "",
+                "class" => "restaurant-form",
+                "id" => "formUpdateProfile",
+                "submit" => "Confirmer",
+                'captcha' => true,
+            ],
+            "inputs" => [
+                "lastname" => [
+                    "label" => "Nom",
+                    "type" => "text",
+                    "id" => "lastnameUpdateProfile",
+                    "class" => "inputProfile disabled",
+                    "value" => $this->getUser()->lastname,
+                    "min" => 2,
+                    "max" => 100,
+                    "error" => "Votre nom doit faire entre 2 et 100 caractères",
+                    "required" => true,
+                    "disabled" => true
+                ],
+                "firstname" => [
+                    "label" => "Prénom",
+                    "type" => "text",
+                    "id" => "firstnameUpdateProfile",
+                    "class" => "inputProfile disabled",
+                    "value" => $this->getUser()->firstname,
+                    "min" => 2,
+                    "max" => 25,
+                    "error" => "Votre prénom doit faire entre 2 et 25 caractères",
+                    "required" => true,
+                    "disabled" => true
+                ],
+                "email" => [
+                    "label" => "Adresse mail",
+                    "type" => "email",
+                    "id" => "emailUpdateProfile",
+                    "class" => "inputProfile disabled",
+                    "value" => $this->getUser()->email,
+                    "required" => true,
+                    "error" => "Votre email n'est pas correct",
+                    "disabled" => true
                 ],
                 "captcha" => [
                     'type' => 'captcha',

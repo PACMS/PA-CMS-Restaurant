@@ -90,13 +90,27 @@ class Admin
         $errors = null;
 
         if (!empty($_POST)) {
-            $errors = Verificator::checkForm($user->getUpdateUserForm(), $_POST);
+            if (empty($_POST['password']) OR empty($_POST['passwordConfirm']) OR empty($_POST['lastPassword'])) {
+                unset($_POST['password']);
+                unset($_POST['passwordConfirm']);
+                unset($_POST['lastPassword']);
 
-            if (!$errors) {
-                $_POST = array_map('htmlspecialchars', $_POST);
-                $user->hydrate($_POST);
+                $errors = Verificator::checkForm($user->getUpdateUserForm(), $_POST);
 
-                if ($user->getPassword() != null) {
+                if (!$errors) {
+                    $_POST = array_map('htmlspecialchars', $_POST);
+                    $user->hydrate($_POST);
+
+                    $this->setUserData($user);
+                    header("Location: /profile");
+                }
+            } else {
+                $errors = Verificator::checkForm($user->getFullUpdateUserForm(), $_POST);
+
+                if (!$errors) {
+                    $_POST = array_map('htmlspecialchars', $_POST);
+                    $user->hydrate($_POST);
+
                     if (password_verify($_POST['lastPassword'], $data->getPassword())) {
                         if ($user->getEmail() == $_SESSION['user']['email']) {
                             $this->setUserDataWithPassword($user);
@@ -109,9 +123,6 @@ class Admin
                             } else $errors = ['Adresse email déjà utilisée'];
                         }
                     } else $errors = ['Ancien mot de passe ne correspond pas'];
-                } else {
-                    $this->setUserData($user);
-                    header("Location: /profile");
                 }
             }
         }
