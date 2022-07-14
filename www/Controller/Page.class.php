@@ -148,7 +148,7 @@ class Page
         $page = $page->findOneBy(['id' => $idPage]);
         $content = new Content();
         $content = $content->getAllContentsFromIdPage($idPage);
-        $view = new View('showpage', 'back');
+        $view = new View('showPage', 'back');
         $view->assign('page', $page);
         $view->assign('contents', $content);
     }
