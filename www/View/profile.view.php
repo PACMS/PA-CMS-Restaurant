@@ -36,7 +36,6 @@
 
                 <p class='greytext'>Profil modifié le <?= date("d/m/Y à H\hi", strtotime($data->updatedAt . '+2 hours')) ?> </p>
             </div>
-            <p class='greytext'>Profil modifié le <?= date("d/m/Y à H\hi", strtotime($data->createdAt . '+2 hours')) ?> </p>
         </section>
     </section>
 
