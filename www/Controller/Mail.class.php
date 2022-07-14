@@ -22,26 +22,9 @@ class Mail
             $actualDateTime = $actualDateTime->format('YmdHis');
             $message = $_SERVER["REQUEST_SCHEME"] . "://" . APP_URL . "/" . "verifyToken?token=" . $user->getToken() . '&email=' . $user->getEmail() . '&date=' . $actualDateTime;
             $phpmailer = new PHPMailer();
-            //Server settings
             $phpmailer->isSMTP();
-            $phpmailer->Host = MHOST;
-            $phpmailer->SMTPAuth = true;
-            $phpmailer->Username = MUSERNAME;
-            $phpmailer->Password = MPASSWORD;
-            $phpmailer->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
-            $phpmailer->Port = MPORT;
-
-            //Recipients
-            $phpmailer->setFrom('pa.cms.test@gmail.com', 'PCR Contact');
-            $phpmailer->addAddress($user->getEmail());     //Add a recipient
-
-
-            //Content
-            $phpmailer->isHTML(true);                                  //Set email format to HTML
+            $this->serverSettings($phpmailer, $user);
             $phpmailer->Subject = 'Valider votre inscription !';
-            // $phpmailer->Body    = "This is the HTML message body <b>in bold!</b>
-            //                        <a href={$message}>Lien de confirmation</a>
-            //                        <b>Ce mail n'est valable que 10 minutes</b>";
             $phpmailer->Body    = "Bonjour {$user->getLastname()} {$user->getFirstname()}, <br>
                                 Pour valider votre inscription à notre site veuillez vous connectez avec ce lien:  <br> 
                                 <a href={$message}>Lien de confirmation</a><br>
@@ -49,7 +32,6 @@ class Mail
                                 L'équipe PACM";
 
             $phpmailer->send();
-            echo 'Message has been sent';
         } catch (Exception $e) {
             echo "Message could not be sent. Mailer Error: {$phpmailer->ErrorInfo}";
         }
@@ -60,22 +42,8 @@ class Mail
         try {
             $message = $_SERVER["REQUEST_SCHEME"] . "://" . APP_URL . "/" . "resetPassword?token=" . $token;
             $phpmailer = new PHPMailer();
-            //Server settings
             $phpmailer->isSMTP();
-            $phpmailer->SMTPDebug = SMTP::DEBUG_OFF;
-            $phpmailer->Host = MHOST;
-            $phpmailer->SMTPAuth = true;
-            $phpmailer->Username = MUSERNAME;
-            $phpmailer->Password = MPASSWORD;
-            $phpmailer->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
-            $phpmailer->Port = MPORT;
-
-            //Recipients
-            $phpmailer->setFrom('pa.cms.test@gmail.com', 'PCR Contact');
-            $phpmailer->addAddress($user->getEmail());     //Add a recipient
-
-            //Content
-            $phpmailer->isHTML(true);                                  //Set email format to HTML
+            $this->serverSettings($phpmailer, $user);                                  //Set email format to HTML
             $phpmailer->Subject = 'Mot de passe oublié';
             $phpmailer->Body    = "Mot de passe oublié ? Cliquez sur ce lien : 
                                    <a href={$message}>Réinitialiser votre mot de passe / connexion magique</a> <br>
@@ -94,20 +62,7 @@ class Mail
             $phpmailer = new PHPMailer();
             //Server settings
             $phpmailer->isSMTP();
-            $phpmailer->SMTPDebug = SMTP::DEBUG_OFF;
-            $phpmailer->Host = MHOST;
-            $phpmailer->SMTPAuth = true;
-            $phpmailer->Username = MUSERNAME;
-            $phpmailer->Password = MPASSWORD;
-            $phpmailer->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
-            $phpmailer->Port = MPORT;
-
-            //Recipients
-            $phpmailer->setFrom('pa.cms.test@gmail.com', 'PCR Contact');
-            $phpmailer->addAddress($user->getEmail());     //Add a recipient
-
-            //Content
-            $phpmailer->isHTML(true);                                  //Set email format to HTML
+            $this->serverSettings($phpmailer, $user);                                  //Set email format to HTML
             $phpmailer->Subject = 'Activer votre compte';
             $phpmailer->Body    = "Pour activer votre compte et choisir un mot de passe, merci de cliquer sur : 
                                    <a href={$message}>Choisir un mot de passe</a> <br>
@@ -125,20 +80,7 @@ class Mail
             $phpmailer = new PHPMailer();
             //Server settings
             $phpmailer->isSMTP();
-            $phpmailer->SMTPDebug = SMTP::DEBUG_OFF;
-            $phpmailer->Host = MHOST;
-            $phpmailer->SMTPAuth = true;
-            $phpmailer->Username = MUSERNAME;
-            $phpmailer->Password = MPASSWORD;
-            $phpmailer->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
-            $phpmailer->Port = MPORT;
-
-            //Recipients
-            $phpmailer->setFrom('pa.cms.test@gmail.com', 'PCR Contact');
-            $phpmailer->addAddress($user->getEmail());     //Add a recipient
-
-            //Content
-            $phpmailer->isHTML(true);                                  //Set email format to HTML
+            $this->serverSettings($phpmailer, $user);                                  //Set email format to HTML
             $phpmailer->Subject = 'Modification du compte par un administrateur';
             $phpmailer->Body    = "
                                     Un administrateur a modifié votre compte avec les informations suivantes : <br>
@@ -172,7 +114,7 @@ class Mail
             $phpmailer = new PHPMailer();
             //Server settings
             $phpmailer->isSMTP();
-            $phpmailer->SMTPDebug = SMTP::DEBUG_CONNECTION;
+            $phpmailer->SMTPDebug = SMTP::DEBUG_OFF;
             $phpmailer->Host = MHOST;
             $phpmailer->SMTPAuth = true;
             $phpmailer->Username = MUSERNAME;
@@ -191,7 +133,6 @@ class Mail
             $phpmailer->Subject = "Laissez un commentaire sur le site";
             $phpmailer->Body    = "Salut {$name}, {$message}";
             $phpmailer->send();
-            echo 'Message has been sent';
 
             header("Location: /restaurant/reservation");
         } catch (Exception $e) {
@@ -208,26 +149,10 @@ class Mail
             $phpmailer = new PHPMailer();
             //Server settings
             $phpmailer->isSMTP();
-            $phpmailer->SMTPDebug = SMTP::DEBUG_CONNECTION;
-            $phpmailer->Host = MHOST;
-            $phpmailer->SMTPAuth = true;
-            $phpmailer->Username = MUSERNAME;
-            $phpmailer->Password = MPASSWORD;
-            $phpmailer->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
-            $phpmailer->Port = MPORT;
-
-            //Recipients
-            $phpmailer->setFrom('pa.cms.test@gmail.com', 'PCR Contact');
-            $phpmailer->addAddress($user->getEmail());     //Add a recipient
-            // $phpmailer->addAddress('vivin.fr@free.fr');     //Add a recipient
-
-
-            //Content
-            $phpmailer->isHTML(true);                                  //Set email format to HTML
+            $this->serverSettings($phpmailer, $user);                                  //Set email format to HTML
             $phpmailer->Subject = "Vous avez un nouveau commentaire en attente";
             $phpmailer->Body    = "Bonjour {$user->getFirstName()} {$user->getLastName()}, Vous avez un nouveau commentaire à valider !! {$message}";
             $phpmailer->send();
-            echo 'Message has been sent';
         } catch (Exception $e) {
             echo "Message could not be sent. Mailer Error: {$phpmailer->ErrorInfo}";
         }
@@ -305,5 +230,28 @@ class Mail
         } catch (Exception $e) {
             echo "Message could not be sent. Mailer Error: {$phpmailer->ErrorInfo}";
         }
+    }
+
+    /**
+     * @param PHPMailer $phpmailer
+     * @param $user
+     * @return void
+     */
+    private function serverSettings(PHPMailer $phpmailer, $user): void
+    {
+        $phpmailer->Host = MHOST;
+        $phpmailer->SMTPAuth = true;
+        $phpmailer->Username = MUSERNAME;
+        $phpmailer->Password = MPASSWORD;
+        $phpmailer->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
+        $phpmailer->Port = MPORT;
+        $phpmailer->SMTPDebug = SMTP::DEBUG_OFF;
+
+        //Recipients
+        $phpmailer->setFrom('pa.cms.test@gmail.com', 'PCR Contact');
+        $phpmailer->addAddress($user->getEmail());     //Add a recipient
+
+        //Content
+        $phpmailer->isHTML(true);
     }
 }

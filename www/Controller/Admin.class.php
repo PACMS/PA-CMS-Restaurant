@@ -90,24 +90,40 @@ class Admin
         $errors = null;
 
         if (!empty($_POST)) {
-            $errors = Verificator::checkForm($user->getUpdateUserForm(), $_POST);
+            if (empty($_POST['password']) OR empty($_POST['passwordConfirm']) OR empty($_POST['lastPassword'])) {
+                unset($_POST['password']);
+                unset($_POST['passwordConfirm']);
+                unset($_POST['lastPassword']);
 
-            if (!$errors) {
-                $_POST = array_map('htmlspecialchars', $_POST);
-                $user->hydrate($_POST);
+                $errors = Verificator::checkForm($user->getUpdateUserForm(), $_POST);
 
-                if (password_verify($_POST['lastPassword'], $data->getPassword())) {
-                    if ($user->getEmail() == $_SESSION['user']['email']) {
-                        $this->setUserData($user);
-                        header("Location: /profile");
-                    } else {
-                        $emailVerifyUni = (new MysqlBuilder())->select('user', ['email'])->where('email', $user->getEmail())->fetchClass('user')->fetch();
-                        if (!$emailVerifyUni) {
-                            $this->setUserData($user);
+                if (!$errors) {
+                    $_POST = array_map('htmlspecialchars', $_POST);
+                    $user->hydrate($_POST);
+
+                    $this->setUserData($user);
+                    header("Location: /profile");
+                }
+            } else {
+                $errors = Verificator::checkForm($user->getFullUpdateUserForm(), $_POST);
+
+                if (!$errors) {
+                    $_POST = array_map('htmlspecialchars', $_POST);
+                    $user->hydrate($_POST);
+
+                    if (password_verify($_POST['lastPassword'], $data->getPassword())) {
+                        if ($user->getEmail() == $_SESSION['user']['email']) {
+                            $this->setUserDataWithPassword($user);
                             header("Location: /profile");
-                        } else $errors = ['Adresse email déjà utilisée'];
-                    }
-                } else $errors = ['Ancien mot de passe ne correspond pas'];
+                        } else {
+                            $emailVerifyUni = (new MysqlBuilder())->select('user', ['email'])->where('email', $user->getEmail())->fetchClass('user')->fetch();
+                            if (!$emailVerifyUni) {
+                                $this->setUserDataWithPassword($user);
+                                header("Location: /profile");
+                            } else $errors = ['Adresse email déjà utilisée'];
+                        }
+                    } else $errors = ['Ancien mot de passe ne correspond pas'];
+                }
             }
         }
 
@@ -265,7 +281,7 @@ class Admin
      * @param UserModel $user
      * @return void
      */
-    private function setUserData(UserModel $user): void
+    private function setUserDataWithPassword(UserModel $user): void
     {
         session_start();
 
@@ -276,11 +292,24 @@ class Admin
             'email' => $user->getEmail()
         ];
 
-        (new MysqlBuilder())->update('user', $userData)->where('id', $_SESSION['user']['id'])->execute();
+        $this->setSessionData($userData, $user);
+    }
 
-        $_SESSION['user']['lastname'] = $user->getLastname();
-        $_SESSION['user']['firstname'] = $user->getFirstname();
-        $_SESSION['user']['email'] = $user->getEmail();
+    /**
+     * @param UserModel $user
+     * @return void
+     */
+    private function setUserData(UserModel $user): void
+    {
+        session_start();
+
+        $userData = [
+            'lastname' => $user->getLastname(),
+            'firstname' => $user->getFirstname(),
+            'email' => $user->getEmail()
+        ];
+
+        $this->setSessionData($userData, $user);
     }
 
     /**
@@ -305,5 +334,19 @@ class Admin
         $mail->sendConfirmUpdateUserMail($user);
 
         header("Location: /user/update/" . $_SESSION['updateID']);
+    }
+
+    /**
+     * @param array $userData
+     * @param UserModel $user
+     * @return void
+     */
+    private function setSessionData(array $userData, UserModel $user): void
+    {
+        (new MysqlBuilder())->update('user', $userData)->where('id', $_SESSION['user']['id'])->execute();
+
+        $_SESSION['user']['lastname'] = $user->getLastname();
+        $_SESSION['user']['firstname'] = $user->getFirstname();
+        $_SESSION['user']['email'] = $user->getEmail();
     }
 }
