@@ -198,7 +198,6 @@ class Restaurant extends Sql
         $request = new MysqlBuilder();
         $request
             ->update('restaurant', ["favorite" => 0])
-            ->where("user_id", $_SESSION["user"]["id"])
             ->fetchClass("restaurant")
             ->fetchAll();
     }
