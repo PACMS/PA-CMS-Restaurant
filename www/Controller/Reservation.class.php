@@ -135,7 +135,12 @@ class Reservation
             ->fetchClass("reservation")
             ->fetch();
         $test = new Comment();
-        $test->mailAskForComment($currentReservation->getEmail(), $currentReservation->getName(), $_SESSION["restaurant"]["id"]);
+        if (is_null($_SESSION["restaurant"]["id"])) {
+            $idRestaurant = $_SESSION['favoriteRestaurant'];
+        } else {
+            $idRestaurant = $_SESSION["restaurant"]["id"];
+        }
+        $test->mailAskForComment($currentReservation->getEmail(), $currentReservation->getName(), $idRestaurant);
     }
 
     public function reservationTable()
