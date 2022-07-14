@@ -812,7 +812,6 @@ class User extends Sql
                     "type" => "password",
                     "id" => "lastPwdUpdateProfile",
                     "class" => "inputProfile hidden",
-                    "required" => true,
                     "error" => "Votre ancien mot de passe ne correspond pas"
                 ],
                 "password" => [
@@ -820,7 +819,6 @@ class User extends Sql
                     "type" => "password",
                     "id" => "pwdUpdateProfile",
                     "class" => "inputProfile hidden",
-                    "required" => true,
                     "error" => "Votre mot de passe doit faire au minimum 8 caractères avec une majuscule et un chiffre"
                 ],
                 "passwordConfirm" => [
@@ -828,7 +826,6 @@ class User extends Sql
                     "type" => "password",
                     "id" => "pwdConfirmUpdateProfile",
                     "class" => "inputProfile hidden",
-                    "required" => true,
                     "error" => "Votre confirmation doit ne correspond pas",
                     "confirm" => "password"
                 ],
