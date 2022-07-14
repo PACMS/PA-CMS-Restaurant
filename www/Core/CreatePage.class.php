@@ -35,7 +35,7 @@ class CreatePage
             }
         }
         // On vérifie que l'utilisateur veut afficher les cartes
-        if ($array_body["displayMenu"] == 1) {
+        if (!empty($array_body["displayMenu"]) && $array_body["displayMenu"] == 1) {
             $builder = new MysqlBuilder();
             // On récupére toutes les cartes selon des paramétres
             $carte = $builder->select("carte", ["*"])
@@ -113,7 +113,7 @@ class CreatePage
                     }
                     $page .= "</section></section>";
     }
-        if ($array_body["displayComment"] == 1) {
+        if (!empty($array_body["displayComment"]) && $array_body["displayComment"] == 1) {
             $builder = new MysqlBuilder();
             $comments = $builder->select("comments", ["*"])
                             ->where("id_restaurant", $_SESSION["restaurant"]["id"])

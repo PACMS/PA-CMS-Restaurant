@@ -106,7 +106,7 @@ class Restaurant
                     if($restaurant->getFavorite() == 1) {
                         $_SESSION["favoriteRestaurant"] = $restaurantId;
                     }
-                    mkdir($dirname, 0755, true);
+                    mkdir($dirname, 0777, true);
                     $fp = fopen('View/' . $url . '.view.php', 'w+');
                     $inputs['title'] = 'index';
                     $array_body[] = "Hello World";
