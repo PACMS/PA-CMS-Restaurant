@@ -14,7 +14,7 @@ class Page
     public function index()
     {
         session_start();
-        $protocol = $_SERVER['SERVER_PORT'] == '443' ? 'https' : 'http';
+        $protocol = $_SERVER['REQUEST_SCHEME'];
         $domain = $_SERVER['HTTP_HOST'];
         $pages = new PageModel();
         $pages = $pages->getAllPagesFromRestaurant($_SESSION["restaurant"]["id"]);
