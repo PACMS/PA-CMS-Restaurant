@@ -22,7 +22,7 @@ class Restaurant
         unset($_SESSION["restaurant"]);
         $restaurant = new RestaurantModel();
         // utiliser la fonction getAllRestaurant() de RestaurantModel
-        $allRestaurants = $restaurant->getAllRestaurants(['user_id' => $_SESSION["user"]["id"]]);
+        $allRestaurants = $restaurant->getAllRestaurants();
         $restaurantsIds = [];
         foreach ($allRestaurants as $restau) {
             array_push($restaurantsIds, $restau["id"]);

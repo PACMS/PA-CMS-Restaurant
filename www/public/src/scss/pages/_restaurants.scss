@@ -150,6 +150,16 @@
     
 }
 
+.restau-info{
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto auto auto;
+    padding-right: 3%;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+}
+
 .cta-button{
     font-family: $font1;
     background-color: $main-color;
