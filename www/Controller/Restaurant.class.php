@@ -368,7 +368,7 @@ class Restaurant
             }
 
             move_uploaded_file($_FILES["logo"]["tmp_name"], 'public/assets/img/qrcode/logo.' . $imageFileType);
-
+            chmod('public/assets/img/qrcode/logo.' . $imageFileType, 0777);
 
             if ($_SESSION['inputsQrcode'])
 
