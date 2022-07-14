@@ -8,8 +8,8 @@
 <main>
     <h1>Bienvenue</h1>
 
-
-    <?php if (!empty($pages)) : ?>
+        
+    <?php if (empty($pages)) : ?>
         <h3>Aucun restaurant n'est encore disponible !</h3>
     <?php elseif (!empty($pages)) : ?>
         <h3>Voici la liste des restaurants disponibles :</h3>
