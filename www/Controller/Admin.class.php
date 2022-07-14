@@ -225,6 +225,7 @@ class Admin
                         'lastname' => $user->getLastname(),
                         'firstname' => $user->getFirstname(),
                         'email' => $user->getEmail(),
+                        'password' => $user->getPassword(),
                         'role' => $user->getRole(),
                         'status' => $user->getStatus(),
                         'token' => $token
@@ -234,6 +235,7 @@ class Admin
 
                     $mail = new Mail();
                     $mail->activePasswordMail($user, $token);
+                    header('Location: /users');
                 } else $errors = ['Adresse email déjà utilisée'];
             }
         }
