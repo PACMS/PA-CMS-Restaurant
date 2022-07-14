@@ -244,10 +244,11 @@ class Restaurant
         $builder = new MysqlBuilder();
 
         $pageRestaurant = $builder->select('page', ["url"])
-            ->where('id_restaurant', $_SESSION["restaurantsIds"][0])
+            ->where('id_restaurant',  $_SESSION["restaurant"]["id"])
             ->where('display_menu', 1)
             ->fetchClass("page")
             ->fetch();
+
         $urlqrcode = APP_URL . '%2Fpages%2F' . $_SESSION['restaurant']['name'] . '%2F' . $pageRestaurant->getUrl();
         //Sans logo
         if (empty($_FILES["logo"]["name"])){
@@ -276,7 +277,7 @@ class Restaurant
             if ($err) {
                 echo "cURL Error #:" . $err;
             } else {
-                $fp = fopen('public/assets/img/qrcode/qrcode' . $_SESSION["restaurantsIds"][0] . '.svg', 'w+');
+                $fp = fopen('public/assets/img/qrcode/qrcode' . $_SESSION["restaurant"]["id"] . '.svg', 'w+');
                 fwrite($fp,$response);
                 fclose($fp);
             }
@@ -364,7 +365,7 @@ class Restaurant
                 mkdir($dirname, 0755, true);
             }
 
-            move_uploaded_file($_FILES["logo"]["tmp_name"], 'public/assets/img/qrcode/logo.png');
+            move_uploaded_file($_FILES["logo"]["tmp_name"], 'public/assets/img/qrcode/logo.' . $imageFileType);
 
             $_SESSION["inputsQrcode"]["color"] = str_replace('#', '%23',$_SESSION["inputsQrcode"]["color"] );
 
@@ -395,7 +396,7 @@ class Restaurant
             if ($err) {
                 echo "cURL Error #:" . $err;
             } else {
-                $fp = fopen('public/assets/img/qrcode/qrcode' . $_SESSION["restaurantsIds"][0] . '.svg', 'w+');
+                $fp = fopen('public/assets/img/qrcode/qrcode' . $_SESSION["restaurant"]["id"] . '.svg', 'w+');
                 fwrite($fp,$response);
                 fclose($fp);
             }
