@@ -363,7 +363,7 @@ class Restaurant
             }
             $dirname = $_SERVER["DOCUMENT_ROOT"] . '/public/assets/img/qrcode/';
             if (!is_dir($dirname)) {
-                mkdir($dirname, 0755, true);
+                mkdir($dirname, 0777, true);
             }
 
             move_uploaded_file($_FILES["logo"]["tmp_name"], 'public/assets/img/qrcode/logo.' . $imageFileType);
