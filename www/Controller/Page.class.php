@@ -102,6 +102,7 @@ class Page
         $page->setStatus(0);
         $page->setDisplayMenu($_POST["displayMenu"]);
         $page->setDisplayComments($_POST["displayComment"]);
+        $page->setDisplayReservations($_POST["displayReservation"]);
         $page->setIdRestaurant($id_restaurant);
         $page->save();
         $page = $page->findOneBy(['url' => $page->getUrl()]);
@@ -146,7 +147,6 @@ class Page
     }
     public function showPage()
     {
-
         $arrayuri = explode('=', $_SERVER['REQUEST_URI']);
         $idPage = $arrayuri[1];
         $page = new PageModel();
@@ -179,6 +179,7 @@ class Page
         $pageUpdate->setStatus(0);
         $pageUpdate->setDisplayMenu($_POST["displayMenu"]);
         $pageUpdate->setDisplayComments($_POST["displayComment"]);
+        $pageUpdate->setDisplayReservations($_POST["displayReservation"]);
         $pageUpdate->setIdRestaurant($page['id_restaurant']);
         $pageUpdate->save();
 

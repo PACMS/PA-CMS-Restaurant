@@ -266,7 +266,7 @@ $(document).ready(function () {
         targets: -1,
         data: null,
         defaultContent:
-          "<a href=''><i class='fas fa-pen'></i></a><a href=''><i class='fas fa-times-circle'></i></a>",
+          "<a href=''><i class='fas fa-check'></i></a><a href=''><i class='fas fa-pen'></i></a><a href=''><i class='fas fa-times-circle'></i></a>",
       },
     ],
     columns: [null, null, null, { type: "datetime" }, null, null, null],

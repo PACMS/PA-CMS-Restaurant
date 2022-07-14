@@ -380,15 +380,16 @@ class Reservation extends Sql
                 "action"=>"reserver-une-table/add",
                 "class"=>"containerForm flex flex-column w-full",
                 "id"=>"formReservation",
-                "submit"=>"Ajouter",
-                'captcha' => true,
+                'captcha' => false,
             ],
             "inputs"=>[
                 "name"=>[
                     "label"=>"Nom et prénom",
                     "type"=>"text",
                     "class"=>"formReservation",
-                    "value" => $_SESSION['user']['firstname'] . ' ' . $_SESSION['user']['lastname'] ?? ''
+                    "min"=>2,
+                    "max"=>250,
+                    'error' => 'Votre nom est trop court ou trop long (2 à 250 caractères)',
                 ],
                 "email" => [
                     "label"=>"Adresse mail",
@@ -398,45 +399,38 @@ class Reservation extends Sql
                     "class" => "formReservation",
                     "required" => true,
                     "error" => "Votre email n'est pas correct",
-                    "value" => $_SESSION['user']['email'] ?? ''
                 ],
                 "numPerson"=>[
                     "label"=>"Nombre de personne",
                     "type"=>"number",
                     "class"=>"formReservation",
+                    "required" => true,
                     "max"=>20,
-                ],
-
-                "numTable"=>[
-                    "label"=>"Numero de table",
-                    "type"=>"number",
-                    "class"=>"formReservation",
-                    "max"=>20,
+                    'error' => 'Le nom maximal de réservation est de 20 personnes',
                 ],
                 "date"=>[
                     "label"=>"Date de reservation",
                     "type"=>"date",
                     "class"=>"formReservation",
-                    "min"=>date('Y-m-d'),
-                    "max"=>date('Y-m-d', strtotime('+1 year')),
+                    "required" => true,
+                    'error' => 'La date de réservation n est pas bonne',
                 ],
                 "hour"=>[
                     "label"=>"Heure de reservation",
                     "type"=>"time",
                     "class"=>"formReservation",
-
+                    "required" => true,
+                    'error' => 'L heure de réservation n est pas bonne',
                 ],
                 "phoneReserv"=>[
                     "label"=>"Numéro de téléphone",
                     "type"=>"tel",
                     "class"=>"formRestaurant",
-                    "min"=>10,
-                    "max"=>10,
+                    "min"=>7,
+                    "max"=>15,
+                    "required" => true,
+                    'error' => 'Le numéro de téléphone n est pas valide',
                 ],
-            ],
-            "captcha" => [
-                'type' => 'captcha',
-                'error' => 'Le captcha n\'a pas pu validé votre formulaire'
             ]
         ];
     }
