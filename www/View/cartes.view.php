@@ -4,10 +4,15 @@
     <section class="cards-page">
     <?php $this->includePartial("topBar", ["title" => "Cartes"]); ?>
         <div class="flex flex-column ">
-            <a id="" href="/public/assets/img/qrcode/qrcode<?php echo $restaurant->getId() ?>.svg"  class="flex justify-content-center btn btn-submit w-64 mr-3  " download>Télécharger le Qrcode de la carte</a>
+            <?php if (file_exists('public/assets/img/qrcode/qrcode' . $restaurant->getId() . '.svg')){ ?>
+                <a id="" href="/public/assets/img/qrcode/qrcode<?= $restaurant->getId() ?>.svg"  class="flex justify-content-center btn btn-submit w-64 mr-3  " download>Télécharger le Qrcode de la carte</a>
+            <?php }?>
             <div class="flex flex-row align-items-center">
-                <img class="w-48 " src="/public/assets/img/qrcode/qrcode<?php echo $restaurant->getId() ?>.svg" alt="qrcode<?php echo $restaurant->getId() ?>">
-                <a id="" href="#open-modalQrcode"  class="flex justify-content-center btn btn-submit w-48 ">Modifier le Qrcode</a>
+                <?php if (file_exists('public/assets/img/qrcode/qrcode' . $restaurant->getId() . '.svg')){ ?>
+                    <img class="w-48 " src="/public/assets/img/qrcode/qrcode<?= $restaurant->getId() ?>.svg" alt="qrcode<?= $restaurant->getId() ?>">
+                    <a id="" href="#open-modalQrcode"  class="flex justify-content-center btn btn-submit w-48 ">Modifier le Qrcode</a>
+                <?php }else echo '<p class="mr-3"> Pas de page carte créé </p>' ?>
+
             </div>
             <div id="open-modalQrcode" class="modal-windowQrcode">
                 <div class="flex flex-column ">

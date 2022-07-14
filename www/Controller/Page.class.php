@@ -14,7 +14,7 @@ class Page
     public function index()
     {
         session_start();
-        $protocol = $_SERVER['SERVER_PORT'] == '443' ? 'https' : 'http';
+        $protocol = $_SERVER['REQUEST_SCHEME'];
         $domain = $_SERVER['HTTP_HOST'];
         $pages = new PageModel();
         $pages = $pages->getAllPagesFromRestaurant($_SESSION["restaurant"]["id"]);
@@ -54,7 +54,7 @@ class Page
 
         $url = 'pages/' . $name . '/' . $inputName;
         if ($_POST["displayMenu"]) {
-            if (file_exists('public/assets/img/qrcode' . $id_restaurant . '.svg') == true){
+            if (file_exists('public/assets/img/qrcode/qrcode' . $id_restaurant . '.svg') == true){
                 $view = new View('pagecreate', 'back');
                 $view->assign('title', $_SESSION["restaurant"]["name"] . ' - Création d\'une page');
                 $view->assign('id_restaurant', $id_restaurant);
@@ -87,7 +87,7 @@ class Page
             if ($err) {
                 echo "cURL Error #:" . $err;
             } else {
-                $fp = fopen('public/assets/img/qrcode' . $id_restaurant . '.svg', 'w+');
+                $fp = fopen('public/assets/img/qrcode/qrcode' . $id_restaurant . '.svg', 'w+');
                 fwrite($fp,$response);
                 fclose($fp);
             }
@@ -130,7 +130,8 @@ class Page
             ->fetchClass("page")
             ->fetch();
         if ($page->getDisplayMenu()){
-            unlink('public/assets/img/qrcode' . $_SESSION['restaurantsIds'][0] . '.svg');
+            //d($_SESSION);
+            unlink('public/assets/img/qrcode/qrcode' . $_SESSION['restaurant']['id'] . '.svg');
         }
         unlink('View/' . $page->getUrl() . '.view.php');
 
@@ -199,10 +200,10 @@ class Page
     {
         $builder = new MysqlBuilder();
         $pages = $builder->select("page", ["*"])
-                        ->where("id_restaurant", $_SESSION["restaurant"]["id"])
-                        ->fetchClass("page")
-                        ->fetchAll();
-        
+            ->where("id_restaurant", $_SESSION["restaurant"]["id"])
+            ->fetchClass("page")
+            ->fetchAll();
+
         $content = [];
         $inputs = [];
         foreach($pages as $page) {
@@ -212,9 +213,9 @@ class Page
                 $content["displayComment"] = $page->getDisplayComments();
                 $inputs["title"] = $page->getTitle();
                 $contents = $builder->select("content", ["*"])
-                        ->where("id_page", $page->getId())
-                        ->fetchClass("content")
-                        ->fetchAll();
+                    ->where("id_page", $page->getId())
+                    ->fetchClass("content")
+                    ->fetchAll();
                 foreach($contents as $contentValue) {
                     $content["body{$contentValue->getId()}"] = $contentValue->getBody();
                 }
