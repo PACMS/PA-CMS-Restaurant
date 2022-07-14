@@ -82,11 +82,13 @@ if (!$uriPage){
     if (empty($routes[$uri]) || empty($routes[$uri]["controller"]) || empty($routes[$uri]["action"])) {
         http_response_code(404);
         new View('error404');
+        die();
     }
     
     if (isset($routes[$uri]["security"]) && !Security::checkRoute($routes[$uri])) {
         http_response_code(404);
         new View('error404');
+        die();
     }
 
     $controller = ucfirst($routes[$uri]["controller"]);
