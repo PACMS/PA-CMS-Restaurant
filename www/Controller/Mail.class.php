@@ -239,9 +239,9 @@ class Mail
             $actualDateTime = new \DateTime();
             $actualDateTime = $actualDateTime->format('YmdHis');
             $message = "Votre réservation est en attente de confirmation par le restaurant. Dès que cela sera validé, vous recevrez une validation par mail, pensez à regarder vos spams ! <br>";
-            $message .= "Récapitulatif de votre réservation : Au nom de : {$name}";
-            $message .= "Pour le : {$date}";
-            $message .= "A : {$hour}";
+            $message .= "Récapitulatif de votre réservation : <br> Au nom de : {$name} <br>";
+            $message .= "Pour le : {$date} <br>";
+            $message .= "A : {$hour} <br>";
             $message .= "Pour : {$nbPerson} personne(s)";
             $phpmailer = new PHPMailer();
             //Server settings
@@ -276,9 +276,9 @@ class Mail
             $actualDateTime = new \DateTime();
             $actualDateTime = $actualDateTime->format('YmdHis');
             $message = "Votre réservation a été confirmée par le restaurateur, voici le détail : <br>";
-            $message .= "Récapitulatif de votre réservation : Au nom de : {$name}";
-            $message .= "Pour le : {$date}";
-            $message .= "A : {$hour}";
+            $message .= "Récapitulatif de votre réservation : <br> Au nom de : {$name}  <br>";
+            $message .= "Pour le : {$date}  <br>";
+            $message .= "A : {$hour}  <br>";
             $message .= "Pour : {$nbPerson} personne(s)";
             $phpmailer = new PHPMailer();
             //Server settings
