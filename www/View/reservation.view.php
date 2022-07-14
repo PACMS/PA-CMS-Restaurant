@@ -75,6 +75,11 @@
                                        <td> <?= $reservationInfo["numTable"] ?> </td>
                                        <td> <?= $reservationInfo["phoneReserv"] ?> </td>
                                        <td>
+                                           <?php if ($reservationInfo["confirmation"] == null) : ?>
+                                               <a href="/restaurant/validation/<?= $reservationInfo['id'] ?>">
+                                                   <i class='fas fa-check'></i>
+                                               </a>
+                                           <?php endif ?>
                                            <a href="#open-modalEdit<?= $reservationInfo['id'] ?>" id='btncancel'>
                                                <i class='fas fa-pen'></i>
                                            </a>

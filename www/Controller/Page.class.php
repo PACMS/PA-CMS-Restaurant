@@ -14,11 +14,15 @@ class Page
     public function index()
     {
         session_start();
+        $protocol = $_SERVER['REQUEST_SCHEME'];
+        $domain = $_SERVER['HTTP_HOST'];
         $pages = new PageModel();
         $pages = $pages->getAllPagesFromRestaurant($_SESSION["restaurant"]["id"]);
         $view = new View('page', 'back');
         $view->assign('title', $_SESSION["restaurant"]["name"] . ' - Pages');
         $view->assign('pages', $pages);
+        $view->assign('protocol', $protocol);
+        $view->assign('domain', $domain);
         $view->assign('idrestaurant', $_SESSION["restaurant"]["id"]);
     }
     public function createPage()
@@ -50,7 +54,7 @@ class Page
 
         $url = 'pages/' . $name . '/' . $inputName;
         if ($_POST["displayMenu"]) {
-            if (file_exists('public/assets/img/qrcode' . $id_restaurant . '.svg') == true){
+            if (file_exists('public/assets/img/qrcode/qrcode' . $id_restaurant . '.svg') == true){
                 $view = new View('pagecreate', 'back');
                 $view->assign('title', $_SESSION["restaurant"]["name"] . ' - Création d\'une page');
                 $view->assign('id_restaurant', $id_restaurant);
@@ -83,7 +87,7 @@ class Page
             if ($err) {
                 echo "cURL Error #:" . $err;
             } else {
-                $fp = fopen('public/assets/img/qrcode' . $id_restaurant . '.svg', 'w+');
+                $fp = fopen('public/assets/img/qrcode/qrcode' . $id_restaurant . '.svg', 'w+');
                 fwrite($fp,$response);
                 fclose($fp);
             }
@@ -98,6 +102,7 @@ class Page
         $page->setStatus(0);
         $page->setDisplayMenu($_POST["displayMenu"]);
         $page->setDisplayComments($_POST["displayComment"]);
+        $page->setDisplayReservations($_POST["displayReservation"]);
         $page->setIdRestaurant($id_restaurant);
         $page->save();
         $page = $page->findOneBy(['url' => $page->getUrl()]);
@@ -126,7 +131,8 @@ class Page
             ->fetchClass("page")
             ->fetch();
         if ($page->getDisplayMenu()){
-            unlink('public/assets/img/qrcode' . $_SESSION['restaurantsIds'][0] . '.svg');
+            //d($_SESSION);
+            unlink('public/assets/img/qrcode/qrcode' . $_SESSION['restaurant']['id'] . '.svg');
         }
         unlink('View/' . $page->getUrl() . '.view.php');
 
@@ -141,7 +147,6 @@ class Page
     }
     public function showPage()
     {
-
         $arrayuri = explode('=', $_SERVER['REQUEST_URI']);
         $idPage = $arrayuri[1];
         $page = new PageModel();
@@ -174,6 +179,7 @@ class Page
         $pageUpdate->setStatus(0);
         $pageUpdate->setDisplayMenu($_POST["displayMenu"]);
         $pageUpdate->setDisplayComments($_POST["displayComment"]);
+        $pageUpdate->setDisplayReservations($_POST["displayReservation"]);
         $pageUpdate->setIdRestaurant($page['id_restaurant']);
         $pageUpdate->save();
 
@@ -195,10 +201,10 @@ class Page
     {
         $builder = new MysqlBuilder();
         $pages = $builder->select("page", ["*"])
-                        ->where("id_restaurant", $_SESSION["restaurant"]["id"])
-                        ->fetchClass("page")
-                        ->fetchAll();
-        
+            ->where("id_restaurant", $_SESSION["restaurant"]["id"])
+            ->fetchClass("page")
+            ->fetchAll();
+
         $content = [];
         $inputs = [];
         foreach($pages as $page) {
@@ -208,9 +214,9 @@ class Page
                 $content["displayComment"] = $page->getDisplayComments();
                 $inputs["title"] = $page->getTitle();
                 $contents = $builder->select("content", ["*"])
-                        ->where("id_page", $page->getId())
-                        ->fetchClass("content")
-                        ->fetchAll();
+                    ->where("id_page", $page->getId())
+                    ->fetchClass("content")
+                    ->fetchAll();
                 foreach($contents as $contentValue) {
                     $content["body{$contentValue->getId()}"] = $contentValue->getBody();
                 }

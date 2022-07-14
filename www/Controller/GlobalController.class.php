@@ -2,11 +2,12 @@
 
 namespace App\Controller;
 
+use App\Core\MysqlBuilder;
 use App\Core\View;
-use App\Model\User as UserModel;
-use App\Model\Page as PageModel;
-use App\Core\Verificator;
 use SimpleXMLElement;
+use App\Core\Verificator;
+use App\Model\Page as PageModel;
+use App\Model\User as UserModel;
 
 /**
  * Global controller
@@ -83,10 +84,10 @@ class GlobalController
                             $config_file[ $line_num ] = "define('" . $match[1] . "', '" . $_POST['prefixe'] . "');\r\n";
                             break;
                         case 'REDIRECT_URI_GOOGLE':
-                            $config_file[ $line_num ] = "define('" . $match[1] . "', '" . $_POST['domain_name'] . "/googleConnect');\r\n";
+                            $config_file[ $line_num ] = "define('" . $match[1] . "', '" . $_SERVER['REQUEST_SCHEME'] . "://" . $_POST['domain_name'] . "/googleConnect');\r\n";
                             break;
                         case 'REDIRECT_URI_FACEBOOK':
-                            $config_file[ $line_num ] = "define('" . $match[1] . "', '" . $_POST['domain_name'] . "/facebookConnect');\r\n";
+                            $config_file[ $line_num ] = "define('" . $match[1] . "', '" . $_SERVER['REQUEST_SCHEME'] . "://" . $_POST['domain_name'] . "/facebookConnect');\r\n";
                             break;
                         case 'APP_URL':
                             $config_file[ $line_num ] = "define('" . $match[1] . "', '" . $_POST['domain_name'] . "');\r\n";
@@ -116,6 +117,7 @@ class GlobalController
             $reqs = explode(";",$requetes);// on sépare les requêtes
             foreach($reqs as $req){	// et on les éxécute
                 if (trim($req)!="") {
+                    $req = str_replace('pacm_', $_POST['prefixe'], $req);
                     if(!$pdo->query($req)) {
                         die("ERROR : ".$req); // stop si erreur 
                     };
@@ -153,7 +155,17 @@ class GlobalController
             $user->hydrate($_POST);
             $user->setRole('admin');
             $user->setStatus(1);
-            $user->save();
+
+            $userData = [
+                'firstname' => $user->getFirstname(),
+                'lastname' => $user->getLastname(),
+                'email' => $user->getEmail(),
+                'password' => $user->getPassword(),
+                'role' => $user->getRole(),
+                'status' => $user->getStatus(),
+            ];
+
+            (new MysqlBuilder())->insert('user', $userData)->execute();
             
             header('Location: /login');
         }
@@ -166,7 +178,7 @@ class GlobalController
      */
     function sitemap()
     {
-        $protocol = $_SERVER['SERVER_PORT'] == '443' ? 'https' : 'http';
+        $protocol = $_SERVER['REQUEST_SCHEME'];
         $domain = $_SERVER['HTTP_HOST'];
 
         $page = new PageModel();
@@ -185,7 +197,7 @@ class GlobalController
      */
     function sitemapXML()
     {
-        $protocol = $_SERVER['SERVER_PORT'] == '443' ? 'https' : 'http';
+        $protocol = $_SERVER['REQUEST_SCHEME'];
         $domain = $_SERVER['HTTP_HOST'];
 
         $page = new PageModel();

@@ -1,5 +1,6 @@
 <?php
 
+define('APP_URL', 'nom_de_domaine');
 define('DBDRIVER', 'mysql');
 define('DBUSER', 'utilisateur_de_la_bdd');
 define('DBPWD', 'mot_de_passe_de_la_bdd');

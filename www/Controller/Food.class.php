@@ -50,7 +50,7 @@ class Food
             }
             $oneFood = $food->getOneFood('food', $_POST["id"]);
             $food->hydrate($oneFood);
-            $view = new View("food");
+            $view = new View("food", "back");
             $view->assign('food', $food);
             $view->assign('oneFood', $oneFood);
         }
@@ -131,10 +131,14 @@ class Food
             ->fetchAll();
 
         $myFoods = [];
-        foreach ($foods as $food) {
-            if(!is_null($food->getFoodId()) ){
-                array_push($myFoods, $food->getFoodId());
+        try {
+            foreach ($foods as $food) {
+                if(!is_null($food->getFoodId()) ){
+                    array_push($myFoods, $food->getFoodId());
+                }
             }
+        } catch (\Throwable $th) {
+            //throw $th;
         }
 
         $vals = array_count_values($myFoods);

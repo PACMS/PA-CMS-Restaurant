@@ -12,6 +12,7 @@ class Page extends Sql
     protected $status ;
     protected $display_menu;
     protected $display_comments;
+    protected $display_reservations;
     protected $id_theme ;
     protected $id_restaurant ;
 
@@ -143,6 +144,22 @@ class Page extends Sql
     public function setDisplayComments($display_comments): void
     {
         $this->display_comments = $display_comments;
+    }
+
+    /**
+     * @param null $display_reservations
+     */
+    public function setDisplayReservations($display_reservations): void
+    {
+        $this->display_reservations = $display_reservations;
+    }
+
+    /**
+     * @return null
+     */
+    public function getDisplayReservations()
+    {
+        return $this->display_reservations;
     }
 
     /**

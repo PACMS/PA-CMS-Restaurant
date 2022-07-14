@@ -8,6 +8,7 @@ use App\Model\Reservation as ReservationModel;
 use App\Core\MysqlBuilder;
 // use Comment controller
 use App\Controller\Comment;
+use Couchbase\MutationState;
 
 
 class Reservation
@@ -22,7 +23,7 @@ class Reservation
     public function reservation()
     {
         $reservation = new ReservationModel();
-        $data =  $reservation->getAllReservationsFromRestaurant(["id_restaurant" => $_SESSION['restaurant']["id"], "status" => "0" ]);
+        $data =  $reservation->getAllReservationsFromRestaurant(["id_restaurant" => $_SESSION['restaurant']["id"], "status" => '0'  ]);
         foreach ($data as $dateReserv) {
             $dateReserv['date'] = date("d/m/Y", strtotime($dateReserv['date']));
         }
@@ -146,26 +147,40 @@ class Reservation
     public function addReservationTable()
     {
         $reservation = new ReservationModel();
-        $_POST['status'] = -1;
-        //////////////////////////////////////////
-        /// A modifier quand on récup le id du restaurant sur lequel on réserve
-        ///
-        ///
-        ///
-        ///
-        $_POST['restaurant_id'] = 122;
-        $_POST = array_map('htmlspecialchars', $_POST);
-        $reservation->hydrate($_POST);
-        $clientName = $reservation->getName();
-        $nbPerson = $reservation->getNumPerson();
-        $date = $reservation->getDate();
-        $hour = $reservation->getHour();
-        $email = $reservation->getEmail();
-        $reservation->save();
+        $errors = null;
 
-        $view = new View("table-reservation", "front", 'success', 'Reservation', 'Création avec succès de la reservation de ' . $clientName . ' ! Un mail de confirmation va vous êtes envoyé');
-        $view->assign('reservation', $reservation);
-        $this->tempMailReservation($clientName, $date, $hour, $nbPerson, $email);
+        if (!empty($_POST)) {
+            $errors = Verificator::checkForm($reservation->getTableReservationForm(), $_POST);
+
+            if (!$errors) {
+                $_POST['status'] = 0;
+                $_POST['idRestaurant'] = $_SESSION['restaurant']['id'];
+                $_POST = array_map('htmlspecialchars', $_POST);
+                $reservation->hydrate($_POST);
+                $clientName = $reservation->getName();
+                $nbPerson = $reservation->getNumPerson();
+                $date = $reservation->getDate();
+                $hour = $reservation->getHour();
+                $email = $reservation->getEmail();
+                $reservation->save();
+
+                $view = new View("successReservation");
+                $view->assign('reservation', $reservation);
+                $view->assign('errors', $errors);
+                $this->tempMailReservation($clientName, $date, $hour, $nbPerson, $email);
+            }
+        } else die('erreur');
+    }
+
+    public function confirmValidation (int $id)
+    {
+        (new MysqlBuilder())->update('reservation', ['confirmation' => true])->where('id', $id)->execute();
+        $reservation = (new MysqlBuilder())->select('reservation', ['*'])->where('id', htmlentities($id))->fetchClass('reservation')->fetch();
+
+        $mail = new Mail();
+        $mail->confirmMailReservation($reservation->getName(), $reservation->getDate(), $reservation->getHour(), $reservation->getNumPerson(), $reservation->getEmail());
+
+        header('Location: /restaurant/reservation');
     }
 
     public function tempMailReservation (string $name, string $date, string $hour, string $nbPerson, string $email)

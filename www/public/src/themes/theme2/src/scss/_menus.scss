@@ -1,0 +1,59 @@
+section#carte {
+    padding: 15px;
+
+    h1 {
+        margin: 0;
+        text-align: center;
+    }
+
+    & > h3 {
+        margin: 0;
+        font-style: italic;
+        text-align: center;
+    }
+
+    section#categories {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 30px;
+        article {
+            width: 400px;
+            // max-width: 50%;
+            display: flex;
+            flex-direction: column;
+            flex-wrap: wrap;
+
+            h1 {
+                text-align: left;
+            }
+            ul {
+                text-decoration: none;
+                list-style: none;
+                padding: 0;
+                li {
+                    h3 {
+                        display: flex;
+                        justify-content: space-between; 
+                        span {
+                            
+                        }
+                    }
+                    p {
+                        font-size: 14px;
+                        font-style: italic;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 800px) {
+    section#carte {
+        section#categories {
+            article {
+                width: 100%;
+            }
+        }
+    }
+}

@@ -184,9 +184,11 @@ class Admin
 
                 if ($user->getEmail() == $emailUser) {
                     $this->setUserUpdateData($user);
+                    header('Location: /users');
                 } else {
                     if (!(new MysqlBuilder())->select('user', ['email'])->where('email', $user->getEmail())->fetchClass('user')->fetch()) {
                         $this->setUserUpdateData($user);
+                        header('Location: /users');
                     } else $errors = ['Adresse email déjà utilisée'];
                 }
             }
