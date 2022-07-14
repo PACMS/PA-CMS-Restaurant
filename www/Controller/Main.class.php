@@ -9,7 +9,6 @@ class Main
     public function home()
     {
         $view = new View("home");
-        
     }
 
 
