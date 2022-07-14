@@ -30,13 +30,12 @@
             </div>
 
             <div class="container justify-center items-center">
-                <?php $this->includePartial("form", $user->getUpdateUserForm()); ?>
+                <?php $this->includePartial("form", $user->getFullUpdateUserForm()); ?>
 
                 <button class='btn btn-cancel mr-4 hidden' id='btncancel'>Annuler </button>
 
                 <p class='greytext'>Profil modifié le <?= date("d/m/Y à H\hi", strtotime($data->updatedAt . '+2 hours')) ?> </p>
             </div>
-            <p class='greytext'>Profil modifié le <?= date("d/m/Y à H\hi", strtotime($data->createdAt . '+2 hours')) ?> </p>
         </section>
     </section>
 

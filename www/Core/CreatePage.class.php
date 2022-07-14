@@ -34,8 +34,13 @@ class CreatePage
             $page .= '<li><a href="/' . $pageDb["url"] . '">' . $pageDb["title"] . '</a></li>';
         }
 
+        if (!empty($_SESSION['user'])) {
+            $page .= '<li class="right"><a href="/logout">Déconnexion</a></li>';
+        } else {
+            $page .= '<li class="right"><a href="/login">Connexion</a></li>';
+        }
+
         $page .= '
-        <li class="right"><a href="/login">Connexion</a></li>
         </div>
         <div class="index-header">
         <h1>' . $inputs['title'] . '</h1></div>';

@@ -238,25 +238,39 @@ $(document).ready(function () {
     $(".alert-window").css("visibility", "hidden");
   });
 
-  $(function() {
-    $('#formUpdateProfile input[type="submit"]').addClass('hidden');
+  $(function () {
+    $('#formUpdateProfile input[type="submit"]').addClass("hidden");
   });
   $("#editProfile").on("click", function (event) {
-    $("#formUpdateProfile input").attr("disabled", false).removeClass(['disabled', 'hidden'])
-    $('#formUpdateProfile input[type="submit"]').removeClass('hidden')
-    $('#btncancel').removeClass('hidden')
+    $("#formUpdateProfile input")
+      .attr("disabled", false)
+      .removeClass(["disabled", "hidden"]);
+    $('#formUpdateProfile input[type="submit"]').removeClass("hidden");
+    $("#btncancel").removeClass("hidden");
   });
 
   $("#btncancel").on("click", function (event) {
-    $("#formUpdateProfile #lastnameUpdateProfile").attr("disabled", true).addClass('disabled')
-    $("#formUpdateProfile #firstnameUpdateProfile").attr("disabled", true).addClass('disabled')
-    $("#formUpdateProfile #emailUpdateProfile").attr("disabled", true).addClass('disabled')
+    $("#formUpdateProfile #lastnameUpdateProfile")
+      .attr("disabled", true)
+      .addClass("disabled");
+    $("#formUpdateProfile #firstnameUpdateProfile")
+      .attr("disabled", true)
+      .addClass("disabled");
+    $("#formUpdateProfile #emailUpdateProfile")
+      .attr("disabled", true)
+      .addClass("disabled");
 
-    $("#formUpdateProfile #lastPwdUpdateProfile").attr("disabled", true).addClass('hidden')
-    $("#formUpdateProfile #pwdUpdateProfile").attr("disabled", true).addClass('hidden')
-    $("#formUpdateProfile #pwdConfirmUpdateProfile").attr("disabled", true).addClass('hidden')
-    $('#formUpdateProfile input[type="submit"]').addClass('hidden')
-    $('#btncancel').addClass('hidden')
+    $("#formUpdateProfile #lastPwdUpdateProfile")
+      .attr("disabled", true)
+      .addClass("hidden");
+    $("#formUpdateProfile #pwdUpdateProfile")
+      .attr("disabled", true)
+      .addClass("hidden");
+    $("#formUpdateProfile #pwdConfirmUpdateProfile")
+      .attr("disabled", true)
+      .addClass("hidden");
+    $('#formUpdateProfile input[type="submit"]').addClass("hidden");
+    $("#btncancel").addClass("hidden");
   });
 
   $("#bookingTable").DataTable({
@@ -278,94 +292,110 @@ $(document).ready(function () {
   $("#min, #max").on("change", function () {
     table.draw();
   });
+  if (!$.fn.DataTable.isDataTable("#bookingTable2")) {
+    $("#bookingTable2").dataTable({
+      language: {
+        url: "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/French.json",
+      },
+      columnDefs: [{ className: "dt-center", targets: "_all" }],
+      order: [3, "desc"],
+      columns: [
+        null,
+        null,
+        null,
+        { type: "date-eu" },
+        null,
+        null,
+        null,
+        null,
+        null,
+      ],
 
-  $("#bookingTable2").dataTable({
-    language: {
-      url: "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/French.json",
-    },
-    columnDefs: [{ className: "dt-center", targets: "_all" }],
-    order: [3, "desc"],
-    columns: [
-      null,
-      null,
-      null,
-      { type: "date-eu" },
-      null,
-      null,
-      null,
-      null,
-      null,
-    ],
+      searching: true,
+      //paging: false,
+      lengthMenu: [10, 20, 30, 40, 50],
+      pageLength: 10,
+      info: true,
+    });
+  }
+  if (!$.fn.DataTable.isDataTable("#pageTable")) {
+    $("#pageTable").dataTable({
+      language: {
+        url: "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/French.json",
+      },
+      columnDefs: [{ className: "dt-center", targets: "_all" }],
+      order: [1, "desc"],
+      columns: [
+        null,
+        null,
+        null,
+        { type: "date-eu" },
+        { type: "date-eu" },
+        null,
+      ],
 
-    searching: true,
-    //paging: false,
-    lengthMenu: [10, 20, 30, 40, 50],
-    pageLength: 10,
-    info: true,
-  });
-  $("#pageTable").dataTable({
-    language: {
-      url: "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/French.json",
-    },
-    columnDefs: [{ className: "dt-center", targets: "_all" }],
-    order: [1, "desc"],
-    columns: [null, null, null, { type: "date-eu" }, { type: "date-eu" }, null],
+      searching: true,
+      info: true,
+    });
+  }
 
-    searching: true,
-    info: true,
-  });
-  $("#logTable").dataTable({
-    language: {
-      url: "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/French.json",
-    },
-    columnDefs: [{ className: "dt-center", targets: "_all" }],
-    order: [4, "desc"],
-    columns: [null, null, null, null, { type: "date-eu" }],
+  if (!$.fn.DataTable.isDataTable("#logTable")) {
+    $("#logTable").dataTable({
+      language: {
+        url: "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/French.json",
+      },
+      columnDefs: [{ className: "dt-center", targets: "_all" }],
+      order: [4, "desc"],
+      columns: [null, null, null, null, { type: "date-eu" }],
 
-    searching: true,
-    info: true,
-  });
+      searching: true,
+      info: true,
+    });
+  }
 
-  $("#bookingTable3").dataTable({
-    language: {
-      url: "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/French.json",
-    },
-    columnDefs: [{ className: "dt-center", targets: "_all" }],
-    order: [3, "desc"],
-    columns: [null, null, null, { type: "date-eu" }, null, null, null, null],
+  if (!$.fn.DataTable.isDataTable("#bookingTable3")) {
+    $("#bookingTable3").dataTable({
+      language: {
+        url: "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/French.json",
+      },
+      columnDefs: [{ className: "dt-center", targets: "_all" }],
+      order: [3, "desc"],
+      columns: [null, null, null, { type: "date-eu" }, null, null, null, null],
 
-    searching: true,
-    //paging: false,
-    lengthMenu: [10, 20, 30, 40, 50],
-    pageLength: 10,
-    info: true,
-  });
+      searching: true,
+      //paging: false,
+      lengthMenu: [10, 20, 30, 40, 50],
+      pageLength: 10,
+      info: true,
+    });
+  }
 
-  $("#usersTable").dataTable({
-    language: {
-      url: "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/French.json",
-    },
-    columnDefs: [{ className: "dt-center", targets: "_all" }],
-    order: [3, "desc"],
-    columns: [
-      null,
-      null,
-      null,
-      null,
-      null,
-      null,
-      { type: "date-eu" },
-      { type: "date-eu" },
-      null,
-    ],
+  if (!$.fn.DataTable.isDataTable("#usersTable")) {
+    $("#usersTable").dataTable({
+      language: {
+        url: "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/French.json",
+      },
+      columnDefs: [{ className: "dt-center", targets: "_all" }],
+      order: [3, "desc"],
+      columns: [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        { type: "date-eu" },
+        { type: "date-eu" },
+        null,
+      ],
 
-    searching: true,
-    //paging: false,
-    lengthMenu: [10, 20, 30, 40, 50],
-    pageLength: 10,
-    info: true,
-  });
-
+      searching: true,
+      //paging: false,
+      lengthMenu: [10, 20, 30, 40, 50],
+      pageLength: 10,
+      info: true,
+    });
+  }
   $("#usersTable tbody").on("click", "#updateUser", function () {
     var data = $("#usersTable").DataTable().row($(this).parents("tr")).data();
     window.location.href = "/user/update/" + data[0];

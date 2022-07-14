@@ -1,3 +1,10 @@
+<div class="topnav">
+    <?php if (!empty($_SESSION['user'])) : ?>
+    <li class="right"><a href="/logout">Déconnexion</a></li>
+    <?php else : ?>
+    <li class="right"><a href="/login">Connexion</a></li>
+    <?php endif; ?>
+</div>
 <main>
     <h1>Bienvenue</h1>
 
