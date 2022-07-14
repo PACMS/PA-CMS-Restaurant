@@ -249,7 +249,6 @@ class Restaurant
             ->fetchClass("page")
             ->fetch();
 
-        //dd($pageRestaurant);
         $urlqrcode = APP_URL . '%2Fpages%2F' . $_SESSION['restaurant']['name'] . '%2F' . $pageRestaurant->getUrl();
         //Sans logo
         if (empty($_FILES["logo"]["name"])){
