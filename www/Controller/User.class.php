@@ -63,8 +63,18 @@ class User
         $view->assign('description', 'Page de connexion');
         $view->assign("user", $user);
 
-
-        empty($_GET['error']) ?: $view->setFlashMessage('error', 'Identifiant ou mot de passe invalide');
+        if (!empty($_GET['error'])) {
+            switch($_GET['error']) {
+                case 'login':
+                    $view->setFlashMessage('error', 'Identifiant ou mot de passe invalide');
+                    break;
+                case 'loginstatus':
+                    $view->setFlashMessage('error', 'Votre compte n\'a pas été confirmé');
+                    break;
+                default:
+                $view->setFlashMessage('error', 'Une erreur est survenue lors de la connexion');
+            }
+        }
     }
 
     /**
@@ -184,10 +194,7 @@ class User
         $user->setPassword($_POST['password']);
 
         $params = ["email" => $_POST['email']];
-
-        if ($user->verifyUser($params) == false) {
-            header('Location: /login?error=login');
-        }
+        $user->verifyUser($params);
     }
 
     /**
@@ -207,7 +214,16 @@ class User
             $user->setEmail($info->email);
             $user->setStatus(true);
             $user->setRole('user');
-            $user->save();
+
+            $userData = [
+                'lastname' => $user->getLastname(),
+                'firstname' => $user->getFirstname(),
+                'email' => $user->getEmail(),
+                'role' => $user->getRole(),
+                'status' => $user->getStatus(),
+            ];
+
+            (new MysqlBuilder())->insert('user', $userData)->execute();
         }
         
         $userInfos = $user->findOneBy(['email' => $info->email]);
@@ -256,7 +272,16 @@ class User
             $user->setEmail($info->email);
             $user->setStatus(true);
             $user->setRole('user');
-            $user->save();
+
+            $userData = [
+                'lastname' => $user->getLastname(),
+                'firstname' => $user->getFirstname(),
+                'email' => $user->getEmail(),
+                'role' => $user->getRole(),
+                'status' => $user->getStatus(),
+            ];
+
+            (new MysqlBuilder())->insert('user', $userData)->execute();
         }
 
         $userInfos = $user->findOneBy(['email' => $info->email]);

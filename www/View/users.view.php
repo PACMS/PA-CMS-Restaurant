@@ -44,7 +44,7 @@
                 </tbody>
             </table>
         </section>
-        <button><a href="user/create">Ajouter un utilisateur</a></button>
+        <button class="button"><a class="text-white" href="user/create">Ajouter un utilisateur</a></button>
     </section>
 </main>
 

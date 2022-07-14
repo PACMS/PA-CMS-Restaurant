@@ -28,40 +28,37 @@ class CreatePage
         <li class="right"><a href="/login">Connexion</a></li>
         </div>
         <div class="index-header">
-        <h1 >' . $inputs['title'] . '</h1></div>';
-
+        <h1>' . $inputs['title'] . '</h1></div>';
         foreach ($array_body as $key => $body) {
-            if (strpos($key, "body")) {
-                $page .= '<section class="page-container"><div><p>' . $body . '</p></div></section>';
+            if (str_contains($key, "body")) {
+                $page .= '<section class="page-container"><div>' . $body . '</div></section>';
             }
         }
-
         // On vérifie que l'utilisateur veut afficher les cartes
         if ($array_body["displayMenu"] == 1) {
             $builder = new MysqlBuilder();
             // On récupére toutes les cartes selon des paramétres
             $carte = $builder->select("carte", ["*"])
-                            ->where("id_restaurant", $_SESSION["restaurant"]["id"])
-                            ->where("status", "1")
-                            ->fetchClass("carte")
-                            ->fetch();
+            ->where("id_restaurant", $_SESSION["restaurant"]["id"])
+            ->where("status", "1")
+            ->fetchClass("carte")
+            ->fetch();
             // On Vérifie qu'il existe bien des cartes
             if (!empty($carte)) {
                 $categories = $builder->select("categorie", ["*"])
-                                    ->where("id_carte", $carte->getId())
-                                    ->fetchClass("categorie")
-                                    ->fetchAll();
+                ->where("id_carte", $carte->getId())
+                ->fetchClass("categorie")
+                ->fetchAll();
                 $meals = $builder->select("meal", ["*"])
-                                    ->where("id_carte", $carte->getId())
-                                    ->fetchClass("meal")
-                                    ->fetchAll();
+                ->where("id_carte", $carte->getId())
+                ->fetchClass("meal")
+                ->fetchAll();
             }
-
-
+                        
             // on va créer toute l'architecture du code pour afficher les cartes
             $page .= 
             "<section id=\"carte\">
-                <h3>Notre Carte :</h3>
+            <h3>Notre Carte :</h3>
                 <h1>";
                 if (!empty($carte)) {
                     $page .= $carte->getName();
@@ -147,10 +144,10 @@ class CreatePage
                 </section>";
             }
         }
-
-
-        $page .= "</section>";
+        
+        // $page .= "</section>";
         fwrite($fp, $page);
+
     }
 
      function getCommentsParent()

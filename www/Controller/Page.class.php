@@ -101,14 +101,14 @@ class Page
         $page->setIdRestaurant($id_restaurant);
         $page->save();
         $page = $page->findOneBy(['url' => $page->getUrl()]);
-        foreach ($array_body as $body) {
-            $content = new Content();
-            $content->setIdPage($page['id']);
-            $content->setBody($body);
-            $content->save();
+        foreach ($array_body as $key => $body) {
+            if(str_contains($key, "body")){
+                $content = new Content();
+                $content->setIdPage($page['id']);
+                $content->setBody($body);
+                $content->save();
+            }
         }
-
-        $this->refreshPages();
 
         header('Location: /restaurant/page');
     }
@@ -178,14 +178,15 @@ class Page
         $pageUpdate->save();
 
         foreach ($array_body as $key => $body) {
-            $contentId = substr($key, 4);
-            $content = new Content();
-            $content->setId($contentId);
-            $content->setBody($body);
-            $content->save();
-        }
+            if(str_contains($key, "body")){
 
-        $this->refreshPages();
+                $contentId = substr($key, 4);
+                $content = new Content();
+                $content->setId($contentId);
+                $content->setBody($body);
+                $content->save();
+            }
+        }
 
         header('Location: /restaurant/page');
     }
@@ -211,7 +212,7 @@ class Page
                         ->fetchClass("content")
                         ->fetchAll();
                 foreach($contents as $contentValue) {
-                    $content["displayComment{$contentValue->getId()}"] = $contentValue->getBody();
+                    $content["body{$contentValue->getId()}"] = $contentValue->getBody();
                 }
                 (new \App\Core\CreatePage)->createBasicPageIndex($fp, $inputs, $content, $page->getIdRestaurant());
             }
