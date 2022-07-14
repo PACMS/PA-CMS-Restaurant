@@ -14,11 +14,15 @@ class Page
     public function index()
     {
         session_start();
+        $protocol = $_SERVER['SERVER_PORT'] == '443' ? 'https' : 'http';
+        $domain = $_SERVER['HTTP_HOST'];
         $pages = new PageModel();
         $pages = $pages->getAllPagesFromRestaurant($_SESSION["restaurant"]["id"]);
         $view = new View('page', 'back');
         $view->assign('title', $_SESSION["restaurant"]["name"] . ' - Pages');
         $view->assign('pages', $pages);
+        $view->assign('protocol', $protocol);
+        $view->assign('domain', $domain);
         $view->assign('idrestaurant', $_SESSION["restaurant"]["id"]);
     }
     public function createPage()
