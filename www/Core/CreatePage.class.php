@@ -25,7 +25,7 @@ class CreatePage
         if (is_null($id)) {
             $id = $_SESSION['favoriteRestaurant'];
         }
-        $page = "<?php \$this->includePartial('navfront'); ?>";
+        $page = "<?php !is_null(\$this->includePartial('navfront')); ?>";
     
         $page .= '
         <div class="index-header">
