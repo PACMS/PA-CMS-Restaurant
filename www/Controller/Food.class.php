@@ -50,7 +50,7 @@ class Food
             }
             $oneFood = $food->getOneFood('food', $_POST["id"]);
             $food->hydrate($oneFood);
-            $view = new View("food");
+            $view = new View("food", "back");
             $view->assign('food', $food);
             $view->assign('oneFood', $oneFood);
         }

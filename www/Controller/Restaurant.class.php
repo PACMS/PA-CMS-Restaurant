@@ -121,6 +121,7 @@ class Restaurant
                 $page->setStatus(0);
                 $page->setDisplayMenu(0);
                 $page->setDisplayComments(0);
+                $page->setDisplayReservations(0);
                 $page->setIdRestaurant($pageRestaurant['id']);
                 $page->save();
                 $page = $page->findOneBy(['url' => $page->getUrl()]);

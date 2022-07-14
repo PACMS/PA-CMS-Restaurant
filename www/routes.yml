@@ -71,74 +71,92 @@
 /restaurants:
   controller: restaurant
   action: restaurant
+  security: "employee"
 
 /restaurant/delete:
   controller: restaurant
   action: deleteRestaurant
+  security: "admin"
 
 /restaurant/stock:
   controller: stock
   action: stock
+  security: "employee"
 
 /restaurant/food/create:
   controller: food
   action: createFood
+  security: "employee"
 
 /restaurant/food/delete:
   controller: food
   action: deleteFood
+  security: "employee"
 
 /restaurant/food:
   controller: food
   action: getOneFood
+  security: "employee"
 
 /restaurant/food/update:
   controller: food
   action: updateFood
+  security: "employee"
 
 /restaurant/creation:
   controller: restaurant
   action: createOneRestaurant
+  security: "admin"
 
 /restaurant/update:
   controller: restaurant
   action: updateRestaurant
+  security: "admin"
 
 /restaurant/create:
   controller: restaurant
   action: createRestaurantForm
+  security: "admin"
 
 /restaurant/information:
   controller: restaurant
   action: getOneRestaurant
+  security: "employee"
 
 /restaurant/page:
   controller: page
   action: index
+  security: "admin"
 
 /page/delete:
   controller: page
   action: delete
+  security: "admin"
 
 /page/show:
   controller: page
   action: showPage
+  security: "admin"
 
 /restaurant/pagecreate:
   controller: page
   action: createPage
+  security: "admin"
 
 /restaurant/page/edit:
   controller: page
   action: edit
+  security: "admin"
 
 /restaurant/pagesave:
   controller: page
   action: savePage
+  security: "admin"
 
 /restaurant:
   controller: restaurant
   action: restaurantOptions
+  security: "employee"
 
 /profile:
   controller: admin
@@ -153,58 +171,79 @@
 /restaurant/cartes:
   controller: carte
   action: carte
+  security: "employee"
 
 /restaurant/carte/create:
   controller: carte
   action: createCarteView
+  security: "admin"
 
 /restaurant/updateCarte:
   controller: carte
   action: updateCarte
+  security: "employee"
 
 /restaurant/createCarte:
   controller: carte
   action: createCarte
+  security: "admin"
 
 /restaurant/carte/delete:
   controller: carte
   action: deleteCarte
+  security: "admin"
 
 /restaurant/carte/meals:
   controller: meal
   action: meal
+  security: "employee"
 
 /restaurant/carte/meals/sendId:
   controller: meal
   action: setIdCard
+  security: "employee"
+
 
 /restaurant/carte/meals/addCategorie:
   controller: categorie
   action: createcategorie
+  security: "employee"
 
 /restaurant/carte/meals/updateCategorie:
   controller: categorie
   action: updateCategorie
+  security: "employee"
+
 
 /restaurant/carte/meals/deleteCategorie:
   controller: categorie
   action: deleteCategorie
+  security: "employee"
+
 
 /restaurant/carte/meals/addMeal:
   controller: meal
   action: createMeal
+  security: "employee"
+
 
 /restaurant/carte/meals/updateMeal:
   controller: meal
   action: updateMeal
+  security: "employee"
+
 
 /restaurant/carte/meals/deleteMeal:
   controller: meal
   action: deleteMeal
+  security: "employee"
+
 
 /restaurant/carte/meals/deleteFoods:
   controller: mealsFoods
   action: deleteFoods
+  security: "employee"
+
 
 # Route pour les thèmes
 
@@ -309,6 +348,7 @@
 /restaurant/statistiques:
   controller: stats
   action: stats
+  security: "employee"
 
 /restaurant/editReservation:
   controller: reservation
