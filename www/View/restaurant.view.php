@@ -22,6 +22,7 @@ endif;
                             <button><a href="/restaurant/information">Accéder</a></button>
                         </div>
                     </div>
+                    <?php if($_SESSION["user"]["role"] == "admin"): ?>
                     <div class="restaurant-card">
                         <img src="../public/assets/img/restauOptions/mentions-legales.jpg" alt="information" />
                         <div class="bandeau">
@@ -29,6 +30,7 @@ endif;
                             <button><a href="/restaurant/page">Accéder</a></button>
                         </div>
                     </div>
+                    <?php endif; ?>
                     <div class="restaurant-card">
                         <img src="../public/assets/img/restauOptions/cartes.jpg" alt="cartes" />
                         <div class="bandeau">
@@ -36,13 +38,7 @@ endif;
                             <button><a href="/restaurant/cartes">Accéder</a></button>
                         </div>
                     </div>
-                    <!-- <div class="restaurant-card">
-                        <img src="../public/assets/img/restauOptions/salle.jpg" alt="salle" />
-                        <div class="bandeau">
-                            <p>Salle</p>
-                            <button><a href="/restaurants">Accéder</a></button>
-                        </div>
-                    </div> -->
+                    
                     <div class="restaurant-card">
                         <img src="../public/assets/img/restauOptions/stock.jpg" alt="stock" />
                         <div class="bandeau">
