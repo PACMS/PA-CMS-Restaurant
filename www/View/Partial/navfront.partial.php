@@ -13,7 +13,7 @@ $pages = $builder->select("page p", ["*"])
     <ul>
 
         <?php foreach ($pages as $page) : ?>
-            <li><a href="<?= $page->getUrl() ?>"><?= $page->getTitle() ?></a></li>
+            <li><a href="/<?= $page->getUrl() ?>"><?= $page->getTitle() ?></a></li>
         <?php endforeach; ?>
     </ul>
     <?php if (!empty($_SESSION["user"])) : ?>
