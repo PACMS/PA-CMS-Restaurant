@@ -312,7 +312,7 @@ CREATE TABLE IF NOT EXISTS `pacm_user` (
 -- Contraintes pour la table `pacm_activitylog`
 --
 ALTER TABLE `pacm_activitylog`
-  ADD CONSTRAINT `user` FOREIGN KEY (`user_id`) REFERENCES `pacm_user` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `user` FOREIGN KEY (`user_id`) REFERENCES `pacm_user` (`id`) ON DELETE CASCADE;
 
 --
 -- Contraintes pour la table `pacm_carte`

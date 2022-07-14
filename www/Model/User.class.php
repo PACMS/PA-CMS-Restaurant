@@ -725,6 +725,23 @@ class User extends Sql
                     "unicity" => 'user',
                     "errorUnicity" => "Un comte existe déjà avec cet email"
                 ],
+                "password" => [
+                    "label" => "Mot de passe",
+                    "type" => "password",
+                    "id" => "pwdRegister",
+                    "class" => "inputProfile",
+                    "required" => true,
+                    "error" => "Votre mot de passe doit faire au minimum 8 caractères avec une majuscule et un chiffre"
+                ],
+                "passwordConfirm" => [
+                    "label" => "Confirmer mot de passe",
+                    "type" => "password",
+                    "id" => "pwdConfirmRegister",
+                    "class" => "inputProfile",
+                    "required" => true,
+                    "error" => "Votre confirmation ne correspond pas",
+                    "confirm" => "password"
+                ],
                 "role"=>[
                     "type"=>"select",
                     "name"=>"role",

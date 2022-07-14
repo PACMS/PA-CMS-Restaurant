@@ -219,5 +219,5 @@ ALTER TABLE `pacm_stock`
 COMMIT;
 
 ALTER TABLE `pacm_activitylog`
-  ADD CONSTRAINT `user` FOREIGN KEY (`user_id`) REFERENCES `pacm_user` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `user` FOREIGN KEY (`user_id`) REFERENCES `pacm_user` (`id`) ON DELETE CASCADE;
 COMMIT;
