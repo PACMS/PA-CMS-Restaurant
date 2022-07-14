@@ -234,6 +234,11 @@
   action: reservation
   security: "employee"
 
+/restaurant/validation/:id:
+  controller: reservation
+  action: confirmValidation
+  security: "employee"
+
 /reservationClient:
   controller: reservation
   action: index

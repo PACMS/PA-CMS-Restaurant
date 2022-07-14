@@ -4,11 +4,21 @@ namespace App\Core;
 
 use App\Core\MysqlBuilder;
 use App\Model\Page as PageModel;
+use App\Model\Reservation;
 
 class CreatePage
 {
     protected $comment_content;
     protected $page;
+
+    public function includePartial(string $partial, ?array $config = null): void
+    {
+        if (!file_exists("View/Partial/" . $partial . ".partial.php")) {
+            die("le partial " . $partial . " n'existe pas");
+        }
+
+        include "View/Partial/" . $partial . ".partial.php";
+    }
 
     public function createBasicPageIndex($fp, $inputs, $array_body, ?int $id = null)
     {
@@ -113,6 +123,42 @@ class CreatePage
                     }
                     $page .= "</section></section>";
     }
+        if (!empty($array_body["displayReservation"]) && $array_body["displayReservation"] == 1) {
+                $page .= '<section id="reservations" class="container">
+                    <h1>Prendre une réservation</h1>';
+                    $page .= "<section>";
+                        $page .= "<form method=\"POST\" action=\"/reserver-une-table/add\" id=\"formReservation\" class=\"containerForm flex flex-column w-full\" >";
+                            $page .= "<div class=\"flex flex-column w-full\">";
+                                $page .= "<label for=\"name\">Prénom et nom</label>";
+                                $page .= "<input type=\"text\" name=\"name\" id=\"name\" class= \"formReservation\" placeholder=\"Votre nom\" required value=" . ($_SESSION['user']['firstname'] ?? '') . " " . ($_SESSION['user']['lastname'] ?? '') . ">";
+                            $page .= "</div>";
+                            $page .= "<div class=\"flex flex-column w-full\">";
+                                $page .= "<label for=\"email\">Email</label>";
+                                $page .= "<input type=\"email\" name=\"email\" id=\"email\" class= \"formReservation\" placeholder=\"Votre email\" required value=" . ($_SESSION['user']['email'] ?? '') . ">";
+                            $page .= "</div>";
+                            $page .= "<div class=\"flex flex-column w-full\">";
+                                $page .= "<label for=\"phone\">Téléphone</label>";
+                                $page .= "<input type=\"tel\" name=\"phoneReserv\" id=\"phone\" class= \"formReservation\" placeholder=\"Votre numéro de téléphone\" required>";
+                            $page .= "</div>";
+                            $page .= "<div class=\"flex flex-column w-full\">";
+                                $page .= "<label for=\"date\">Date</label>";
+                                $page .= "<input type=\"date\" name=\"date\" id=\"date\" class= \"formReservation\" placeholder=\"Votre date de réservation\" required>";
+                            $page .= "</div>";
+                            $page .= "<div class=\"flex flex-column w-full\">";
+                                $page .= "<label for=\"time\">Heure</label>";
+                                $page .= "<input type=\"time\" name=\"hour\" id=\"time\" class= \"formReservation\" placeholder=\"Votre heure de réservation\" required>";
+                            $page .= "</div>";
+                            $page .= "<div class=\"flex flex-column w-full\">";
+                                $page .= "<label for=\"people\">Nombre de personnes</label>";
+                                $page .= "<input type=\"number\" name=\"numPerson\" id=\"people\" class= \"formReservation\" placeholder=\"Votre nombre\" >";
+                            $page .= "</div>";
+                            $page .= "<div class=\"flex flex-column w-full\">";
+                                $page .= "<input type=\"submit\" value=\"Réserver\" class=\"btn btn-primary\">";
+                            $page .= "</div>";
+                        $page .= "</form>";
+                    $page .= "</section>";
+                $page .= "</section>";
+        }
         if (!empty($array_body["displayComment"]) && $array_body["displayComment"] == 1) {
             $builder = new MysqlBuilder();
             $comments = $builder->select("comments", ["*"])
@@ -144,7 +190,7 @@ class CreatePage
                 </section>";
             }
         }
-        
+
         // $page .= "</section>";
         fwrite($fp, $page);
 

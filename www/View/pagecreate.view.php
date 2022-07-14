@@ -31,6 +31,14 @@
                                 <input type="radio" id="commentNo" name="displayComment" value="0" required="required" checked="checked">
                                 <label for="commentNo">Non</label>
                             </div>
+                            <div>
+                                <h4>Afficher les champs réservations dans votre page ?</h4>
+                                <input type="radio" id="reservationYes" name="displayReservation" value="1" required="required">
+                                <label for="reservationYes">Oui</label>
+
+                                <input type="radio" id="reservationNo" name="displayReservation" value="0" required="required" checked="checked">
+                                <label for="reservationNo">Non</label>
+                            </div>
                             <div class="mt-8" id="clone-row">
 
                             </div>

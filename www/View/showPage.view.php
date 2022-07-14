@@ -30,6 +30,14 @@
                                             <input type="radio" id="commentNo" name="displayComment" value="0" required="required" <?= $page["display_comments"] == 0 ? 'checked="checked"' : "" ?>>
                                             <label for="commentNo">Non</label>
                                         </div>
+                                        <div>
+                                            <h4>Afficher les champs réservations dans votre page ?</h4>
+                                            <input type="radio" id="reservationYes" name="displayReservation" value="1" required="required" <?= $page["display_reservations"] == 1 ? 'checked="checked"' : "" ?>>
+                                            <label for="reservationYes">Oui</label>
+
+                                            <input type="radio" id="reservationNo" name="displayReservation" value="0" required="required" <?= $page["display_reservations"] == 0 ? 'checked="checked"' : "" ?>>
+                                            <label for="reservationNo">Non</label>
+                                        </div>
                                         <?php foreach ($contents as $content) { ?>
 
                                             <label class="greytext mt-7 "><?php echo 'Section' ?></label>

@@ -247,7 +247,7 @@ class Mail
             $phpmailer = new PHPMailer();
             //Server settings
             $phpmailer->isSMTP();
-            $phpmailer->SMTPDebug = SMTP::DEBUG_CONNECTION;
+            $phpmailer->SMTPDebug = SMTP::DEBUG_OFF;
             $phpmailer->Host = MHOST;
             $phpmailer->SMTPAuth = true;
             $phpmailer->Username = MUSERNAME;
@@ -266,9 +266,43 @@ class Mail
             $phpmailer->Subject = "Réservation en attente";
             $phpmailer->Body    = "Salut {$name}, {$message}";
             $phpmailer->send();
-            echo 'Message has been sent';
+        } catch (Exception $e) {
+            echo "Message could not be sent. Mailer Error: {$phpmailer->ErrorInfo}";
+        }
+    }
+
+    public function confirmMailReservation(string $name, string $date, string $hour, string $nbPerson, string $email)
+    {
+        try {
+            $actualDateTime = new \DateTime();
+            $actualDateTime = $actualDateTime->format('YmdHis');
+            $message = "Votre réservation a été confirmée par le restaurateur, voici le détail : <br>";
+            $message .= "Récapitulatif de votre réservation : Au nom de : {$name}";
+            $message .= "Pour le : {$date}";
+            $message .= "A : {$hour}";
+            $message .= "Pour : {$nbPerson} personne(s)";
+            $phpmailer = new PHPMailer();
+            //Server settings
+            $phpmailer->isSMTP();
+            $phpmailer->SMTPDebug = SMTP::DEBUG_OFF;
+            $phpmailer->Host = MHOST;
+            $phpmailer->SMTPAuth = true;
+            $phpmailer->Username = MUSERNAME;
+            $phpmailer->Password = MPASSWORD;
+            $phpmailer->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
+            $phpmailer->Port = MPORT;
+
+            //Recipients
+            $phpmailer->setFrom('pa.cms.test@gmail.com', 'PCR Contact');
+            $phpmailer->addAddress($email);     //Add a recipient
+            // $phpmailer->addAddress('vivin.fr@free.fr');     //Add a recipient
 
 
+            //Content
+            $phpmailer->isHTML(true);                                  //Set email format to HTML
+            $phpmailer->Subject = "Réservation confirmée";
+            $phpmailer->Body    = "Salut {$name}, {$message}";
+            $phpmailer->send();
         } catch (Exception $e) {
             echo "Message could not be sent. Mailer Error: {$phpmailer->ErrorInfo}";
         }
