@@ -96,7 +96,7 @@ class Admin
                 $_POST = array_map('htmlspecialchars', $_POST);
                 $user->hydrate($_POST);
 
-                if (password_verify($_POST['lastPassword'], $user->getPassword())) {
+                if (password_verify($_POST['lastPassword'], $data->getPassword())) {
                     if ($user->getEmail() == $_SESSION['user']['email']) {
                         $this->setUserData($user);
                         header("Location: /profile");
