@@ -124,11 +124,20 @@ class Restaurant
                 $page->setIdRestaurant($pageRestaurant['id']);
                 $page->save();
                 $page = $page->findOneBy(['url' => $page->getUrl()]);
-                $content = new Content();
-                $content->setIdPage($page['id']);
-                $content->setBody($array_body[0]);
-                $content->save();
+                foreach ($array_body as $key => $body) {
+                    $content = new Content();
+                    $content->setIdPage($page['id']);
+                    $content->setBody($body);
+                    $content->save();
+                }
 
+                if (is_null($_SESSION["restaurant"])) {
+                    $_SESSION["restaurant"]["id"] = $restaurantId;
+                } elseif ($_SESSION["restaurant"]["id"] != $restaurantId) {
+                    $_SESSION["restaurant"]["id"] = $restaurantId;
+                }
+                (new \App\Controller\Page)->refreshPages();
+                
                 $stock = new StockModel;
                 $stock->hydrate(['restaurantId' => $restaurantId]);
                 $stock->save();

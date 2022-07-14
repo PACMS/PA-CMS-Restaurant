@@ -17,7 +17,6 @@ class Mail
 
     public function sendConfirmMail($user)
     {
-
         try {
             $actualDateTime = new \DateTime();
             $actualDateTime = $actualDateTime->format('YmdHis');
@@ -91,7 +90,7 @@ class Mail
     public function activePasswordMail(User $user, string $token)
     {
         try {
-            $message = "http://localhost/resetPassword?token=" . $token;
+            $message = $_SERVER["REQUEST_SCHEME"] . "://" . APP_URL . "/" . "resetPassword?token=" . $token;
             $phpmailer = new PHPMailer();
             //Server settings
             $phpmailer->isSMTP();
