@@ -62,7 +62,7 @@ class Page
                 die();
             }
             $curl = curl_init();
-            $urlqrcode = APP_URL . '%2Fpages%2F' . $restaurant->getName() . '%2F' . $inputName;
+            $urlqrcode = APP_URL . '%2F' . $url ;
 
             curl_setopt_array($curl, [
                 CURLOPT_URL => "https://qrcode3.p.rapidapi.com/generateQR?text=" . $urlqrcode,
@@ -88,12 +88,14 @@ class Page
                 echo "cURL Error #:" . $err;
             } else {
                 $fp = fopen('public/assets/img/qrcode/qrcode' . $id_restaurant . '.svg', 'w+');
+                chmod('public/assets/img/qrcode/qrcode', 0777);
                 fwrite($fp,$response);
                 fclose($fp);
             }
         }
 
         $fp = fopen('View/' . $url . '.view.php', 'w+');
+        chmod('View/' . $url . '.view.php', 0777);
         (new \App\Core\CreatePage)->createBasicPageIndex($fp, $inputs, $array_body, $id_restaurant);
         fclose($fp);
         $page = new PageModel();
@@ -107,12 +109,12 @@ class Page
         $page->save();
         $page = $page->findOneBy(['url' => $page->getUrl()]);
         foreach ($array_body as $key => $body) {
-            if(str_contains($key, "body")){
+            //if(str_contains($key, "body")){
                 $content = new Content();
                 $content->setIdPage($page['id']);
                 $content->setBody($body);
                 $content->save();
-            }
+           // }
         }
 
         header('Location: /restaurant/page');
