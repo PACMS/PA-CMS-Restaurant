@@ -225,7 +225,6 @@ class Admin
                         'lastname' => $user->getLastname(),
                         'firstname' => $user->getFirstname(),
                         'email' => $user->getEmail(),
-                        'password' => $user->getPassword(),
                         'role' => $user->getRole(),
                         'status' => $user->getStatus(),
                         'token' => $token
