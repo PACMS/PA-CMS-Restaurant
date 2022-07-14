@@ -242,6 +242,7 @@ class Restaurant
         session_start();
         $_SESSION['inputsQrcode'] = $_POST;
         $_SESSION["inputsQrcode"]["color"] = str_replace('#', '%23',$_SESSION["inputsQrcode"]["color"]);
+
         $builder = new MysqlBuilder();
 
         $pageRestaurant = $builder->select('page', ["url"])
@@ -250,7 +251,7 @@ class Restaurant
             ->fetchClass("page")
             ->fetch();
 
-        $urlqrcode = APP_URL . '%2Fpages%2F' . $_SESSION['restaurant']['name'] . '%2F' . $pageRestaurant->getUrl();
+        $urlqrcode = APP_URL . '%2F' . $pageRestaurant->getUrl();
         //Sans logo
         if (empty($_FILES["logo"]["name"])){
             $curl = curl_init();
@@ -368,14 +369,12 @@ class Restaurant
 
             move_uploaded_file($_FILES["logo"]["tmp_name"], 'public/assets/img/qrcode/logo.' . $imageFileType);
 
-            $_SESSION["inputsQrcode"]["color"] = str_replace('#', '%23',$_SESSION["inputsQrcode"]["color"] );
-
 
             if ($_SESSION['inputsQrcode'])
 
                 $curl = curl_init();
-            curl_setopt_array($curl, [                                                                                                                                                                                                                                                  //Mettre    public/assets/img/qrcode/logo en prod
-                CURLOPT_URL => "https://qrcode3.p.rapidapi.com/generateQR?text=" . $urlqrcode .  '&inner_eye_style=' . $_SESSION["inputsQrcode"]["style_inner"] . '&style=' . $_SESSION["inputsQrcode"]["style"] . '&style_color=' . $_SESSION["inputsQrcode"]["color"] . '&image=' . 'https%3A%2F%2Fupload.wikimedia.org%2Fwikipedia%2Fcommons%2F4%2F47%2FPNG_transparency_demonstration_1.png' .  '&outer_eye_style=' .  $_SESSION["inputsQrcode"]["style_outer"],
+            curl_setopt_array($curl, [
+                CURLOPT_URL => "https://qrcode3.p.rapidapi.com/generateQR?text=" . $urlqrcode .  '&inner_eye_style=' . $_SESSION["inputsQrcode"]["style_inner"] . '&style=' . $_SESSION["inputsQrcode"]["style"] . '&style_color=' . $_SESSION["inputsQrcode"]["color"] . '&image=public/assets/img/qrcode/logo' . $imageFileType  .  '&outer_eye_style=' .  $_SESSION["inputsQrcode"]["style_outer"],
                 CURLOPT_RETURNTRANSFER => true,
                 CURLOPT_FOLLOWLOCATION => true,
                 CURLOPT_ENCODING => "",
