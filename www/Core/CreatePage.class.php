@@ -25,21 +25,8 @@ class CreatePage
         if (is_null($id)) {
             $id = $_SESSION['favoriteRestaurant'];
         }
-        $pageModel = new PageModel();
-        $pages = $pageModel->getAllPagesFromRestaurant($id);
-
-        $page = '<div class="topnav">';
-
-        foreach ($pages as $pageDb) {
-            $page .= '<li><a href="/' . $pageDb["url"] . '">' . $pageDb["title"] . '</a></li>';
-        }
-
-        if (!empty($_SESSION['user'])) {
-            $page .= '<li class="right"><a href="/logout">Déconnexion</a></li>';
-        } else {
-            $page .= '<li class="right"><a href="/login">Connexion</a></li>';
-        }
-
+        $page = "<?php \$this->includePartial('navfront'); ?>";
+    
         $page .= '
         </div>
         <div class="index-header">
@@ -198,6 +185,7 @@ class CreatePage
         }
 
         // $page .= "</section>";
+        
         fwrite($fp, $page);
 
     }
@@ -288,3 +276,6 @@ class CreatePage
         }
     }
 }
+
+
+
