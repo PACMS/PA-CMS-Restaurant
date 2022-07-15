@@ -369,12 +369,9 @@ class Restaurant
 
             move_uploaded_file($_FILES["logo"]["tmp_name"], 'public/assets/img/qrcode/logo.' . $imageFileType);
 
-
-            if ($_SESSION['inputsQrcode'])
-
                 $curl = curl_init();
             curl_setopt_array($curl, [
-                CURLOPT_URL => "https://qrcode3.p.rapidapi.com/generateQR?text=" . $urlqrcode .  '&inner_eye_style=' . $_SESSION["inputsQrcode"]["style_inner"] . '&style=' . $_SESSION["inputsQrcode"]["style"] . '&style_color=' . $_SESSION["inputsQrcode"]["color"] . '&image=public/assets/img/qrcode/logo' . $imageFileType  .  '&outer_eye_style=' .  $_SESSION["inputsQrcode"]["style_outer"],
+                CURLOPT_URL => "https://qrcode3.p.rapidapi.com/generateQR?text=" . $urlqrcode .  '&inner_eye_style=' . $_SESSION["inputsQrcode"]["style_inner"] . '&style=' . $_SESSION["inputsQrcode"]["style"] . '&style_color=' . $_SESSION["inputsQrcode"]["color"] .  '&image=' . $_SERVER['REQUEST_SCHEME'] . '%3A%2F%2F' . APP_URL . '%2Fpublic%2Fassets%2Fimg%2Fqrcode%2Flogo.' . $imageFileType  .  '&outer_eye_style=' .  $_SESSION["inputsQrcode"]["style_outer"],
                 CURLOPT_RETURNTRANSFER => true,
                 CURLOPT_FOLLOWLOCATION => true,
                 CURLOPT_ENCODING => "",

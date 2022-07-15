@@ -62,7 +62,7 @@ class Page
                 die();
             }
             $curl = curl_init();
-            $urlqrcode = APP_URL . '%2Fpages%2F' . $restaurant->getName() . '%2F' . $inputName;
+            $urlqrcode = APP_URL . '%2F' . $url ;
 
             curl_setopt_array($curl, [
                 CURLOPT_URL => "https://qrcode3.p.rapidapi.com/generateQR?text=" . $urlqrcode,
@@ -107,12 +107,12 @@ class Page
         $page->save();
         $page = $page->findOneBy(['url' => $page->getUrl()]);
         foreach ($array_body as $key => $body) {
-            if(str_contains($key, "body")){
+            //if(str_contains($key, "body")){
                 $content = new Content();
                 $content->setIdPage($page['id']);
                 $content->setBody($body);
                 $content->save();
-            }
+           // }
         }
 
         header('Location: /restaurant/page');
