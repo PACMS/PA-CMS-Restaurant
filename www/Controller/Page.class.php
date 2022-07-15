@@ -88,14 +88,12 @@ class Page
                 echo "cURL Error #:" . $err;
             } else {
                 $fp = fopen('public/assets/img/qrcode/qrcode' . $id_restaurant . '.svg', 'w+');
-                chmod('public/assets/img/qrcode/qrcode', 0777);
                 fwrite($fp,$response);
                 fclose($fp);
             }
         }
 
         $fp = fopen('View/' . $url . '.view.php', 'w+');
-        chmod('View/' . $url . '.view.php', 0777);
         (new \App\Core\CreatePage)->createBasicPageIndex($fp, $inputs, $array_body, $id_restaurant);
         fclose($fp);
         $page = new PageModel();
