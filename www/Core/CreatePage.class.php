@@ -25,10 +25,24 @@ class CreatePage
         if (is_null($id)) {
             $id = $_SESSION['favoriteRestaurant'];
         }
-        $page = "<?php !is_null(\$this->includePartial('navfront')); ?>";
-    
+        $pageModel = new PageModel();
+        $pages = $pageModel->getAllPagesFromRestaurant($id);
+
+        $page = '<div class="topnav">';
+
+        foreach ($pages as $pageDb) {
+            $page .= '<li><a href="/' . $pageDb["url"] . '">' . $pageDb["title"] . '</a></li>';
+        }
+
+        if (!empty($_SESSION['user'])) {
+            $page .= '<li class="right"><a href="/logout">Déconnexion</a></li>';
+        } else {
+            $page .= '<li class="right"><a href="/login">Connexion</a></li>';
+        }
+
+        $page .= '</div>';
+        
         $page .= '
-        </div>
         <div class="index-header">
         <h1>' . $inputs['title'] . '</h1></div>';
         foreach ($array_body as $key => $body) {
