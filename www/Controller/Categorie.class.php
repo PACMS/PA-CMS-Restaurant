@@ -23,6 +23,7 @@ class Categorie
             $categorie->save();
         }
 
+        (new \App\Controller\Page)->refreshPages();
         header('Location: /restaurant/carte/meals');
     }
 
@@ -38,6 +39,7 @@ class Categorie
             $categorie->save();
         }
 
+        (new \App\Controller\Page)->refreshPages();
         header('Location: /restaurant/carte/meals');
     }
 
@@ -45,7 +47,7 @@ class Categorie
     {
         $categorie = new CategorieModel();
         $categorie->deleteCategorie($_POST["id"]);
-
+        (new \App\Controller\Page)->refreshPages();
     }
 
 }

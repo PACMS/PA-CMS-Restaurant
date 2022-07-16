@@ -17,7 +17,7 @@
         <h3>Voici la liste des restaurants disponibles :</h3>
         <ul>
             <?php foreach ($pages as $page) : ?>
-                <li><a href="<?= $page->getUrl() ?>"><?= $page->name ?> (<?= $page->getTitle() ?>)</a></li>
+                <li><a href="/<?= $page->getUrl() ?>"><?= $page->name ?> (<?= $page->getTitle() ?>)</a></li>
             <?php endforeach; ?>
         </ul>
     <?php endif; ?>
