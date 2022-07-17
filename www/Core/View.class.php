@@ -115,11 +115,15 @@ class View
      */
     public function includePartial(string $partial, ?array $config = null): void
     {
-        if (!file_exists("View/Partial/" . $partial . ".partial.php")) {
-            die("le partial " . $partial . " n'existe pas");
-        }
+        if (file_exists("View/Partial/" . $partial . ".partial.php")) {
+            include "View/Partial/" . $partial . ".partial.php";
+        }  elseif (file_exists("/var/www/pacms_prod/www/View/Partial/" . $partial . "partial.php")) {
+            include "/var/www/pacms_prod/www/View/Partial/" . $partial . "partial.php";
+    } else {
+            echo "Partial not found";
+    }
 
-        include "View/Partial/" . $partial . ".partial.php";
+        
     }
 
     /**

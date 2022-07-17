@@ -17,11 +17,11 @@ if (!isset($_SESSION)) {
     <title><?php echo $title ?? "Titre par défaut" ?></title>
     <meta name="description" content="<?php echo $description ?? 'Page du restaurant' ?>">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="/www/../public/dist/main.css">
-    <link rel="stylesheet" href="/www/..<?php echo $_SESSION['theme']['path']; ?>dist/main.css">
+    <link rel="stylesheet" type="text/css" href="/public/dist/main.css">
+    <link rel="stylesheet" href="<?php echo $_SESSION['theme']['path']; ?>dist/main.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=<?php echo $_SESSION['theme']['font']; ?>">
     <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
-    <script src="/www/../public/dist/main.js"></script>
+    <script src="/public/dist/main.js"></script>
     <script src="<?php echo $_SESSION['theme']['path']; ?>dist/main.js"></script>
 </head>
 
