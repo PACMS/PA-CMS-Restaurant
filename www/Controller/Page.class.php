@@ -51,7 +51,8 @@ class Page
         $restaurant->getName();
         $name = $restaurant->removeAccents(strtolower($restaurant->getName()));
         $inputName = $restaurant->removeAccents(strtolower($inputs['name']));
-
+        $inputs["name"] = htmlentities($inputs["name"]);
+        $inputs["title"] = htmlentities($inputs["title"]);
         $url = 'pages/' . $name . '/' . $inputName;
         if ($_POST["displayMenu"]) {
             if (file_exists('public/assets/img/qrcode/qrcode' . $id_restaurant . '.svg') == true){
@@ -106,13 +107,14 @@ class Page
         $page->setIdRestaurant($id_restaurant);
         $page->save();
         $page = $page->findOneBy(['url' => $page->getUrl()]);
+        
         foreach ($array_body as $key => $body) {
-            //if(str_contains($key, "body")){
+            if(str_contains($key, "body")){
                 $content = new Content();
                 $content->setIdPage($page['id']);
                 $content->setBody($body);
                 $content->save();
-           // }
+           }
         }
 
         header('Location: /restaurant/page');
@@ -164,6 +166,7 @@ class Page
         $inputs = array_splice($array_body, 0, 1);
         $arrayuri = explode('=', $_SERVER['REQUEST_URI']);
         $id_page = $arrayuri[1];
+        $inputs["title"] = htmlentities($inputs["title"]);
         $restaurant = new Restaurant();
         $page = new PageModel();
         $page = $page->findOneBy(['id' => $id_page]);

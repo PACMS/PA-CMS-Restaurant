@@ -25,24 +25,24 @@ class CreatePage
         if (is_null($id)) {
             $id = $_SESSION['favoriteRestaurant'];
         }
+        
         $pageModel = new PageModel();
         $pages = $pageModel->getAllPagesFromRestaurant($id);
 
-        $page = '<div class="topnav">';
+        $page = '<div class="topnav"><ul>';
 
         foreach ($pages as $pageDb) {
             $page .= '<li><a href="/' . $pageDb["url"] . '">' . $pageDb["title"] . '</a></li>';
         }
+        $page .= "</ul>";
 
         if (!empty($_SESSION['user'])) {
-            $page .= '<li class="right"><a href="/logout">Déconnexion</a></li>';
+            $page .= '<div><a href="/logout">Déconnexion</a></div>';
         } else {
-            $page .= '<li class="right"><a href="/login">Connexion</a></li>';
+            $page .= '<div><a href="/login">Connexion</a></div>';
         }
-
-        $page .= '</div>';
-        
         $page .= '
+        </div>
         <div class="index-header">
         <h1>' . $inputs['title'] . '</h1></div>';
         foreach ($array_body as $key => $body) {
