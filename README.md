@@ -1,4 +1,45 @@
 [![CI-CD-Dev](https://github.com/PACMS/PA-CMS-Restaurant/actions/workflows/CI-CD-Dev.yml/badge.svg?branch=develop)](https://github.com/PACMS/PA-CMS-Restaurant/actions/workflows/CI-CD-Dev.yml)
 [![CI-CD-Dev](https://github.com/PACMS/PA-CMS-Restaurant/actions/workflows/CI-CD-Prod.yml/badge.svg?branch=main)](https://github.com/PACMS/PA-CMS-Restaurant/actions/workflows/CI-CD-Prod.yml)
 # PA-CMS-Restaurant
-CMS_RestaurantDuTurfu
+
+## Sommaire
+
+ - [Design Patterns](#design-patterns)
+ - [Observer](#observer-vivian-ruhlmann-lucas-ramis)
+
+## Design Patterns
+
+### [Observer](https://refactoring.guru/design-patterns/observer) ([Vivian Ruhlmann](https://github.com/Loviflo), [Lucas Ramis](https://github.com/RamisL))
+
+L’Observateur est un patron de conception comportemental qui permet de mettre en place un mécanisme de souscription pour envoyer des notifications à plusieurs objets, au sujet d’événements concernant les objets qu’ils observent.
+
+#### Utilisation
+
+Ce design pattern permet dans notre application d'enregistrer les connexions, les déconnexions et les tentatives de connexion des utilisateurs pour par la suite les enregistrer dans la base de données.
+
+#### Emplacement dans le code
+
+Voici dans un premier lieu l'emplacement de [l'interface](./www/Core/Auth.class.php#L5-L8) pour obliger les observer implémentant cette interface à implémenter la méthode `callback()`.
+
+Voici l'emplacement du [subject](www/Core/Auth.class.php#L10-L50), c'est la classe principale, elle permet d'appeler les méthodes `update()` des observers.
+
+Voici l'emplacement de l'observer, le [LoggerObserver](www/Core/LoggerObserver.class.php). Cette observer permet, en fonction de l'évenement reçu, d'insérer en base données l'évenement dans une table logs.
+
+##### Voici maintenant les emplacements des appels des méthodes `notify()` :
+
+###### Login event :
+
+- [Connexion classique](www/Core/Sql.class.php#L283-L287)
+- [Connexion avec Google connect](www/Controller/User.class.php#L237-L241)
+- [Connexion avec Facebook connect](www/Controller/User.class.php#L295-L299)
+
+###### Logout event :
+
+- [Déconnexion](www/Controller/User.class.php#L414-L418)
+
+###### Login attempt event :
+
+- [Tentative de connexion](www/Core/Sql.class.php#L300-L304)
+
+
+
