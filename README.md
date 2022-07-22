@@ -1,11 +1,12 @@
 [![CI-CD-Dev](https://github.com/PACMS/PA-CMS-Restaurant/actions/workflows/CI-CD-Dev.yml/badge.svg?branch=develop)](https://github.com/PACMS/PA-CMS-Restaurant/actions/workflows/CI-CD-Dev.yml)
 [![CI-CD-Dev](https://github.com/PACMS/PA-CMS-Restaurant/actions/workflows/CI-CD-Prod.yml/badge.svg?branch=main)](https://github.com/PACMS/PA-CMS-Restaurant/actions/workflows/CI-CD-Prod.yml)
+
 # PA-CMS-Restaurant
 
 ## Sommaire
 
- - [Design Patterns](#design-patterns)
- - [Observer](#observer-vivian-ruhlmann-lucas-ramis)
+- [Design Patterns](#design-patterns)
+- [Observer](#observer-vivian-ruhlmann-lucas-ramis)
 
 ## Design Patterns
 
@@ -41,5 +42,29 @@ Voici l'emplacement de l'observer, le [LoggerObserver](www/Core/LoggerObserver.c
 
 - [Tentative de connexion](www/Core/Sql.class.php#L300-L304)
 
+### [Singleton](https://refactoring.guru/design-patterns/singleton)
 
+L’Observateur est un design pattern qui sert à garder une unicité lors d'un appel de classe. Il est utilisé généralement pour faire des connexions à une base de données. Il va créer une instance en stockant l'object construit. Si lors d'un appel dans notre code nous aimerions encore une fois appellé ce même objet, au lieu de le reconstruire il nous suffit de récupérer celui déjà créée grâce au singleton.
 
+#### Utilisation
+
+Le singleton ici sert à l'appel de notre classe PDO pour permettre une connexion à une base de données.
+
+#### Emplacement dans le code
+
+Le singleton ce situe dans notre classe [PDO](./www/Core/Pdo.class.php).
+On définie une variable static instance avec la valeur null [instance](./www/Core/Pdo.class.php#L8).
+
+Pour appeler le constructeur de notre pdo, nous n'avous plus qu'à faire appel au [`getInstance()`](./www/Core/Pdo.class.php#L29-L35)
+
+##### Voici maintenant les emplacements des appels des méthodes `getInstance()` :
+
+###### SQL class :
+
+- [Connexion à la database](./www/Core/Sql.class.php#L32)
+
+###### MysqlBuilder :
+
+- [`fetch()`](www/Core/MysqlBuilder.php#L160)
+- [`fetchAll()`](www/Core/MysqlBuilder.php#L168)
+- [`execute()`](www/Core/MysqlBuilder.php#L182)
