@@ -15,65 +15,6 @@ class Mail
         $view = new View("testmail");
     }
 
-    public function sendConfirmMail($user)
-    {
-        try {
-            $actualDateTime = new \DateTime();
-            $actualDateTime = $actualDateTime->format('YmdHis');
-            $message = $_SERVER["REQUEST_SCHEME"] . "://" . APP_URL . "/" . "verifyToken?token=" . $user->getToken() . '&email=' . $user->getEmail() . '&date=' . $actualDateTime;
-            $phpmailer = new PHPMailer();
-            $phpmailer->isSMTP();
-            $this->serverSettings($phpmailer, $user);
-            $phpmailer->Subject = 'Valider votre inscription !';
-            $phpmailer->Body    = "Bonjour {$user->getLastname()} {$user->getFirstname()}, <br>
-                                Pour valider votre inscription à notre site veuillez vous connectez avec ce lien:  <br> 
-                                <a href={$message}>Lien de confirmation</a><br>
-                                Merci pour votre inscription ! <br>
-                                L'équipe PACM";
-
-            $phpmailer->send();
-        } catch (Exception $e) {
-            echo "Message could not be sent. Mailer Error: {$phpmailer->ErrorInfo}";
-        }
-    }
-
-    public function lostPasswordMail(User $user, string $token)
-    {
-        try {
-            $message = $_SERVER["REQUEST_SCHEME"] . "://" . APP_URL . "/" . "resetPassword?token=" . $token;
-            $phpmailer = new PHPMailer();
-            $phpmailer->isSMTP();
-            $this->serverSettings($phpmailer, $user);                                  //Set email format to HTML
-            $phpmailer->Subject = 'Mot de passe oublié';
-            $phpmailer->Body    = "Mot de passe oublié ? Cliquez sur ce lien : 
-                                   <a href={$message}>Réinitialiser votre mot de passe / connexion magique</a> <br>
-                                   <b>Ce mail n'est valable qu'une heure !</b>";
-
-            $phpmailer->send();
-        } catch (Exception $e) {
-            echo "Message could not be sent. Mailer Error: {$phpmailer->ErrorInfo}";
-        }
-    }
-
-    public function activePasswordMail(User $user, string $token)
-    {
-        try {
-            $message = $_SERVER["REQUEST_SCHEME"] . "://" . APP_URL . "/" . "resetPassword?token=" . $token;
-            $phpmailer = new PHPMailer();
-            //Server settings
-            $phpmailer->isSMTP();
-            $this->serverSettings($phpmailer, $user);                                  //Set email format to HTML
-            $phpmailer->Subject = 'Activer votre compte';
-            $phpmailer->Body    = "Pour activer votre compte et choisir un mot de passe, merci de cliquer sur : 
-                                   <a href={$message}>Choisir un mot de passe</a> <br>
-                                   <b>Ce mail n'est valable qu'une heure !</b>";
-
-            $phpmailer->send();
-        } catch (Exception $e) {
-            echo "Message could not be sent. Mailer Error: {$phpmailer->ErrorInfo}";
-        }
-    }
-
     public function sendConfirmUpdateUserMail(User $user)
     {
         try {

@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Core\MysqlBuilder;
 use App\Core\Verificator;
 use App\Enum\Role;
+use App\Mail\MailFactory;
 use App\Model\User as UserModel;
 use App\Model\Theme as ThemeModel;
 use App\Core\View;
@@ -250,8 +251,11 @@ class Admin
 
                     (new MysqlBuilder())->insert('user', $userData)->execute();
 
-                    $mail = new Mail();
-                    $mail->activePasswordMail($user, $token);
+                    MailFactory::createMail('ActivePassword', [
+                        'email' => $user->getEmail(),
+                        'token' => $token
+                    ])->mail();
+
                     header('Location: /users');
                 } else $errors = ['Adresse email déjà utilisée'];
             }
