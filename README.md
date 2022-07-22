@@ -46,7 +46,7 @@ Voici l'emplacement de l'observer, le [LoggerObserver](www/Core/LoggerObserver.c
 
 ### [Singleton](https://refactoring.guru/design-patterns/singleton)
 
-L’Observateur est un design pattern qui sert à garder une unicité lors d'un appel de classe. Il est utilisé généralement pour faire des connexions à une base de données. Il va créer une instance en stockant l'object construit. Si lors d'un appel dans notre code nous aimerions encore une fois appellé ce même objet, au lieu de le reconstruire il nous suffit de récupérer celui déjà créée grâce au singleton.
+Le singleton est un design pattern qui sert à garder une unicité lors d'un appel de classe. Il est utilisé généralement pour faire des connexions à une base de données. Il va créer une instance en stockant l'object construit. Si lors d'un appel dans notre code nous aimerions encore une fois appellé ce même objet, au lieu de le reconstruire il nous suffit de récupérer celui déjà créée grâce au singleton.
 
 #### Utilisation
 
@@ -85,8 +85,25 @@ Le MysqlBuilder se situe dans notre classe [MysqlBuilder](./www/Core/MysqlBuilde
 
 Voici quelques exemples de la où nous utilisons notre MysqlBuilder dans le code.
 
-- [updateMeal](./www/Controller/Meal.class.php#L180-L226)
-- [getFoodStatsByMeal](./www/Controller/Food.class.php#L122-L159)
+- [updateMeal()](./www/Controller/Meal.class.php#L180-L226)
+- [getFoodStatsByMeal()](./www/Controller/Food.class.php#L122-L159)
 
 Globalement, dans le dossier [Controller](./www/Controller) nous utilisons un peu partout le MysqlBuilder.
 
+
+### [Factory](https://refactoring.guru/design-patterns/factory-method)
+
+Fabrique est un patron de conception de création qui définit une interface pour créer des objets dans une classe mère, mais délègue le choix des types d’objets à créer aux sous-classes.
+
+#### Utilisation
+
+Le factory sert ici à gérer l'envoi de mail à l'utilisateur.
+
+#### Emplacement dans le code
+
+Le factory se situe dans notre classe [MailFactory](./www/Mail/MailFactory.php).
+On crée notre classe abstraite qui embarquera les fonctions nécessaires pour ses enfants [Mail](./www/Mail/Mail.php).
+Ensuite, il suffit de créer une classe qui hérite de Mail. On peut la nommer comme on le souhaite mais il faut que le nom de la classe se termine par Mail
+Pour se servir du factory, il suffit de se rendre dans une fonction où l'on souhaite envoyer un mail, puis il faut appeler notre class Static MailFactory::createMail(string $className, array $data)->mail()
+
+Exemple : [SendConfirmMail](./www/Controller/User.class.php#L121-L126)
