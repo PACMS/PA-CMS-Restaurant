@@ -12,6 +12,7 @@ use App\Core\MysqlBuilder;
 use App\Core\Verificator;
 use App\Core\View;
 use App\Core\OAuth;
+use App\Mail\MailFactory;
 use App\Model\User as UserModel;
 /**
  * User Controller
@@ -117,8 +118,12 @@ class User
 
                 (new MysqlBuilder())->insert('user', $userData)->execute();
 
-                $mail = new Mail();
-                $mail->sendConfirmMail($user);
+                MailFactory::createMail('SendConfirm', [
+                    'lastname' => $user->getLastname(),
+                    'firstname' => $user->getFirstname(),
+                    'email' => $user->getEmail(),
+                    'token' => $user->getToken()
+                ])->mail();
 
                 header('Location: /register/validate');
             }
@@ -315,8 +320,9 @@ class User
 
     /**
      * Lost password page
-     * 
+     *
      * @return void
+     * @throws \Exception
      */
     public function lostPassword(): void
     {
@@ -339,8 +345,10 @@ class User
 
                     (new MysqlBuilder())->update('user', ['token' => $token])->where('email', $user->getEmail())->execute();
 
-                    $mail = new Mail();
-                    $mail->lostPasswordMail($user, $token);
+                    MailFactory::createMail('lostPassword', [
+                        'email' => $user->getEmail(),
+                        'token' => $token,
+                    ])->mail();
                 }
 
                 $view = new View("lostPassword", "front", 'success', 'Email envoyé', 'Un email va vous êtes envoyé, pensez à vérifier les spams !');
