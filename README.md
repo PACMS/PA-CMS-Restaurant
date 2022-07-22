@@ -7,6 +7,7 @@
 
 - [Design Patterns](#design-patterns)
 - [Observer](#observer-vivian-ruhlmann-lucas-ramis)
+- [Singleton](#singleton)
 
 ## Design Patterns
 
@@ -68,3 +69,23 @@ Pour appeler le constructeur de notre pdo, nous n'avous plus qu'à faire appel a
 - [`fetch()`](www/Core/MysqlBuilder.php#L160)
 - [`fetchAll()`](www/Core/MysqlBuilder.php#L168)
 - [`execute()`](www/Core/MysqlBuilder.php#L182)
+
+### [MysqlBuilder](https://refactoring.guru/design-patterns/singleton)
+
+Pour le MysqlBuilder on s'est inspiré du QueryBuilder qui est un design patern ayant pour but de retourner les requêtes SQL afin de les executer par la suite.
+
+#### Utilisation
+
+Nous l'avons adapté pour qu'il puisse aussi exécuter les requètes et nous les retourner en objet de classe.
+
+#### Emplacement dans le code
+
+Le MysqlBuilder se situe dans notre classe [MysqlBuilder](./www/Core/MysqlBuilder.php)
+
+Voici quelques exemples de la où nous utilisons notre MysqlBuilder dans le code.
+
+- [updateMeal](./www/Controller/Meal.class.php#L180-L226)
+- [getFoodStatsByMeal](./www/Controller/Food.class.php#L122-L159)
+
+Globalement, dans le dossier [Controller](./www/Controller) nous utilisons un peu partout le MysqlBuilder.
+
