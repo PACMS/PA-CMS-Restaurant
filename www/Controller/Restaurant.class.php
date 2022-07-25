@@ -267,7 +267,7 @@ class Restaurant
                 CURLOPT_CUSTOMREQUEST => "GET",
                 CURLOPT_HTTPHEADER => [
                     "X-RapidAPI-Host: qrcode3.p.rapidapi.com",
-                    "X-RapidAPI-Key: cabda91867mshb30fccb93e66b88p161593jsn9e28f5024f8a"
+                    "X-RapidAPI-Key: API_KEY"
                 ],
             ]);
 
@@ -381,7 +381,7 @@ class Restaurant
                 CURLOPT_CUSTOMREQUEST => "GET",
                 CURLOPT_HTTPHEADER => [
                     "X-RapidAPI-Host: qrcode3.p.rapidapi.com",
-                    "X-RapidAPI-Key: cabda91867mshb30fccb93e66b88p161593jsn9e28f5024f8a"
+                    "X-RapidAPI-Key: API_KEY"
                 ],
             ]);
 
